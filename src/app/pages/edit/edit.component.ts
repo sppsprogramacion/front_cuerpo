@@ -3,7 +3,7 @@ import { Personal } from 'src/app/models/personal.model';
 import { DataService } from 'src/app/services/data.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DestinoModel } from '../../models/destino.model';
-import { destinos, departamentos, departamentos_provincial, divisiones, estados_civil, municipios, nivelEducativo, sectores, secciones_guardia, escalaJerarquica, escalafon, grados, sexos, provincias} from 'src/app/common/data-mockeada';
+import { destinos, departamentos, departamentos_provincial, divisiones, estados_civil, municipios, nivelEducativo, sectores, secciones_guardia, situacion, escalaJerarquica, escalafon, grados, sexos, provincias} from 'src/app/common/data-mockeada';
 import { globalConstants } from '../../common/global-constants';
 import { DepartamentoModel } from '../../models/departamento.model';
 import { DivisionModel } from '../../models/division.model';
@@ -27,6 +27,7 @@ import { DepartamentoProvincialModel } from 'src/app/models/departamento_provinc
 import { MunicipioModel } from '../../models/municipio.model';
 import { csLocale } from 'ngx-bootstrap/chronos';
 import { NivelEducativoModel } from '../../models/nivel_educativo.model';
+import { SituacionModel } from '../../models/situacion.model';
 
 
 @Component({
@@ -59,6 +60,7 @@ export class EditComponent implements OnInit {
   sectores: sectorModel[]=[];
   secciones_guardia: SeccionGuardia[]=[];
   sexos: SexoModel[]=[];
+  situaciones: SituacionModel[]=[];
 
 
   foto_nombre: string = 'no-image.png';
@@ -169,6 +171,7 @@ export class EditComponent implements OnInit {
     this.niveles_educativo = nivelEducativo;
     this.provincias = provincias;
     this.sexos = sexos;
+    this.situaciones= situacion;
 
     if(this.dataEdit.foto){
       this.foto_nombre = this.dataEdit.foto?.toString();
@@ -374,14 +377,14 @@ onDateChange(nuevaFecha: Date){
 }
   
 
-  submitForm(){
+  submitForm(formEnviado:string){
        if(this.forma.invalid){
                   return Object.values(this.forma.controls).forEach(control => control.markAsTouched());
               }
         
         let data: Partial<Personal>;
         //crear la data
-        if(this.modo == 'laboral'){
+        if(formEnviado == 'laboral'){
           data = {
                 legajo: this.forma.get('legajo')?.value,
                 apellido_1: this.forma.get('apellido_1')?.value,
@@ -401,20 +404,28 @@ onDateChange(nuevaFecha: Date){
                 
           }}else{
             data = {
-              legajo: this.forma.get('legajo')?.value,
-              apellido_1: this.forma.get('apellido_1')?.value,
-              apellido_2: this.forma.get('apellido_2')?.value,
-              nombre_1: this.forma.get('nombre_1')?.value,
-              nombre_2: this.forma.get('nombre_2')?.value,
-              nombre_3: this.forma.get('nombre_3')?.value,
-              destino_id: this.forma.get('destino_id')?.value,
-              departamento_id: this.forma.get('departamento_id')?.value,
-              division_id: this.forma.get('division_id')?.value,
-              sector_id: this.forma.get('sector_id')?.value,
-              seccion_guardia_id: this.forma.get('seccion_guardia_id')?.value,
-              escalafon_id: this.forma.get('escalafon_id')?.value,
-              escala_jerarquica_id: this.forma.get('escala_jerarquica_id')?.value,
-              grado_id: this.forma.get('grado_id')?.value,
+
+              dni: parseInt(this.formaFiliatorios.get('dni')?.value),
+              fecha_nacimiento: this.formaFiliatorios.get('fecha_nacimiento')?.value,
+              fecha_ingreso: this.formaFiliatorios.get('fecha_ingreso')?.value,
+              cuil: this.formaFiliatorios.get('cuil')?.value,
+              sexo_id: parseInt(this.formaFiliatorios.get('sexo_id')?.value),
+              estado_civil_id: parseInt(this.formaFiliatorios.get('estado_civil_id')?.value),
+              nacionalidad: this.formaFiliatorios.get('nacionalidad')?.value,
+              domicilio: this.formaFiliatorios.get('domicilio')?.value,
+              provincia_id: parseInt(this.formaFiliatorios.get('provincia_id')?.value),
+              departamento_provincial_id: parseInt(this.formaFiliatorios.get('departamento_provincial_id')?.value),
+              municipio_id: parseInt(this.formaFiliatorios.get('municipio_id')?.value),
+              //ciudad_id: [this.dataEdit.ciudad_id],
+              nivel_educativo_id: parseInt(this.formaFiliatorios.get('nivel_educativo_id')?.value),
+              telefonos: this.formaFiliatorios.get('telefonos')?.value,
+              email: this.formaFiliatorios.get('email')?.value,
+              altura: parseInt(this.formaFiliatorios.get('altura')?.value),
+              peso: parseInt(this.formaFiliatorios.get('peso')?.value),
+              registrado_por: 1,
+              situacion_id: parseInt(this.formaFiliatorios.get('situacion_id')?.value),
+
+
           }
         }
                  

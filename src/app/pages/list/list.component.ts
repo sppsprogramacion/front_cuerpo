@@ -87,6 +87,7 @@ export class ListComponent implements OnInit {
                         subscribe(respuesta => {
             this.totalRecords = respuesta[1];
             this.personalList = respuesta[0];
+            console.log("personal retornado", this.personalList);
             const lista = respuesta[0];
             
               });

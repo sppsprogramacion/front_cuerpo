@@ -10,6 +10,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { BreadcrumbComponent } from './shared/breadcrumb/breadcrumb.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { HeaderComponent } from './shared/header/header.component';
+import { FooterComponent } from './shared/footer/footer.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { HeaderComponent } from './shared/header/header.component';
     BreadcrumbComponent,
     SidebarComponent,
     HeaderComponent,
+    FooterComponent,
 
   ],
   imports: [

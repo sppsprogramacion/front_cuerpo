@@ -7,6 +7,7 @@ import { ListComponent } from './list/list.component';
 import { UploadComponent } from './upload/upload.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 
 
@@ -16,14 +17,16 @@ import { RouterModule } from '@angular/router';
     PagesComponent,
     EditComponent,
     ListComponent,
-    UploadComponent
+    UploadComponent,
+    AccountSettingsComponent
   ],
   exports: [
     DashboardComponent,
     PagesComponent,
     EditComponent,
     ListComponent,
-    UploadComponent
+    UploadComponent,
+    AccountSettingsComponent
   ],
   imports: [
     CommonModule,

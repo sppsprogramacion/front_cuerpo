@@ -16,11 +16,7 @@ import { PagesModule } from './pages/pages.module';
     LoginComponent,
     RegisterComponent,
     NopagefoundComponent,
-    
-  
-    
-
-  ],
+     ],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -35,33 +35,24 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                <li class="nav-item">
+                <li *ngFor="let item of menu" class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
-                            Dashboard
+                            {{item.titulo}}
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a routerLink="/dashboard/upload" class="nav-link">
+                        <li *ngFor="let subitem of item.submenu" class="nav-item">
+                            <a [routerLink]="subitem.url" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Cargar Personal</p>
+                                <p>
+                                    {{subitem.titulo}}
+                                </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a routerLink="/dashboard/edit" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Editar un Personal</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a routerLink="/dashboard/list" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Listar Personal</p>
-                            </a>
-                        </li>
+
                     </ul>
                 </li>
 

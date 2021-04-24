@@ -42,16 +42,23 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col">
                             <div class="icheck-primary">
                                 <input type="checkbox" id="agreeTerms" name="terms" value="agree" formControlName="terminos">
                                 <label for="agreeTerms">
-                   I agree to the <a href="#">terms</a>
-                  </label>
+                                        I agree to the <a href="#">terms</a>
+                                 </label>
                             </div>
                         </div>
-                        <!-- /.col -->
-                        <div class="col-4">
+                    </div>
+                    <!-- /.col -->
+                    <div class="row">
+                        <div class="col text-danger">
+                            <p *ngIf="campoNoValido('nombre')">El nombre es obligatorio</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
                             <button type="submit" class="btn btn-primary btn-block">Register</button>
                         </div>
                         <!-- /.col -->

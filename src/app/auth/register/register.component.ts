@@ -8,7 +8,9 @@ import { FormBuilder, Validators} from '@angular/forms';
   ]
 })
 export class RegisterComponent {
-  constructor(private fb: FormBuilder) { }
+constructor(private fb: FormBuilder) { };
+
+public formSubmitted = false;
 
 public registerForm = this.fb.group({
   nombre: ['Fernando', Validators.required],
@@ -19,10 +21,18 @@ public registerForm = this.fb.group({
 });
 
 crearUsuario(){
+  this.formSubmitted = true;
   console.log(this.registerForm.value);
+  console.log('EL VALOR DE LA BANDERA', this.formSubmitted);
 }
 
-
+campoNoValido(campo: string): boolean{
+  if(this.registerForm.get(campo)?.invalid && this.formSubmitted){
+      return true;
+  }else{
+      return false;
+  }
+}
   
 
 }

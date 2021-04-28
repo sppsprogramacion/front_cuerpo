@@ -5,4 +5,5 @@ export interface IRegisterForm{
             dni: number; 
             correo: string; 
             clave: string;
+            img?:string;
         }

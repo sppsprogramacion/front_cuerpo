@@ -37,9 +37,11 @@ crearUsuario(){
 
    this.usuario.crearUsuario(this.registerForm.value)
                                          .subscribe(respuesta => {
+                                           console.log('INSIDE SUSCRIBE POSITIVO');
                                             console.log(respuesta);
-                                         }, error => {
-                                           console.log(error);
+                                         }, (err) => {
+                                          console.log('INSIDE SUSCRIBE NEGATIVO');
+                                           console.warn('EL ERROR ES',err.error);
                                          });
   
 }

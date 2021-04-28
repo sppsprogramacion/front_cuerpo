@@ -16,6 +16,8 @@ export class UsuariosService {
     
   crearUsuario(dataForm: IRegisterForm){
     console.log('CREANDO USUARIO!!!!!');
-    return this.http.post(`${base_url}/usuarios`, dataForm);
+    console.log(dataForm);
+    //return this.http.post(`${base_url}/usuarios`, dataForm);
+    return this.http.get('http://localhost:3000/usuarios');
   }
 }

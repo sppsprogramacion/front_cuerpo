@@ -14,10 +14,12 @@ export class UsuariosService {
     private http: HttpClient
     ) { }
     
-  crearUsuario(dataForm: IRegisterForm){
+  crearUsuario(dataForm: any){
     console.log('CREANDO USUARIO!!!!!');
-         
+    delete dataForm.clave2;
+
     console.log(dataForm);
+    
     return this.http.post(`${base_url}/usuarios`, dataForm);
     
   }

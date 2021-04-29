@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { UsuariosService } from '../../services/usuarios.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -17,12 +18,12 @@ constructor(
 public formSubmitted = false;
 
 public registerForm = this.fb.group({
-  nombre: ['Fernando', Validators.required],
-  apellido: ['Salva', Validators.required],
-  dni: [21633094, Validators.required],
-  correo: ['xxavierargentino@gmail.com', [Validators.email, Validators.required] ],
-  clave: ['123456', Validators.required],
-  clave2: ['123456', Validators.required],
+  nombre: ['', Validators.required],
+  apellido: ['', Validators.required],
+  dni: ['', Validators.required],
+  correo: ['', [Validators.email, Validators.required] ],
+  clave: ['', Validators.required],
+  clave2: ['', Validators.required],
   
 },{
   validators: this.passwordsIguales('clave','clave2')
@@ -37,11 +38,14 @@ crearUsuario(){
 
    this.usuario.crearUsuario(this.registerForm.value)
                                          .subscribe(respuesta => {
-                                           console.log('INSIDE SUSCRIBE POSITIVO');
-                                            console.log(respuesta);
+                                              console.log(respuesta);
                                          }, (err) => {
-                                          console.log('INSIDE SUSCRIBE NEGATIVO');
-                                           console.warn('EL ERROR ES',err.error);
+                                           
+                                          Swal.fire({
+                                            title: 'Error!',
+                                            text: err.error.message,
+                                            icon: 'error'                                            
+                                          })
                                          });
   
 }

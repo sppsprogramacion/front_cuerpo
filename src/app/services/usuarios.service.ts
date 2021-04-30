@@ -15,12 +15,14 @@ export class UsuariosService {
     ) { }
     
   crearUsuario(dataForm: any){
-    console.log('CREANDO USUARIO!!!!!');
     delete dataForm.clave2;
-
-    console.log(dataForm);
-    
+  
     return this.http.post(`${base_url}/usuarios`, dataForm);
     
+  }
+
+  login(dataLogin: any ){
+    delete dataLogin.recuerdame;
+    return this.http.post(`${base_url}/usuarios`, dataLogin);    
   }
 }

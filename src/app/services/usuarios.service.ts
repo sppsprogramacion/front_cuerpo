@@ -23,6 +23,6 @@ export class UsuariosService {
 
   login(dataLogin: any ){
     delete dataLogin.recuerdame;
-    return this.http.post(`${base_url}/usuarios`, dataLogin);    
+    return this.http.post(`${base_url}/auth/login`, dataLogin);    
   }
 }

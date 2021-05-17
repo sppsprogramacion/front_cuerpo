@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
 
  public loginForm = this.fb.group({
-   correo: ['',[Validators.required, Validators.email]],
+   correo: [localStorage.getItem('email') || ' ',[Validators.required, Validators.email]],
    clave: ['',Validators.required],
    recuerdame: [false]
  });
@@ -32,13 +32,25 @@ export class LoginComponent {
                                         icon: 'success'
                                         
                                       });
+                                      //este codigo coloca un valor en el localStorage para validar el guard pero es temporal
+                                      localStorage.setItem('validado', "true");
+
+
                                       this.router.navigateByUrl('dashboard');
+                                      // console.log('EL VALOR DE RECUERDAME ES >>>>>', this.loginForm.get('recuerdame')?.value);
+                                      // console.log('EL VALOR DE CORREO ES >>>>>', this.loginForm.get('correo')?.value);
+                                      if(this.loginForm.get('recuerdame')?.value){
+                                        localStorage.setItem('email', this.loginForm.get('correo')?.value);
+                                      }else{
+                                        localStorage.removeItem('email');
+                                      }
                                     }, err => {
                                       Swal.fire({
                                         title: 'Error Login!',
                                         text: err.error.message,
                                         icon: 'error'                                            
                                       })
+                                      localStorage.setItem('validado', "false");
                                     });
   }
 

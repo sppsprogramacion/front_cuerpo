@@ -3,6 +3,13 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { IRegisterForm } from '../interfaces/register-form.interface';
 
+interface ILoginData {
+  'correo': string,
+  'clave' : string,
+  'recuerdame': boolean
+}
+
+
 const base_url = environment.URL_BASE
 
 @Injectable({
@@ -21,8 +28,9 @@ export class UsuariosService {
     
   }
 
-  login(dataLogin: any ){
-    delete dataLogin.recuerdame;
+  login(dataLogin: ILoginData ){
+   // delete dataLogin.recuerdame;
+   
     return this.http.post(`${base_url}/auth/login`, dataLogin);    
   }
 }

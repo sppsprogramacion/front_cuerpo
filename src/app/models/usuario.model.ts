@@ -18,9 +18,9 @@ export class Usuario {
 
     get fotoUrl(){
         if(this.img){
-            return `${base_url}/usuarios/foto/${this.img}`;
+            return `${base_url}/usuarios/foto?foto_nombre=${this.img}`;
         }else{
-            return `${base_url}/usuarios/foto/no-image.jpg`;
+            return `${base_url}/usuarios/foto?foto_nombre=no-image.jpg`;
         }
     }
 

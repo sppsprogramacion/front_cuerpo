@@ -3,6 +3,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { UsuariosService } from '../../services/usuarios.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { Usuario } from 'src/app/models/usuario.model';
+import { globalConstants } from 'src/app/common/global-constants';
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -10,6 +14,16 @@ import { Router } from '@angular/router';
   ]
 })
 export class LoginComponent {
+
+
+  extraerImgUrl (data: any) {
+    
+     //voy a desestructurar respuesta
+       const {apellido, correo, dni, img, nombre, role} = data;
+       const user: Usuario = new Usuario(dni,nombre,apellido,correo,"",role,img);
+       globalConstants.urlImagen = user.fotoUrl;                                      
+       
+  }
 
  public loginForm = this.fb.group({
    correo: [localStorage.getItem('email') || ' ',[Validators.required, Validators.email]],
@@ -25,20 +39,18 @@ export class LoginComponent {
 
   login(){
     return this.loginService.login(this.loginForm.value)
-                                    .subscribe(respuesta => {
+                                    .subscribe((respuesta) => {
+                                       this.extraerImgUrl(respuesta);
+                                     
                                       Swal.fire({
                                         title: "Logeo Exitoso",
                                         text: "Ha ingresado a la Aplicación",
-                                        icon: 'success'
-                                        
+                                        icon: 'success'                                     
                                       });
                                       //este codigo coloca un valor en el localStorage para validar el guard pero es temporal
                                       localStorage.setItem('validado', "true");
 
-
                                       this.router.navigateByUrl('dashboard');
-                                      // console.log('EL VALOR DE RECUERDAME ES >>>>>', this.loginForm.get('recuerdame')?.value);
-                                      // console.log('EL VALOR DE CORREO ES >>>>>', this.loginForm.get('correo')?.value);
                                       if(this.loginForm.get('recuerdame')?.value){
                                         localStorage.setItem('email', this.loginForm.get('correo')?.value);
                                       }else{

@@ -9,22 +9,20 @@ import { globalConstants } from '../../common/global-constants';
   styles: [
   ]
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
   menu: any[] = [];
   imgUrl: string = "";
+  nombreUsuario: string = "";
+  emailUsuario: string = "";
 
   constructor(
     private sidebarService: SidebarService
   ) { 
     this.menu = sidebarService.menu;
     this.imgUrl = globalConstants.urlImagen;
-    console.log('LA IMGURL ES ', this.imgUrl);
+    this.nombreUsuario = globalConstants.nombreUsuario;
+    this.emailUsuario = globalConstants.emailUsuario;
    }
      
-  ngOnInit(): void {
-  }
-
-   
-  
 
 }

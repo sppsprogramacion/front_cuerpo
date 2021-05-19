@@ -10,41 +10,36 @@
     <div class="sidebar">
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
+            <!-- <div class="image">
                 <img [src]="imgUrl" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Alejandro Plaza</a>
-            </div>
-
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <!-- Add icons to the links using the .nav-icon class
-                   with font-awesome or any other icon font library -->
-                    <li *ngFor="let item of menu" class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-tachometer-alt"></i>
-                            <p>
-                                {{item.titulo}}
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
+                <a href="#" class="d-block">{{nombreUsuario}}</a>
+            </div> -->
+            <div class="user-panel mt-1 pb-3 mb-1 d-flex ">
+                <nav>
+                    <div class="btn navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                        <a class="navbar-link">
+                            <img [src]="imgUrl" class="img-circle elevation-2" style="vertical-align: middle;">
+                            <span>{{nombreUsuario}}</span>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li *ngFor="let subitem of item.submenu" class="nav-item">
-                                <a [routerLink]="subitem.url" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>
-                                        {{subitem.titulo}}
-                                    </p>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="navbar-collapse">
+                        <ul class="nav nav-pills nav-sidebar flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <p>&nbsp;Cerrar Sesi&oacute;n</p>
                                 </a>
                             </li>
-
                         </ul>
-                    </li>
+                    </div>
+                    <!-- /.navbar-collapse -->
 
-                </ul>
-            </nav>
-
+                </nav>
+            </div>
 
 
 
@@ -65,18 +60,22 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
+            <!-- <ul>
+                <li *ngFor="let item of menu">
+                    <p>{{item.titulo}}</p>
+                </li>
+            </ul> -->
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+
                 <li *ngFor="let item of menu" class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             {{item.titulo}}
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
+                    <!-- <ul class="nav nav-treeview">
                         <li *ngFor="let subitem of item.submenu" class="nav-item">
                             <a [routerLink]="subitem.url" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
@@ -86,7 +85,7 @@
                             </a>
                         </li>
 
-                    </ul>
+                    </ul> -->
                 </li>
 
             </ul>

@@ -16,12 +16,13 @@ import { globalConstants } from 'src/app/common/global-constants';
 export class LoginComponent {
 
 
-  extraerImgUrl (data: any) {
-    
-     //voy a desestructurar respuesta
+  extraerData(data: any) {
+      //voy a desestructurar respuesta
        const {apellido, correo, dni, img, nombre, role} = data;
        const user: Usuario = new Usuario(dni,nombre,apellido,correo,"",role,img);
        globalConstants.urlImagen = user.fotoUrl;                                      
+       globalConstants.nombreUsuario = user.nombre + " " + user.apellido;
+       globalConstants.emailUsuario = user.correo;
        
   }
 
@@ -40,16 +41,16 @@ export class LoginComponent {
   login(){
     return this.loginService.login(this.loginForm.value)
                                     .subscribe((respuesta) => {
-                                       this.extraerImgUrl(respuesta);
+                                       this.extraerData(respuesta);
                                      
                                       Swal.fire({
                                         title: "Logeo Exitoso",
                                         text: "Ha ingresado a la Aplicación",
                                         icon: 'success'                                     
                                       });
-                                      //este codigo coloca un valor en el localStorage para validar el guard pero es temporal
-                                      localStorage.setItem('validado', "true");
-
+                                      //este codigo modifica una variable global para que el guard permita el acceso
+                                      globalConstants.validado = true;
+                                      
                                       this.router.navigateByUrl('dashboard');
                                       if(this.loginForm.get('recuerdame')?.value){
                                         localStorage.setItem('email', this.loginForm.get('correo')?.value);
@@ -62,7 +63,7 @@ export class LoginComponent {
                                         text: err.error.message,
                                         icon: 'error'                                            
                                       })
-                                      localStorage.setItem('validado', "false");
+                                      globalConstants.validado = false;
                                     });
   }
 

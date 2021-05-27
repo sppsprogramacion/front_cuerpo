@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SidebarService } from 'src/app/services/sidebar.service';
+import Swal from 'sweetalert2';
 import { globalConstants } from '../../common/global-constants';
 
 
@@ -18,10 +19,13 @@ export class SidebarComponent {
   constructor(
     private sidebarService: SidebarService
   ) { 
+   
     this.menu = sidebarService.menu;
-    this.imgUrl = globalConstants.urlImagen;
-    this.nombreUsuario = globalConstants.nombreUsuario;
-    this.emailUsuario = globalConstants.emailUsuario;
+   
+    // this.imgUrl = globalConstants.urlImagen;
+    // this.nombreUsuario = globalConstants.nombreUsuario;
+    // this.emailUsuario = globalConstants.emailUsuario;
+      
    }
      
 

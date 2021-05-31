@@ -14,6 +14,13 @@ export class SidebarService {
         {titulo: 'Editar', url: 'edit'},
         {titulo: 'Listar', url: 'list'},
       ]
+    },
+    {
+      titulo: 'Usuarios',
+      icono: 'fa-solid fa-user',
+      submenu:[
+        {titulo: 'Mantenimiento', url: 'usuarios'}
+            ]
     }
   ];
 

@@ -8,6 +8,7 @@ import { UploadComponent } from './upload/upload.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { UsuariosComponent } from './mantenimiento/usuarios/usuarios.component';
 
 
 
@@ -18,7 +19,8 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
     EditComponent,
     ListComponent,
     UploadComponent,
-    AccountSettingsComponent
+    AccountSettingsComponent,
+    UsuariosComponent
   ],
   exports: [
     DashboardComponent,

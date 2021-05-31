@@ -14,6 +14,7 @@ export class SidebarComponent implements OnInit {
   imgUrl: string = "";
   nombreUsuario: string = "";
   emailUsuario: string = "";
+  icono: string = "";
 
   constructor(
     private sidebarService: SidebarService

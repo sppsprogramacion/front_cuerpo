@@ -7,6 +7,7 @@ import { ListComponent } from './list/list.component';
 import { EditComponent } from './edit/edit.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { AuthGuard } from '../guards/auth.guard';
+import { UsuariosComponent } from './mantenimiento/usuarios/usuarios.component';
 
 
 
@@ -19,7 +20,10 @@ const routes: Routes = [
     {path:'upload', component: UploadComponent},
     {path:'list', component: ListComponent},
     {path:'edit', component: EditComponent},
-    {path: 'accountSetting', component: AccountSettingsComponent}
+    {path: 'accountSetting', component: AccountSettingsComponent},
+
+    //mantenimiento
+    {path: 'usuarios', component: UsuariosComponent}
     
   ]
 },

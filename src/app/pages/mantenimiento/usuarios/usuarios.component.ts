@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+
+declare const tablaScripts: any;
+
 
 @Component({
   selector: 'app-usuarios',
@@ -6,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class UsuariosComponent implements OnInit {
+export class UsuariosComponent implements OnInit, AfterViewInit {
 
   constructor() { }
+  ngAfterViewInit(): void {
+       tablaScripts();
+  }
 
   ngOnInit(): void {
   }

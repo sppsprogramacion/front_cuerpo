@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { globalConstants } from './common/global-constants';
 
 @Component({
@@ -6,10 +6,15 @@ import { globalConstants } from './common/global-constants';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   tema: boolean = globalConstants.temaOscuro;
   title = 'legajosApp';
-  constructor(){
-    localStorage.removeItem('validado');
+
+  constructor(){}
+
+  ngOnInit(): void {
+    this.tema = globalConstants.temaOscuro;
   }
+
 }
+

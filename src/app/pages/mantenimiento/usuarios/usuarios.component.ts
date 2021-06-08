@@ -9,14 +9,12 @@ declare const tablaScripts: any;
   styles: [
   ]
 })
-export class UsuariosComponent implements OnInit, AfterViewInit {
+export class UsuariosComponent  {
 
   constructor() { }
-  ngAfterViewInit(): void {
-       tablaScripts();
-  }
+  
+  
 
-  ngOnInit(): void {
-  }
+  
 
 }

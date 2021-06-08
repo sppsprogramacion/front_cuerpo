@@ -36,4 +36,8 @@ export class UsuariosService {
    
     return this.http.post(`${base_url}/auth/login`, dataLogin);    
   }
+
+  getUsuarios(){
+    
+  }
 }

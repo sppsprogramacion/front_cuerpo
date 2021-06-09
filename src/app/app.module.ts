@@ -9,7 +9,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { NopagefoundComponent } from './pages/nopagefound/nopagefound.component';
 import { PagesModule } from './pages/pages.module';
 import { HttpClientModule } from '@angular/common/http';
-import {TableModule} from 'primeng/table';
+
 
 
 
@@ -26,8 +26,8 @@ import {TableModule} from 'primeng/table';
     PagesModule, 
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    TableModule
+    HttpClientModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -11,6 +11,9 @@ import { UploadComponent } from './upload.component';
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    UploadComponent
   ]
 })
 export class UploadModule { }

@@ -10,6 +10,9 @@ import { ListComponent } from './list.component';
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    ListComponent
   ]
 })
 export class ListModule { }

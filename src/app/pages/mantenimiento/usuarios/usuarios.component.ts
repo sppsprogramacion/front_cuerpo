@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-
+import {MessageService} from 'primeng/api';
 
 
 
@@ -13,6 +13,7 @@ export class UsuariosComponent implements OnInit {
 
     
   //constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
+  constructor(private messageService: MessageService) { }
 
   ngOnInit() {
     //   this.productService.getProducts().then(data => this.products = data);

@@ -10,6 +10,9 @@ import { EditComponent } from './edit.component';
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    EditComponent
   ]
 })
 export class EditModule { }

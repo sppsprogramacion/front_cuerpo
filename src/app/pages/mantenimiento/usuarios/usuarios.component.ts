@@ -1,5 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import {MessageService} from 'primeng/api';
+import { UsuariosService } from 'src/app/services/usuarios.service';
+import { Usuario } from '../../../models/usuario.model';
 
 
 
@@ -11,13 +13,21 @@ import {MessageService} from 'primeng/api';
 })
 export class UsuariosComponent implements OnInit {
 
-    
+    total: number = 0;
+    usuarios: Usuario[] = [];
   //constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
-  constructor(private messageService: MessageService) { }
-
+  //constructor(private messageService: MessageService) { }
+    constructor(
+        private readonly usuariosService: UsuariosService
+    ){}
   ngOnInit() {
     //   this.productService.getProducts().then(data => this.products = data);
-
+        this.usuariosService.getUsuarios().subscribe(({total, usuarios}) => {
+            this.total = total;
+            this.usuarios = usuarios;
+            console.log('EL TOTAL ES', total);
+            console.log('LOS USUARIOS SON', usuarios);
+        });
     //   this.statuses = [
     //       {label: 'INSTOCK', value: 'instock'},
     //       {label: 'LOWSTOCK', value: 'lowstock'},

@@ -12,7 +12,6 @@ import { Usuario } from '../../../models/usuario.model';
   ]
 })
 export class UsuariosComponent implements OnInit {
-
     total: number = 0;
     usuarios: Usuario[] = [];
   //constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
@@ -21,13 +20,12 @@ export class UsuariosComponent implements OnInit {
         private readonly usuariosService: UsuariosService
     ){}
   ngOnInit() {
-    //   this.productService.getProducts().then(data => this.products = data);
-        this.usuariosService.getUsuarios().subscribe(({total, usuarios}) => {
-            this.total = total;
-            this.usuarios = usuarios;
-            console.log('EL TOTAL ES', total);
-            console.log('LOS USUARIOS SON', usuarios);
-        });
+    
+        this.usuariosService.getUsuarios().subscribe(resultado => {
+            this.total = resultado[1];
+            this.usuarios = resultado[0];
+                console.log(this.usuarios);
+             });
     //   this.statuses = [
     //       {label: 'INSTOCK', value: 'instock'},
     //       {label: 'LOWSTOCK', value: 'lowstock'},

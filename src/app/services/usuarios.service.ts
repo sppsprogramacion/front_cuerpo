@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { IRegisterForm } from '../interfaces/register-form.interface';
 import { Usuario } from '../models/usuario.model';
-import { IUsuariosAllHTTP } from '../interfaces/usuarioAll-resphttp.interface';
+
 
 interface ILoginData {
   'correo': string,
@@ -39,6 +38,6 @@ export class UsuariosService {
   }
 
   getUsuarios(){
-    return this.http.get<IUsuariosAllHTTP>(`${base_url}/usuarios`);
+    return this.http.get<[usuarios: Usuario[], total: number]>(`${base_url}/usuarios`);
   }
 }

@@ -1,19 +1,36 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import {MessageService} from 'primeng/api';
+import {ConfirmationService, MessageService} from 'primeng/api';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Usuario } from '../../../models/usuario.model';
 
-
+// interface IUsuario{
+//      dni?: string, 
+//      nombre?: string, 
+//      apellido?: string, 
+//      correo?: string, 
+//      clave?: string,
+//      role?: string,
+//      img?: string,
+// }
 
 @Component({
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
-  styles: [
-  ]
+  styleUrls: ['./usuarios.component.scss'],
+  styles: [`
+  :host ::ng-deep .p-dialog .product-image {
+      width: 150px;
+      margin: 0 auto 2rem auto;
+      display: block;
+  }
+`],
+providers: [MessageService,ConfirmationService]
 })
 export class UsuariosComponent implements OnInit {
     total: number = 0;
     usuarios: Usuario[] = [];
+    usuario: Usuario = new Usuario();
+    //usuariofrm: IUsuario = {};
   //constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
   //constructor(private messageService: MessageService) { }
     constructor(
@@ -32,7 +49,7 @@ export class UsuariosComponent implements OnInit {
     //       {label: 'OUTOFSTOCK', value: 'outofstock'}
     //   ];
   }
-   productDialog: boolean = true;
+   productDialog: boolean = false;
   
 //   products: Product[];
 products = [];
@@ -42,14 +59,14 @@ products = [];
 //   selectedProducts: Product[];
 selectedProducts = [];
   
-//     submitted: boolean;
+     submitted: boolean = false;
 
 //     statuses: any[];
 
 
     openNew() {
-        // this.product = {};
-        // this.submitted = false;
+         this.usuario = new Usuario();
+         this.submitted = false;
          this.productDialog = true;
     }
 
@@ -66,12 +83,13 @@ selectedProducts = [];
         // });
     }
 
-    editProduct(/*product: Product*/) {
+    editProduct(usuario: Usuario) {
         // this.product = {...product};
+        this.usuario = {...usuario, fotoUrl: ""};
          this.productDialog = true;
     }
 
-    deleteProduct(/*product: Product*/) {
+    deleteProduct(usuario: Usuario) {
         // this.confirmationService.confirm({
         //     message: 'Are you sure you want to delete ' + product.name + '?',
         //     header: 'Confirm',

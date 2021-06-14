@@ -20,9 +20,14 @@ export class LoginComponent {
       //voy a desestructurar respuesta
        const {apellido, correo, dni, img, nombre, role} = data;
        const user: Usuario = new Usuario(dni,nombre,apellido,correo,"",role,img);
+       let correoAux: string = "";
+       if(user.correo){
+         correoAux= user.correo;
+       }
+       
        globalConstants.urlImagen = user.fotoUrl;                                      
        globalConstants.nombreUsuario = user.nombre + " " + user.apellido;
-       globalConstants.emailUsuario = user.correo;
+       globalConstants.emailUsuario = correoAux;
        
   }
 

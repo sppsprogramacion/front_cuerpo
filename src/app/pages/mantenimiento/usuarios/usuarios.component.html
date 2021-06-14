@@ -63,10 +63,10 @@
                                 <td>{{usuario.correo}}</td>
                                 <td>{{usuario.role}}</td>
                                 <!-- <td><span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span></td> -->
-                                <!-- <td>
-                                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editProduct(product)"></button>
-                                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product)"></button>
-                                </td> -->
+                                <td>
+                                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editProduct(usuario)"></button>
+                                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(usuario)"></button>
+                                </td>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="summary">
@@ -78,7 +78,96 @@
                     </p-table>
                 </div>
 
+                <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Datos de Usuario" [modal]="true" styleClass="p-fluid">
+                    <ng-template pTemplate="content">
+                        <!-- <img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.image" class="product-image" *ngIf="product.image"> -->
+                        <div class="p-field">
+                            <label for="dni">DNI</label>
+                            <textarea id="dni" pInputTextarea [(ngModel)]="usuario.dni" required rows="3" cols="20"></textarea>
+                            <small class="p-error" *ngIf="submitted && !usuario.dni">El DNI es requerido!</small>
+                        </div>
+                        <div class="p-field">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" pInputText id="nombre" [(ngModel)]="usuario.nombre" required autofocus />
+                            <small class="p-error" *ngIf="submitted && !usuario.nombre">El Nombre es requerido!</small>
+                        </div>
+                        <div class="p-field">
+                            <label for="apellido">Apellido</label>
+                            <input type="text" pInputText id="apellido" [(ngModel)]="usuario.apellido" required autofocus />
+                            <small class="p-error" *ngIf="submitted && !usuario.apellido">El Apellido es requerido!</small>
+                        </div>
+                        <div class="p-field">
+                            <label for="correo">Email</label>
+                            <input type="text" pInputText id="correo" [(ngModel)]="usuario.correo" required autofocus />
+                            <small class="p-error" *ngIf="submitted && !usuario.correo">El Email es requerido!</small>
+                        </div>
+                        <div class="p-field">
+                            <label for="clave">Clave</label>
+                            <input type="text" pInputText id="clave" [(ngModel)]="usuario.clave" required autofocus />
+                            <small class="p-error" *ngIf="submitted && !usuario.clave">La Clave es requerida!</small>
+                        </div>
+                        <div class="p-field">
+                            <label for="role">Role</label>
+                            <input type="text" pInputText id="role" [(ngModel)]="usuario.role" required autofocus />
+                            <small class="p-error" *ngIf="submitted && !usuario.role">El Role es requerido!</small>
+                        </div>
+                        <div class="p-field">
+                            <label for="img">Imagen</label>
+                            <input type="text" pInputText id="img" [(ngModel)]="usuario.img" required autofocus />
+                            <small class="p-error" *ngIf="submitted && !usuario.img">La Imagen es requerido!</small>
+                        </div>
 
+
+                        <!-- <div class="p-formgrid p-grid">
+                            <div class="p-field p-col">
+                                <label for="price">Price</label>
+                                <p-inputNumber id="price" [(ngModel)]="product.price" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+                            </div>
+                            <div class="p-field p-col">
+                                <label for="quantity">Quantity</label>
+                                <p-inputNumber id="quantity" [(ngModel)]="product.quantity"></p-inputNumber>
+                            </div>
+                        </div> -->
+
+                        <!-- <div class="p-field">
+                            <label for="inventoryStatus">Inventory Status</label>
+                            <p-dropdown [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" placeholder="Select">
+                                <ng-template let-option pTemplate="item">
+                                    <span [class]="'product-badge status-' + option.value">{{option.label}}</span>
+                                </ng-template>
+                            </p-dropdown>
+                        </div> -->
+
+                        <!-- <div class="p-field">
+                            <label class="p-mb-3">Category</label>
+                            <div class="p-formgrid p-grid">
+                                <div class="p-field-radiobutton p-col-6">
+                                    <p-radioButton id="category1" name="category" value="Accessories" [(ngModel)]="product.category"></p-radioButton>
+                                    <label for="category1">Accessories</label>
+                                </div>
+                                <div class="p-field-radiobutton p-col-6">
+                                    <p-radioButton id="category2" name="category" value="Clothing" [(ngModel)]="product.category"></p-radioButton>
+                                    <label for="category2">Clothing</label>
+                                </div>
+                                <div class="p-field-radiobutton p-col-6">
+                                    <p-radioButton id="category3" name="category" value="Electronics" [(ngModel)]="product.category"></p-radioButton>
+                                    <label for="category3">Electronics</label>
+                                </div>
+                                <div class="p-field-radiobutton p-col-6">
+                                    <p-radioButton id="category4" name="category" value="Fitness" [(ngModel)]="product.category"></p-radioButton>
+                                    <label for="category4">Fitness</label>
+                                </div>
+                            </div>
+                        </div> -->
+
+
+                    </ng-template>
+
+                    <ng-template pTemplate="footer">
+                        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+                        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+                    </ng-template>
+                </p-dialog>
 
 
 

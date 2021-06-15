@@ -43,6 +43,8 @@ import {TableModule} from 'primeng/table';
          InputNumberModule,
          DialogModule,
          DropdownModule,
+         BrowserModule,
+         BrowserAnimationsModule,
     ],
     providers: [],
 })

@@ -12,6 +12,7 @@ export class Usuario {
             public clave?: string,
             public role?: string,
             public img?: string,
+            public destino_id?:number
             
     ){
         if(!this.clave){

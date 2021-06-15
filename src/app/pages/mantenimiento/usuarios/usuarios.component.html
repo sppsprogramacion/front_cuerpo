@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">DataTable with default features</h3>
+                <h3 class="card-title">Tabla de Mantenimiento de Usuarios</h3>
             </div>
             <div class="card-body">
                 <!-- <p-toast></p-toast> -->
@@ -83,7 +83,7 @@
                         <!-- <img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.image" class="product-image" *ngIf="product.image"> -->
                         <div class="p-field">
                             <label for="dni">DNI</label>
-                            <textarea id="dni" pInputTextarea [(ngModel)]="usuario.dni" required rows="3" cols="20"></textarea>
+                            <input type="number" id="dni" [(ngModel)]="usuario.dni" required autofocus/>
                             <small class="p-error" *ngIf="submitted && !usuario.dni">El DNI es requerido!</small>
                         </div>
                         <div class="p-field">
@@ -112,9 +112,14 @@
                             <small class="p-error" *ngIf="submitted && !usuario.role">El Role es requerido!</small>
                         </div>
                         <div class="p-field">
+                            <label for="destino">Destino</label>
+                            <input type="number" pInputText id="destino" [(ngModel)]="usuario.destino_id" required autofocus />
+                            <small class="p-error" *ngIf="submitted && !usuario.destino_id">El Role es requerido!</small>
+                        </div>
+                        <div class="p-field">
                             <label for="img">Imagen</label>
                             <input type="text" pInputText id="img" [(ngModel)]="usuario.img" required autofocus />
-                            <small class="p-error" *ngIf="submitted && !usuario.img">La Imagen es requerido!</small>
+                            <!-- <small class="p-error" *ngIf="submitted && !usuario.img">La Imagen es requerido!</small> -->
                         </div>
 
 

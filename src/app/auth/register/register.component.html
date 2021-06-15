@@ -34,6 +34,14 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
+                        <input type="number" class="form-control" placeholder="destino_id" formControlName="destino_id">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
                         <input type="email" class="form-control" placeholder="Email" formControlName="correo">
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -68,6 +76,9 @@
                         </div>
                         <div class="col-12 text-danger">
                             <p *ngIf="campoNoValido('dni')">El dni es obligatorio</p>
+                        </div>
+                        <div class="col-12 text-danger">
+                            <p *ngIf="campoNoValido('destino_id')">El dni es obligatorio</p>
                         </div>
                         <div class="col-12 text-danger">
                             <p *ngIf="campoNoValido('correo')">El email es obligatorio y debe ser válido</p>

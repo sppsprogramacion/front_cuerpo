@@ -25,9 +25,13 @@ export class UsuariosService {
     ) { }
     
   crearUsuario(dataForm: any){
-    delete dataForm.clave2;
+    if(dataForm.clave2){
+      delete dataForm.clave2;
+    }
+    let nuevo = new Usuario();
+    nuevo = {...dataForm};
   
-    return this.http.post(`${base_url}/usuarios`, dataForm);
+    return this.http.post(`${base_url}/usuarios`, nuevo);
     
   }
 

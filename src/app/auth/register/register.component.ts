@@ -22,6 +22,7 @@ public registerForm = this.fb.group({
   apellido: ['', Validators.required],
   dni: ['', Validators.required],
   correo: ['', [Validators.email, Validators.required] ],
+  destino_id:['', [Validators.required] ],
   clave: ['', Validators.required],
   clave2: ['', Validators.required],
   

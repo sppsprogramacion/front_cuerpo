@@ -3,22 +3,14 @@ import {ConfirmationService, MessageService} from 'primeng/api';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Usuario } from '../../../models/usuario.model';
 
-// interface IUsuario{
-//      dni?: string, 
-//      nombre?: string, 
-//      apellido?: string, 
-//      correo?: string, 
-//      clave?: string,
-//      role?: string,
-//      img?: string,
-// }
+
 
 @Component({
   selector: 'app-usuarios',
-  templateUrl: './usuarios.component.html',
+  templateUrl:  './usuarios.component.html',
   styleUrls: ['./usuarios.component.scss'],
   styles: [`
-  :host ::ng-deep .p-dialog .product-image {
+    :host ::ng-deep .p-dialog .product-image {
       width: 150px;
       margin: 0 auto 2rem auto;
       display: block;
@@ -30,6 +22,7 @@ export class UsuariosComponent implements OnInit {
     total: number = 0;
     usuarios: Usuario[] = [];
     usuario: Usuario = new Usuario();
+    editando: boolean=false;
     //usuariofrm: IUsuario = {};
   //constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
   //constructor(private messageService: MessageService) { }
@@ -66,6 +59,7 @@ selectedProducts = [];
 
     openNew() {
          this.usuario = new Usuario();
+         this.editando = false;
          this.submitted = false;
          this.productDialog = true;
     }
@@ -84,6 +78,7 @@ selectedProducts = [];
     }
 
     editProduct(usuario: Usuario) {
+        this.editando = true;
         // this.product = {...product};
         this.usuario = {...usuario, fotoUrl: ""};
          this.productDialog = true;
@@ -108,7 +103,23 @@ selectedProducts = [];
     }
     
     saveProduct() {
-        // this.submitted = true;
+         this.submitted = true;
+
+         if(this.editando){
+            console.log('ENTRANDO A MODO EDICION');
+         }else{
+             console.log('ENTRANDO A MODO CARGA DE DATO NUEVO');
+             console.log('DATOS QUE VOY A ENVIAR', this.usuario);
+            const nuevo =  this.usuariosService.crearUsuario(this.usuario).subscribe(resultado => {
+                console.log(resultado);
+                return resultado;
+            },
+            error => {
+                console.log('HA OCURRIDO UN ERROR', error);
+            }
+            );
+            
+         }
 
         // if (this.product.name.trim()) {
         //     if (this.product.id) {

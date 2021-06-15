@@ -109,10 +109,9 @@ selectedProducts = [];
             console.log('ENTRANDO A MODO EDICION');
          }else{
              console.log('ENTRANDO A MODO CARGA DE DATO NUEVO');
-             console.log('DATOS QUE VOY A ENVIAR', this.usuario);
+             
             const nuevo =  this.usuariosService.crearUsuario(this.usuario).subscribe(resultado => {
                 console.log(resultado);
-                return resultado;
             },
             error => {
                 console.log('HA OCURRIDO UN ERROR', error);
@@ -120,6 +119,9 @@ selectedProducts = [];
             );
             
          }
+
+
+ 
 
         // if (this.product.name.trim()) {
         //     if (this.product.id) {

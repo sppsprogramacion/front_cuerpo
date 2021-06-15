@@ -28,9 +28,11 @@ export class UsuariosService {
     if(dataForm.clave2){
       delete dataForm.clave2;
     }
-    let nuevo = new Usuario();
+    delete dataForm.role;
+    let nuevo: Usuario = new Usuario();
     nuevo = {...dataForm};
-  
+  console.log('ESTOS SON LOS DATOS QUE SERAN ENVIADOS A LA PETICICON HTTP', nuevo);
+
     return this.http.post(`${base_url}/usuarios`, nuevo);
     
   }

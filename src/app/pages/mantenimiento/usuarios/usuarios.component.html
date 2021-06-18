@@ -108,7 +108,7 @@
                         </div>
                         <div class="p-field">
                             <label for="role">Role</label>
-                            <input type="text" pInputText id="role" [(ngModel)]="usuario.role" required autofocus />
+                            <input type="number" id="role" [(ngModel)]="usuario.role" required autofocus />
                             <small class="p-error" *ngIf="submitted && !usuario.role">El Role es requerido!</small>
                         </div>
                         <div class="p-field">

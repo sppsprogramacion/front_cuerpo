@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Usuario } from '../../../models/usuario.model';
+import Swal from 'sweetalert2';
 
 
 
@@ -108,15 +109,13 @@ selectedProducts = [];
          if(this.editando){
             console.log('ENTRANDO A MODO EDICION');
          }else{
-             console.log('ENTRANDO A MODO CARGA DE DATO NUEVO');
-             
-            const nuevo =  this.usuariosService.crearUsuario(this.usuario).subscribe(resultado => {
-                console.log(resultado);
+            this.hideDialog();      
+            this.usuariosService.crearUsuario(this.usuario).subscribe(resultado => {
+                Swal.fire("Exito","Se ha agregado un Nuevo Usuario","success")
             },
             error => {
-                console.log('HA OCURRIDO UN ERROR', error);
-            }
-            );
+                Swal.fire('Error',`Error al agregar el Usuario ${error.message}`,"error")
+            });
             
          }
 

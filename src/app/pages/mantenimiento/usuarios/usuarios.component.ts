@@ -3,6 +3,7 @@ import {ConfirmationService, MessageService} from 'primeng/api';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Usuario } from '../../../models/usuario.model';
 import Swal from 'sweetalert2';
+import { IUserRole } from '../../../interfaces/usuario-role.interface';
 
 
 
@@ -24,18 +25,26 @@ export class UsuariosComponent implements OnInit {
     usuarios: Usuario[] = [];
     usuario: Usuario = new Usuario();
     editando: boolean=false;
-    //usuariofrm: IUsuario = {};
+    roles: IUserRole[] = [];
+      //usuariofrm: IUsuario = {};
   //constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
   //constructor(private messageService: MessageService) { }
     constructor(
-        private readonly usuariosService: UsuariosService
-    ){}
+        private readonly usuariosService: UsuariosService        
+    ){
+        this.roles = [
+            {code: 0, role_name: "admin"},
+            {code: 1, role_name: "super"},
+            {code: 2, role_name: "normal"},
+        ]
+    }
+
   ngOnInit() {
     
         this.usuariosService.getUsuarios().subscribe(resultado => {
             this.total = resultado[1];
             this.usuarios = resultado[0];
-                console.log(this.usuarios);
+               
              });
     //   this.statuses = [
     //       {label: 'INSTOCK', value: 'instock'},
@@ -114,7 +123,7 @@ selectedProducts = [];
                 Swal.fire("Exito","Se ha agregado un Nuevo Usuario","success")
             },
             error => {
-                Swal.fire('Error',`Error al agregar el Usuario ${error.message}`,"error")
+                      Swal.fire('Error',`Error al agregar el Usuario ${error.message}`,"error")
             });
             
          }

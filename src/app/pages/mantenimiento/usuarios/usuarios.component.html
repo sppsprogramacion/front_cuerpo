@@ -56,8 +56,8 @@
                                 <td>
                                     <p-tableCheckbox [value]=""></p-tableCheckbox>
                                 </td>
-                                <td>{{usuario.img}}</td>
-                                <!-- <td><img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="p-shadow-4" /></td> -->
+                                <!-- <td>{{usuario.img}}</td> -->
+                                <td><img [src]="baseUrlImg + usuario.img" [alt]="usuario.img" style="border-radius: 150px;" width="50" class="p-shadow-4" /></td>
                                 <td>{{usuario.nombre}}</td>
                                 <td>{{usuario.apellido}}</td>
                                 <td>{{usuario.correo}}</td>

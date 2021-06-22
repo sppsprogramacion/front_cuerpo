@@ -29,7 +29,6 @@ export class LoginComponent {
        if(user.correo){
          correoAux= user.correo;
        }
-       console.log('DATA DEL LOGEADO', user);
        globalConstants.urlImagen = user.fotoUrl;                                      
        globalConstants.nombreUsuario = user.nombre + " " + user.apellido;
        globalConstants.emailUsuario = correoAux;

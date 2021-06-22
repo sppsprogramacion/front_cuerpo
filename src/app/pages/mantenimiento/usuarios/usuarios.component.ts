@@ -6,8 +6,9 @@ import Swal from 'sweetalert2';
 import { IUserRole } from '../../../interfaces/usuario-role.interface';
 import { DestinosService } from '../../../services/destino.service';
 import { DestinoModel } from '../../../models/destino.model';
-import { isNull } from '@angular/compiler/src/output/output_ast';
+import { environment } from "src/environments/environment";
 
+const base_url = environment.URL_BASE
 
 
 @Component({
@@ -31,6 +32,8 @@ export class UsuariosComponent implements OnInit {
     roles: IUserRole[] = [];
     destinos: DestinoModel[]=[];
     selectedDestino: number=8;
+    
+    baseUrlImg: string = `${base_url}/usuarios/foto?foto_nombre=`;
       //usuariofrm: IUsuario = {};
   //constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
   //constructor(private messageService: MessageService) { }

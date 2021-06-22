@@ -23,7 +23,7 @@
                         [showCurrentPageReport]="true">
                         <ng-template pTemplate="caption">
                             <div class="p-d-flex p-ai-center p-jc-between">
-                                <h5 class="p-m-0">Manage Products</h5>
+                                <h5 class="p-m-0">Tabla de Manejo de Usuarios</h5>
                                 <span class="p-input-icon-left">
                             <i class="pi pi-search"></i>
                             <!-- <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." /> -->
@@ -112,11 +112,12 @@
                             <input type="number" id="role" [(ngModel)]="usuario.role" required autofocus />
                             <small class="p-error" *ngIf="submitted && !usuario.role">El Role es requerido!</small>
                         </div> -->
-                        <div class="p-field">
+                        <p-dropdown [options]="destinos" [(ngModel)]="usuario.destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true"></p-dropdown>
+                        <!-- <div class="p-field">
                             <label for="destino">Destino</label>
                             <input type="number" pInputText id="destino" [(ngModel)]="usuario.destino_id" required autofocus />
                             <small class="p-error" *ngIf="submitted && !usuario.destino_id">El Role es requerido!</small>
-                        </div>
+                        </div> -->
                         <div class="p-field">
                             <label for="img">Imagen</label>
                             <input type="text" pInputText id="img" [(ngModel)]="usuario.img" required autofocus />

@@ -19,12 +19,17 @@ export class LoginComponent {
   extraerData(data: any) {
       //voy a desestructurar respuesta
        const {apellido, correo, dni, img, nombre, role} = data;
-       const user: Usuario = new Usuario(dni,nombre,apellido,correo,"",role,img);
+       const user: Usuario = new Usuario();
+       user.nombre = nombre;
+       user.apellido = apellido;
+       user.correo = correo;
+       user.img = img;
+       user.role = role;
        let correoAux: string = "";
        if(user.correo){
          correoAux= user.correo;
        }
-       
+       console.log('DATA DEL LOGEADO', user);
        globalConstants.urlImagen = user.fotoUrl;                                      
        globalConstants.nombreUsuario = user.nombre + " " + user.apellido;
        globalConstants.emailUsuario = correoAux;

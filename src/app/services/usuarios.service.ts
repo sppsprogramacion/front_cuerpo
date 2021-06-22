@@ -18,8 +18,6 @@ const base_url = environment.URL_BASE
 })
 export class UsuariosService {
 
-  
-
   constructor(
     private http: HttpClient
     ) { }
@@ -31,7 +29,7 @@ export class UsuariosService {
     delete dataForm.role;
     let nuevo: Usuario = new Usuario();
     nuevo = {...dataForm};
-  console.log('ESTOS SON LOS DATOS QUE SERAN ENVIADOS A LA PETICICON HTTP', nuevo);
+  console.log('ESTOS SON LOS DATOS QUE SERAN ENVIADOS A LA PETICION HTTP', nuevo);
 
     return this.http.post(`${base_url}/usuarios`, nuevo);
     
@@ -45,5 +43,9 @@ export class UsuariosService {
 
   getUsuarios(){
     return this.http.get<[usuarios: Usuario[], total: number]>(`${base_url}/usuarios`);
+  }
+
+  editUsuario(id: number, data: Partial<Usuario>){
+    return this.http.put(`${base_url}/usuarios/${id}`, data);
   }
 }

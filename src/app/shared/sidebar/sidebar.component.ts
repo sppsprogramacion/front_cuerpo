@@ -26,6 +26,7 @@ export class SidebarComponent implements OnInit {
     this.nombreUsuario = globalConstants.nombreUsuario;
     this.emailUsuario = globalConstants.emailUsuario;
     
+    
   }
   ngOnInit(): void {
     $('[data-widget="treeview"]').Treeview('init');

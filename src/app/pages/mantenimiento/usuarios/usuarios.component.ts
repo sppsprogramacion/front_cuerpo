@@ -4,6 +4,9 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Usuario } from '../../../models/usuario.model';
 import Swal from 'sweetalert2';
 import { IUserRole } from '../../../interfaces/usuario-role.interface';
+import { DestinosService } from '../../../services/destino.service';
+import { DestinoModel } from '../../../models/destino.model';
+import { isNull } from '@angular/compiler/src/output/output_ast';
 
 
 
@@ -26,26 +29,39 @@ export class UsuariosComponent implements OnInit {
     usuario: Usuario = new Usuario();
     editando: boolean=false;
     roles: IUserRole[] = [];
+    destinos: DestinoModel[]=[];
+    selectedDestino: number=8;
       //usuariofrm: IUsuario = {};
   //constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
   //constructor(private messageService: MessageService) { }
     constructor(
-        private readonly usuariosService: UsuariosService        
+        private readonly usuariosService: UsuariosService,
+        private readonly destinosService: DestinosService  
     ){
         this.roles = [
             {code: 0, role_name: "admin"},
             {code: 1, role_name: "super"},
             {code: 2, role_name: "normal"},
         ]
-    }
+         }
 
   ngOnInit() {
     
         this.usuariosService.getUsuarios().subscribe(resultado => {
             this.total = resultado[1];
             this.usuarios = resultado[0];
-               
+            console.log(this.usuarios);
              });
+             this.destinosService.listarDestinos().
+                                     subscribe((resultado: any[]) => {
+                                         let destinoItem: DestinoModel;
+                                         const listado: any[] = resultado[0];
+                                        const destinosLista: DestinoModel[] = listado.map(item =>  {
+                                            destinoItem = {...item};
+                                            return destinoItem;
+                                        });
+                                        this.destinos =  destinosLista;
+                                        });
     //   this.statuses = [
     //       {label: 'INSTOCK', value: 'instock'},
     //       {label: 'LOWSTOCK', value: 'lowstock'},
@@ -87,12 +103,13 @@ selectedProducts = [];
         // });
     }
 
-    editProduct(usuario: Usuario) {
+    editProduct(usuarioEdit: Usuario) {
         this.editando = true;
         // this.product = {...product};
-        this.usuario = {...usuario, fotoUrl: ""};
+        this.usuario = {...usuarioEdit, fotoUrl: ""};
+        console.log('DATOS A EDITAR',this.usuario);
          this.productDialog = true;
-    }
+           }
 
     deleteProduct(usuario: Usuario) {
         // this.confirmationService.confirm({
@@ -117,13 +134,49 @@ selectedProducts = [];
 
          if(this.editando){
             console.log('ENTRANDO A MODO EDICION');
+            
+            if(this.usuario.id_usuario){
+                //this.editProduct();
+                let data: Partial<Usuario>;
+                data = {
+                    dni: this.usuario.dni,
+                    nombre: this.usuario.nombre,
+                    apellido: this.usuario.apellido,
+                    correo: this.usuario.correo,
+                    role: this.usuario.role,
+                    destino_id: this.usuario.destino_id,
+                        }
+                // data = {...this.usuario, fotoUrl};
+                // delete data.id_usuario;
+                // delete data.fecha_alta;
+                // delete data.fecha_baja;
+                // delete data.ultima_actualizacion;
+                // delete data.clave;
+                
+                this.usuariosService.editUsuario(this.usuario.id_usuario, data)
+                                        .subscribe(resultado => {
+                                            Swal.fire('Exito',`El Registro ha sido editado con Exito`,"success");
+                                            console.log(resultado);                
+                                        },
+                                        error => {
+                                            console.log(error);
+                                            Swal.fire('Error',`Error al Editar el Usuario ${error.error.message}`,"error")                          
+                                        });
+                    }else{
+                   
+                            Swal.fire('Error',`Error al Editar el Usuario: Faltan Datos`,"error")
+                           
+                    }
+
          }else{
-            this.hideDialog();      
-            this.usuariosService.crearUsuario(this.usuario).subscribe(resultado => {
-                Swal.fire("Exito","Se ha agregado un Nuevo Usuario","success")
+            
+             
+             this.usuariosService.crearUsuario(this.usuario).subscribe(resultado => {
+                 this.hideDialog();
+                 Swal.fire("Exito","Se ha agregado un Nuevo Usuario","success")
             },
             error => {
-                      Swal.fire('Error',`Error al agregar el Usuario ${error.message}`,"error")
+                      Swal.fire('Error',`Error al agregar el Usuario ${error.error.message}`,"error")
             });
             
          }

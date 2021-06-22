@@ -5,6 +5,7 @@ const base_url = environment.URL_BASE
 export class Usuario {
     
     constructor(
+            public id_usuario?: number,
             public dni?: string, 
             public nombre?: string, 
             public apellido?: string, 
@@ -12,7 +13,10 @@ export class Usuario {
             public clave?: string,
             public role?: string,
             public img?: string,
-            public destino_id?:number
+            public destino_id?:number,
+            public fecha_alta?: Date,
+            public fecha_baja?: Date,
+            public ultima_actualizacion?: Date
             
     ){
         if(!this.clave){

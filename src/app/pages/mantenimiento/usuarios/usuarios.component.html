@@ -106,13 +106,17 @@
                             <input type="text" pInputText id="clave" [(ngModel)]="usuario.clave" required autofocus />
                             <small class="p-error" *ngIf="submitted && !usuario.clave">La Clave es requerida!</small>
                         </div>
-                        <p-dropdown [options]="roles" [(ngModel)]="usuario.role" optionLabel="role_name" optionValue="code"></p-dropdown>
+                        <div class="p-field">
+                            <p-dropdown [options]="roles" [(ngModel)]="usuario.role" optionLabel="role_name" optionValue="code"></p-dropdown>
+                        </div>
                         <!-- <div class="p-field">
                             <label for="role">Role</label>
                             <input type="number" id="role" [(ngModel)]="usuario.role" required autofocus />
                             <small class="p-error" *ngIf="submitted && !usuario.role">El Role es requerido!</small>
                         </div> -->
-                        <p-dropdown [options]="destinos" [(ngModel)]="usuario.destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true"></p-dropdown>
+                        <div class="p-field">
+                            <p-dropdown [options]="destinos" [(ngModel)]="usuario.destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true"></p-dropdown>
+                        </div>
                         <!-- <div class="p-field">
                             <label for="destino">Destino</label>
                             <input type="number" pInputText id="destino" [(ngModel)]="usuario.destino_id" required autofocus />

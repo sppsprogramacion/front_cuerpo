@@ -32,8 +32,8 @@ export class UsuariosComponent implements OnInit {
     roles: IUserRole[] = [];
     destinos: DestinoModel[]=[];
     selectedDestino: number=8;
-    
     baseUrlImg: string = `${base_url}/usuarios/foto?foto_nombre=`;
+    fotoFile!: any;
       //usuariofrm: IUsuario = {};
   //constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
   //constructor(private messageService: MessageService) { }
@@ -166,10 +166,10 @@ selectedProducts = [];
                 this.usuariosService.editUsuario(this.usuario.id_usuario, data)
                                         .subscribe(resultado => {
                                             Swal.fire('Exito',`El Registro ha sido editado con Exito`,"success");
-                                            console.log(resultado);                
+                                                
                                         },
                                         error => {
-                                            console.log(error);
+                                            
                                             Swal.fire('Error',`Error al Editar el Usuario ${error.error.message}`,"error")                          
                                         });
                     }else{
@@ -191,7 +191,7 @@ selectedProducts = [];
             
          }
 
-
+         
  
 
         // if (this.product.name.trim()) {
@@ -210,6 +210,14 @@ selectedProducts = [];
         //     this.productDialog = false;
         //     this.product = {};
         // }
+    }
+
+    onUpload(event: { files: File[]; }){
+        console.log('ENTRANDO AL ONUPLOAD');
+        for(let file in event.files){
+            this.fotoFile = file;
+            console.log('DATA DEL ARCHIVO', this.fotoFile);
+        }
     }
 
     findIndexById(/*id: string): number*/) {

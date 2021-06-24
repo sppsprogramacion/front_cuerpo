@@ -127,7 +127,7 @@
                             <img *ngIf="this.editando" [src]="baseUrlImg + usuario.img" [alt]="usuario.img" style="border-radius: 50px;" width="100" class="p-shadow-4" />
                         </div>
 
-                        <p-fileUpload name="demo[]" url="./upload.php" accept="image/*">
+                        <p-fileUpload name="demo[]" url="./upload.php" accept="image/*" (onUpload)="onUpload($event)">
 
                         </p-fileUpload>
 

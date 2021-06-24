@@ -65,13 +65,20 @@ export class UsuariosComponent implements OnInit {
                                         });
                                         this.destinos =  destinosLista;
                                         });
-    //   this.statuses = [
-    //       {label: 'INSTOCK', value: 'instock'},
-    //       {label: 'LOWSTOCK', value: 'lowstock'},
-    //       {label: 'OUTOFSTOCK', value: 'outofstock'}
-    //   ];
-  }
-   productDialog: boolean = false;
+      }
+      
+      public getRole(code: number): string {
+          let valor: string = " ";
+            this.roles.forEach(r => {
+              if(r.code === code){
+                  valor =  r.role_name
+              }
+          });
+          return valor;
+          
+        }
+      
+   userDialog: boolean = false;
   
 //   products: Product[];
 products = [];
@@ -90,7 +97,7 @@ selectedProducts = [];
          this.usuario = new Usuario();
          this.editando = false;
          this.submitted = false;
-         this.productDialog = true;
+         this.userDialog = true;
     }
 
     deleteSelectedProducts() {
@@ -111,7 +118,7 @@ selectedProducts = [];
         // this.product = {...product};
         this.usuario = {...usuarioEdit, fotoUrl: ""};
         console.log('DATOS A EDITAR',this.usuario);
-         this.productDialog = true;
+         this.userDialog = true;
            }
 
     deleteProduct(usuario: Usuario) {
@@ -128,7 +135,7 @@ selectedProducts = [];
     }
 
     hideDialog() {
-         this.productDialog = false;
+         this.userDialog = false;
         // this.submitted = false;
     }
     

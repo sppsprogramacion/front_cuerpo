@@ -46,7 +46,10 @@
                                     <p-sortIcon field="correo"></p-sortIcon>
                                 </th>
                                 <th pSortableColumn="role">Role
-                                    <p-sortIcon field="inventoryStatus"></p-sortIcon>
+                                    <p-sortIcon field="role"></p-sortIcon>
+                                </th>
+                                <th pSortableColumn="destino">Destino
+                                    <p-sortIcon field="destino"></p-sortIcon>
                                 </th>
                                 <th></th>
                             </tr>
@@ -61,7 +64,8 @@
                                 <td>{{usuario.nombre}}</td>
                                 <td>{{usuario.apellido}}</td>
                                 <td>{{usuario.correo}}</td>
-                                <td>{{usuario.role}}</td>
+                                <td>{{getRole(usuario.role)}}</td>
+                                <td>{{usuario.destino.destino}}</td>
                                 <!-- <td><span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span></td> -->
                                 <td>
                                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editProduct(usuario)"></button>
@@ -78,9 +82,10 @@
                     </p-table>
                 </div>
 
-                <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Datos de Usuario" [modal]="true" styleClass="p-fluid">
+                <p-dialog [(visible)]="userDialog" [style]="{width: '450px'}" header="Datos de Usuario" [modal]="true" styleClass="p-fluid">
                     <ng-template pTemplate="content">
                         <!-- <img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.image" class="product-image" *ngIf="product.image"> -->
+
                         <div class="p-field">
                             <label for="dni">DNI</label>
                             <input type="number" id="dni" [(ngModel)]="usuario.dni" required autofocus/>
@@ -107,26 +112,24 @@
                             <small class="p-error" *ngIf="submitted && !usuario.clave">La Clave es requerida!</small>
                         </div>
                         <div class="p-field">
-                            <p-dropdown [options]="roles" [(ngModel)]="usuario.role" optionLabel="role_name" optionValue="code"></p-dropdown>
+                            <p-dropdown [options]="roles" [(ngModel)]="usuario.role" optionLabel="role_name" optionValue="code" appendTo="body"></p-dropdown>
                         </div>
-                        <!-- <div class="p-field">
-                            <label for="role">Role</label>
-                            <input type="number" id="role" [(ngModel)]="usuario.role" required autofocus />
-                            <small class="p-error" *ngIf="submitted && !usuario.role">El Role es requerido!</small>
-                        </div> -->
                         <div class="p-field">
-                            <p-dropdown [options]="destinos" [(ngModel)]="usuario.destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true"></p-dropdown>
+                            <p-dropdown [options]="destinos" [(ngModel)]="usuario.destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown>
                         </div>
-                        <!-- <div class="p-field">
-                            <label for="destino">Destino</label>
-                            <input type="number" pInputText id="destino" [(ngModel)]="usuario.destino_id" required autofocus />
-                            <small class="p-error" *ngIf="submitted && !usuario.destino_id">El Role es requerido!</small>
-                        </div> -->
                         <div class="p-field">
                             <label for="img">Imagen</label>
                             <input type="text" pInputText id="img" [(ngModel)]="usuario.img" required autofocus />
                             <!-- <small class="p-error" *ngIf="submitted && !usuario.img">La Imagen es requerido!</small> -->
                         </div>
+
+                        <div class="p-field">
+                            <img *ngIf="this.editando" [src]="baseUrlImg + usuario.img" [alt]="usuario.img" style="border-radius: 50px;" width="100" class="p-shadow-4" />
+                        </div>
+
+                        <p-fileUpload name="demo[]" url="./upload.php" accept="image/*">
+
+                        </p-fileUpload>
 
 
                         <!-- <div class="p-formgrid p-grid">

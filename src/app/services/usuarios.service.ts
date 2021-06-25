@@ -29,7 +29,6 @@ export class UsuariosService {
     delete dataForm.role;
     let nuevo: Usuario = new Usuario();
     nuevo = {...dataForm};
-  console.log('ESTOS SON LOS DATOS QUE SERAN ENVIADOS A LA PETICION HTTP', nuevo);
 
     return this.http.post(`${base_url}/usuarios`, nuevo);
     

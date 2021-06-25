@@ -9,6 +9,7 @@ import { EditModule } from './edit/edit.module';
 import { ListModule } from './list/list.module';
 import { UploadModule } from './upload/upload.module';
 import { UsuariosModule } from './mantenimiento/usuarios.module';
+import { ngPrimeModule } from '../ngprime.module';
 
  @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { UsuariosModule } from './mantenimiento/usuarios.module';
      UploadModule,
      UsuariosModule,
      HttpClientModule,
-     
+     ngPrimeModule,
    ]
  })
 export class PagesModule { }

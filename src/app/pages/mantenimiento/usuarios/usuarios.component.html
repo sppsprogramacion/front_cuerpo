@@ -126,10 +126,12 @@
                         <div class="p-field">
                             <img *ngIf="this.editando" [src]="baseUrlImg + usuario.img" [alt]="usuario.img" style="border-radius: 50px;" width="100" class="p-shadow-4" />
                         </div>
+                        <div class="p-field">
+                            <p-fileUpload name="foto" accept="image/*" (onSelect)="onSelect($event.currentFiles[0])">
+                            </p-fileUpload>
+                        </div>
 
-                        <p-fileUpload name="demo[]" url="./upload.php" accept="image/*" (onUpload)="onUpload($event)">
 
-                        </p-fileUpload>
 
 
                         <!-- <div class="p-formgrid p-grid">

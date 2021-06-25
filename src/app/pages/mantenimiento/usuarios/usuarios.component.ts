@@ -7,6 +7,7 @@ import { IUserRole } from '../../../interfaces/usuario-role.interface';
 import { DestinosService } from '../../../services/destino.service';
 import { DestinoModel } from '../../../models/destino.model';
 import { environment } from "src/environments/environment";
+import { FileUploadService } from '../../../services/file-upload.service';
 
 const base_url = environment.URL_BASE
 
@@ -33,13 +34,14 @@ export class UsuariosComponent implements OnInit {
     destinos: DestinoModel[]=[];
     selectedDestino: number=8;
     baseUrlImg: string = `${base_url}/usuarios/foto?foto_nombre=`;
-    fotoFile!: any;
+    fotoSubir: File | undefined;
       //usuariofrm: IUsuario = {};
   //constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
   //constructor(private messageService: MessageService) { }
     constructor(
         private readonly usuariosService: UsuariosService,
-        private readonly destinosService: DestinosService  
+        private readonly destinosService: DestinosService,
+        private readonly fileUploadService: FileUploadService
     ){
         this.roles = [
             {code: 0, role_name: "admin"},
@@ -212,13 +214,15 @@ selectedProducts = [];
         // }
     }
 
-    onUpload(event: { files: File[]; }){
-        console.log('ENTRANDO AL ONUPLOAD');
-        for(let file in event.files){
-            this.fotoFile = file;
-            console.log('DATA DEL ARCHIVO', this.fotoFile);
-        }
+    onSelect(event: File){
+            
+            console.log('DATA DEL ARCHIVO', event);
+            this.fotoSubir = event;
+            let id: number =  this.usuario.id_usuario ;
+            this.fileUploadService.actualizarFoto(this.fotoSubir,)
     }
+
+
 
     findIndexById(/*id: string): number*/) {
         // let index = -1;

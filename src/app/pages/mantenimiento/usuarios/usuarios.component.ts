@@ -218,8 +218,8 @@ selectedProducts = [];
             
             console.log('DATA DEL ARCHIVO', event);
             this.fotoSubir = event;
-            let id: number =  this.usuario.id_usuario ;
-            this.fileUploadService.actualizarFoto(this.fotoSubir,)
+            let id: number =  this.usuario.id_usuario! ;
+            this.fileUploadService.actualizarFoto(this.fotoSubir, id);
     }
 
 

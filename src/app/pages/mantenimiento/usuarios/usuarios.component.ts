@@ -35,6 +35,7 @@ export class UsuariosComponent implements OnInit {
     selectedDestino: number=8;
     baseUrlImg: string = `${base_url}/usuarios/foto?foto_nombre=`;
     fotoSubir: File | undefined;
+    
       //usuariofrm: IUsuario = {};
   //constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
   //constructor(private messageService: MessageService) { }
@@ -214,7 +215,7 @@ selectedProducts = [];
         // }
     }
 
-    onSelect(event: File){
+    onUpload(event: File){
             
             console.log('DATA DEL ARCHIVO', event);
             this.fotoSubir = event;

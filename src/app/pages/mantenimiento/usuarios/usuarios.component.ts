@@ -216,11 +216,16 @@ selectedProducts = [];
     }
 
     onUpload(event: File){
-            
-            console.log('DATA DEL ARCHIVO', event);
-            this.fotoSubir = event;
-            let id: number =  this.usuario.id_usuario! ;
-            this.fileUploadService.actualizarFoto(this.fotoSubir, id);
+            try {
+                console.log('DATA DEL ARCHIVO', event);
+                this.fotoSubir = event;
+                let id: number =  this.usuario.id_usuario! ;
+                const respuesta = this.fileUploadService.actualizarFoto(this.fotoSubir, id);
+                console.log('RESPUESTA', respuesta);
+            } catch (error) {
+                console.log(error);
+                Swal.fire('Error', error.error.message, "error");    
+            }
     }
 
 

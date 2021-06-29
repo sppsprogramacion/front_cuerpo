@@ -220,11 +220,19 @@ selectedProducts = [];
                 console.log('DATA DEL ARCHIVO', event);
                 this.fotoSubir = event;
                 let id: number =  this.usuario.id_usuario! ;
-                const respuesta = this.fileUploadService.actualizarFoto(this.fotoSubir, id);
-                console.log('RESPUESTA', respuesta);
+               this.fileUploadService.actualizarFoto(this.fotoSubir, id).then(respuesta => {
+                   if(respuesta.ok){
+                    Swal.fire('Actualización Exitosa!!', "La foto del Usuario ha sido cambiada con éxito","success");
+                   }else{
+                       throw new Error('Error al Actualizar la foto');
+                   }
+               }).catch(error => {
+                Swal.fire('Error', error.message, "error"); 
+               });
+                
             } catch (error) {
-                console.log(error);
-                Swal.fire('Error', error.error.message, "error");    
+                
+                Swal.fire('Error', error.message, "error");    
             }
     }
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
+import { MessageService } from 'primeng/api';
 
 
 const base_url = environment.URL_BASE
@@ -27,10 +28,13 @@ export class FileUploadService {
           method: "POST",
           body: formData
         });
-        console.log('ESTADO', respuesta.ok);
+        if(!respuesta.ok){
+          throw new Error('Error en la Actualización de la Foto del Usuario');
+        }
+        return respuesta;
                 
       } catch (error) {
-        Swal.fire("Error al Actualizar Foto", error.error.message, "error");
+             return error
       }
   }
 }

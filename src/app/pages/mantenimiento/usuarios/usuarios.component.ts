@@ -56,8 +56,7 @@ export class UsuariosComponent implements OnInit {
         this.usuariosService.getUsuarios().subscribe(resultado => {
             this.total = resultado[1];
             this.usuarios = resultado[0];
-            console.log(this.usuarios);
-             });
+               });
              this.destinosService.listarDestinos().
                                      subscribe((resultado: any[]) => {
                                          let destinoItem: DestinoModel;
@@ -70,6 +69,13 @@ export class UsuariosComponent implements OnInit {
                                         });
       }
       
+    public actualizarUsuarios(){
+        this.usuariosService.getUsuarios().subscribe(resultado => {
+            this.total = resultado[1];
+            this.usuarios = resultado[0];
+               });
+    }
+
       public getRole(code: number): string {
           let valor: string = " ";
             this.roles.forEach(r => {
@@ -118,9 +124,7 @@ selectedProducts = [];
 
     editProduct(usuarioEdit: Usuario) {
         this.editando = true;
-        // this.product = {...product};
         this.usuario = {...usuarioEdit, fotoUrl: ""};
-        console.log('DATOS A EDITAR',this.usuario);
          this.userDialog = true;
            }
 
@@ -146,10 +150,8 @@ selectedProducts = [];
          this.submitted = true;
 
          if(this.editando){
-            console.log('ENTRANDO A MODO EDICION');
-            
+                       
             if(this.usuario.id_usuario){
-                //this.editProduct();
                 let data: Partial<Usuario>;
                 data = {
                     dni: this.usuario.dni,
@@ -159,17 +161,12 @@ selectedProducts = [];
                     role: this.usuario.role,
                     destino_id: this.usuario.destino_id,
                         }
-                // data = {...this.usuario, fotoUrl};
-                // delete data.id_usuario;
-                // delete data.fecha_alta;
-                // delete data.fecha_baja;
-                // delete data.ultima_actualizacion;
-                // delete data.clave;
-                
+                                
                 this.usuariosService.editUsuario(this.usuario.id_usuario, data)
                                         .subscribe(resultado => {
                                             Swal.fire('Exito',`El Registro ha sido editado con Exito`,"success");
-                                                
+                                            this.actualizarUsuarios();
+                                            this.hideDialog();
                                         },
                                         error => {
                                             
@@ -187,6 +184,8 @@ selectedProducts = [];
              this.usuariosService.crearUsuario(this.usuario).subscribe(resultado => {
                  this.hideDialog();
                  Swal.fire("Exito","Se ha agregado un Nuevo Usuario","success")
+                 this.actualizarUsuarios();
+                 this.hideDialog();
             },
             error => {
                       Swal.fire('Error',`Error al agregar el Usuario ${error.error.message}`,"error")

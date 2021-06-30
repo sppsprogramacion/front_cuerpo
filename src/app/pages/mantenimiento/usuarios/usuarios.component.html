@@ -128,7 +128,7 @@
                         </div>
                         <div class="p-field">
                             <!-- <p-fileUpload name="foto" accept="image/*" (uploadHandler)="onSelect($event.currentFiles[0])"></p-fileUpload> -->
-                            <p-fileUpload name="foto" [customUpload]="true" [multiple]="true" (uploadHandler)="onUpload($event.files[0])"></p-fileUpload>
+                            <p-fileUpload *ngIf="this.editando" name="foto" [customUpload]="true" [multiple]="true" (uploadHandler)="onUpload($event.files[0])"></p-fileUpload>
                         </div>
 
 

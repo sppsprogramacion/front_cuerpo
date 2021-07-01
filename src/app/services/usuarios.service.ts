@@ -47,4 +47,9 @@ export class UsuariosService {
   editUsuario(id: number, data: Partial<Usuario>){
     return this.http.put(`${base_url}/usuarios/${id}`, data);
   }
+
+  deleteUsuario(id: number){
+    return this.http.delete(`${base_url}/usuarios/${id}`);
+  }
+
 }

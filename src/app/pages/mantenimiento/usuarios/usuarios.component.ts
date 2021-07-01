@@ -51,8 +51,7 @@ export class UsuariosComponent implements OnInit {
         ]
          }
 
-  ngOnInit() {
-    
+  ngOnInit() {    
         this.usuariosService.getUsuarios().subscribe(resultado => {
             this.total = resultado[1];
             this.usuarios = resultado[0];
@@ -95,7 +94,7 @@ products = [];
 //   product: Product;
   
 //   selectedProducts: Product[];
-selectedProducts = [];
+selectedUsuarios: number[] = [];
   
      submitted: boolean = false;
 
@@ -109,7 +108,8 @@ selectedProducts = [];
          this.userDialog = true;
     }
 
-    deleteSelectedProducts() {
+    deleteSelectedUsuarios() {
+        console.log("LSITADO DE USUARIOS SELECCIONADOS", this.selectedUsuarios);
         // this.confirmationService.confirm({
         //     message: 'Are you sure you want to delete the selected products?',
         //     header: 'Confirm',
@@ -128,7 +128,57 @@ selectedProducts = [];
          this.userDialog = true;
            }
 
-    deleteProduct(usuario: Usuario) {
+    deleteUsuario(usuario: Usuario) {
+        const id: number = parseInt(usuario.id_usuario!.toString());
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+              confirmButton: 'btn btn-success',
+              cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+          })
+          
+          swalWithBootstrapButtons.fire({
+            title: 'Confirma el borrado del Usuario: ',
+            text: "Esta Acción no podrá revertirse!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, borrar Usuario',
+            cancelButtonText: 'No, cancelar!',
+            reverseButtons: true
+          }).then((result) => {
+            if (result.isConfirmed) {
+                this.usuariosService.deleteUsuario(id)
+                                    .subscribe(resultado => {
+                                        this.actualizarUsuarios();
+                                    },
+                                    error => {
+                                        Swal.fire("Error al Elimnar el Usuario", error.error.message, "error");
+                                    });
+              swalWithBootstrapButtons.fire(
+                'Eliminado!',
+                'El registro de Usuario ha sido borrado.',
+                'success'
+              )
+            } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire(
+                'Cancelled',
+                'Se ha cancelado la eliminación del Usuario :)',
+                'error'
+              )
+            }
+          })
+
+
+
+
+
+
+
         // this.confirmationService.confirm({
         //     message: 'Are you sure you want to delete ' + product.name + '?',
         //     header: 'Confirm',

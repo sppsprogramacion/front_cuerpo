@@ -10,7 +10,7 @@
                     <p-toolbar styleClass="p-mb-4">
                         <ng-template pTemplate="left">
                             <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
-                            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
+                            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedUsuarios()" [disabled]="!selectedUsuarios || !selectedUsuarios.length"></button>
                         </ng-template>
 
                         <ng-template pTemplate="right">
@@ -19,7 +19,7 @@
                         </ng-template>
                     </p-toolbar>
 
-                    <p-table #dt [value]="usuarios" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" [(selection)]="selectedProducts" [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    <p-table #dt [value]="usuarios" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" [(selection)]="selectedUsuarios" [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                         [showCurrentPageReport]="true">
                         <ng-template pTemplate="caption">
                             <div class="p-d-flex p-ai-center p-jc-between">
@@ -57,7 +57,7 @@
                         <ng-template pTemplate="body" let-usuario>
                             <tr>
                                 <td>
-                                    <p-tableCheckbox [value]=""></p-tableCheckbox>
+                                    <p-tableCheckbox [value]="usuario.id_usuario" [(ngModel)]="selectedUsuarios"></p-tableCheckbox>
                                 </td>
                                 <!-- <td>{{usuario.img}}</td> -->
                                 <td><img [src]="baseUrlImg + usuario.img" [alt]="usuario.img" style="border-radius: 150px;" width="50" class="p-shadow-4" /></td>
@@ -69,7 +69,7 @@
                                 <!-- <td><span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span></td> -->
                                 <td>
                                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editProduct(usuario)"></button>
-                                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(usuario)"></button>
+                                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteUsuario(usuario)"></button>
                                 </td>
                             </tr>
                         </ng-template>

@@ -1,0 +1,43 @@
+
+
+export class Personal{
+    constructor(
+    public id_personal?: number,
+    public apellido_1?: string,
+    public apellido_2?: string,
+    public nombre_1?: string,
+    public nombre_2?: string,
+    public nombre_3?: string,
+    public dni?: number,
+    public fecha_nacimiento?: Date,
+    public fecha_ingreso?: Date,
+    public ultimo_ascenso?: Date,
+    public legajo?: number,
+    public cuil?: string,
+    public sexo_id?: number,
+    public estado_civil_id?: number,
+    public destino_id?: number,
+    public departamento_id? : number,
+    public division_id? : number,
+    public sector_id? : number,
+    public seccion_guardia_id? : number,
+    public funcion? : string,
+    public escalafon_id? : number,
+    public escala_jerarquica_id? : number,
+    public grado_id? : number,
+    public nacionalidad? : string,
+    public domicilio? : string,
+    public provincia_id? : number,
+    public departamento_provincial_id? : number,
+    public municipio_id? : number,
+    public ciudad_id? : number,
+    public telefonos? : string,
+    public email? : string,
+    public altura?: number,
+    public peso?: number,
+    public registrado_por?: number,
+    public situacion_id? : number,
+    public foto?: string,
+    ){}
+
+}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PersonalService } from '../../services/personal.service';
 
 @Component({
   selector: 'app-list',
@@ -13,7 +14,7 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
   }
 
-   customers: Customer[];
+   personalList: Personal[];
 
     totalRecords: number;
 

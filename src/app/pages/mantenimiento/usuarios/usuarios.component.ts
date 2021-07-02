@@ -94,7 +94,7 @@ products = [];
 //   product: Product;
   
 //   selectedProducts: Product[];
-selectedUsuarios: number[] = [];
+selectedUsuarios: Usuario[] = [];
   
      submitted: boolean = false;
 
@@ -109,7 +109,54 @@ selectedUsuarios: number[] = [];
     }
 
     deleteSelectedUsuarios() {
-        console.log("LSITADO DE USUARIOS SELECCIONADOS", this.selectedUsuarios);
+      const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+              confirmButton: 'btn btn-success',
+              cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+          })
+
+      swalWithBootstrapButtons.fire({
+            title: 'Confirma el borrado de los Usuarios ',
+            text: "Esta Acción no podrá revertirse!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, borrar los Usuarios Seleccionados',
+            cancelButtonText: 'No, cancelar!',
+            reverseButtons: true
+          }).then((result) => {
+            if (result.isConfirmed) {
+                      this.selectedUsuarios.forEach(usuario => {
+                      const id: number = parseInt(usuario.id_usuario!.toString());
+                      this.usuariosService.deleteUsuario(id)
+                                    .subscribe(resultado => {},
+                                    error => {
+                                        Swal.fire("Error al Elimnar el Usuario", error.error.message, "error");
+                                    });
+             });
+             this.actualizarUsuarios();
+             this.selectedUsuarios = [];
+ 
+               
+              swalWithBootstrapButtons.fire(
+                'Eliminados!',
+                'Los Registros Seleccionados han sido borrados.',
+                'success'
+              )
+            } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire(
+                'Cancelled',
+                'Se ha cancelado la eliminación de Usuarios :)',
+                'error'
+              )
+            }
+          })
+
+        
         // this.confirmationService.confirm({
         //     message: 'Are you sure you want to delete the selected products?',
         //     header: 'Confirm',

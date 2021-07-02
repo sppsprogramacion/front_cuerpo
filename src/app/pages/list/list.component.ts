@@ -42,7 +42,7 @@ export class ListComponent implements OnInit {
     //     this.loading = true;
     // }
 
-    loadCustomers(event: LazyLoadEvent) {  
+    cargarListaPersonal(event: LazyLoadEvent) {  
         this.loading = true;
 
         setTimeout(() => {

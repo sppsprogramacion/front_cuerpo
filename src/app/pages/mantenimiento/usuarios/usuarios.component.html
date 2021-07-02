@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Tabla de Mantenimiento de Usuarios</h3>
+                <h3 class="card-title">TABLA DE MANTENIMIENTO DE USUARIOS</h3>
             </div>
             <div class="card-body">
                 <!-- <p-toast></p-toast> -->
@@ -19,8 +19,7 @@
                         </ng-template>
                     </p-toolbar>
 
-                    <p-table #dt [value]="usuarios" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" 
-                        [(selection)]="selectedUsuarios" [rowHover]="true" dataKey="id_usuario" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    <p-table #dt [value]="usuarios" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" [(selection)]="selectedUsuarios" [rowHover]="true" dataKey="id_usuario" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                         [showCurrentPageReport]="true">
                         <ng-template pTemplate="caption">
                             <div class="p-d-flex p-ai-center p-jc-between">
@@ -61,7 +60,7 @@
                         <ng-template pTemplate="body" let-usuario>
                             <tr>
                                 <td>
-                                    <p-tableCheckbox [value]="usuario" ></p-tableCheckbox>
+                                    <p-tableCheckbox [value]="usuario"></p-tableCheckbox>
                                 </td>
                                 <!-- <td>{{usuario.img}}</td> -->
                                 <td><img [src]="baseUrlImg + usuario.img" [alt]="usuario.img" style="border-radius: 150px;" width="50" class="p-shadow-4" /></td>

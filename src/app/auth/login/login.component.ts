@@ -18,13 +18,14 @@ export class LoginComponent {
 
   extraerData(data: any) {
       //voy a desestructurar respuesta
-       const {apellido, correo, dni, img, nombre, role} = data;
+       const {apellido, correo, dni, img, nombre, role, destino_id} = data;
        const user: Usuario = new Usuario();
        user.nombre = nombre;
        user.apellido = apellido;
        user.correo = correo;
        user.img = img;
        user.role = role;
+       user.destino_id = destino_id;
        let correoAux: string = "";
        if(user.correo){
          correoAux= user.correo;
@@ -32,7 +33,7 @@ export class LoginComponent {
        globalConstants.urlImagen = user.fotoUrl;                                      
        globalConstants.nombreUsuario = user.nombre + " " + user.apellido;
        globalConstants.emailUsuario = correoAux;
-       
+       globalConstants.destino_usuario = user.destino_id!;
   }
 
  public loginForm = this.fb.group({

@@ -6,4 +6,5 @@ export class globalConstants {
     public static nombreUsuario: string = "";
     public static emailUsuario: string = "";
     public static temaOscuro: boolean = true;
+    public static destino_usuario: number;
 }

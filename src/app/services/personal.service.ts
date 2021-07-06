@@ -16,12 +16,8 @@ export class PersonalService {
 
 
         listarPersonal(destino: number){
-            return this.http.get<[personal: Personal[],total:number]>(`${base_url}/personal/${destino}`)
-            // console.log('DESTINO: ', destino);
-            // console.log('RUTA: ', `${base_url}/personal/${destino}`);
-
-            // return this.http.get(`${base_url}/personal/${destino}`)
-
+            return this.http.get<[personal: any[],total:number]>(`${base_url}/personal/destino/${destino}`)
+            
         }
     
 

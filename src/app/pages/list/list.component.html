@@ -10,7 +10,8 @@
                     <div class="card">
 
                         <p-table #dt [value]="dataTable" [(selection)]="selectedPersonal" dataKey="id_personal" styleClass="p-datatable-customers" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true"
-                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']" [scrollable]="true" scrollHeight="100%" scrollWidth="100%">
+                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']" [scrollable]="true" scrollHeight="100%" scrollWidth="100%"
+                            [responsive]="true">
                             <ng-template pTemplate="caption">
                                 <div class="table-header">
                                     Listado del Personal
@@ -19,6 +20,20 @@
                 <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
             </span> -->
                                 </div>
+                            </ng-template>
+                            <ng-template pTemplate="colgroup" let-columns>
+                                <colgroup>
+                                    <col style="width:40px">
+                                    <col style="width:100px">
+                                    <col style="width:100px">
+                                    <col style="width:100px">
+                                    <col style="width:100px">
+                                    <col style="width:100px">
+                                    <col style="width:100px">
+                                    <col style="width:100px">
+                                    <col style="width:100px">
+                                    <col style="width:100px">
+                                </colgroup>
                             </ng-template>
                             <ng-template pTemplate="header">
                                 <tr>

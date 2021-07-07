@@ -49,7 +49,7 @@ export class ListComponent implements OnInit {
   totalRecords: number = 0;
   selectedPersonal: IPersonalTable[]=[];
   loading: boolean = true;
-
+  
     // cols: any[];
 
     // loading: boolean;
@@ -101,7 +101,7 @@ export class ListComponent implements OnInit {
                return registro;
                         
              });
-             
+                        
               });
              this.loading = false;
     

@@ -9,9 +9,9 @@
 
                     <div class="card">
 
-                        <p-table #dt [value]="dataTable" [(selection)]="selectedPersonal" dataKey="id_personal" styleClass="p-datatable-customers" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true"
-                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']" [scrollable]="true" scrollHeight="100%" scrollWidth="100%"
-                            [responsive]="true">
+                        <p-table #dt [value]="dataTable" [style]="{width:'100%'}" [(selection)]="selectedPersonal" dataKey="id_personal" styleClass="p-datatable-customers" [rowHover]="true" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50]" [loading]="loading"
+                            [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']" [scrollable]="true" scrollHeight="100%"
+                            [responsive]="false">
                             <ng-template pTemplate="caption">
                                 <div class="table-header">
                                     Listado del Personal
@@ -24,15 +24,28 @@
                             <ng-template pTemplate="colgroup" let-columns>
                                 <colgroup>
                                     <col style="width:40px">
-                                    <col style="width:100px">
-                                    <col style="width:100px">
-                                    <col style="width:100px">
-                                    <col style="width:100px">
-                                    <col style="width:100px">
-                                    <col style="width:100px">
-                                    <col style="width:100px">
-                                    <col style="width:100px">
-                                    <col style="width:100px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
                                 </colgroup>
                             </ng-template>
                             <ng-template pTemplate="header">
@@ -80,6 +93,13 @@
                                             <p-columnFilter type="text" field="nombre_3" display="menu" class="p-ml-auto"></p-columnFilter>
                                         </div>
                                     </th>
+                                    <th pSortableColumn="grado">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Grado
+                                            <p-sortIcon field="grado"></p-sortIcon>
+                                            <p-columnFilter type="text" field="grado" display="menu" class="p-ml-auto"></p-columnFilter>
+                                        </div>
+                                    </th>
                                     <th pSortableColumn="dni">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             DNI
@@ -99,6 +119,90 @@
                                             Sexo
                                             <p-sortIcon field="sexo"></p-sortIcon>
                                             <p-columnFilter type="text" field="sexo" display="menu" class="p-ml-auto"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="situacion">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Situación
+                                            <p-sortIcon field="situacion"></p-sortIcon>
+                                            <p-columnFilter type="text" field="situacion" display="menu" class="p-ml-auto"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="destino">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Destino
+                                            <p-sortIcon field="destino"></p-sortIcon>
+                                            <p-columnFilter type="text" field="destino" display="menu" class="p-ml-auto"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="departamento">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Departamento
+                                            <p-sortIcon field="departamento"></p-sortIcon>
+                                            <p-columnFilter type="text" field="departamento" display="menu" class="p-ml-auto"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="division">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            División
+                                            <p-sortIcon field="division"></p-sortIcon>
+                                            <p-columnFilter type="text" field="division" display="menu" class="p-ml-auto"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="sector">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Sector
+                                            <p-sortIcon field="sector"></p-sortIcon>
+                                            <p-columnFilter type="text" field="sector" display="menu" class="p-ml-auto"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="seccion_guardia">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Guardia
+                                            <p-sortIcon field="seccion_guardia"></p-sortIcon>
+                                            <p-columnFilter type="text" field="seccion_guardia" display="menu" class="p-ml-auto"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="funcion">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Función
+                                            <p-sortIcon field="funcion"></p-sortIcon>
+                                            <p-columnFilter type="text" field="funcion" display="menu" class="p-ml-auto"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="escalafon">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Escalafón
+                                            <p-sortIcon field="escalafon"></p-sortIcon>
+                                            <p-columnFilter type="text" field="escalafon" display="menu" class="p-ml-auto"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="escala_jerarquica">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Escala
+                                            <p-sortIcon field="escala_jerarquica"></p-sortIcon>
+                                            <p-columnFilter type="text" field="escala_jerarquica" display="menu" class="p-ml-auto"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="nivel_educativo">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Educación
+                                            <p-sortIcon field="nivel_educativo"></p-sortIcon>
+                                            <p-columnFilter type="text" field="nivel_educativo" display="menu" class="p-ml-auto"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="nacionalidad">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Nacionalidad
+                                            <p-sortIcon field="nacionalidad"></p-sortIcon>
+                                            <p-columnFilter type="text" field="nacionalidad" display="menu" class="p-ml-auto"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="domicilio">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Domicilio
+                                            <p-sortIcon field="domicilio"></p-sortIcon>
+                                            <p-columnFilter type="text" field="domicilio" display="menu" class="p-ml-auto"></p-columnFilter>
                                         </div>
                                     </th>
                                     <!-- <th pSortableColumn="country.name">
@@ -202,6 +306,9 @@
                                         <span class="p-column-title">Nombre 3</span> {{personal.nombre_3}}
                                     </td>
                                     <td>
+                                        <span class="p-column-title">Grado</span> {{personal.grado}}
+                                    </td>
+                                    <td>
                                         <span class="p-column-title">Documento</span> {{personal.dni}}
                                     </td>
                                     <td>
@@ -209,6 +316,42 @@
                                     </td>
                                     <td>
                                         <span class="p-column-title">Sexo</span> {{personal.sexo}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Situacion</span> {{personal.situacion}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Destino</span> {{personal.destino}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Departamento</span> {{personal.departamento}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Division</span> {{personal.division}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Sector</span> {{personal.sector}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Guardia</span> {{personal.seccion_guardia}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Funcion</span> {{personal.funcion}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Escalafon</span> {{personal.escalafon}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Escala</span> {{personal.escala_jerarquica}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Educacion</span> {{personal.nivel_educativo}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Nacionalidad</span> {{personal.nacionalidad}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Domicilio</span> {{personal.domicilio}}
                                     </td>
                                     <!-- <td>
                                         <span class="p-column-title">Country</span>

@@ -83,7 +83,7 @@ export class ListComponent implements OnInit {
                 departamento:item.departamento? item.departamento.departamento : null,
                 division:item.division? item.division.division : null,
                 sector :item.sector? item.sector.sector : null,
-                seccion_guardia : item.seccion_guardia? item.seccion_guardia.seccion_guardia : null,
+                seccion_guardia : item.seccion_guardia? item.seccion_guardia.seccion : null,
                 funcion :item.funcion,
                 escalafon: item.escalafon.escalafon? item.escalafon.escalafon : null,
                 escala_jerarquica: item.escala_jerarquica.escala_jerarquica? item.escala_jerarquica.escala_jerarquica : null,

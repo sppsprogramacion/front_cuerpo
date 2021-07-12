@@ -46,6 +46,10 @@
                                     <col style="width:150px">
                                     <col style="width:150px">
                                     <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
                                 </colgroup>
                             </ng-template>
                             <ng-template pTemplate="header">
@@ -100,6 +104,27 @@
                                             <p-columnFilter type="text" field="grado" display="menu" class="p-ml-auto"></p-columnFilter>
                                         </div>
                                     </th>
+
+
+                                    <!-- <th pSortableColumn="grado">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Grado
+                                            <p-sortIcon field="grado"></p-sortIcon>
+                                            <p-columnFilter field="grado" matchMode="equals" display="menu" class="p-ml-auto">
+                                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                                    <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                                                        <ng-template let-option pTemplate="item">
+                                                            <span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
+                                                        </ng-template>
+                                                    </p-dropdown>
+                                                </ng-template>
+                                            </p-columnFilter>
+                                        </div>
+                                    </th> -->
+
+
+
+
                                     <th pSortableColumn="dni">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             DNI
@@ -203,6 +228,34 @@
                                             Domicilio
                                             <p-sortIcon field="domicilio"></p-sortIcon>
                                             <p-columnFilter type="text" field="domicilio" display="menu" class="p-ml-auto"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="provincia">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Provincia
+                                            <p-sortIcon field="provincia"></p-sortIcon>
+                                            <p-columnFilter type="text" field="provincia" display="menu" class="p-ml-auto"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="departamento_provincial">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Dpto Provincial
+                                            <p-sortIcon field="departamento_provincial"></p-sortIcon>
+                                            <p-columnFilter type="text" field="departamento_provincial" display="menu" class="p-ml-auto"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="municipio">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Municipio
+                                            <p-sortIcon field="municipio"></p-sortIcon>
+                                            <p-columnFilter type="text" field="municipio" display="menu" class="p-ml-auto"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="ciudad">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Ciudad
+                                            <p-sortIcon field="ciudad"></p-sortIcon>
+                                            <p-columnFilter type="text" field="ciudad" display="menu" class="p-ml-auto"></p-columnFilter>
                                         </div>
                                     </th>
                                     <!-- <th pSortableColumn="country.name">
@@ -352,6 +405,18 @@
                                     </td>
                                     <td>
                                         <span class="p-column-title">Domicilio</span> {{personal.domicilio}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Provincia</span> {{personal.provincia}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">DptoProvincial</span> {{personal.departamento_provincial}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Municipio</span> {{personal.municipio}}
+                                    </td>
+                                    <td>
+                                        <span class="p-column-title">Ciudad</span> {{personal.ciudad}}
                                     </td>
                                     <!-- <td>
                                         <span class="p-column-title">Country</span>

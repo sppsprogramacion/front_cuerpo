@@ -1,39 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { PersonalService } from '../../services/personal.service';
-import { Personal } from '../../models/personal.model';
+import { Personal, IPersonalTable } from '../../models/personal.model';
 import { globalConstants } from '../../common/global-constants';
+import { grados } from 'src/app/common/data-mockeada';
 
 
-interface IPersonalTable{
-     id_personal: number,
-     apellido_1: string,
-     apellido_2: string,
-     nombre_1: string,
-     nombre_2: string,
-     nombre_3: string,
-     dni: number,
-     legajo: number,
-     sexo: string,
-     estado_civil: string,
-     destino: string,
-     departamento: string,
-     division: string,
-     sector : string,
-     seccion_guardia : string,
-     funcion : string,
-     escalafon: string,
-     escala_jerarquica: string,
-     grado: string,
-     nacionalidad : string,
-     domicilio : string,
-     provincia : string,
-     departamento_provincial: string,
-     municipio: string,
-     ciudad: string,
-     nivel_educativo: string,
-     situacion : string,
-     foto: string,
-}
+// interface IPersonalTable{
+//      id_personal: number,
+//      apellido_1: string,
+//      apellido_2: string,
+//      nombre_1: string,
+//      nombre_2: string,
+//      nombre_3: string,
+//      dni: number,
+//      legajo: number,
+//      sexo: string,
+//      estado_civil: string,
+//      destino: string,
+//      departamento: string,
+//      division: string,
+//      sector : string,
+//      seccion_guardia : string,
+//      funcion : string,
+//      escalafon: string,
+//      escala_jerarquica: string,
+//      grado: string,
+//      nacionalidad : string,
+//      domicilio : string,
+//      provincia : string,
+//      departamento_provincial: string,
+//      municipio: string,
+//      ciudad: string,
+//      nivel_educativo: string,
+//      situacion : string,
+//      foto: string,
+// }
 
 @Component({
   selector: 'app-list',
@@ -48,6 +49,7 @@ export class ListComponent implements OnInit {
   dataTable: IPersonalTable[]=[];
   totalRecords: number = 0;
   selectedPersonal: IPersonalTable[]=[];
+  grados: string[]=[];
   loading: boolean = true;
   
     // cols: any[];
@@ -103,6 +105,13 @@ export class ListComponent implements OnInit {
              });
                         
               });
+
+              this.grados = grados.map(respuesta => {
+                    return respuesta.grado;
+              });
+
+              console.log(this.grados);
+
              this.loading = false;
     
 

@@ -58,3 +58,34 @@ export class Personal{
     ){}
 
 }
+
+export interface IPersonalTable{
+    id_personal: number,
+    apellido_1: string,
+    apellido_2: string,
+    nombre_1: string,
+    nombre_2: string,
+    nombre_3: string,
+    dni: number,
+    legajo: number,
+    sexo: string,
+    estado_civil: string,
+    destino: string,
+    departamento: string,
+    division: string,
+    sector : string,
+    seccion_guardia : string,
+    funcion : string,
+    escalafon: string,
+    escala_jerarquica: string,
+    grado: string,
+    nacionalidad : string,
+    domicilio : string,
+    provincia : string,
+    departamento_provincial: string,
+    municipio: string,
+    ciudad: string,
+    nivel_educativo: string,
+    situacion : string,
+    foto: string,
+}

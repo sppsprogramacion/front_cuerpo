@@ -5,6 +5,7 @@ import { ngPrimeModule } from '../../ngprime.module';
 
 
 
+
 @NgModule({
   declarations: [
     ListComponent
@@ -14,7 +15,8 @@ import { ngPrimeModule } from '../../ngprime.module';
     ngPrimeModule
   ],
   exports: [
-    ListComponent
-  ]
+    ListComponent,
+    ngPrimeModule
+    ]
 })
 export class ListModule { }

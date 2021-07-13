@@ -97,30 +97,30 @@
                                             <p-columnFilter type="text" field="nombre_3" display="menu" class="p-ml-auto"></p-columnFilter>
                                         </div>
                                     </th>
-                                    <th pSortableColumn="grado">
+                                    <!-- <th pSortableColumn="grado">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Grado
                                             <p-sortIcon field="grado"></p-sortIcon>
                                             <p-columnFilter type="text" field="grado" display="menu" class="p-ml-auto"></p-columnFilter>
                                         </div>
-                                    </th>
+                                    </th> -->
 
-
-                                    <!-- <th pSortableColumn="grado">
+                                    <th pSortableColumn="grado">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Grado
                                             <p-sortIcon field="grado"></p-sortIcon>
                                             <p-columnFilter field="grado" matchMode="equals" display="menu" class="p-ml-auto">
                                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                                    <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                                                    <p-dropdown ngModel="value" [options]="grados" (onChange)="filter($event.value)" placeholder="Any">
                                                         <ng-template let-option pTemplate="item">
+                                                            <img [alt]="option.label" src="assets/showcase/images/demo/avatar/{{option.image}}" width="32" style="vertical-align: middle" />
                                                             <span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
                                                         </ng-template>
                                                     </p-dropdown>
                                                 </ng-template>
                                             </p-columnFilter>
                                         </div>
-                                    </th> -->
+                                    </th>
 
 
 

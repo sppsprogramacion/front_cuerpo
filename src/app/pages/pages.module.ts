@@ -19,6 +19,7 @@ import { ngPrimeModule } from '../ngprime.module';
    exports: [
      DashboardComponent,
      PagesComponent,
+     ngPrimeModule,
    ],
    imports: [
      CommonModule,

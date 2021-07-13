@@ -23,8 +23,9 @@
                             </ng-template>
                             <ng-template pTemplate="colgroup" let-columns>
                                 <colgroup>
+                                    <col style="width:70px">
                                     <col style="width:40px">
-                                    <col style="width:150px">
+                                    <col style="width:80px">
                                     <col style="width:150px">
                                     <col style="width:150px">
                                     <col style="width:150px">
@@ -54,6 +55,7 @@
                             </ng-template>
                             <ng-template pTemplate="header">
                                 <tr>
+                                    <th></th>
                                     <th style="width: 3rem">
                                         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                                     </th>
@@ -97,14 +99,6 @@
                                             <p-columnFilter type="text" field="nombre_3" display="menu" class="p-ml-auto"></p-columnFilter>
                                         </div>
                                     </th>
-                                    <!-- <th pSortableColumn="grado">
-                                        <div class="p-d-flex p-jc-between p-ai-center">
-                                            Grado
-                                            <p-sortIcon field="grado"></p-sortIcon>
-                                            <p-columnFilter type="text" field="grado" display="menu" class="p-ml-auto"></p-columnFilter>
-                                        </div>
-                                    </th> -->
-
                                     <th pSortableColumn="grado">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Grado
@@ -113,7 +107,7 @@
                                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                                     <p-dropdown ngModel="value" [options]="grados" (onChange)="filter($event.value)" placeholder="Any">
                                                         <ng-template let-option pTemplate="item">
-                                                            <img [alt]="option.label" src="assets/showcase/images/demo/avatar/{{option.image}}" width="32" style="vertical-align: middle" />
+                                                            <img [alt]="option.label" src="../../../assets/img/grados/{{option.img_name}}.gif" width="32" style="vertical-align: middle" />
                                                             <span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
                                                         </ng-template>
                                                     </p-dropdown>
@@ -121,10 +115,6 @@
                                             </p-columnFilter>
                                         </div>
                                     </th>
-
-
-
-
                                     <th pSortableColumn="dni">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             DNI
@@ -139,25 +129,60 @@
                                             <p-columnFilter type="text" field="legajo" display="menu" class="p-ml-auto"></p-columnFilter>
                                         </div>
                                     </th>
+
                                     <th pSortableColumn="sexo">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Sexo
                                             <p-sortIcon field="sexo"></p-sortIcon>
-                                            <p-columnFilter type="text" field="sexo" display="menu" class="p-ml-auto"></p-columnFilter>
+                                            <p-columnFilter field="sexo" matchMode="equals" display="menu" class="p-ml-auto">
+                                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                                    <p-dropdown ngModel="value" [options]="sexos" (onChange)="filter($event.value)" placeholder="Any">
+                                                        <ng-template let-option pTemplate="item">
+                                                            <span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
+                                                        </ng-template>
+                                                    </p-dropdown>
+                                                </ng-template>
+                                            </p-columnFilter>
                                         </div>
                                     </th>
-                                    <th pSortableColumn="situacion">
+                                    <!-- <th pSortableColumn="situacion">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Situación
                                             <p-sortIcon field="situacion"></p-sortIcon>
                                             <p-columnFilter type="text" field="situacion" display="menu" class="p-ml-auto"></p-columnFilter>
                                         </div>
+                                    </th> -->
+
+                                    <th pSortableColumn="situacion">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Situación
+                                            <p-sortIcon field="situacion"></p-sortIcon>
+                                            <p-columnFilter field="situacion" matchMode="equals" display="menu" class="p-ml-auto">
+                                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                                    <p-dropdown ngModel="value" [options]="situacion" (onChange)="filter($event.value)" placeholder="Any">
+                                                        <ng-template let-option pTemplate="item">
+                                                            <span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
+                                                        </ng-template>
+                                                    </p-dropdown>
+                                                </ng-template>
+                                            </p-columnFilter>
+                                        </div>
                                     </th>
+
+
                                     <th pSortableColumn="destino">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Destino
                                             <p-sortIcon field="destino"></p-sortIcon>
-                                            <p-columnFilter type="text" field="destino" display="menu" class="p-ml-auto"></p-columnFilter>
+                                            <p-columnFilter field="destino" matchMode="equals" display="menu" class="p-ml-auto">
+                                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                                    <p-dropdown ngModel="value" [options]="destinos" (onChange)="filter($event.value)" placeholder="Any">
+                                                        <ng-template let-option pTemplate="item">
+                                                            <span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
+                                                        </ng-template>
+                                                    </p-dropdown>
+                                                </ng-template>
+                                            </p-columnFilter>
                                         </div>
                                     </th>
                                     <th pSortableColumn="departamento">
@@ -199,23 +224,50 @@
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Escalafón
                                             <p-sortIcon field="escalafon"></p-sortIcon>
-                                            <p-columnFilter type="text" field="escalafon" display="menu" class="p-ml-auto"></p-columnFilter>
+                                            <p-columnFilter field="escalafon" matchMode="equals" display="menu" class="p-ml-auto">
+                                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                                    <p-dropdown ngModel="value" [options]="escalafones" (onChange)="filter($event.value)" placeholder="Any">
+                                                        <ng-template let-option pTemplate="item">
+                                                            <span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
+                                                        </ng-template>
+                                                    </p-dropdown>
+                                                </ng-template>
+                                            </p-columnFilter>
                                         </div>
                                     </th>
+
                                     <th pSortableColumn="escala_jerarquica">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Escala
                                             <p-sortIcon field="escala_jerarquica"></p-sortIcon>
-                                            <p-columnFilter type="text" field="escala_jerarquica" display="menu" class="p-ml-auto"></p-columnFilter>
+                                            <p-columnFilter field="escala_jerarquica" matchMode="equals" display="menu" class="p-ml-auto">
+                                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                                    <p-dropdown ngModel="value" [options]="escalas" (onChange)="filter($event.value)" placeholder="Any">
+                                                        <ng-template let-option pTemplate="item">
+                                                            <span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
+                                                        </ng-template>
+                                                    </p-dropdown>
+                                                </ng-template>
+                                            </p-columnFilter>
                                         </div>
                                     </th>
                                     <th pSortableColumn="nivel_educativo">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Educación
                                             <p-sortIcon field="nivel_educativo"></p-sortIcon>
-                                            <p-columnFilter type="text" field="nivel_educativo" display="menu" class="p-ml-auto"></p-columnFilter>
+                                            <p-columnFilter field="nivel_educativo" matchMode="equals" display="menu" class="p-ml-auto">
+                                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                                    <p-dropdown ngModel="value" [options]="nivel_educativo" (onChange)="filter($event.value)" placeholder="Any">
+                                                        <ng-template let-option pTemplate="item">
+                                                            <span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
+                                                        </ng-template>
+                                                    </p-dropdown>
+                                                </ng-template>
+                                            </p-columnFilter>
                                         </div>
                                     </th>
+
+
                                     <th pSortableColumn="nacionalidad">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Nacionalidad
@@ -338,6 +390,11 @@
                             <ng-template pTemplate="body" let-personal>
                                 <tr class="p-selectable-row">
                                     <td>
+                                        <a type="button" href="dashboard/edit" pButton pRipple icon="pi pi-cog" class="p-button-rounded p-button-info p-mr-2" (click)="EditarPersonal()">
+                                        </a>
+
+                                    </td>
+                                    <td>
                                         <p-tableCheckbox [value]="personal"></p-tableCheckbox>
                                     </td>
                                     <td>
@@ -418,6 +475,7 @@
                                     <td>
                                         <span class="p-column-title">Ciudad</span> {{personal.ciudad}}
                                     </td>
+
                                     <!-- <td>
                                         <span class="p-column-title">Country</span>
                                         <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30">

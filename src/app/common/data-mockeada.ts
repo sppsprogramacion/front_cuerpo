@@ -27933,5 +27933,66 @@ export const provincias = [
         }
     ];
 
+export const sexos = [
+    {
+        "id_sexo": 2,
+        "sexo": "femenino"
+    },
+    {
+        "id_sexo": 1,
+        "sexo": "masculino"
+    }
+];
+
+export const destinos = [
+    {
+        "id_destino": 8,
+        "destino": "sin destino"
+    },
+    {
+        "id_destino": 1,
+        "destino": "Unidad Carcelaria Nº 1 - Salta"
+    },
+    {
+        "id_destino": 2,
+        "destino": "Unidad Carcelaria Nº 2 - Metán"
+    },
+    {
+        "id_destino": 3,
+        "destino": "Unidad Carcelaria Nº 3 - Orán"
+    },
+    {
+        "id_destino": 4,
+        "destino": "Unidad Carcelaria Nº 4 - Mujeres Salta"
+    },
+    {
+        "id_destino": 5,
+        "destino": "Unidad Carcelaria Nº 5 - Tartagal"
+    },
+    {
+        "id_destino": 6,
+        "destino": "Unidad Carcelaria Nº 6 - Granja Rosario de Lerma"
+    },
+    {
+        "id_destino": 7,
+        "destino": "Unidad Carcelaria Nº 7 - Granja Cerrillos"
+    }
+];
+
+export const situacion = [
+    {
+        "id_situacion": 1,
+        "situacion": "Activo"
+    },
+    {
+        "id_situacion": 2,
+        "situacion": "Pasivo"
+    }
+];
+
+
+
+
+
 
 

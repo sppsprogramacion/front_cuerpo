@@ -2,7 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { PersonalService } from '../../services/personal.service';
 import { Personal, IPersonalTable } from '../../models/personal.model';
 import { globalConstants } from '../../common/global-constants';
-import { grados } from 'src/app/common/data-mockeada';
+import { destinos, escalafon, escalaJerarquica, grados, nivelEducativo, sexos, situacion } from 'src/app/common/data-mockeada';
+//import * as path from 'path';
+
+interface IObjectModel{
+  label: string; 
+  value: string;
+}
 
 
 @Component({
@@ -20,7 +26,12 @@ export class ListComponent implements OnInit {
   selectedPersonal: IPersonalTable[]=[];
   grados: {label: string, value: string,img_name: string}[]=[];
   loading: boolean = true;
-  
+  sexos: IObjectModel[]=[];
+  destinos: IObjectModel[] = [];
+  escalafones: IObjectModel[] = [];
+  escalas: IObjectModel[] = [];
+  nivel_educativo: IObjectModel[] = [];
+  situacion: IObjectModel[] = [];
     // cols: any[];
 
     // loading: boolean;
@@ -77,15 +88,55 @@ export class ListComponent implements OnInit {
 
               this.grados = grados.map(respuesta => {
                     return {
-                      label: respuesta.grado.toUpperCase(),
+                      label: respuesta.grado.toLowerCase(),
                       value: respuesta.grado,
                       img_name: respuesta.grado.replace(' ','_')
                       }
               });
-              console.log(this.grados);
+              
+              this.sexos = sexos.map(respuesta => {
+                return {
+                  label: respuesta.sexo.toLowerCase(),
+                  value: respuesta.sexo,
+                 }
+          });
+
+          this.destinos = destinos.map(respuesta => {
+            return {
+              label: respuesta.destino.toLowerCase(),
+              value: respuesta.destino } 
+            });
+          this.escalafones = escalafon.map(respuesta => {
+            return {
+              label: respuesta.escalafon.toLowerCase(),
+              value: respuesta.escalafon } 
+            });
+
+          this.escalas = escalaJerarquica.map(respuesta => {
+            return {
+              label: respuesta.escala_jerarquica.toLowerCase(),
+              value: respuesta.escala_jerarquica } 
+            });
+
+          this.nivel_educativo = nivelEducativo.map(respuesta => {
+            return {
+              label: respuesta.nivel_educativo.toLowerCase(),
+              value: respuesta.nivel_educativo } 
+            });
+
+          this.situacion = situacion.map(respuesta => {
+            return {
+              label: respuesta.situacion.toLowerCase(),
+              value: respuesta.situacion } 
+            });
+
               this.loading = false;
     
 
+     }
+
+     EditarPersonal(){
+       
      }
 
     // cargarListaPersonal(event: LazyLoadEvent) {  

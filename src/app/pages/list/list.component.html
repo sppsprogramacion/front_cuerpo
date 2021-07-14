@@ -9,7 +9,7 @@
 
                     <div class="card">
 
-                        <p-table #dt [value]="dataTable" [style]="{width:'100%'}" [(selection)]="selectedPersonal" dataKey="id_personal" styleClass="p-datatable-customers" [rowHover]="true" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50]" [loading]="loading"
+                        <p-table #dt [value]="personalList" [style]="{width:'100%'}" [(selection)]="selectedPersonal" dataKey="id_personal" styleClass="p-datatable-customers" [rowHover]="true" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50]" [loading]="loading"
                             [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']" [scrollable]="true" scrollHeight="100%"
                             [responsive]="false">
                             <ng-template pTemplate="caption">
@@ -99,11 +99,11 @@
                                             <p-columnFilter type="text" field="nombre_3" display="menu" class="p-ml-auto"></p-columnFilter>
                                         </div>
                                     </th>
-                                    <th pSortableColumn="grado">
+                                    <th pSortableColumn="grado.grado">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Grado
-                                            <p-sortIcon field="grado"></p-sortIcon>
-                                            <p-columnFilter field="grado" matchMode="equals" display="menu" class="p-ml-auto">
+                                            <p-sortIcon field="grado.grado"></p-sortIcon>
+                                            <p-columnFilter field="grado.grado" matchMode="equals" display="menu" class="p-ml-auto">
                                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                                     <p-dropdown ngModel="value" [options]="grados" (onChange)="filter($event.value)" placeholder="Any">
                                                         <ng-template let-option pTemplate="item">
@@ -130,11 +130,11 @@
                                         </div>
                                     </th>
 
-                                    <th pSortableColumn="sexo">
+                                    <th pSortableColumn="sexo.sexo">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Sexo
-                                            <p-sortIcon field="sexo"></p-sortIcon>
-                                            <p-columnFilter field="sexo" matchMode="equals" display="menu" class="p-ml-auto">
+                                            <p-sortIcon field="sexo.sexo"></p-sortIcon>
+                                            <p-columnFilter field="sexo.sexo" matchMode="equals" display="menu" class="p-ml-auto">
                                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                                     <p-dropdown ngModel="value" [options]="sexos" (onChange)="filter($event.value)" placeholder="Any">
                                                         <ng-template let-option pTemplate="item">
@@ -153,11 +153,11 @@
                                         </div>
                                     </th> -->
 
-                                    <th pSortableColumn="situacion">
+                                    <th pSortableColumn="situacion.situacion">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Situación
-                                            <p-sortIcon field="situacion"></p-sortIcon>
-                                            <p-columnFilter field="situacion" matchMode="equals" display="menu" class="p-ml-auto">
+                                            <p-sortIcon field="situacion.situacion"></p-sortIcon>
+                                            <p-columnFilter field="situacion.situacion" matchMode="equals" display="menu" class="p-ml-auto">
                                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                                     <p-dropdown ngModel="value" [options]="situacion" (onChange)="filter($event.value)" placeholder="Any">
                                                         <ng-template let-option pTemplate="item">
@@ -170,11 +170,11 @@
                                     </th>
 
 
-                                    <th pSortableColumn="destino">
+                                    <th pSortableColumn="destino.destino">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Destino
-                                            <p-sortIcon field="destino"></p-sortIcon>
-                                            <p-columnFilter field="destino" matchMode="equals" display="menu" class="p-ml-auto">
+                                            <p-sortIcon field="destino.destino"></p-sortIcon>
+                                            <p-columnFilter field="destino.destino" matchMode="equals" display="menu" class="p-ml-auto">
                                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                                     <p-dropdown ngModel="value" [options]="destinos" (onChange)="filter($event.value)" placeholder="Any">
                                                         <ng-template let-option pTemplate="item">
@@ -185,25 +185,26 @@
                                             </p-columnFilter>
                                         </div>
                                     </th>
-                                    <th pSortableColumn="departamento">
+                                    <th pSortableColumn="departamento.departamento">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Departamento
-                                            <p-sortIcon field="departamento"></p-sortIcon>
-                                            <p-columnFilter type="text" field="departamento" display="menu" class="p-ml-auto"></p-columnFilter>
+                                            <p-sortIcon field="departamento.departamento"></p-sortIcon>
+                                            <p-columnFilter type="text" field="departamento.departamento" display="menu" class="p-ml-auto"></p-columnFilter>
                                         </div>
                                     </th>
-                                    <th pSortableColumn="division">
+
+                                    <th pSortableColumn="division.division">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             División
-                                            <p-sortIcon field="division"></p-sortIcon>
-                                            <p-columnFilter type="text" field="division" display="menu" class="p-ml-auto"></p-columnFilter>
+                                            <p-sortIcon field="division.division"></p-sortIcon>
+                                            <p-columnFilter type="text" field="division.division" display="menu" class="p-ml-auto"></p-columnFilter>
                                         </div>
                                     </th>
-                                    <th pSortableColumn="sector">
+                                    <th pSortableColumn="sector.sector">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Sector
-                                            <p-sortIcon field="sector"></p-sortIcon>
-                                            <p-columnFilter type="text" field="sector" display="menu" class="p-ml-auto"></p-columnFilter>
+                                            <p-sortIcon field="sector.sector"></p-sortIcon>
+                                            <p-columnFilter type="text" field="sector.sector" display="menu" class="p-ml-auto"></p-columnFilter>
                                         </div>
                                     </th>
                                     <th pSortableColumn="seccion_guardia">
@@ -220,11 +221,11 @@
                                             <p-columnFilter type="text" field="funcion" display="menu" class="p-ml-auto"></p-columnFilter>
                                         </div>
                                     </th>
-                                    <th pSortableColumn="escalafon">
+                                    <th pSortableColumn="escalafon.escalafon">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Escalafón
-                                            <p-sortIcon field="escalafon"></p-sortIcon>
-                                            <p-columnFilter field="escalafon" matchMode="equals" display="menu" class="p-ml-auto">
+                                            <p-sortIcon field="escalafon.escalafon"></p-sortIcon>
+                                            <p-columnFilter field="escalafon.escalafon" matchMode="equals" display="menu" class="p-ml-auto">
                                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                                     <p-dropdown ngModel="value" [options]="escalafones" (onChange)="filter($event.value)" placeholder="Any">
                                                         <ng-template let-option pTemplate="item">
@@ -236,11 +237,11 @@
                                         </div>
                                     </th>
 
-                                    <th pSortableColumn="escala_jerarquica">
+                                    <th pSortableColumn="escala_jerarquica.escala_jerarquica">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Escala
-                                            <p-sortIcon field="escala_jerarquica"></p-sortIcon>
-                                            <p-columnFilter field="escala_jerarquica" matchMode="equals" display="menu" class="p-ml-auto">
+                                            <p-sortIcon field="escala_jerarquica.escala_jerarquica"></p-sortIcon>
+                                            <p-columnFilter field="escala_jerarquica.escala_jerarquica" matchMode="equals" display="menu" class="p-ml-auto">
                                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                                     <p-dropdown ngModel="value" [options]="escalas" (onChange)="filter($event.value)" placeholder="Any">
                                                         <ng-template let-option pTemplate="item">
@@ -251,11 +252,11 @@
                                             </p-columnFilter>
                                         </div>
                                     </th>
-                                    <th pSortableColumn="nivel_educativo">
+                                    <th pSortableColumn="nivel_educativo.nivel_educativo">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Educación
-                                            <p-sortIcon field="nivel_educativo"></p-sortIcon>
-                                            <p-columnFilter field="nivel_educativo" matchMode="equals" display="menu" class="p-ml-auto">
+                                            <p-sortIcon field="nivel_educativo.nivel_educativo"></p-sortIcon>
+                                            <p-columnFilter field="nivel_educativo.nivel_educativo" matchMode="equals" display="menu" class="p-ml-auto">
                                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                                     <p-dropdown ngModel="value" [options]="nivel_educativo" (onChange)="filter($event.value)" placeholder="Any">
                                                         <ng-template let-option pTemplate="item">
@@ -268,39 +269,39 @@
                                     </th>
 
 
-                                    <th pSortableColumn="nacionalidad">
+                                    <th pSortableColumn="nacionalidad.nacionalidad">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Nacionalidad
-                                            <p-sortIcon field="nacionalidad"></p-sortIcon>
-                                            <p-columnFilter type="text" field="nacionalidad" display="menu" class="p-ml-auto"></p-columnFilter>
+                                            <p-sortIcon field="nacionalidad.nacionalidad"></p-sortIcon>
+                                            <p-columnFilter type="text" field="nacionalidad.nacionalidad" display="menu" class="p-ml-auto"></p-columnFilter>
                                         </div>
                                     </th>
-                                    <th pSortableColumn="domicilio">
+                                    <th pSortableColumn="domicilio.domicilio">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Domicilio
-                                            <p-sortIcon field="domicilio"></p-sortIcon>
-                                            <p-columnFilter type="text" field="domicilio" display="menu" class="p-ml-auto"></p-columnFilter>
+                                            <p-sortIcon field="domicilio.domicilio"></p-sortIcon>
+                                            <p-columnFilter type="text" field="domicilio.domicilio" display="menu" class="p-ml-auto"></p-columnFilter>
                                         </div>
                                     </th>
-                                    <th pSortableColumn="provincia">
+                                    <th pSortableColumn="provincia.provincia">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Provincia
-                                            <p-sortIcon field="provincia"></p-sortIcon>
-                                            <p-columnFilter type="text" field="provincia" display="menu" class="p-ml-auto"></p-columnFilter>
+                                            <p-sortIcon field="provincia.provincia"></p-sortIcon>
+                                            <p-columnFilter type="text" field="provincia.provincia" display="menu" class="p-ml-auto"></p-columnFilter>
                                         </div>
                                     </th>
-                                    <th pSortableColumn="departamento_provincial">
+                                    <th pSortableColumn="departamento_provincial.departamento_provincial">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Dpto Provincial
-                                            <p-sortIcon field="departamento_provincial"></p-sortIcon>
-                                            <p-columnFilter type="text" field="departamento_provincial" display="menu" class="p-ml-auto"></p-columnFilter>
+                                            <p-sortIcon field="departamento_provincial.departamento_provincial"></p-sortIcon>
+                                            <p-columnFilter type="text" field="departamento_provincial.departamento_provincial" display="menu" class="p-ml-auto"></p-columnFilter>
                                         </div>
                                     </th>
-                                    <th pSortableColumn="municipio">
+                                    <th pSortableColumn="municipio.municipio">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Municipio
-                                            <p-sortIcon field="municipio"></p-sortIcon>
-                                            <p-columnFilter type="text" field="municipio" display="menu" class="p-ml-auto"></p-columnFilter>
+                                            <p-sortIcon field="municipio.municipio"></p-sortIcon>
+                                            <p-columnFilter type="text" field="municipio.municipio" display="menu" class="p-ml-auto"></p-columnFilter>
                                         </div>
                                     </th>
                                     <th pSortableColumn="ciudad">
@@ -390,7 +391,7 @@
                             <ng-template pTemplate="body" let-personal>
                                 <tr class="p-selectable-row">
                                     <td>
-                                        <a type="button" href="dashboard/edit" pButton pRipple icon="pi pi-cog" class="p-button-rounded p-button-info p-mr-2" (click)="EditarPersonal()">
+                                        <a type="button" [routerLink]="urlEdit" pButton pRipple icon="pi pi-cog" class="p-button-rounded p-button-info p-mr-2" (click)="EditarPersonal(personal)">
                                         </a>
 
                                     </td>
@@ -416,7 +417,7 @@
                                         <span class="p-column-title">Nombre 3</span> {{personal.nombre_3}}
                                     </td>
                                     <td>
-                                        <span class="p-column-title">Grado</span> {{personal.grado}}
+                                        <span class="p-column-title">Grado</span> {{personal.grado.grado}}
                                     </td>
                                     <td>
                                         <span class="p-column-title">Documento</span> {{personal.dni}}
@@ -425,22 +426,22 @@
                                         <span class="p-column-title">Legajo</span> {{personal.legajo}}
                                     </td>
                                     <td>
-                                        <span class="p-column-title">Sexo</span> {{personal.sexo}}
+                                        <span class="p-column-title">Sexo</span> {{personal.sexo.sexo}}
                                     </td>
                                     <td>
-                                        <span class="p-column-title">Situacion</span> {{personal.situacion}}
+                                        <span class="p-column-title">Situacion</span> {{personal.situacion.situacion}}
                                     </td>
                                     <td>
-                                        <span class="p-column-title">Destino</span> {{personal.destino}}
+                                        <span class="p-column-title">Destino</span> {{personal.destino.destino}}
                                     </td>
                                     <td>
-                                        <span class="p-column-title">Departamento</span> {{personal.departamento}}
+                                        <span class="p-column-title">Departamento</span> {{personal.departamento.departamento}}
                                     </td>
                                     <td>
-                                        <span class="p-column-title">Division</span> {{personal.division}}
+                                        <span class="p-column-title">Division</span> {{personal.division.division}}
                                     </td>
                                     <td>
-                                        <span class="p-column-title">Sector</span> {{personal.sector}}
+                                        <span class="p-column-title">Sector</span> {{personal.sector.sector}}
                                     </td>
                                     <td>
                                         <span class="p-column-title">Guardia</span> {{personal.seccion_guardia}}
@@ -449,13 +450,13 @@
                                         <span class="p-column-title">Funcion</span> {{personal.funcion}}
                                     </td>
                                     <td>
-                                        <span class="p-column-title">Escalafon</span> {{personal.escalafon}}
+                                        <span class="p-column-title">Escalafon</span> {{personal.escalafon.escalafon}}
                                     </td>
                                     <td>
-                                        <span class="p-column-title">Escala</span> {{personal.escala_jerarquica}}
+                                        <span class="p-column-title">Escala</span> {{personal.escala_jerarquica.escala_jerarquica}}
                                     </td>
                                     <td>
-                                        <span class="p-column-title">Educacion</span> {{personal.nivel_educativo}}
+                                        <span class="p-column-title">Educacion</span> {{personal.nivel_educativo.nivel_educativo}}
                                     </td>
                                     <td>
                                         <span class="p-column-title">Nacionalidad</span> {{personal.nacionalidad}}

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Personal } from 'src/app/models/personal.model';
+import { DataService } from 'src/app/services/data.service';
+import {TabViewModule} from 'primeng/tabview';
 
 @Component({
   selector: 'app-edit',
@@ -7,10 +10,18 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class EditComponent implements OnInit {
-
-  constructor() { }
+  dataEdit: Personal={};
+  constructor(
+    public dataService: DataService
+  ) {
+    this.dataEdit= dataService.personalData;
+   }
 
   ngOnInit(): void {
+    
   }
+
+
+
 
 }

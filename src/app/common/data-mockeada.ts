@@ -27990,6 +27990,24 @@ export const situacion = [
     }
 ];
 
+export const departamentos = [
+    {
+        "id_departamento": 1,
+        "departamento": "Vigilancia y Tratamiento",
+        "destino_id": 1
+    },
+    {
+        "id_departamento": 2,
+        "departamento": "Seguridad Externa",
+        "destino_id": 1
+    },
+    {
+        "id_departamento": 3,
+        "departamento": "sin departamento",
+        "destino_id": null
+    }
+];
+
 
 
 

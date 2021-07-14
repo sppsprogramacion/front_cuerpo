@@ -9,8 +9,6 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { AuthGuard } from '../guards/auth.guard';
 import { UsuariosComponent } from './mantenimiento/usuarios/usuarios.component';
 
-
-
 const routes: Routes = [
     {path:'dashboard', 
   component: PagesComponent,

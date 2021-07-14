@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ListComponent } from './list.component';
 import { ngPrimeModule } from '../../ngprime.module';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -12,7 +13,8 @@ import { ngPrimeModule } from '../../ngprime.module';
   ],
   imports: [
     CommonModule,
-    ngPrimeModule
+    ngPrimeModule,
+    RouterModule
   ],
   exports: [
     ListComponent,

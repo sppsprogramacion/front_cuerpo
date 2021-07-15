@@ -1,15 +1,58 @@
 <div class="card">
-    <h5>Tooltips</h5>
+    <h5>Página de Edición de Datos</h5>
     <p-tabView>
-        <p-tabPanel header="Header I" leftIcon="pi pi-calendar" tooltip="1972">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p-tabPanel header="Datos Laborales" leftIcon="pi pi-users" tooltip="1972">
+
+            <form action="">
+                <div class="p-fluid p-flex-column">
+                    <div class="p-field p-grid">
+                        <label class="p-col-2 p-mb-2 pmb-md-0" for="firstname">Firstname</label>
+                        <div class="p-col-12 p-mb-10">
+                            <input id="firstname" type="text" pInputText>
+                        </div>
+                    </div>
+                    <div class="p-field p-grid">
+                        <label class="p-col-2 p-mb-2 pmb-md-0" for="lastname">Lastname</label>
+                        <div class="p-col-12 p-mb-10">
+                            <input id="lastname" type="text" pInputText>
+                        </div>
+                    </div>
+                    <div class="p-field p-grid">
+                        <label class="p-col-2 p-mb-2 pmb-md-0" for="address">Address</label>
+                        <div class="p-col-12 p-mb-10">
+                            <textarea id="address" type="text" rows="4" pInputTextarea></textarea>
+                        </div>
+                    </div>
+                    <div class="p-field p-grid">
+                        <label class="p-col-2 p-mb-2 pmb-md-0" for="city">City</label>
+                        <div class="p-col-12 p-mb-10">
+                            <input id="city" type="text" pInputText>
+                        </div>
+                    </div>
+                    <div class="p-field p-grid">
+                        <label class="p-col-2 p-mb-2 pmb-md-0" for="state">State</label>
+                        <div class="p-col-12 p-mb-10">
+                            <!-- <p-dropdown inputId="state" [options]="states" [(ngModel)]="selectedState" placeholder="Select" optionLabel="name"></p-dropdown> -->
+                        </div>
+                    </div>
+                    <div class="p-field p-grid">
+                        <label class="p-col-2 p-mb-2 pmb-md-0" for="zip">Zip</label>
+                        <div class="p-col-12 p-mb-10">
+                            <input id="zip" type="text" pInputText>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+            <div class="p-fluid p-formgrid p-grid p-d-flex">
+            </div>
+
         </p-tabPanel>
-        <p-tabPanel header="Header II" rightIcon="pi pi-inbox" tooltip="1974">
+        <p-tabPanel header="Datos Personales" leftIcon="pi pi-user" rightIcon="pi pi-inbox" tooltip="1974">
             <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem
                 quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
         </p-tabPanel>
-        <p-tabPanel header="Header III" leftIcon="pi pi-user" rightIcon="pi pi-star" tooltip="1990">
+        <p-tabPanel header="Trámites" rightIcon="pi pi-cog" tooltip="1990">
             <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia
                 deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
         </p-tabPanel>

@@ -90,49 +90,74 @@
                     <ng-template pTemplate="content">
                         <!-- <img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.image" class="product-image" *ngIf="product.image"> -->
 
-                        <div class="p-field">
-                            <label for="dni">DNI</label>
-                            <input type="number" id="dni" [(ngModel)]="usuario.dni" required autofocus/>
-                            <small class="p-error" *ngIf="submitted && !usuario.dni">El DNI es requerido!</small>
-                        </div>
-                        <div class="p-field">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" pInputText id="nombre" [(ngModel)]="usuario.nombre" required autofocus />
-                            <small class="p-error" *ngIf="submitted && !usuario.nombre">El Nombre es requerido!</small>
-                        </div>
-                        <div class="p-field">
-                            <label for="apellido">Apellido</label>
-                            <input type="text" pInputText id="apellido" [(ngModel)]="usuario.apellido" required autofocus />
-                            <small class="p-error" *ngIf="submitted && !usuario.apellido">El Apellido es requerido!</small>
-                        </div>
-                        <div class="p-field">
-                            <label for="correo">Email</label>
-                            <input type="text" pInputText id="correo" [(ngModel)]="usuario.correo" required autofocus />
-                            <small class="p-error" *ngIf="submitted && !usuario.correo">El Email es requerido!</small>
-                        </div>
-                        <div class="p-field">
-                            <label for="clave">Clave</label>
-                            <input type="text" pInputText id="clave" [(ngModel)]="usuario.clave" required autofocus />
-                            <small class="p-error" *ngIf="submitted && !usuario.clave">La Clave es requerida!</small>
-                        </div>
-                        <div class="p-field">
-                            <p-dropdown [options]="roles" [(ngModel)]="usuario.role" optionLabel="role_name" optionValue="code" appendTo="body"></p-dropdown>
-                        </div>
-                        <div class="p-field">
-                            <p-dropdown [options]="destinos" [(ngModel)]="usuario.destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown>
-                        </div>
-                        <div class="p-field">
-                            <label for="img">Imagen</label>
-                            <input type="text" pInputText id="img" [(ngModel)]="usuario.img" required autofocus />
-                            <!-- <small class="p-error" *ngIf="submitted && !usuario.img">La Imagen es requerido!</small> -->
+                        <div class="p-fluid p-flex-column">
+                            <div class="p-field p-grid">
+                                <label class="p-col-12 p-mb-2 p-md-2 p-mb-md-0" for="dni">DNI</label>
+                                <div class="p-col-12 p-md-10">
+                                    <input type="number" id="dni" [(ngModel)]="usuario.dni" required autofocus/>
+                                    <small class="p-error" *ngIf="submitted && !usuario.dni">El DNI es requerido!</small>
+                                </div>
+                            </div>
+                            <div class="p-field p-grid">
+                                <label class="p-col-2 p-mb-2 p-mb-md-0" for="nombre">Nombre</label>
+                                <div class="p-col-12 p-md-10">
+                                    <input type="text" pInputText id="nombre" [(ngModel)]="usuario.nombre" required autofocus />
+                                    <small class="p-error" *ngIf="submitted && !usuario.nombre">El Nombre es requerido!</small>
+                                </div>
+                            </div>
+
+
+                            <div class="p-field p-grid">
+                                <label class="p-col-2 p-mb-2 p-mb-md-0" for="apellido">Apellido</label>
+                                <div class="p-col-12 p-md-10">
+                                    <input type="text" pInputText id="apellido" [(ngModel)]="usuario.apellido" required autofocus />
+                                    <small class="p-error" *ngIf="submitted && !usuario.apellido">El Apellido es requerido!</small>
+                                </div>
+                            </div>
+                            <div class="p-field p-grid">
+                                <label class="p-col-2 p-mb-2 p-mb-md-0" for="correo">Email</label>
+                                <div class="p-col-12 p-md-10">
+                                    <input type="text" pInputText id="correo" [(ngModel)]="usuario.correo" required autofocus />
+                                    <small class="p-error" *ngIf="submitted && !usuario.correo">El Email es requerido!</small>
+                                </div>
+                            </div>
+                            <div class="p-field p-grid">
+                                <label class="p-col-2 p-mb-2 p-mb-md-0" for="clave">Clave</label>
+                                <div class="p-col-12 p-md-10">
+                                    <input type="text" pInputText id="clave" [(ngModel)]="usuario.clave" required autofocus />
+                                    <small class="p-error" *ngIf="submitted && !usuario.clave">La Clave es requerida!</small>
+                                </div>
+                            </div>
+                            <div class="p-field p-grid">
+                                <div class="p-col-12 p-md-10">
+                                    <p-dropdown class="p-col-12 p-mb-2 p-mb-md-0" [options]="roles" [(ngModel)]="usuario.role" optionLabel="role_name" optionValue="code" appendTo="body"></p-dropdown>
+                                </div>
+                            </div>
+                            <div class="p-field p-grid">
+                                <div class="p-col-12 p-md-10">
+                                    <p-dropdown class="p-col-12 p-mb-2 p-mb-md-0" [options]="destinos" [(ngModel)]="usuario.destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown>
+                                </div>
+                            </div>
+
+                            <div class="p-field p-grid">
+                                <label class="p-col-2 p-mb-2 p-mb-md-0" for="img">Imagen</label>
+                                <div class="p-col-12 p-md-10">
+                                    <input type="text" pInputText id="img" [(ngModel)]="usuario.img" required autofocus />
+                                    <!-- <small class="p-error" *ngIf="submitted && !usuario.img">La Imagen es requerido!</small> -->
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="p-field">
-                            <img *ngIf="this.editando" [src]="baseUrlImg + usuario.img" [alt]="usuario.img" style="border-radius: 50px;" width="100" class="p-shadow-4" />
-                        </div>
-                        <div class="p-field">
-                            <!-- <p-fileUpload name="foto" accept="image/*" (uploadHandler)="onSelect($event.currentFiles[0])"></p-fileUpload> -->
-                            <p-fileUpload *ngIf="this.editando" name="foto" [customUpload]="true" [multiple]="true" (uploadHandler)="onUpload($event.files[0])"></p-fileUpload>
+                        <div class="p-field p-grid">
+                            <img class="p-col-12 p-mb-2 p-mb-md-0" *ngIf="this.editando" [src]="baseUrlImg + usuario.img" [alt]="usuario.img" style="border-radius: 50px;" width="100" class="p-shadow-4" />
+                            <div class="p-col-12 p-md-10">
+                            </div>
+                            <div class="p-field p-grid">
+                            </div>
+                            <!--  class="p-col-12 p-mb-2 p-mb-md-0"<p-fileUpload name="foto" accept="image/*" (uploadHandler)="onSelect($event.currentFiles[0])"></p-fileUpload> -->
+                            <div class="p-col-12 p-md-10">
+                                <p-fileUpload *ngIf="this.editando" name="foto" [customUpload]="true" [multiple]="true" (uploadHandler)="onUpload($event.files[0])"></p-fileUpload>
+                            </div>
                         </div>
 
 

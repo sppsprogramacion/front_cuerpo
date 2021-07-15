@@ -3,10 +3,12 @@ import { Personal } from 'src/app/models/personal.model';
 import { DataService } from 'src/app/services/data.service';
 import {TabViewModule} from 'primeng/tabview';
 
+
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
-  styles: [
+  styleUrls: [
+    './edit.component.scss'
   ]
 })
 export class EditComponent implements OnInit {

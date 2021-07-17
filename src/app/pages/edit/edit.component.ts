@@ -7,9 +7,9 @@ import {TabViewModule} from 'primeng/tabview';
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
-  styleUrls: [
-    './edit.component.scss'
-  ]
+  // styleUrls: [
+  //   './edit.component.scss'
+  // ]
 })
 export class EditComponent implements OnInit {
   dataEdit: Personal={};

@@ -12,7 +12,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TabViewModule} from 'primeng/tabview';
-
+import {InputTextModule} from 'primeng/inputtext';
  
 
 @NgModule({
@@ -31,7 +31,8 @@ import {TabViewModule} from 'primeng/tabview';
          DropdownModule,
          BrowserModule,
          BrowserAnimationsModule,
-         TabViewModule
+         TabViewModule,
+         InputTextModule
      ],
     exports: [
         CommonModule,
@@ -47,7 +48,8 @@ import {TabViewModule} from 'primeng/tabview';
          DropdownModule,
          BrowserModule,
          BrowserAnimationsModule,
-         TabViewModule
+         TabViewModule,
+         InputTextModule
     ],
     providers: [],
 })

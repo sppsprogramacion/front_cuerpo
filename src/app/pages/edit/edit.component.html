@@ -3,34 +3,38 @@
 <p-tabView>
     <p-tabPanel header="Datos Laborales" leftIcon="pi pi-users" tooltip="1972">
 
-        <!-- <div class="row"> -->
-        <div class="p-fluid p-formgrid p-grid">
-            <div class="p-field p-col">
-                <span class="p-input-icon-left">
-                    <i class="pi pi-search" ></i>
-                    <input type="text" pInputText  placeholder="Search" >         
-                </span>
+
+        <form [formGroup]="forma" (click)="submitForm()">
+            <div class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col">
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-pencil" ></i>
+                        <input formControlName="apellido_1" type="text" pInputText  placeholder="Search" >
+                    </span>
+                </div>
+                <div class="p-field p-col">
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-pencil" ></i>
+                        <input formControlName="apellido_2" type="text" pInputText  placeholder="Search" >
+                    </span>
+                </div>
             </div>
-            <div class="p-field p-col">
-                <label for="lastname1">Lastname</label>
-                <input id="lastname1" type="text" pInputText style="width: 100%;">
+            <div class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col">
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-pencil" ></i>
+                        <input formControlName="nombre_1" type="text" pInputText  placeholder="Search" >
+                    </span>
+                </div>
+                <div class="p-field p-col">
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-pencil" ></i>
+                        <input formControlName="nombre_2" type="text" pInputText  placeholder="Search" >
+                    </span>
+                </div>
+
             </div>
-        </div>
-        <div class="p-fluid p-formgrid p-grid">
-            <div class="p-field p-col">
-                <label for="firstname1">Firstname</label>
-                <input id="firstname1" type="text" pInputText style="width: 100%;">
-            </div>
-            <div class="p-field p-col">
-                <label for="lastname1">Lastname</label>
-                <input id="lastname1" type="text" pInputText style="width: 100%;">
-            </div>
-            <!-- </div> -->
-            <!-- <div class="col-6" style="background-color: cadetblue;">
-                <input id="firstname" type="text" pInputText style="width: 100%;">
-            </div>
-            <div class="col-6" style="background-color:black;">SEGUNDO BLOQUE</div> -->
-        </div>
+        </form>
 
         <!-- <form action="">
                 <div class="p-fluid p-flex-column">

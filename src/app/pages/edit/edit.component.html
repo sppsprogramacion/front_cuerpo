@@ -5,36 +5,70 @@
 
 
         <form [formGroup]="forma" (click)="submitForm()">
+
             <div class="p-fluid p-formgrid p-grid">
                 <div class="p-field p-col">
                     <span class="p-input-icon-left">
                         <i class="pi pi-pencil" ></i>
-                        <input formControlName="apellido_1" type="text" pInputText  placeholder="Search" >
+                        <input formControlName="apellido_1" type="text" pInputText  placeholder="primer apellido"  [class.is-invalid]="apellido1NoValido">
                     </span>
+                    <small *ngIf="apellido1NoValido" class="form-text text-danger">El primer apellido es obligatorio</small>
                 </div>
                 <div class="p-field p-col">
                     <span class="p-input-icon-left">
                         <i class="pi pi-pencil" ></i>
-                        <input formControlName="apellido_2" type="text" pInputText  placeholder="Search" >
+                        <input formControlName="apellido_2" type="text" pInputText  placeholder="segundo apellido">
                     </span>
+                </div>
+            </div>
+
+            <div class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col">
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-pencil" ></i>
+                        <input formControlName="nombre_1" type="text" pInputText  placeholder="primer nombre" [class.is-invalid]="nombre1NoValido" >
+                    </span>
+                    <small *ngIf="nombre1NoValido" class="form-text text-danger">El primer nombre es obligatorio</small>
+                </div>
+                <div class="p-field p-col">
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-pencil" ></i>
+                        <input formControlName="nombre_2" type="text" pInputText  placeholder="segundo nombre" >
+                    </span>
+                </div>
+            </div>
+
+            <div class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col">
+                    <span class="p-input-icon-left">
+                            <i class="pi pi-pencil" ></i>
+                            <input formControlName="nombre_3" type="text" pInputText  placeholder="tercer nombre" >
+                        </span>
+                </div>
+                <div class="p-field p-col">
+                    <span class="p-input-icon-left">
+                            <i class="pi pi-wallet" ></i>
+                            <input formControlName="dni" type="number" pInputText  placeholder="dni" [class.is-invalid]="dniNoValido">
+                        </span>
+                    <small *ngIf="dniNoValido" class="form-text text-danger">El dni es obligatorio y debe ser válido</small>
                 </div>
             </div>
             <div class="p-fluid p-formgrid p-grid">
                 <div class="p-field p-col">
-                    <span class="p-input-icon-left">
-                        <i class="pi pi-pencil" ></i>
-                        <input formControlName="nombre_1" type="text" pInputText  placeholder="Search" >
-                    </span>
+                    <button pButton type="button" class="p-button-raised">Submit</button>
                 </div>
-                <div class="p-field p-col">
-                    <span class="p-input-icon-left">
-                        <i class="pi pi-pencil" ></i>
-                        <input formControlName="nombre_2" type="text" pInputText  placeholder="Search" >
-                    </span>
-                </div>
-
             </div>
         </form>
+
+        <hr>
+        <pre>
+            Estado del Formulario: {{forma.valid}}
+            <br>
+            Status: {{forma.status}}
+        </pre>
+        <pre>
+            {{forma.value | json}}
+        </pre>
 
         <!-- <form action="">
                 <div class="p-fluid p-flex-column">

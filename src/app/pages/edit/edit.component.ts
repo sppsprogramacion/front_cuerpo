@@ -8,9 +8,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
-  // styleUrls: [
-  //   './edit.component.scss'
-  // ]
+  styleUrls: [
+    // './edit.component.css'
+  ]
 })
 export class EditComponent implements OnInit {
   forma: FormGroup;

@@ -13,7 +13,9 @@ import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TabViewModule} from 'primeng/tabview';
 import {InputTextModule} from 'primeng/inputtext';
- 
+import {CardModule} from 'primeng/card';
+
+
 
 @NgModule({
     declarations: [],
@@ -32,7 +34,8 @@ import {InputTextModule} from 'primeng/inputtext';
          BrowserModule,
          BrowserAnimationsModule,
          TabViewModule,
-         InputTextModule
+         InputTextModule,
+         CardModule
      ],
     exports: [
         CommonModule,
@@ -49,7 +52,8 @@ import {InputTextModule} from 'primeng/inputtext';
          BrowserModule,
          BrowserAnimationsModule,
          TabViewModule,
-         InputTextModule
+         InputTextModule,
+         CardModule
     ],
     providers: [],
 })

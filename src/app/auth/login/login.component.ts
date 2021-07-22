@@ -34,6 +34,7 @@ export class LoginComponent {
        globalConstants.nombreUsuario = user.nombre + " " + user.apellido;
        globalConstants.emailUsuario = correoAux;
        globalConstants.destino_usuario = user.destino_id!;
+       globalConstants.rol_usuario = user.role!;
   }
 
  public loginForm = this.fb.group({
@@ -60,6 +61,7 @@ export class LoginComponent {
                                       });
                                       //este codigo modifica una variable global para que el guard permita el acceso
                                       globalConstants.validado = true;
+                                      console.log('EL USUARIO QUE INGRESA TIENE ESTE ROL', globalConstants.rol_usuario);
                                       
                                       this.router.navigateByUrl('dashboard');
                                       if(this.loginForm.get('recuerdame')?.value){

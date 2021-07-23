@@ -28004,7 +28004,17 @@ export const departamentos = [
     {
         "id_departamento": 3,
         "departamento": "sin departamento",
-        "destino_id": null
+        "destino_id": 0
+    },
+    {
+        "id_departamento": 4,
+        "departamento": "Perimetral",
+        "destino_id": 5
+    },
+    {
+        "id_departamento": 5,
+        "departamento": "Seguridad Interna",
+        "destino_id": 5
     }
 ];
 

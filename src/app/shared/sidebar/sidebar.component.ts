@@ -20,7 +20,12 @@ export class SidebarComponent implements OnInit {
     private sidebarService: SidebarService
   ) { 
    
-    this.menu = this.sidebarService.menu;
+    if(globalConstants.rol_usuario =='0'){
+      this.menu = this.sidebarService.menuAdmin;
+    }else{
+      this.menu = this.sidebarService.menuUser;
+    }
+
     
     this.imgUrl = globalConstants.urlImagen;
     this.nombreUsuario = globalConstants.nombreUsuario;

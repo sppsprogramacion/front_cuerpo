@@ -131,9 +131,12 @@
                                                                                     <!-- select -->
                                                                                     <div class="form-group">
                                                                                         <label>Destino</label>
-                                                                                        <select formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id"> 
-                                                                                            <option *ngFor="let destino of destinos" [value]="destino.id_destino" >{{destino.destino}}</option>
+                                                                                        <!-- <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id">  -->
+                                                                                        <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChengeDestino()"> 
+                                                                                              <option *ngFor="let destino of destinos" [value]="destino.id_destino" >{{destino.destino}}</option>
                                                                                         </select>
+                                                                                        <input *ngIf="!administrador" type="text" class="form-control" [placeholder]="destino_txt" disabled>
+
                                                                                         <!-- <p-dropdown class="form-control" [options]="destinos" formControlName="destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown> -->
                                                                                     </div>
                                                                                 </div>

@@ -1,12 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Personal } from 'src/app/models/personal.model';
 import { DataService } from 'src/app/services/data.service';
-import {TabViewModule} from 'primeng/tabview';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DestinoModel } from '../../models/destino.model';
-import { destinos, departamentos } from 'src/app/common/data-mockeada';
+import { destinos, departamentos, divisiones, sectores, secciones_guardia, escalaJerarquica, escalafon, grados} from 'src/app/common/data-mockeada';
 import { globalConstants } from '../../common/global-constants';
 import { DepartamentoModel } from '../../models/departamento.model';
+import { DivisionModel } from '../../models/division.model';
+import { sectorModel } from '../../models/sector.model';
+import { SeccionGuardia } from 'src/app/models/seccion_guardia.model';
+import { EscalafonModel } from '../../models/escalafon.model';
+import { EscalaJerarquicaModel } from '../../models/escala.model';
+import { GradoModel } from '../../models/grado.model';
 
 
 @Component({
@@ -24,6 +29,13 @@ export class EditComponent implements OnInit {
   administrador: boolean = false;
   destino_txt: string="";
   departamentos: DepartamentoModel[]=[];
+  divisiones: DivisionModel[]=[];
+  sectores: sectorModel[]=[];
+  secciones_guardia: SeccionGuardia[]=[];
+  escalafones: EscalafonModel[]=[];
+  escalas: EscalaJerarquicaModel[]=[];
+  grados: GradoModel[]=[];
+
   constructor(
     public dataService: DataService,
     private fb: FormBuilder
@@ -41,6 +53,13 @@ export class EditComponent implements OnInit {
        legajo: [this.dataEdit.legajo,[Validators.required]],
        destino_id: [this.dataEdit.destino_id,[Validators.required]],
        departamento_id: [this.dataEdit.departamento_id],
+       division_id: [this.dataEdit.division_id],
+       sector_id: [this.dataEdit.sector_id],
+       funcion: [this.dataEdit.funcion],
+       seccion_guardia_id: [this.dataEdit.seccion_guardia_id],
+       escalafon_id: [this.dataEdit.escalafon_id],
+       escala_jerarquica_id: [this.dataEdit.escala_jerarquica_id],
+       grado_id: [this.dataEdit.grado_id],
   });
     this.submitForm();
    
@@ -51,10 +70,12 @@ export class EditComponent implements OnInit {
     this.administrador = (globalConstants.rol_usuario == "0")? true: false;
     auxiliar = this.dataEdit.destino;
     this.destino_txt = auxiliar.destino;
-    //this.departamentos = departamentos;
     this.cargarDepartamentos(this.dataEdit.destino_id!);
-    console.log('DEPARTAMENTOS CARGADOS', this.departamentos);
-
+    this.cargarDivisiones(this.dataEdit.departamento_id!);
+    this.cargarSeccionesGuardia(this.dataEdit.departamento_id!);
+    this.escalafones = escalafon;
+    this.escalas = escalaJerarquica;
+    this.cargarGrados(this.dataEdit.escala_jerarquica_id!);
    }
 
   ngOnInit(): void {
@@ -94,15 +115,66 @@ export class EditComponent implements OnInit {
               return departamento.destino_id == destino_id || departamento.destino_id == 0;
          });
   }
-//esta metodo debe ser modificado utilizando acutalizacon de departamentos o eliminarse
-  onChengeDestino(){
-    const id = this.forma.get('destino_id')?.value;
-    console.log('valor de la clave', id);
-    if(id != null){
-      this.cargarDepartamentos(parseInt(id.toString()));
-      console.log('ACUALIZACION DE DEPARTAMENTOS', this.departamentos);
-    }
 
+  onChangeDestino(){
+    const id = this.forma.get('destino_id')?.value;
+      if(id != null){
+      this.cargarDepartamentos(parseInt(id.toString()));
+      
+    }
+  }
+
+  cargarDivisiones(departamento_id: number){
+    this.divisiones = divisiones.filter(division => {
+       
+      return division.departamento_id == departamento_id || division.departamento_id == 0;
+ });
+  }
+
+  onChangeDepartamento(){
+    const id = this.forma.get('departamento_id')?.value;
+    if(id != null){
+      this.cargarDivisiones(parseInt(id.toString()));
+      this.cargarSeccionesGuardia(parseInt(id.toString()));
+      
+    }
+  }
+
+  cargarSectores(division_id: number){
+    this.sectores = sectores.filter(sector => {
+       
+      return sector.division_id == division_id || sector.division_id == 0;
+ });
+  }
+
+  onChangeDivision(){
+    const id = this.forma.get('division_id')?.value;
+    if(id != null){
+      this.cargarSectores(parseInt(id.toString()));
+      
+    }
+  }
+
+  cargarSeccionesGuardia(departamento_id: number){
+    this.secciones_guardia = secciones_guardia.filter(seccion_gdia => {
+       
+      return seccion_gdia.departamento_id == departamento_id || seccion_gdia.departamento_id == 0;
+ });
+  }
+
+  cargarGrados(escala_jerarquica_id: number){
+    this.grados = grados.filter(grado => {
+       
+      return grado.escala_jerarquica_id == escala_jerarquica_id || grado.escala_jerarquica_id == 0;
+ });
+  }
+
+  onChangeEscala(){
+    const id = this.forma.get('escala_jerarquica_id')?.value;
+    if(id != null){
+      this.cargarGrados(parseInt(id.toString()));
+      
+    }
   }
 
   

@@ -57,86 +57,103 @@ export const grados = [
     {
         "id_grado": 1,
         "grado": "agente",
+        "escala_jerarquica_id": 2,
         "jerarquia_id": 6
     },
     {
         "id_grado": 2,
         "grado": "cabo",
+        "escala_jerarquica_id": 2,
         "jerarquia_id": 1
     },
     {
         "id_grado": 3,
         "grado": "cabo 1º",
+        "escala_jerarquica_id": 2,
         "jerarquia_id": 1
     },
     {
         "id_grado": 4,
         "grado": "sargento",
+        "escala_jerarquica_id": 2,
         "jerarquia_id": 1
     },
     {
         "id_grado": 5,
         "grado": "Prefecto Mayor",
+        "escala_jerarquica_id": 1,
         "jerarquia_id": 4
     },
     {
         "id_grado": 6,
         "grado": "Prefecto",
+        "escala_jerarquica_id": 1,
         "jerarquia_id": 4
     },
     {
         "id_grado": 7,
         "grado": "Subprefecto",
+        "escala_jerarquica_id": 1,
         "jerarquia_id": 4
     },
     {
         "id_grado": 8,
         "grado": "Alcaide Mayor",
+        "escala_jerarquica_id": 1,
         "jerarquia_id": 5
     },
     {
         "id_grado": 9,
         "grado": "Alcaide",
+        "escala_jerarquica_id": 1,
         "jerarquia_id": 5
     },
     {
         "id_grado": 10,
         "grado": "Subalcaide",
+        "escala_jerarquica_id": 1,
         "jerarquia_id": 5
     },
     {
         "id_grado": 11,
         "grado": "Adjutor Mayor",
+        "escala_jerarquica_id": 1,
         "jerarquia_id": 3
     },
     {
         "id_grado": 12,
         "grado": "Adjutor",
+        "escala_jerarquica_id": 1,
         "jerarquia_id": 3
     },
     {
         "id_grado": 13,
         "grado": "Subadjutor",
+        "escala_jerarquica_id": 1,
         "jerarquia_id": 3
     },
     {
         "id_grado": 14,
         "grado": "Suboficial Mayor",
+        "escala_jerarquica_id": 2,
         "jerarquia_id": 2
     },
     {
         "id_grado": 15,
         "grado": "Suboficial Principal",
+        "escala_jerarquica_id": 2,
         "jerarquia_id": 2
     },
     {
         "id_grado": 16,
         "grado": "Sargento Ayudante",
+        "escala_jerarquica_id": 2,
         "jerarquia_id": 2
     },
     {
         "id_grado": 17,
         "grado": "Sargento Primero",
+        "escala_jerarquica_id": 2,
         "jerarquia_id": 2
     }
 ];
@@ -27946,6 +27963,10 @@ export const sexos = [
 
 export const destinos = [
     {
+        "id_destino": 9,
+        "destino": "Dirección General"
+    },
+    {
         "id_destino": 8,
         "destino": "sin destino"
     },
@@ -28015,12 +28036,131 @@ export const departamentos = [
         "id_departamento": 5,
         "departamento": "Seguridad Interna",
         "destino_id": 5
+    },
+    {
+        "id_departamento": 6,
+        "departamento": "Secretaría General",
+        "destino_id": 9
+    },
+    {
+        "id_departamento": 10,
+        "departamento": "Sanidad",
+        "destino_id": 9
     }
 ];
 
+export const divisiones = [
+    {
+        "id_division": 1,
+        "division": "Lavadero Penal",
+        "departamento_id": 1
+    },
+    {
+        "id_division": 2,
+        "division": "Sumarios",
+        "departamento_id": 1
+    },
+    {
+        "id_division": 3,
+        "division": "Registro y Requisa",
+        "departamento_id": 2
+    },
+    {
+        "id_division": 4,
+        "division": "Control de Prohibiciones",
+        "departamento_id": 2
+    },
+    {
+        "id_division": 5,
+        "division": "sin destino",
+        "departamento_id": 0
+    },
+    {
+        "id_division": 6,
+        "division": "Procesamiento de Datos",
+        "departamento_id": 6
+    },
+    {
+        "id_division": 7,
+        "division": "Ceremonial y Prensa",
+        "departamento_id": 6
+    },
+    {
+        "id_division": 8,
+        "division": "Comunicaciones",
+        "departamento_id": 6
+    },
+    {
+        "id_division": 9,
+        "division": "Mesa de Entrada y Archivo General",
+        "departamento_id": 6
+    }
+];
 
+export const sectores = [
+        {
+            "id_sector": 1,
+            "sector": "sin sector",
+            "division_id": 0
+        },
+        {
+            "id_sector": 2,
+            "sector": "Programación",
+            "division_id": 6
+        },
+        {
+            "id_sector": 3,
+            "sector": "Técnica",
+            "division_id": 6
+        }
+    
+];
 
-
-
-
+export const secciones_guardia = [
+    {
+        "id_seccion": 1,
+        "seccion": "sin seccion de guardia",
+        "departamento_id": 0
+    },
+    {
+        "id_seccion": 2,
+        "seccion": "Primera Sección - Interna",
+        "departamento_id": 1
+    },
+    {
+        "id_seccion": 3,
+        "seccion": "Segunda Sección - Interna",
+        "departamento_id": 1
+    },
+    {
+        "id_seccion": 4,
+        "seccion": "Tercera Sección - Interna",
+        "departamento_id": 1
+    },
+    {
+        "id_seccion": 5,
+        "seccion": "Cuarta Sección - Interna",
+        "departamento_id": 1
+    },
+    {
+        "id_seccion": 6,
+        "seccion": "Primera Sección - Externa",
+        "departamento_id": 2
+    },
+    {
+        "id_seccion": 7,
+        "seccion": "Segunda Sección - Externa",
+        "departamento_id": 2
+    },
+    {
+        "id_seccion": 8,
+        "seccion": "Tercera Sección - Externa",
+        "departamento_id": 2
+    },
+    {
+        "id_seccion": 9,
+        "seccion": "Cuarta Sección - Externa",
+        "departamento_id": 2
+    }
+];
 

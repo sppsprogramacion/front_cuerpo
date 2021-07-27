@@ -39,24 +39,7 @@
                             </div> -->
 
                                     <div class="content">
-                                        <!-- <div class="content-wrapper"> -->
-                                        <!-- Content Header (Page header) -->
-                                        <!-- <section class="content-header">
-                                            <div class="container-fluid">
-                                                <div class="row mb-2">
-                                                    <div class="col-sm-6">
-                                                        <h1>{{nombreCompleto}}</h1>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <ol class="breadcrumb float-sm-right">
-                                                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                                            <li class="breadcrumb-item active">E-commerce</li>
-                                                        </ol>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </section> -->
-                                        <!-- /.container-fluid -->
+
 
                                         <!-- Main content -->
                                         <section class="content">
@@ -67,7 +50,7 @@
                                                     <div class="row">
                                                         <div class="col-12 col-sm-4">
                                                             <div class="col-12">
-                                                                <!-- <img src="../../../assets/img/avatar.png" class="product-image" alt="Product Image"> -->
+
                                                                 <img [src]="foto_nombre | fotopersonal" class="product-image" alt="Product Image">
                                                                 <div class="p-col-12 p-md-10">
                                                                     <p-fileUpload name="foto" [customUpload]="true" [multiple]="true" (uploadHandler)="onUpload($event.files[0])"></p-fileUpload>
@@ -251,7 +234,7 @@
 
 
                                                                             <!-- input states -->
-                                                                            <div class="form-group">
+                                                                            <!-- <div class="form-group">
                                                                                 <label class="col-form-label" for="inputSuccess"><i class="fas fa-check"></i> Input with
                                                                 success</label>
                                                                                 <input type="text" class="form-control is-valid" id="inputSuccess" placeholder="Enter ...">
@@ -265,11 +248,11 @@
                                                                                 <label class="col-form-label" for="inputError"><i class="far fa-times-circle"></i> Input with
                                                                 error</label>
                                                                                 <input type="text" class="form-control is-invalid" id="inputError" placeholder="Enter ...">
-                                                                            </div>
+                                                                            </div> -->
 
-                                                                            <div class="row">
+                                                                            <!-- <div class="row">
                                                                                 <div class="col-sm-6">
-                                                                                    <!-- checkbox -->
+                                                                            
                                                                                     <div class="form-group">
                                                                                         <div class="form-check">
                                                                                             <input class="form-check-input" type="checkbox">
@@ -286,7 +269,7 @@
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-sm-6">
-                                                                                    <!-- radio -->
+                                                                            
                                                                                     <div class="form-group">
                                                                                         <div class="form-check">
                                                                                             <input class="form-check-input" type="radio" name="radio1">
@@ -302,11 +285,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
+                                                                            </div> -->
 
-                                                                            <div class="row">
+                                                                            <!-- <div class="row">
                                                                                 <div class="col-sm-6">
-                                                                                    <!-- select -->
+                                                                            
                                                                                     <div class="form-group">
                                                                                         <label>Select</label>
                                                                                         <select class="form-control">
@@ -330,11 +313,11 @@
                                                                   </select>
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
+                                                                            </div> -->
 
-                                                                            <div class="row">
+                                                                            <!-- <div class="row">
                                                                                 <div class="col-sm-6">
-                                                                                    <!-- Select multiple-->
+                                                                                    
                                                                                     <div class="form-group">
                                                                                         <label>Select Multiple</label>
                                                                                         <select multiple class="form-control">
@@ -358,7 +341,7 @@
                                                                   </select>
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
+                                                                            </div> -->
                                                                         </form>
                                                                     </div>
                                                                     <!-- /.card-body -->
@@ -368,63 +351,6 @@
                                                                 </div>
                                                             </form>
 
-                                                            <!-- <form [formGroup]="forma" (click)="submitForm()">
-
-                                                                <div class="p-fluid p-formgrid p-grid">
-                                                                    <div class="p-field p-col">
-                                                                        <span class="p-input-icon-left">
-                                                                    <i class="pi pi-pencil" ></i>
-                                                                    <input formControlName="apellido_1" type="text" pInputText  placeholder="primer apellido"  [class.is-invalid]="apellido1NoValido">
-                                                                </span>
-                                                                        <small *ngIf="apellido1NoValido" class="form-text text-danger">El primer apellido es obligatorio</small>
-                                                                    </div>
-                                                                    <div class="p-field p-col">
-                                                                        <span class="p-input-icon-left">
-                                                                    <i class="pi pi-pencil" ></i>
-                                                                    <input formControlName="apellido_2" type="text" pInputText  placeholder="segundo apellido">
-                                                                </span>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="p-fluid p-formgrid p-grid">
-                                                                    <div class="p-field p-col">
-                                                                        <span class="p-input-icon-left">
-                                                                    <i class="pi pi-pencil" ></i>
-                                                                    <input formControlName="nombre_1" type="text" pInputText  placeholder="primer nombre" [class.is-invalid]="nombre1NoValido" >
-                                                                </span>
-                                                                        <small *ngIf="nombre1NoValido" class="form-text text-danger">El primer nombre es obligatorio</small>
-                                                                    </div>
-                                                                    <div class="p-field p-col">
-                                                                        <span class="p-input-icon-left">
-                                                                    <i class="pi pi-pencil" ></i>
-                                                                    <input formControlName="nombre_2" type="text" pInputText  placeholder="segundo nombre" >
-                                                                </span>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="p-fluid p-formgrid p-grid">
-                                                                    <div class="p-field p-col">
-                                                                        <span class="p-input-icon-left">
-                                                                        <i class="pi pi-pencil" ></i>
-                                                                        <input formControlName="nombre_3" type="text" pInputText  placeholder="tercer nombre" >
-                                                                    </span>
-                                                                    </div>
-                                                                    <div class="p-field p-col">
-                                                                        <span class="p-input-icon-left">
-                                                                        <i class="pi pi-wallet" ></i>
-                                                                        <input formControlName="dni" type="number" pInputText  placeholder="dni" [class.is-invalid]="dniNoValido">
-                                                                    </span>
-                                                                        <small *ngIf="dniNoValido" class="form-text text-danger">El dni es obligatorio y debe ser válido</small>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="p-fluid p-formgrid p-grid">
-                                                                    <div class="p-field p-col">
-                                                                        <button pButton type="button" label="Guardar" style="text-align: center;">
-                                                                   
-                                                                </button>
-                                                                    </div>
-                                                                </div>
-                                                            </form> -->
 
                                                         </div>
                                                     </div>

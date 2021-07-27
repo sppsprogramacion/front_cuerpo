@@ -23,6 +23,10 @@ export class PersonalService {
             return this.http.get<[personal: any[],total:number]>(`${base_url}/personal/destino/${destino}`)
             
         }
+
+        editPersonal(data: Partial<Personal>,id: number){
+            return this.http.put(`${base_url}/personal/${id}`, data);
+        }
     
 
 

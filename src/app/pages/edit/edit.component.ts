@@ -13,6 +13,8 @@ import { EscalafonModel } from '../../models/escalafon.model';
 import { EscalaJerarquicaModel } from '../../models/escala.model';
 import { GradoModel } from '../../models/grado.model';
 import Swal from 'sweetalert2';
+import { FileUploadService } from 'src/app/services/file-upload.service';
+import { PersonalService } from 'src/app/services/personal.service';
 
 
 @Component({
@@ -38,10 +40,13 @@ export class EditComponent implements OnInit {
   grados: GradoModel[]=[];
   foto_nombre: string = 'no-image.png';
   fotoSubir: File | undefined;
+  modo: string = 'laboral';
 
   constructor(
     public dataService: DataService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private readonly fileUploadService: FileUploadService,
+    private readonly personalService: PersonalService
   ) {
     this.dataEdit= dataService.personalData;
     //creando el formulario
@@ -52,7 +57,7 @@ export class EditComponent implements OnInit {
        nombre_1: [this.dataEdit.nombre_1,Validators.required],
        nombre_2: [this.dataEdit.nombre_2],
        nombre_3: [this.dataEdit.nombre_3],
-       dni: [this.dataEdit.dni,[Validators.required,Validators.min(1111111),Validators.max(99999999)]],
+      //  dni: [this.dataEdit.dni,[Validators.required,Validators.min(1111111),Validators.max(99999999)]],
        legajo: [this.dataEdit.legajo,[Validators.required]],
        destino_id: [this.dataEdit.destino_id,[Validators.required]],
        departamento_id: [this.dataEdit.departamento_id],
@@ -212,7 +217,7 @@ export class EditComponent implements OnInit {
         console.log('DATA DEL ARCHIVO', event);
         this.fotoSubir = event;
         let id: number =  this.dataEdit.id_personal! ;
-       this.fileUploadService.actualizarFoto(this.fotoSubir, id).then(respuesta => {
+       this.fileUploadService.actualizarFotoPersonal(this.fotoSubir, id).then(respuesta => {
            if(respuesta.ok){
             Swal.fire('Actualización Exitosa!!', "La foto del Usuario ha sido cambiada con éxito","success");
            }else{
@@ -233,8 +238,49 @@ export class EditComponent implements OnInit {
 
   submitForm(){
        if(this.forma.invalid){
-      return Object.values(this.forma.controls).forEach(control => control.markAsTouched());
-    }
+                  return Object.values(this.forma.controls).forEach(control => control.markAsTouched());
+              }
+        
+        let data: Partial<Personal>;
+        //crear la data
+        if(this.modo == 'laboral'){
+          data = {
+                legajo: this.forma.get('legajo')?.value,
+                apellido_1: this.forma.get('apellido_1')?.value,
+                apellido_2: this.forma.get('apellido_2')?.value,
+                nombre_1: this.forma.get('nombre_1')?.value,
+                nombre_2: this.forma.get('nombre_2')?.value,
+                nombre_3: this.forma.get('nombre_3')?.value,
+                destino_id: this.forma.get('destino_id')?.value,
+                departamento_id: this.forma.get('departamento_id')?.value,
+                division_id: this.forma.get('division_id')?.value,
+                sector_id: this.forma.get('sector_id')?.value,
+                seccion_guardia_id: this.forma.get('seccion_guardia_id')?.value,
+                escalafon_id: this.forma.get('escalafon_id')?.value,
+                escala_jerarquica_id: this.forma.get('escala_jerarquica_id')?.value,
+                grado_id: this.forma.get('grado_id')?.value,
+          }
+          console.log('DATA FORMULARIO', data);
+        
+        this.personalService.editPersonal(data,parseInt(this.dataEdit.id_personal?.toString()!))
+                                        .subscribe(resultado => {
+                                            Swal.fire('Exito',`El Registro ha sido editado con Exito`,"success");
+                                            //this.actualizarUsuarios();
+                                            //this.hideDialog();
+                                        },
+                                        error => {
+                                            
+                                            Swal.fire('Error',`Error al Editar el Usuario ${error.error.message}`,"error")                          
+                                        });
+                    }else{
+                   
+                            Swal.fire('Error',`Error al Editar el Usuario: Faltan Datos`,"error")
+                           
+          //           }
+          //  }
+
+        }
+        
   }
 
   

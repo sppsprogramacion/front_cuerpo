@@ -12,6 +12,7 @@ import { SeccionGuardia } from 'src/app/models/seccion_guardia.model';
 import { EscalafonModel } from '../../models/escalafon.model';
 import { EscalaJerarquicaModel } from '../../models/escala.model';
 import { GradoModel } from '../../models/grado.model';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -35,6 +36,8 @@ export class EditComponent implements OnInit {
   escalafones: EscalafonModel[]=[];
   escalas: EscalaJerarquicaModel[]=[];
   grados: GradoModel[]=[];
+  foto_nombre: string = 'no-image.png';
+  fotoSubir: File | undefined;
 
   constructor(
     public dataService: DataService,
@@ -60,6 +63,7 @@ export class EditComponent implements OnInit {
        escalafon_id: [this.dataEdit.escalafon_id],
        escala_jerarquica_id: [this.dataEdit.escala_jerarquica_id],
        grado_id: [this.dataEdit.grado_id],
+       foto: [this.dataEdit.foto],
   });
     this.submitForm();
    
@@ -76,6 +80,10 @@ export class EditComponent implements OnInit {
     this.escalafones = escalafon;
     this.escalas = escalaJerarquica;
     this.cargarGrados(this.dataEdit.escala_jerarquica_id!);
+    if(this.dataEdit.foto){
+      this.foto_nombre = this.dataEdit.foto?.toString();
+
+    }
    }
 
   ngOnInit(): void {
@@ -117,11 +125,33 @@ export class EditComponent implements OnInit {
   }
 
   onChangeDestino(){
-    const id = this.forma.get('destino_id')?.value;
-      if(id != null){
-      this.cargarDepartamentos(parseInt(id.toString()));
-      
-    }
+    
+    Swal.fire({
+      title: 'Confirma el cambio de destino del personal?',
+      showDenyButton: true,
+      //showCancelButton: true,
+      confirmButtonText: `Cambiar de Destino`,
+      denyButtonText: `Cancelar Cambio de Destino`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        const id = this.forma.get('destino_id')?.value;
+        if(id != null){
+          this.cargarDepartamentos(parseInt(id.toString()));
+          this.divisiones = [];
+          this.sectores = [];
+          this.secciones_guardia= [];      
+        }else{
+          Swal.fire('Error: repita la operación por favor', '', 'info')
+        }
+        Swal.fire('Saved!', '', 'success')
+      } else if (result.isDenied) {
+        this.forma.get('destino_id')?.setValue(this.dataEdit.destino_id);
+        Swal.fire('Usted ha cancelado el cambio de destino', '', 'info')
+      }
+    })
+
+    
   }
 
   cargarDivisiones(departamento_id: number){
@@ -176,6 +206,28 @@ export class EditComponent implements OnInit {
       
     }
   }
+
+  onUpload(event: File){
+    try {
+        console.log('DATA DEL ARCHIVO', event);
+        this.fotoSubir = event;
+        let id: number =  this.dataEdit.id_personal! ;
+       this.fileUploadService.actualizarFoto(this.fotoSubir, id).then(respuesta => {
+           if(respuesta.ok){
+            Swal.fire('Actualización Exitosa!!', "La foto del Usuario ha sido cambiada con éxito","success");
+           }else{
+               throw new Error('Error al Actualizar la foto');
+           }
+       }).catch(error => {
+        Swal.fire('Error', error.message, "error"); 
+       });
+        
+    } catch (error) {
+        
+        Swal.fire('Error', error.message, "error");    
+    }
+}
+
 
   
 

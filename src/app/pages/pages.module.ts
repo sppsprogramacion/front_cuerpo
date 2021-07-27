@@ -10,17 +10,20 @@ import { ListModule } from './list/list.module';
 import { UploadModule } from './upload/upload.module';
 import { UsuariosModule } from './mantenimiento/usuarios.module';
 import { ngPrimeModule } from '../ngprime.module';
+import { FotopersonalPipe } from '../pipes/fotopersonal.pipe';
+import { PipesModule } from '../pipes/pipes.module';
 
  @NgModule({
   declarations: [
      DashboardComponent,
-     PagesComponent,
+     PagesComponent     
    ],
    exports: [
      DashboardComponent,
      PagesComponent,
      ngPrimeModule,
-   ],
+     PipesModule
+      ],
    imports: [
      CommonModule,
      SharedModule,
@@ -31,6 +34,7 @@ import { ngPrimeModule } from '../ngprime.module';
      UsuariosModule,
      HttpClientModule,
      ngPrimeModule,
+     PipesModule
    ]
  })
 export class PagesModule { }

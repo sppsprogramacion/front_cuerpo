@@ -25,7 +25,8 @@
                                 <colgroup>
                                     <col style="width:70px">
                                     <col style="width:40px">
-                                    <col style="width:80px">
+                                    <col style="width:100px">
+                                    <col style="width:150px">
                                     <col style="width:150px">
                                     <col style="width:150px">
                                     <col style="width:150px">
@@ -58,6 +59,11 @@
                                     <th></th>
                                     <th style="width: 3rem">
                                         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                    </th>
+                                    <th>
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Foto
+                                        </div>
                                     </th>
                                     <th>
                                         <div class="p-d-flex p-jc-between p-ai-center">
@@ -323,6 +329,10 @@
                                     </td>
                                     <td>
                                         <p-tableCheckbox [value]="personal"></p-tableCheckbox>
+                                    </td>
+                                    <td>
+                                        <img class="p-col-12 p-mb-2 p-mb-md-0" [src]="personal.foto | fotopersonal" [alt]="personal" style="border-radius: 10px;" width="80" class="p-shadow-4" />
+                                        <!-- <span class="p-column-title">Codigo</span> {{personal.foto | fotopersonal}} -->
                                     </td>
                                     <td>
                                         <span class="p-column-title">Codigo</span> {{personal.id_personal}}

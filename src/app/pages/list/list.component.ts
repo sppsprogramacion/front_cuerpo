@@ -5,12 +5,12 @@ import { globalConstants } from '../../common/global-constants';
 import { destinos, escalafon, escalaJerarquica, grados, nivelEducativo, sexos, situacion, departamentos } from 'src/app/common/data-mockeada';
 //import * as path from 'path';
 import { DataService } from '../../services/data.service';
+import { FotopersonalPipe } from '../../pipes/fotopersonal.pipe';
 
 interface IObjectModel{
   label: string; 
   value: string;
 }
-
 
 @Component({
   selector: 'app-list',

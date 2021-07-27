@@ -67,7 +67,11 @@
                                                     <div class="row">
                                                         <div class="col-12 col-sm-4">
                                                             <div class="col-12">
-                                                                <img src="../../../assets/img/avatar.png" class="product-image" alt="Product Image">
+                                                                <!-- <img src="../../../assets/img/avatar.png" class="product-image" alt="Product Image"> -->
+                                                                <img [src]="foto_nombre | fotopersonal" class="product-image" alt="Product Image">
+                                                                <div class="p-col-12 p-md-10">
+                                                                    <p-fileUpload name="foto" [customUpload]="true" [multiple]="true" (uploadHandler)="onUpload($event.files[0])"></p-fileUpload>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-12 col-sm-8">
@@ -131,7 +135,7 @@
                                                                                     <!-- select -->
                                                                                     <div class="form-group">
                                                                                         <label>Destino</label>
-                                                                                        <!-- <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id">  -->
+                                                                                        <!-- <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChangeDestino()">  -->
                                                                                         <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChangeDestino()"> 
                                                                                               <option *ngFor="let destino of destinos" [value]="destino.id_destino" >{{destino.destino}}</option>
                                                                                         </select>

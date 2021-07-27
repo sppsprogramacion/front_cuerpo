@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { EditComponent } from './edit.component';
 import { ngPrimeModule } from '../../ngprime.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { PipesModule } from '../../pipes/pipes.module';
 
 
 
@@ -14,13 +15,15 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
-    ngPrimeModule
+    ngPrimeModule,
+    PipesModule
   ],
   exports: [
     FormsModule,
     ReactiveFormsModule,
     EditComponent,
-    ngPrimeModule
+    ngPrimeModule,
+    PipesModule
   ]
 })
 export class EditModule { }

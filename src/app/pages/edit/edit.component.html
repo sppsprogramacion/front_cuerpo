@@ -58,7 +58,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-12 col-sm-8">
-                                                            <form [formGroup]="forma" (click)="submitForm()">
+                                                            <form [formGroup]="forma">
                                                                 <div class="card card-warning">
                                                                     <div class="card-header">
                                                                         <h3 class="card-title">Edición de Datos</h3>
@@ -346,7 +346,7 @@
                                                                     </div>
                                                                     <!-- /.card-body -->
                                                                     <div class="card-footer">
-                                                                        <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary">Guardar</button>
+                                                                        <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitForm()">Guardar</button>
                                                                     </div>
                                                                 </div>
                                                             </form>

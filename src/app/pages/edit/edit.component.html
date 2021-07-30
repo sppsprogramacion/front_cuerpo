@@ -208,12 +208,16 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-6">
-                                                                                <!-- <div class="form-group">
-                                                                                        <label>Escala Jerárquica</label>
-                                                                                        <select formControlName="escala_jerarquica_id" class="form-control" [ngModel]="dataEdit.escala_jerarquica_id"> 
-                                                                                            <option *ngFor="let escala of escalas" [value]="escala.id_escala_jerarquica">{{escala.escala_jerarquica}}</option> 
-                                                                                        </select>
+                                                                                <div class="form-group">
+                                                                                    <label for="datebirth">Date:</label>
+                                                                                    <input type="date" id="datebirth" class="form-control" formControlName="fecha_nacimiento" [ngModel]="dataEdit.fecha_nacimiento">
+                                                                                    <!-- <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                                                                        <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" />
+                                                                                        <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                                                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                                                        </div>
                                                                                     </div> -->
+                                                                                </div>
                                                                             </div>
                                                                         </div>
 

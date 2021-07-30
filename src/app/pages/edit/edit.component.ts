@@ -69,6 +69,7 @@ export class EditComponent implements OnInit {
        escala_jerarquica_id: [this.dataEdit.escala_jerarquica_id],
        grado_id: [this.dataEdit.grado_id],
        foto: [this.dataEdit.foto],
+       fecha_nacimiento:[this.dataEdit.fecha_nacimiento],
   });
     //this.submitForm();
    
@@ -89,6 +90,7 @@ export class EditComponent implements OnInit {
       this.foto_nombre = this.dataEdit.foto?.toString();
 
     }
+    
    }
 
   ngOnInit(): void {

@@ -157,16 +157,7 @@ selectedUsuarios: Usuario[] = [];
           })
 
         
-        // this.confirmationService.confirm({
-        //     message: 'Are you sure you want to delete the selected products?',
-        //     header: 'Confirm',
-        //     icon: 'pi pi-exclamation-triangle',
-        //     accept: () => {
-        //         this.products = this.products.filter(val => !this.selectedProducts.includes(val));
-        //         this.selectedProducts = null;
-        //         this.messageService.add({severity:'success', summary: 'Successful', detail: 'Products Deleted', life: 3000});
-        //     }
-        // });
+        
     }
 
     editProduct(usuarioEdit: Usuario) {
@@ -220,22 +211,6 @@ selectedUsuarios: Usuario[] = [];
             }
           })
 
-
-
-
-
-
-
-        // this.confirmationService.confirm({
-        //     message: 'Are you sure you want to delete ' + product.name + '?',
-        //     header: 'Confirm',
-        //     icon: 'pi pi-exclamation-triangle',
-        //     accept: () => {
-        //         this.products = this.products.filter(val => val.id !== product.id);
-        //         this.product = {};
-        //         this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Deleted', life: 3000});
-        //     }
-        // });
     }
 
     hideDialog() {
@@ -290,25 +265,7 @@ selectedUsuarios: Usuario[] = [];
             
          }
 
-         
- 
 
-        // if (this.product.name.trim()) {
-        //     if (this.product.id) {
-        //         this.products[this.findIndexById(this.product.id)] = this.product;                
-        //         this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
-        //     }
-        //     else {
-        //         this.product.id = this.createId();
-        //         this.product.image = 'product-placeholder.svg';
-        //         this.products.push(this.product);
-        //         this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
-        //     }
-
-        //     this.products = [...this.products];
-        //     this.productDialog = false;
-        //     this.product = {};
-        // }
     }
 
     onUpload(event: File){

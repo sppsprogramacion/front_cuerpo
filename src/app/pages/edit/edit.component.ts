@@ -15,6 +15,7 @@ import { GradoModel } from '../../models/grado.model';
 import Swal from 'sweetalert2';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { PersonalService } from 'src/app/services/personal.service';
+import {DatePipe} from '@angular/common';
 
 
 @Component({
@@ -46,7 +47,8 @@ export class EditComponent implements OnInit {
     public dataService: DataService,
     private fb: FormBuilder,
     private readonly fileUploadService: FileUploadService,
-    private readonly personalService: PersonalService
+    private readonly personalService: PersonalService,
+    private readonly datePipe: DatePipe
   ) {
     this.dataEdit= dataService.personalData;
     //creando el formulario
@@ -69,7 +71,8 @@ export class EditComponent implements OnInit {
        escala_jerarquica_id: [this.dataEdit.escala_jerarquica_id],
        grado_id: [this.dataEdit.grado_id],
        foto: [this.dataEdit.foto],
-       fecha_nacimiento:[this.dataEdit.fecha_nacimiento],
+       ultimo_ascenso: [this.dataEdit.ultimo_ascenso],
+      //  fecha_nacimiento:[this.dataEdit.fecha_nacimiento],
   });
     //this.submitForm();
    
@@ -235,6 +238,18 @@ export class EditComponent implements OnInit {
     }
 }
 
+onDateChange(nuevaFecha: Date){
+  if(nuevaFecha != null){
+    let auxiliarDate: string = this.datePipe.transform(nuevaFecha,"yyyy-MM-dd")!;
+    //let auxiliarDate: string = new Date(nuevaFecha).toISOString();
+    
+    //console.log('EL DATO FECHA ES ', auxiliar);
+    
+    this.forma.get('ultimo_ascenso')?.setValue(auxiliarDate);
+
+  }
+}
+
 
   
 
@@ -261,6 +276,7 @@ export class EditComponent implements OnInit {
                 escalafon_id: this.forma.get('escalafon_id')?.value,
                 escala_jerarquica_id: this.forma.get('escala_jerarquica_id')?.value,
                 grado_id: this.forma.get('grado_id')?.value,
+                ultimo_ascenso: this.forma.get('ultimo_ascenso')?.value
           }}else{
             data = {
               legajo: this.forma.get('legajo')?.value,
@@ -279,8 +295,7 @@ export class EditComponent implements OnInit {
               grado_id: this.forma.get('grado_id')?.value,
           }
         }
-          console.log('DATA FORMULARIO', data);
-        
+                 
           this.personalService.editPersonal(data,parseInt(this.dataEdit.id_personal?.toString()!))
                                                               .subscribe(resultado => {
                                                                   Swal.fire('Exito',`El Registro ha sido editado con Exito`,"success");

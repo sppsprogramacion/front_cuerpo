@@ -209,20 +209,14 @@
                                                                             </div>
                                                                             <div class="col-sm-6">
                                                                                 <div class="form-group">
-                                                                                    <label for="datebirth">Date:</label>
-                                                                                    <input type="date" id="datebirth" class="form-control" formControlName="fecha_nacimiento" [ngModel]="dataEdit.fecha_nacimiento">
-                                                                                    <!-- <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                                                                        <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" />
-                                                                                        <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                                                                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                                                                        </div>
-                                                                                    </div> -->
+                                                                                    <label for="datebirth">Ultimo Ascenso:</label>
+                                                                                    <input type="text" bsDatepicker [bsConfig]="{ isAnimated: true }" (bsValueChange)="onDateChange($event)" id="datebirth" class="form-control" formControlName="ultimo_ascenso" [ngModel]="dataEdit.ultimo_ascenso">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
 
 
-                                                                        <!-- <hr>
+                                                                        <hr>
                                                                         <pre>
                                                                                 Estado del Formulario: {{forma.valid}}
                                                                                 <br>
@@ -230,7 +224,7 @@
                                                                             </pre>
                                                                         <pre>
                                                                                 {{forma.value | json}}
-                                                                            </pre> -->
+                                                                            </pre>
 
 
 

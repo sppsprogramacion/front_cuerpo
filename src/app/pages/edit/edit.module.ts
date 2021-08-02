@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import {DatePipe} from '@angular/common';
 
+
 @NgModule({
   declarations: [
     EditComponent

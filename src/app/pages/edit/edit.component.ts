@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { PersonalService } from 'src/app/services/personal.service';
 import {DatePipe} from '@angular/common';
+import {FechasPipe} from '../../pipes/fechas.pipe';
 
 
 @Component({
@@ -42,6 +43,7 @@ export class EditComponent implements OnInit {
   foto_nombre: string = 'no-image.png';
   fotoSubir: File | undefined;
   modo: string = 'laboral';
+  auxiliarDate: any = null;
 
   constructor(
     public dataService: DataService,
@@ -51,6 +53,13 @@ export class EditComponent implements OnInit {
     private readonly datePipe: DatePipe
   ) {
     this.dataEdit= dataService.personalData;
+    if(this.dataEdit.ultimo_ascenso != null){
+      let auxiliar = this.datePipe.transform(this.dataEdit.ultimo_ascenso, "MM-dd-yyyy");
+      this.dataEdit.ultimo_ascenso = new Date(auxiliar!);
+    }
+    
+    
+
     //creando el formulario
     this.forma = this.fb.group({
        id_personal: [this.dataEdit.id_personal,Validators.required],
@@ -240,13 +249,15 @@ export class EditComponent implements OnInit {
 
 onDateChange(nuevaFecha: Date){
   if(nuevaFecha != null){
-    let auxiliarDate: string = this.datePipe.transform(nuevaFecha,"yyyy-MM-dd")!;
-    //let auxiliarDate: string = new Date(nuevaFecha).toISOString();
+    this.auxiliarDate = this.datePipe.transform(nuevaFecha,"yyyy-MM-dd")!;
+    // console.log('AUXILIAR DATE', thisauxiliarDate);
+    // this.forma.get('ultimo_ascenso')?.setValue(auxiliarDate);
+    // let d: Date = new Date(auxiliarDate);
+    // console.log('FECHA ==>>>>>>', d);
+    // let v = d.toISOString();
+    // console.log('TOSISOSTRING >>>>>>>', v);
     
-    //console.log('EL DATO FECHA ES ', auxiliar);
     
-    this.forma.get('ultimo_ascenso')?.setValue(auxiliarDate);
-
   }
 }
 
@@ -276,7 +287,7 @@ onDateChange(nuevaFecha: Date){
                 escalafon_id: this.forma.get('escalafon_id')?.value,
                 escala_jerarquica_id: this.forma.get('escala_jerarquica_id')?.value,
                 grado_id: this.forma.get('grado_id')?.value,
-                ultimo_ascenso: this.forma.get('ultimo_ascenso')?.value
+                ultimo_ascenso: this.auxiliarDate,
           }}else{
             data = {
               legajo: this.forma.get('legajo')?.value,

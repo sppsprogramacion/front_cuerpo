@@ -210,7 +210,7 @@
                                                                             <div class="col-sm-6">
                                                                                 <div class="form-group">
                                                                                     <label for="datebirth">Ultimo Ascenso:</label>
-                                                                                    <input type="text" bsDatepicker [bsConfig]="{ isAnimated: true }" (bsValueChange)="onDateChange($event)" id="datebirth" class="form-control" formControlName="ultimo_ascenso" [ngModel]="dataEdit.ultimo_ascenso">
+                                                                                    <input type="text" bsDatepicker [bsConfig]=bsDatePickerConfig (bsValueChange)="onDateChange($event)" id="datebirth" class="form-control" formControlName="ultimo_ascenso" [ngModel]="dataEdit.ultimo_ascenso">
                                                                                 </div>
                                                                             </div>
                                                                         </div>

@@ -13,10 +13,12 @@ import { ngPrimeModule } from '../ngprime.module';
 import { FotopersonalPipe } from '../pipes/fotopersonal.pipe';
 import { PipesModule } from '../pipes/pipes.module';
 
+
+
  @NgModule({
   declarations: [
      DashboardComponent,
-     PagesComponent     
+     PagesComponent    
    ],
    exports: [
      DashboardComponent,

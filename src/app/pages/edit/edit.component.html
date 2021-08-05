@@ -194,8 +194,8 @@
                                                                                 <div class="form-group">
                                                                                     <label>Escala Jerárquica</label>
                                                                                     <select formControlName="escala_jerarquica_id" class="form-control" [ngModel]="dataEdit.escala_jerarquica_id" (change)=" onChangeEscala()"> 
-                                                                                            <option *ngFor="let escala of escalas" [value]="escala.id_escala_jerarquica">{{escala.escala_jerarquica}}</option> 
-                                                                                        </select>
+                                                                                        <option *ngFor="let escala of escalas" [value]="escala.id_escala_jerarquica">{{escala.escala_jerarquica}}</option> 
+                                                                                    </select>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -213,7 +213,7 @@
                                                                             <div class="col-sm-6">
                                                                                 <div class="form-group">
                                                                                     <label for="datebirth">Ultimo Ascenso:</label>
-                                                                                    <input type="text" bsDatepicker [bsConfig]="{ isAnimated: true }" (bsValueChange)="onDateChange($event)" id="datebirth" class="form-control" formControlName="ultimo_ascenso" [ngModel]="dataEdit.ultimo_ascenso">
+                                                                                    <input type="text" bsDatepicker [bsConfig]=bsDatePickerConfig (bsValueChange)="onDateChange($event)" id="datebirth" class="form-control" formControlName="ultimo_ascenso" [ngModel]="dataEdit.ultimo_ascenso">
                                                                                 </div>
                                                                             </div>
                                                                         </div>

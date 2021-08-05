@@ -17,6 +17,7 @@ import { FileUploadService } from 'src/app/services/file-upload.service';
 import { PersonalService } from 'src/app/services/personal.service';
 import {DatePipe} from '@angular/common';
 import {FechasPipe} from '../../pipes/fechas.pipe';
+import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
 
 
 @Component({
@@ -44,18 +45,33 @@ export class EditComponent implements OnInit {
   fotoSubir: File | undefined;
   modo: string = 'laboral';
   auxiliarDate: any = null;
+  
+  bsDatePickerConfig!: Partial<BsDatepickerConfig>;
 
   constructor(
     public dataService: DataService,
     private fb: FormBuilder,
     private readonly fileUploadService: FileUploadService,
     private readonly personalService: PersonalService,
-    private readonly datePipe: DatePipe
+    private readonly datePipe: DatePipe,
+    private localeService: BsLocaleService
   ) {
     this.dataEdit= dataService.personalData;
     if(this.dataEdit.ultimo_ascenso != null){
       let auxiliar = this.datePipe.transform(this.dataEdit.ultimo_ascenso, "MM-dd-yyyy");
       this.dataEdit.ultimo_ascenso = new Date(auxiliar!);
+
+      //configuracion de datepicker
+      this.bsDatePickerConfig = Object.assign({}, 
+        { isAnimated: true, 
+          dateInputFormat: 'DD/MM/YYYY', 
+          containerClass: 'theme-dark-blue' 
+      
+        });
+
+        //configurar idioma bsDatepicker
+        this.localeService.use('en');
+      
     }
     
     
@@ -108,7 +124,8 @@ export class EditComponent implements OnInit {
   ngOnInit(): void {
     //cargar el array de destinos
     this.destinos = destinos;
-    
+
+       
     
   }
 

@@ -7,6 +7,8 @@ import { destinos, escalafon, escalaJerarquica, grados, nivelEducativo, sexos, s
 import { DataService } from '../../services/data.service';
 import { FotopersonalPipe } from '../../pipes/fotopersonal.pipe';
 
+import * as printJS from 'print-js';
+
 interface IObjectModel{
   label: string; 
   value: string;
@@ -113,6 +115,17 @@ export class ListComponent implements OnInit {
      EditarPersonal(data: Personal){
        this.dataService.personalData = data;
      }
+
+     printTabla() {
+      
+      printJS({
+        
+        printable: document.getElementById('personal-table'), 
+        type: 'html', 
+        header: 'PrintJS - Form Element Selection'
+
+      })
+    }
 
     // cargarListaPersonal(event: LazyLoadEvent) {  
     //     this.loading = true;

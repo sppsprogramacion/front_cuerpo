@@ -15,13 +15,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    NopagefoundComponent,
+    NopagefoundComponent
      ],
   imports: [
     BrowserModule,
@@ -32,6 +31,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     BsDatepickerModule.forRoot(),
     BrowserAnimationsModule,
+    
 
   ],
   providers: [],

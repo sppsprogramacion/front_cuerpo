@@ -64,7 +64,7 @@ export class EditComponent implements OnInit {
       //configuracion de datepicker
       this.bsDatePickerConfig = Object.assign({}, 
         { isAnimated: true, 
-          dateInputFormat: 'YYYY-MM-DD', 
+          dateInputFormat: 'DD/MM/YYYY', 
           containerClass: 'theme-dark-blue' 
       
         });

@@ -1,1 +1,84 @@
+.contenedor {
+    width: 90%;
+    max-width: 1000px;
+    padding: 40px 20px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: cadetblue;
+    justify-content: center;
+    align-items: center;
+}
 
+
+/*-----Estilos generales de las tarjetas-------------*/
+
+.tarjeta {
+    width: 100%;
+    max-width: 550px;
+    position: relative;
+    color: #fff;
+    transition: .3s ease all;
+    transform: rotateY(0deg);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.tarjeta.active {
+    transform: rotateY(180deg);
+}
+
+.tarjeta>section>div {
+    padding: 15px;
+    border-radius: 15px;
+    min-height: 315px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 10px 10px 0 rgba(90, 116, 148, 0.3);
+}
+
+
+/* .section1 {
+    position: relative;
+} */
+
+.delantera {
+    position: relative;
+    width: 100%;
+    background: url(../../../assets/img/credencial/frente.jpg);
+    background-size: cover;
+}
+
+.trasera {
+    width: 100%;
+    background: url(../../../assets/img/credencial/dorso.jpg);
+    background-size: cover;
+}
+
+
+/* .foto-marco-vertical {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: darkblue;
+} */
+
+
+/* .foto-marco {
+    float: right;
+    background-color: chartreuse;
+    width: 100%;
+    height: 50%;
+} */
+
+.foto {
+    border-radius: 10px;
+    position: absolute;
+    bottom: 35px;
+    right: 15px;
+    height: 170px;
+    width: 160px;
+}

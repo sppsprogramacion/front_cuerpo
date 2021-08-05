@@ -23,7 +23,7 @@ import {FechasPipe} from '../../pipes/fechas.pipe';
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: [
-    // './edit.component.css'
+     './edit.component.css'
   ]
 })
 export class EditComponent implements OnInit {

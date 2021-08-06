@@ -35,6 +35,7 @@
                     </div>
                     <div class="card-body">
                         <div class="tab-content" id="custom-tabs-five-tabContent">
+                            <!-- PANEL 1 DATOS LABORALES-->
                             <div class="tab-pane fade show active" id="custom-tabs-five-overlay" role="tabpanel" aria-labelledby="custom-tabs-five-overlay-tab">
                                 <div class="overlay-wrapper">
                                     <!-- <div class="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i>
@@ -297,6 +298,9 @@
 
                                 </div>
                             </div>
+                            <!-- FIN PANEL 1 DATOS LABORALES-->
+
+                            <!-- PANEL 2 DATOS PERSONALES-->
                             <div class="tab-pane fade" id="custom-tabs-five-overlay-dark" role="tabpanel" aria-labelledby="custom-tabs-five-overlay-dark-tab">
                                 <div class="overlay-wrapper">
                                     <!-- <div class="overlay dark"><i class="fas fa-3x fa-sync-alt fa-spin"></i>
@@ -309,168 +313,98 @@
                                         <!-- /.card-header -->
                                         <div class="card-body">
 
-                                            <form [formGroup]="forma" (ngSubmit)="submitForm()">
+                                            <form [formGroup]="formaFiliatorios" (ngSubmit)="submitForm()">
                                                 <div class="row">
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
-                                                            <label>Primer Apellido</label>
-                                                            <input formControlName="apellido_1" type="text" class="form-control" placeholder="primer apellido" [class.is-invalid]="apellido1NoValido">
+                                                            <label>DNI</label>
+                                                            <input formControlName="dni" type="text" class="form-control" placeholder="dni">
                                                         </div>
-                                                        <small *ngIf="apellido1NoValido" class="form-text text-danger">El primer apellido es obligatorio</small>
                                                     </div>
+
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
-                                                            <label>Segundo Apellido</label>
-                                                            <input formControlName="apellido_2" type="text" class="form-control" placeholder="segundo apellido">
+                                                            <label>Cuil</label>
+                                                            <input formControlName="cuil" type="text" class="form-control" placeholder="cuil">
                                                         </div>
                                                     </div>
+
+
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
-                                                            <label>Primer Nombre</label>
-                                                            <input formControlName="nombre_1" type="text" class="form-control" placeholder="primer nombre" [class.is-invalid]="nombre1NoValido">
+                                                            <label>Fecha Nacimiento</label>
+                                                            <input formControlName="fecha_nacimiento" type="text" class="form-control" placeholder="fecha nacimiento">
                                                         </div>
-                                                        <small *ngIf="nombre1NoValido" class="form-text text-danger">El primer nombre es obligatorio</small>
                                                     </div>
+
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
-                                                            <label>Segundo Nombre</label>
-                                                            <input formControlName="nombre_2" type="text" class="form-control" placeholder="segundo nombre">
+                                                            <label>Fecha Ingreso</label>
+                                                            <input formControlName="fecha_ingreso" type="text" class="form-control" placeholder="fecha ingreso" [class.is-invalid]="nombre1NoValido">
                                                         </div>
+
                                                     </div>
+
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
-                                                            <label>Tercer Nombre</label>
-                                                            <input formControlName="nombre_3" type="text" class="form-control" placeholder="tercer nombre">
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Legajo</label>
-                                                            <input formControlName="legajo" type="text" class="form-control" placeholder="legajo" [class.is-invalid]="legajoNoValido">
-                                                        </div>
-                                                        <small *ngIf="legajoNoValido" class="form-text text-danger">El legajo es obligatorio</small>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <!-- select -->
-                                                        <div class="form-group">
-                                                            <label>Destino</label>
-                                                            <!-- <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChangeDestino()">  -->
-                                                            <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChangeDestino()"> 
-                                                      <option *ngFor="let destino of destinos" [value]="destino.id_destino" >{{destino.destino}}</option>
-                                                </select>
-                                                            <input *ngIf="!administrador" type="text" class="form-control" [placeholder]="destino_txt" disabled>
-
-                                                            <!-- <p-dropdown class="form-control" [options]="destinos" formControlName="destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown> -->
+                                                            <label>Sexo</label>
+                                                            <select formControlName="sexo_id" class="form-control" [ngModel]="dataEdit.sexo_id"> 
+                                                            <option *ngFor="let sexo of sexos" [value]="sexo.id_sexo">{{sexo.sexo}}</option> 
+                                                        </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
-                                                            <label>Departamento</label>
-                                                            <select formControlName="departamento_id" class="form-control" [ngModel]="dataEdit.departamento_id" (change)=" onChangeDepartamento()"> 
-                                                    <option *ngFor="let departamento of departamentos" [value]="departamento.id_departamento" >{{departamento.departamento}}</option>
-                                              </select>
+                                                            <label>Estado Civil</label>
+                                                            <select formControlName="estado_civil_id" class="form-control" [ngModel]="dataEdit.estado_civil_id"> 
+                                                            <option *ngFor="let estado_civil of estados_civil" [value]="estado_civil.id_estado_civil">{{estado_civil.estado_civil}}</option> 
+                                                        </select>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="row">
                                                     <div class="col-sm-6">
-                                                        <!-- select -->
                                                         <div class="form-group">
-                                                            <label>Divisiones</label>
-                                                            <!-- <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id">  -->
-                                                            <select formControlName="division_id" class="form-control" [ngModel]="dataEdit.division_id" (change)=" onChangeDivision()"> 
-                                                      <option *ngFor="let division of divisiones" [value]="division.id_division" >{{division.division}}</option>
-                                                </select>
-                                                            <!-- <p-dropdown class="form-control" [options]="destinos" formControlName="destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown> -->
+                                                            <label>Nacionalidad</label>
+                                                            <input formControlName="nacionalidad" type="text" class="form-control" placeholder="nacionalidad">
                                                         </div>
                                                     </div>
+
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
-                                                            <label>Sectores</label>
-                                                            <select formControlName="sector_id" class="form-control" [ngModel]="dataEdit.sector_id"> 
-                                                    <option *ngFor="let sector of sectores" [value]="sector.id_sector" >{{sector.sector}}</option>
-                                              </select>
+                                                            <label>Domicilio</label>
+                                                            <input formControlName="domicilio" type="text" class="form-control" placeholder="domicilio">
                                                         </div>
                                                     </div>
+
                                                 </div>
 
                                                 <div class="row">
                                                     <div class="col-sm-6">
-                                                        <!-- select -->
                                                         <div class="form-group">
-                                                            <label>Funciones</label>
-                                                            <input type="text" class="form-control" formControlName="funcion" [ngModel]="dataEdit.funcion" placeholder="funciones asignadas">
+                                                            <label>Sexo</label>
+                                                            <select formControlName="sexo_id" class="form-control" [ngModel]="dataEdit.sexo_id"> 
+                                                            <option *ngFor="let sexo of sexos" [value]="sexo.id_sexo">{{sexo.sexo}}</option> 
+                                                        </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
-                                                            <label>Sección de Guardia</label>
-                                                            <select formControlName="seccion_guardia_id" class="form-control" [ngModel]="dataEdit.seccion_guardia_id"> 
-                                                    <option *ngFor="let guardia of secciones_guardia" [value]="guardia.id_seccion" >{{guardia.seccion}}</option>
-                                              </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <!-- select -->
-                                                        <div class="form-group">
-                                                            <label>Escalafón</label>
-                                                            <select formControlName="escalafon_id" class="form-control" [ngModel]="dataEdit.escalafon_id"> 
-                                                    <option *ngFor="let escalafon of escalafones" [value]="escalafon.id_escalafon" >{{escalafon.escalafon}}</option> 
-                                              </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Escala Jerárquica</label>
-                                                            <select formControlName="escala_jerarquica_id" class="form-control" [ngModel]="dataEdit.escala_jerarquica_id" (change)=" onChangeEscala()"> 
-                                                    <option *ngFor="let escala of escalas" [value]="escala.id_escala_jerarquica">{{escala.escala_jerarquica}}</option> 
-                                                </select>
+                                                            <label>Estado Civil</label>
+                                                            <select formControlName="estado_civil_id" class="form-control" [ngModel]="dataEdit.estado_civil_id"> 
+                                                            <option *ngFor="let estado_civil of estados_civil" [value]="estado_civil.id_estado_civil">{{estado_civil.estado_civil}}</option> 
+                                                        </select>
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <!-- select -->
-                                                        <div class="form-group">
-                                                            <label>Grado</label>
-                                                            <select formControlName="grado_id" class="form-control" [ngModel]="dataEdit.grado_id"> 
-                                                    <option *ngFor="let grado of grados" [value]="grado.id_grado" >{{grado.grado}}</option> 
-                                              </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <!-- <div class="form-group">
-                                                <label>Escala Jerárquica</label>
-                                                <select formControlName="escala_jerarquica_id" class="form-control" [ngModel]="dataEdit.escala_jerarquica_id"> 
-                                                    <option *ngFor="let escala of escalas" [value]="escala.id_escala_jerarquica">{{escala.escala_jerarquica}}</option> 
-                                                </select>
-                                            </div> -->
-                                                    </div>
-                                                </div>
 
 
-                                                <!-- <hr>
-                                <pre>
-                                        Estado del Formulario: {{forma.valid}}
-                                        <br>
-                                        Status: {{forma.status}}
-                                    </pre>
-                                <pre>
-                                        {{forma.value | json}}
-                                    </pre> -->
 
 
 
@@ -481,6 +415,9 @@
 
                                 </div>
                             </div>
+                            <!-- FIN PANEL 2 DATOS PERSONALES-->
+
+                            <!-- PANEL 3 -->
                             <div class="tab-pane fade" id="custom-tabs-five-normal" role="tabpanel" aria-labelledby="custom-tabs-five-normal-tab">
                                 <form action="">
                                     <div class="card card-warning">
@@ -636,6 +573,9 @@
                                     </div>
                                 </form>
                             </div>
+                            <!-- FIN PANEL 3 -->
+
+                            <!-- PANEL 4 CREDENCIAL -->
                             <div class="tab-pane fade" id="tab-credencial" role="tabpanel" aria-labelledby="tabs-credencial-tab">
 
                                 <div class="card card-warning">
@@ -688,6 +628,7 @@
                                 </div>
 
                             </div>
+                            <!-- FIN PANEL 4 CREDENCIAL -->
                         </div>
                     </div>
                     <!-- /.card -->

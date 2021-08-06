@@ -37,7 +37,7 @@ export class ListComponent implements OnInit {
   departamentos: IObjectModel[] = [];
   urlEdit: string = '../edit';
 
-  cols: any[]=[]; //array de columnas de la tabla
+  colsTablaPersonalExport: any[]=[]; //array de columnas de la tabla
   nombre_archivo:string="Tabla de datos";
     // cols: any[];
 
@@ -51,13 +51,34 @@ export class ListComponent implements OnInit {
       ) { }
 
   ngOnInit() {
-        //inicializacion de cabeceras de columnas
-    this.cols = [      
+    //inicializacion de cabeceras de columnas
+    this.colsTablaPersonalExport = [      
       { field: 'id_personal', header: 'Id' },
-      { field: 'apellido_1', header: 'apellido' },
-      { field: 'nombre_1', header: 'Nombre' },
-      { field: 'grado.grado', header: 'grado' },
-      { field: 'sexo.sexo', header: 'sexo' }
+      { field: 'apellido_1', header: 'Primer Apellido' },
+      { field: 'apellido_1', header: 'Primer Apellido' },
+      { field: 'nombre_1', header: 'Primer Nombre' },
+      { field: 'nombre_2', header: 'Segundo Nombre' },
+      { field: 'nombre_3', header: 'Tercer Nombre' },
+      { field: 'grado.grado', header: 'Grado' },
+      { field: 'dni', header: 'DNI' },
+      { field: 'legajo', header: 'Legajo' },
+      { field: 'sexo.sexo', header: 'Sexo' },
+      { field: 'situacion.situacion', header: 'Situación' },
+      { field: 'destino.destino', header: 'Destino' },
+      { field: 'departamento.departamento', header: 'Departamento' },
+      { field: 'division.division', header: 'División' },
+      { field: 'sector.sector', header: 'Sector' },
+      { field: 'seccion_guardia', header: 'Guardia' },
+      { field: 'funcion', header: 'Función' },
+      { field: 'escalafon.escalafon', header: 'Escalafón' },
+      { field: 'escala_jerarquica.escala_jerarquica', header: 'Escala' },
+      { field: 'nivel_educativo.nivel_educativo', header: 'Educación' },
+      { field: 'nacionalidad', header: 'Nacionalidad' },
+      { field: 'domicilio', header: 'Domicilio' },
+      { field: 'provincia.provincia', header: 'Provincia' },
+      { field: 'departamento_provincial.departamento_provincial', header: 'Dpto Provincial' },
+      { field: 'municipio.municipio', header: 'Municipio' },
+      { field: 'ciudad', header: 'Ciudad' },
     ];
     //FIN inicializacion de cabeceras de columnas
         

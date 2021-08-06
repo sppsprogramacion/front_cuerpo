@@ -3,7 +3,7 @@ import { Personal } from 'src/app/models/personal.model';
 import { DataService } from 'src/app/services/data.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DestinoModel } from '../../models/destino.model';
-import { destinos, departamentos, divisiones, sectores, secciones_guardia, escalaJerarquica, escalafon, grados} from 'src/app/common/data-mockeada';
+import { destinos, departamentos, divisiones, estados_civil, sectores, secciones_guardia, escalaJerarquica, escalafon, grados, sexos} from 'src/app/common/data-mockeada';
 import { globalConstants } from '../../common/global-constants';
 import { DepartamentoModel } from '../../models/departamento.model';
 import { DivisionModel } from '../../models/division.model';
@@ -20,6 +20,8 @@ import {FechasPipe} from '../../pipes/fechas.pipe';
 import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
 
 import * as printJS from 'print-js';
+import { SexoModel } from '../../models/sexo.model';
+import { EstadoCivilModel } from '../../models/estado_civil.model';
 
 
 @Component({
@@ -31,6 +33,7 @@ import * as printJS from 'print-js';
 })
 export class EditComponent implements OnInit {
   forma: FormGroup;
+  formaFiliatorios: FormGroup;
   dataEdit: Personal={};
   nombreCompleto: string="";
   destinos: DestinoModel[]=[];
@@ -38,11 +41,13 @@ export class EditComponent implements OnInit {
   destino_txt: string="";
   departamentos: DepartamentoModel[]=[];
   divisiones: DivisionModel[]=[];
+  estados_civil: EstadoCivilModel[]=[];
   sectores: sectorModel[]=[];
   secciones_guardia: SeccionGuardia[]=[];
   escalafones: EscalafonModel[]=[];
   escalas: EscalaJerarquicaModel[]=[];
   grados: GradoModel[]=[];
+  sexos: SexoModel[]=[];
   foto_nombre: string = 'no-image.png';
   fotoSubir: File | undefined;
   modo: string = 'laboral';
@@ -60,21 +65,21 @@ export class EditComponent implements OnInit {
   ) {
     this.dataEdit= dataService.personalData;
     if(this.dataEdit.ultimo_ascenso != null){
+      //debe ser MM-dd-yyyy porque el tipo Date recibe ese formato... con dd-MM-yyyy intercambia mes con dia
       let auxiliar = this.datePipe.transform(this.dataEdit.ultimo_ascenso, "MM-dd-yyyy");
       this.dataEdit.ultimo_ascenso = new Date(auxiliar!);
-
-      //configuracion de datepicker
-      this.bsDatePickerConfig = Object.assign({}, 
-        { isAnimated: true, 
-          dateInputFormat: 'DD/MM/YYYY', 
-          containerClass: 'theme-dark-blue' 
-      
-        });
-
-        //configurar idioma bsDatepicker
-        this.localeService.use('en');
-      
+           
     }
+     //configuracion de datepicker
+     this.bsDatePickerConfig = Object.assign({}, 
+      { isAnimated: true, 
+        dateInputFormat: 'DD/MM/YYYY', 
+        containerClass: 'theme-dark-blue' 
+    
+      });
+
+      //configurar idioma bsDatepicker
+      this.localeService.use('en');
     
     
 
@@ -100,7 +105,33 @@ export class EditComponent implements OnInit {
        foto: [this.dataEdit.foto],
        ultimo_ascenso: [this.dataEdit.ultimo_ascenso],
       //  fecha_nacimiento:[this.dataEdit.fecha_nacimiento],
-  });
+    });
+
+    //FORMULARIO DATOS FILIATORIOS
+    this.formaFiliatorios = this.fb.group({   
+      dni: [this.dataEdit.dni,Validators.required],
+      fecha_nacimiento: [this.dataEdit.fecha_nacimiento,Validators.required],
+      fecha_ingreso: [this.dataEdit.fecha_ingreso],
+      cuil: [this.dataEdit.cuil,Validators.required],
+      sexo_id: [this.dataEdit.sexo_id],
+      estado_civil_id: [this.dataEdit.estado_civil_id],
+      nacionalidad: [this.dataEdit.nacionalidad,[Validators.required]],
+      domicilio: [this.dataEdit.domicilio,[Validators.required]],
+      provincia_id: [this.dataEdit.provincia_id],
+      departamento_provincial_id: [this.dataEdit.departamento_provincial_id],
+      municipio_id: [this.dataEdit.municipio_id],
+      ciudad_id: [this.dataEdit.ciudad_id],
+      nivel_educativo_id: [this.dataEdit.nivel_educativo_id],
+      telefonos: [this.dataEdit.telefonos],
+      email: [this.dataEdit.email],
+      altura: [this.dataEdit.altura],
+      peso: [this.dataEdit.peso],
+      registrado_por: [this.dataEdit.registrado_por],
+      situacion_id: [this.dataEdit.situacion_id]
+     //  fecha_nacimiento:[this.dataEdit.fecha_nacimiento],
+    });
+    //FIN FORMULARIO DATOS FILIATORIOS
+  
     //this.submitForm();
    
     let auxiliar: any;
@@ -110,18 +141,23 @@ export class EditComponent implements OnInit {
     this.administrador = (globalConstants.rol_usuario == "0")? true: false;
     auxiliar = this.dataEdit.destino;
     this.destino_txt = auxiliar.destino;
+    this.estados_civil = estados_civil;
     this.cargarDepartamentos(this.dataEdit.destino_id!);
     this.cargarDivisiones(this.dataEdit.departamento_id!);
     this.cargarSeccionesGuardia(this.dataEdit.departamento_id!);
     this.escalafones = escalafon;
     this.escalas = escalaJerarquica;
     this.cargarGrados(this.dataEdit.escala_jerarquica_id!);
+    this.sexos = sexos;
+    console.log("sexos", this.sexos);
+
     if(this.dataEdit.foto){
       this.foto_nombre = this.dataEdit.foto?.toString();
 
     }
     
-   }
+  }
+  //fin constructor
 
   ngOnInit(): void {
     //cargar el array de destinos
@@ -269,7 +305,7 @@ export class EditComponent implements OnInit {
 onDateChange(nuevaFecha: Date){
   if(nuevaFecha != null){
     this.auxiliarDate = this.datePipe.transform(nuevaFecha,"yyyy-MM-dd")!;
-    // console.log('AUXILIAR DATE', thisauxiliarDate);
+    //console.log('AUXILIAR DATE', this.auxiliarDate);
     // this.forma.get('ultimo_ascenso')?.setValue(auxiliarDate);
     // let d: Date = new Date(auxiliarDate);
     // console.log('FECHA ==>>>>>>', d);
@@ -279,8 +315,6 @@ onDateChange(nuevaFecha: Date){
     
   }
 }
-
-
   
 
   submitForm(){
@@ -298,15 +332,16 @@ onDateChange(nuevaFecha: Date){
                 nombre_1: this.forma.get('nombre_1')?.value,
                 nombre_2: this.forma.get('nombre_2')?.value,
                 nombre_3: this.forma.get('nombre_3')?.value,
-                destino_id: this.forma.get('destino_id')?.value,
-                departamento_id: this.forma.get('departamento_id')?.value,
-                division_id: this.forma.get('division_id')?.value,
-                sector_id: this.forma.get('sector_id')?.value,
-                seccion_guardia_id: this.forma.get('seccion_guardia_id')?.value,
-                escalafon_id: this.forma.get('escalafon_id')?.value,
-                escala_jerarquica_id: this.forma.get('escala_jerarquica_id')?.value,
-                grado_id: this.forma.get('grado_id')?.value,
+                destino_id: parseInt(this.forma.get('destino_id')?.value),
+                departamento_id: parseInt(this.forma.get('departamento_id')?.value),
+                division_id: parseInt(this.forma.get('division_id')?.value),
+                sector_id: parseInt(this.forma.get('sector_id')?.value),
+                seccion_guardia_id: parseInt(this.forma.get('seccion_guardia_id')?.value),
+                escalafon_id: parseInt(this.forma.get('escalafon_id')?.value),
+                escala_jerarquica_id: parseInt(this.forma.get('escala_jerarquica_id')?.value),
+                grado_id: parseInt(this.forma.get('grado_id')?.value),
                 ultimo_ascenso: this.auxiliarDate,
+                
           }}else{
             data = {
               legajo: this.forma.get('legajo')?.value,
@@ -333,7 +368,7 @@ onDateChange(nuevaFecha: Date){
                                                                   //this.hideDialog();
                                                               },
                                                               error => {
-                                                                  
+                                                                  console.log("personal a editar", data);
                                                                   Swal.fire('Error',`Error al Editar el Usuario ${error.error.message}`,"error")                          
                                                               });
          

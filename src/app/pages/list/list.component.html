@@ -9,8 +9,8 @@
 
                     <div class="card">
 
-                        <p-table #dt id="personal-table" [value]="personalList" [style]="{width:'100%'}" [columns]="cols" [exportFilename]="nombre_archivo" selectionMode="multiple" [(selection)]="selectedPersonal" dataKey="id_personal" [rowHover]="true" [rows]="5" [showCurrentPageReport]="true"
-                            [rowsPerPageOptions]="[5,10,25,50]" [loading]="loading" [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']"
+                        <p-table #dt id="personal-table" [value]="personalList" [style]="{width:'100%'}" [columns]="colsTablaPersonalExport" [exportFilename]="nombre_archivo" selectionMode="multiple" [(selection)]="selectedPersonal" dataKey="id_personal" [rowHover]="true" [rows]="5"
+                            [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50]" [loading]="loading" [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']"
                             [scrollable]="true" scrollHeight="100%" [responsive]="false">
 
                             <ng-template pTemplate="caption">
@@ -283,14 +283,14 @@
                                     </th>
 
 
-                                    <th pSortableColumn="nacionalidad.nacionalidad">
+                                    <th pSortableColumn="nacionalidad">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Nacionalidad
                                             <p-sortIcon field="nacionalidad.nacionalidad"></p-sortIcon>
                                             <p-columnFilter type="text" field="nacionalidad.nacionalidad" display="menu" class="p-ml-auto"></p-columnFilter>
                                         </div>
                                     </th>
-                                    <th pSortableColumn="domicilio.domicilio">
+                                    <th pSortableColumn="domicilio">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Domicilio
                                             <p-sortIcon field="domicilio.domicilio"></p-sortIcon>
@@ -459,14 +459,6 @@
 
                         </p-table>
 
-                        <button type="button" (click)="printTabla()">
-                            Imprimir Tabla
-                         </button>
-                        <br>
-
-                        <button type="button" onclick="printJS({ printable: 'personal-table', type: 'html', header: 'PrintJS - Form Element Selection' })">
-                            Print Form with Header
-                         </button>
 
                     </div>
 

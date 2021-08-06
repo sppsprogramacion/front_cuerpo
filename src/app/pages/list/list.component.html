@@ -9,11 +9,17 @@
 
                     <div class="card">
 
-                        <p-table #dt id="personal-table" [value]="personalList" [style]="{width:'100%'}" [(selection)]="selectedPersonal" dataKey="id_personal" [rowHover]="true" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50]" [loading]="loading"
-                            [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']" [scrollable]="true" scrollHeight="100%"
-                            [responsive]="false">
+                        <p-table #dt id="personal-table" [value]="personalList" [style]="{width:'100%'}" [columns]="cols" [exportFilename]="nombre_archivo" selectionMode="multiple" [(selection)]="selectedPersonal" dataKey="id_personal" [rowHover]="true" [rows]="5" [showCurrentPageReport]="true"
+                            [rowsPerPageOptions]="[5,10,25,50]" [loading]="loading" [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']"
+                            [scrollable]="true" scrollHeight="100%" [responsive]="false">
 
                             <ng-template pTemplate="caption">
+                                <div class="p-d-flex">
+                                    <button type="button" pButton pRipple icon="pi pi-file-o" (click)="dt.exportCSV()" class="p-mr-2" pTooltip="CSV" tooltipPosition="bottom"></button>
+                                    <button type="button" pButton pRipple icon="pi pi-file-excel" class="p-button-success p-mr-2" pTooltip="XLS" tooltipPosition="bottom"></button>
+                                    <button type="button" pButton pRipple icon="pi pi-filter" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom"></button>
+
+                                </div>
                                 <div class="table-header">
                                     Listado del Personal
 
@@ -455,6 +461,11 @@
 
                         <button type="button" (click)="printTabla()">
                             Imprimir Tabla
+                         </button>
+                        <br>
+
+                        <button type="button" onclick="printJS({ printable: 'personal-table', type: 'html', header: 'PrintJS - Form Element Selection' })">
+                            Print Form with Header
                          </button>
 
                     </div>

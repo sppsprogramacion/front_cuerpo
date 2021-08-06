@@ -36,6 +36,9 @@ export class ListComponent implements OnInit {
   situacion: IObjectModel[] = [];
   departamentos: IObjectModel[] = [];
   urlEdit: string = '../edit';
+
+  cols: any[]=[]; //array de columnas de la tabla
+  nombre_archivo:string="Tabla de datos";
     // cols: any[];
 
     // loading: boolean;
@@ -48,6 +51,16 @@ export class ListComponent implements OnInit {
       ) { }
 
   ngOnInit() {
+        //inicializacion de cabeceras de columnas
+    this.cols = [      
+      { field: 'id_personal', header: 'Id' },
+      { field: 'apellido_1', header: 'apellido' },
+      { field: 'nombre_1', header: 'Nombre' },
+      { field: 'grado.grado', header: 'grado' },
+      { field: 'sexo.sexo', header: 'sexo' }
+    ];
+    //FIN inicializacion de cabeceras de columnas
+        
         const destino: number = globalConstants.destino_usuario;
         this.personalService.listarPersonal(destino).
                         subscribe(respuesta => {

@@ -19,6 +19,8 @@ import {DatePipe} from '@angular/common';
 import {FechasPipe} from '../../pipes/fechas.pipe';
 import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
 
+import * as printJS from 'print-js';
+
 
 @Component({
   selector: 'app-edit',

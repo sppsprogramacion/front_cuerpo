@@ -3,7 +3,7 @@ import { Personal } from 'src/app/models/personal.model';
 import { DataService } from 'src/app/services/data.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DestinoModel } from '../../models/destino.model';
-import { destinos, departamentos, divisiones, estados_civil, sectores, secciones_guardia, escalaJerarquica, escalafon, grados, sexos} from 'src/app/common/data-mockeada';
+import { destinos, departamentos, departamentos_provincial, divisiones, estados_civil, municipios, nivelEducativo, sectores, secciones_guardia, escalaJerarquica, escalafon, grados, sexos, provincias} from 'src/app/common/data-mockeada';
 import { globalConstants } from '../../common/global-constants';
 import { DepartamentoModel } from '../../models/departamento.model';
 import { DivisionModel } from '../../models/division.model';
@@ -22,6 +22,11 @@ import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import * as printJS from 'print-js';
 import { SexoModel } from '../../models/sexo.model';
 import { EstadoCivilModel } from '../../models/estado_civil.model';
+import { ProvinciaModel } from 'src/app/models/provincia.model';
+import { DepartamentoProvincialModel } from 'src/app/models/departamento_provincial.model';
+import { MunicipioModel } from '../../models/municipio.model';
+import { csLocale } from 'ngx-bootstrap/chronos';
+import { NivelEducativoModel } from '../../models/nivel_educativo.model';
 
 
 @Component({
@@ -36,18 +41,26 @@ export class EditComponent implements OnInit {
   formaFiliatorios: FormGroup;
   dataEdit: Personal={};
   nombreCompleto: string="";
-  destinos: DestinoModel[]=[];
+  
   administrador: boolean = false;
   destino_txt: string="";
+
   departamentos: DepartamentoModel[]=[];
-  divisiones: DivisionModel[]=[];
+  departamentos_provincial: DepartamentoProvincialModel[]=[];
+  destinos: DestinoModel[]=[];
+  divisiones: DivisionModel[]=[];  
+  escalas: EscalaJerarquicaModel[]=[];
+  escalafones: EscalafonModel[]=[];
   estados_civil: EstadoCivilModel[]=[];
+  grados: GradoModel[]=[];
+  municipios: MunicipioModel[]=[];
+  niveles_educativo: NivelEducativoModel[]=[];
+  provincias: ProvinciaModel[]=[];
   sectores: sectorModel[]=[];
   secciones_guardia: SeccionGuardia[]=[];
-  escalafones: EscalafonModel[]=[];
-  escalas: EscalaJerarquicaModel[]=[];
-  grados: GradoModel[]=[];
   sexos: SexoModel[]=[];
+
+
   foto_nombre: string = 'no-image.png';
   fotoSubir: File | undefined;
   modo: string = 'laboral';
@@ -120,7 +133,7 @@ export class EditComponent implements OnInit {
       provincia_id: [this.dataEdit.provincia_id],
       departamento_provincial_id: [this.dataEdit.departamento_provincial_id],
       municipio_id: [this.dataEdit.municipio_id],
-      ciudad_id: [this.dataEdit.ciudad_id],
+      //ciudad_id: [this.dataEdit.ciudad_id],
       nivel_educativo_id: [this.dataEdit.nivel_educativo_id],
       telefonos: [this.dataEdit.telefonos],
       email: [this.dataEdit.email],
@@ -139,17 +152,23 @@ export class EditComponent implements OnInit {
     this.nombreCompleto = (auxiliar.grado! || "") + " " + (this.dataEdit.apellido_1! || "") + " " + (this.dataEdit.apellido_2! || "") +" " + (this.dataEdit.nombre_1! || "") +" " + (this.dataEdit.nombre_2! || "") +" " + (this.dataEdit.nombre_3! || "");
     this.nombreCompleto = this.nombreCompleto.toUpperCase();
     this.administrador = (globalConstants.rol_usuario == "0")? true: false;
-    auxiliar = this.dataEdit.destino;
-    this.destino_txt = auxiliar.destino;
-    this.estados_civil = estados_civil;
+    auxiliar = this.dataEdit.destino;    
+
     this.cargarDepartamentos(this.dataEdit.destino_id!);
+    this.cargarDepartamentosProvinciales(this.dataEdit.provincia_id!)
     this.cargarDivisiones(this.dataEdit.departamento_id!);
+    this.cargarGrados(this.dataEdit.escala_jerarquica_id!);
     this.cargarSeccionesGuardia(this.dataEdit.departamento_id!);
+    
+    this.destino_txt = auxiliar.destino;
+
+    this.estados_civil = estados_civil;
+    
     this.escalafones = escalafon;
     this.escalas = escalaJerarquica;
-    this.cargarGrados(this.dataEdit.escala_jerarquica_id!);
+    this.niveles_educativo = nivelEducativo;
+    this.provincias = provincias;
     this.sexos = sexos;
-    console.log("sexos", this.sexos);
 
     if(this.dataEdit.foto){
       this.foto_nombre = this.dataEdit.foto?.toString();
@@ -227,14 +246,43 @@ export class EditComponent implements OnInit {
 
     
   }
-
-  cargarDivisiones(departamento_id: number){
-    this.divisiones = divisiones.filter(division => {
-       
-      return division.departamento_id == departamento_id || division.departamento_id == 0;
- });
+  
+  cargarDepartamentosProvinciales(provincia_id: number){
+    this.departamentos_provincial=departamentos_provincial.filter(departamento_provincial => {
+      
+             return departamento_provincial.provincia_id == provincia_id || departamento_provincial.provincia_id == 0;
+        });
   }
 
+  onChangeProvincia(){
+    const id = this.formaFiliatorios.get('provincia_id')?.value;
+    if(id != null){
+      this.cargarDepartamentosProvinciales(parseInt(id.toString()));
+      //this.cargarSeccionesGuardia(parseInt(id.toString()));
+      
+    }    
+  }
+
+  cargarMunicipios(departamento_provincial_id: number){
+    this.municipios=municipios.filter(municipio => {
+      
+             return municipio.departamento_id == departamento_provincial_id || municipio.departamento_id == 0;
+        });
+  }
+
+  onChangeDepartamentoProvincial(){
+    const id = this.formaFiliatorios.get('departamento_provincial_id')?.value;
+    if(id != null){
+      this.cargarMunicipios(parseInt(id.toString()));
+      //this.cargarSeccionesGuardia(parseInt(id.toString()));
+      
+    }    
+  }
+
+
+
+
+  
   onChangeDepartamento(){
     const id = this.forma.get('departamento_id')?.value;
     if(id != null){
@@ -243,6 +291,15 @@ export class EditComponent implements OnInit {
       
     }
   }
+
+  cargarDivisiones(departamento_id: number){
+    this.divisiones = divisiones.filter(division => {
+       
+      return division.departamento_id == departamento_id || division.departamento_id == 0;
+ });
+  }
+
+ 
 
   cargarSectores(division_id: number){
     this.sectores = sectores.filter(sector => {

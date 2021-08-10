@@ -387,21 +387,73 @@
                                                 <div class="row">
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
-                                                            <label>Sexo</label>
-                                                            <select formControlName="sexo_id" class="form-control" [ngModel]="dataEdit.sexo_id"> 
-                                                            <option *ngFor="let sexo of sexos" [value]="sexo.id_sexo">{{sexo.sexo}}</option> 
+                                                            <label>Provincia</label>
+                                                            <select formControlName="provincia_id" class="form-control" [ngModel]="dataEdit.provincia_id" (change)=" onChangeProvincia()"> 
+                                                            <option *ngFor="let provincia of provincias" [value]="provincia.id_provincia">{{provincia.provincia}}</option> 
                                                         </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
-                                                            <label>Estado Civil</label>
-                                                            <select formControlName="estado_civil_id" class="form-control" [ngModel]="dataEdit.estado_civil_id"> 
-                                                            <option *ngFor="let estado_civil of estados_civil" [value]="estado_civil.id_estado_civil">{{estado_civil.estado_civil}}</option> 
+                                                            <label>Departamento Provincial</label>
+                                                            <select formControlName="departamento_provincial_id" class="form-control" [ngModel]="dataEdit.departamento_provincial_id" (change)=" onChangeDepartamentoProvincial()"> 
+                                                            <option *ngFor="let departamento_provincial of departamentos_provincial" [value]="departamento_provincial.id_dpto_prov">{{departamento_provincial.departamento_provincial}}</option> 
                                                         </select>
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label>Municipio</label>
+                                                            <select formControlName="municipio_id" class="form-control" [ngModel]="dataEdit.municipio_id"> 
+                                                            <option *ngFor="let municipio of municipios" [value]="municipio.id_municipio">{{municipio.municipio}}</option> 
+                                                        </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label>Departamento Provincial</label>
+                                                            <select formControlName="departamento_provincial_id" class="form-control" [ngModel]="dataEdit.departamento_provincial_id"> 
+                                                            <option *ngFor="let departamento_provincial of departamentos_provincial" [value]="departamento_provincial.id_dpto_prov">{{departamento_provincial.departamento_provincial}}</option> 
+                                                        </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label>Nivel Educativo</label>
+                                                            <select formControlName="nivel_educativo_id" class="form-control" [ngModel]="dataEdit.nivel_educativo_id"> 
+                                                            <option *ngFor="let nivel_educativo of niveles_educativo" [value]="nivel_educativo.id_nivel_educativo">{{nivel_educativo.nivel_educativo}}</option> 
+                                                        </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label>Telefonos</label>
+                                                            <input formControlName="telefonos" type="text" class="form-control" placeholder="telefonos">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label>Email</label>
+                                                            <input formControlName="email" type="text" class="form-control" placeholder="email">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label>Altura</label>
+                                                            <input formControlName="altura" type="text" class="form-control" placeholder="altura">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
 
 
 

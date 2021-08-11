@@ -431,26 +431,17 @@
                                         {{personal.domicilio}}
                                     </td>
                                     <td>
-<<<<<<< HEAD
                                         <!-- <span class="p-column-title">Provincia</span>  -->
-                                        {{personal.provincia}}
+                                        {{(personal.provincia != null)? personal.provincia.provincia : 'sin dato'}}
+
                                     </td>
                                     <td>
                                         <!-- <span class="p-column-title">DptoProvincial</span>  -->
-                                        {{personal.departamento_provincial}}
+                                        {{(personal.departamento_provincial != null)? personal.departamento_provincial.departamento_provincial : 'sin dato'}}
                                     </td>
                                     <td>
                                         <!-- <span class="p-column-title">Municipio</span>  -->
-                                        {{personal.municipio}}
-=======
-                                        <span class="p-column-title">Provincia</span> {{personal.provincia.provincia}}
-                                    </td>
-                                    <td>
-                                        <span class="p-column-title">DptoProvincial</span> {{personal.departamento_provincial.departamento_provincial}}
-                                    </td>
-                                    <td>
-                                        <span class="p-column-title">Municipio</span> {{personal.municipio.municipio}}
->>>>>>> 3ca9387a7a5a40f9445292126fa2dc3f77fc1050
+                                        {{(personal.municipio != null)? personal.municipio.municipio : 'sin dato'}}
                                     </td>
                                     <td>
                                         <!-- <span class="p-column-title">Ciudad</span>  -->

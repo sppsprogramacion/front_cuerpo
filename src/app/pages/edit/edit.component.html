@@ -72,7 +72,7 @@
                                                                 </div>
                                                                 <!-- /.card-header -->
                                                                 <div class="card-body">
-                                                                    <form [formGroup]="forma" (ngSubmit)="submitForm()">
+                                                                    <form [formGroup]="forma" (ngSubmit)="submitForm('laboral')">
                                                                         <div id="edicion-form-print">
                                                                             <div class="row">
                                                                                 <div class="col-sm-6">
@@ -225,16 +225,6 @@
                                                                         </div>
 
 
-                                                                        <hr>
-                                                                        <pre>
-                                                                                Estado del Formulario: {{forma.valid}}
-                                                                                <br>
-                                                                                Status: {{forma.status}}
-                                                                            </pre>
-                                                                        <pre>
-                                                                                {{forma.value | json}}
-                                                                            </pre>
-
 
 
                                                                     </form>
@@ -245,7 +235,7 @@
                                                                 </div>
                                                                 <!-- /.card-body -->
                                                                 <div class="card-footer">
-                                                                    <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitForm()">Guardar</button>
+                                                                    <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitForm('laboral')">Guardar</button>
                                                                 </div>
                                                             </div>
                                                             <!-- </form> -->
@@ -313,7 +303,7 @@
                                         <!-- /.card-header -->
                                         <div class="card-body">
 
-                                            <form [formGroup]="formaFiliatorios" (ngSubmit)="submitForm()">
+                                            <form [formGroup]="formaFiliatorios" (ngSubmit)="submitForm('filiatorios')">
                                                 <div class="row">
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
@@ -412,14 +402,7 @@
                                                         </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Departamento Provincial</label>
-                                                            <select formControlName="departamento_provincial_id" class="form-control" [ngModel]="dataEdit.departamento_provincial_id"> 
-                                                            <option *ngFor="let departamento_provincial of departamentos_provincial" [value]="departamento_provincial.id_dpto_prov">{{departamento_provincial.departamento_provincial}}</option> 
-                                                        </select>
-                                                        </div>
-                                                    </div>
+
                                                 </div>
 
                                                 <div class="row">
@@ -446,21 +429,50 @@
                                                             <input formControlName="email" type="text" class="form-control" placeholder="email">
                                                         </div>
                                                     </div>
+
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label>Situacion</label>
+                                                            <select formControlName="situacion_id" class="form-control" [ngModel]="dataEdit.situacion_id"> 
+                                                            <option *ngFor="let situacion of situaciones" [value]="situacion.id_situacion">{{situacion.situacion}}</option> 
+                                                        </select>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="row">
+
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label>Altura</label>
                                                             <input formControlName="altura" type="text" class="form-control" placeholder="altura">
                                                         </div>
                                                     </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label>Peso</label>
+                                                            <input formControlName="peso" type="text" class="form-control" placeholder="peso">
+                                                        </div>
+                                                    </div>
                                                 </div>
 
-
-
-
-
-
-
+                                                <div class="card-footer">
+                                                    <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitForm('filiatorios')">Guardar</button>
+                                                </div>
                                             </form>
+
+                                            <!-- datos pre-->
+                                            <hr>
+                                            <pre>
+                                                Estado del Formulario: {{formaFiliatorios.valid}}
+                                                <br>
+                                                Status: {{formaFiliatorios.status}}
+                                            </pre>
+                                            <pre>
+                                                {{formaFiliatorios.value | json}}
+                                            </pre>
+                                            <!-- FIN datos pre-->
 
                                         </div>
                                     </div>

@@ -79,12 +79,27 @@ export class EditComponent implements OnInit {
     private localeService: BsLocaleService
   ) {
     this.dataEdit= dataService.personalData;
+    
     if(this.dataEdit.ultimo_ascenso != null){
       //debe ser MM-dd-yyyy porque el tipo Date recibe ese formato... con dd-MM-yyyy intercambia mes con dia
       let auxiliar = this.datePipe.transform(this.dataEdit.ultimo_ascenso, "MM-dd-yyyy");
       this.dataEdit.ultimo_ascenso = new Date(auxiliar!);
            
     }
+    if(this.dataEdit.fecha_nacimiento != null){
+      //debe ser MM-dd-yyyy porque el tipo Date recibe ese formato... con dd-MM-yyyy intercambia mes con dia
+      let auxiliar2 = this.datePipe.transform(this.dataEdit.fecha_nacimiento, "MM-dd-yyyy");
+      this.dataEdit.fecha_nacimiento = new Date(auxiliar2!);
+           
+    }
+
+    if(this.dataEdit.fecha_ingreso != null){
+      //debe ser MM-dd-yyyy porque el tipo Date recibe ese formato... con dd-MM-yyyy intercambia mes con dia
+      let auxiliar3 = this.datePipe.transform(this.dataEdit.fecha_ingreso, "MM-dd-yyyy");
+      this.dataEdit.fecha_ingreso = new Date(auxiliar3!);
+           
+    }
+
      //configuracion de datepicker
      this.bsDatePickerConfig = Object.assign({}, 
       { isAnimated: true, 
@@ -143,7 +158,6 @@ export class EditComponent implements OnInit {
       peso: [this.dataEdit.peso],
       registrado_por: [this.dataEdit.registrado_por],
       situacion_id: [this.dataEdit.situacion_id]
-     //  fecha_nacimiento:[this.dataEdit.fecha_nacimiento],
     });
     //FIN FORMULARIO DATOS FILIATORIOS
   
@@ -160,12 +174,12 @@ export class EditComponent implements OnInit {
     this.cargarDepartamentosProvinciales(this.dataEdit.provincia_id!)
     this.cargarDivisiones(this.dataEdit.departamento_id!);
     this.cargarGrados(this.dataEdit.escala_jerarquica_id!);
+    this.cargarMunicipios(this.dataEdit.departamento_provincial_id!);
     this.cargarSeccionesGuardia(this.dataEdit.departamento_id!);
     
     this.destino_txt = auxiliar.destino;
 
-    this.estados_civil = estados_civil;
-    
+    this.estados_civil = estados_civil;    
     this.escalafones = escalafon;
     this.escalas = escalaJerarquica;
     this.niveles_educativo = nivelEducativo;
@@ -281,10 +295,6 @@ export class EditComponent implements OnInit {
       
     }    
   }
-
-
-
-
   
   onChangeDepartamento(){
     const id = this.forma.get('departamento_id')?.value;
@@ -370,14 +380,22 @@ onDateChange(nuevaFecha: Date){
     // let d: Date = new Date(auxiliarDate);
     // console.log('FECHA ==>>>>>>', d);
     // let v = d.toISOString();
-    // console.log('TOSISOSTRING >>>>>>>', v);
-    
+    // console.log('TOSISOSTRING >>>>>>>', v);    
     
   }
 }
+
+changeFormatoFechaGuardar(nuevaFecha: Date){
+  let fechaAuxiliar:any = null;
+  if(nuevaFecha != null){
+    fechaAuxiliar = this.datePipe.transform(nuevaFecha,"yyyy-MM-dd")!;
+    
+  }
+  return fechaAuxiliar;
+}
   
 
-  submitForm(formEnviado:string){
+submitForm(formEnviado:string){
        if(this.forma.invalid){
                   return Object.values(this.forma.controls).forEach(control => control.markAsTouched());
               }
@@ -406,8 +424,8 @@ onDateChange(nuevaFecha: Date){
             data = {
 
               dni: parseInt(this.formaFiliatorios.get('dni')?.value),
-              fecha_nacimiento: this.formaFiliatorios.get('fecha_nacimiento')?.value,
-              fecha_ingreso: this.formaFiliatorios.get('fecha_ingreso')?.value,
+              fecha_nacimiento: this.changeFormatoFechaGuardar(this.formaFiliatorios.get('fecha_nacimiento')?.value), 
+              fecha_ingreso: this.changeFormatoFechaGuardar(this.formaFiliatorios.get('fecha_ingreso')?.value), 
               cuil: this.formaFiliatorios.get('cuil')?.value,
               sexo_id: parseInt(this.formaFiliatorios.get('sexo_id')?.value),
               estado_civil_id: parseInt(this.formaFiliatorios.get('estado_civil_id')?.value),
@@ -427,11 +445,14 @@ onDateChange(nuevaFecha: Date){
 
 
           }
+          
         }
                  
           this.personalService.editPersonal(data,parseInt(this.dataEdit.id_personal?.toString()!))
                                                               .subscribe(resultado => {
+                                                                console.log("datos ediciion enviados", data);
                                                                   Swal.fire('Exito',`El Registro ha sido editado con Exito`,"success");
+                                                                  
                                                                   //this.actualizarUsuarios();
                                                                   //this.hideDialog();
                                                               },

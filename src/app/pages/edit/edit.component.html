@@ -328,14 +328,16 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label>Fecha Nacimiento</label>
-                                                            <input formControlName="fecha_nacimiento" type="text" class="form-control" placeholder="fecha nacimiento">
+                                                            <input type="text" bsDatepicker [bsConfig]=bsDatePickerConfig id="datebirth2" class="form-control" formControlName="fecha_nacimiento" [ngModel]="dataEdit.fecha_nacimiento">
                                                         </div>
                                                     </div>
 
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label>Fecha Ingreso</label>
-                                                            <input formControlName="fecha_ingreso" type="text" class="form-control" placeholder="fecha ingreso" [class.is-invalid]="nombre1NoValido">
+                                                            <!-- <input formControlName="fecha_ingreso" type="text" class="form-control" placeholder="fecha ingreso" [class.is-invalid]="nombre1NoValido"> -->
+                                                            <input type="text" bsDatepicker [bsConfig]=bsDatePickerConfig id="fechaingreso" class="form-control" formControlName="fecha_ingreso" [ngModel]="dataEdit.fecha_ingreso">
+
                                                         </div>
 
                                                     </div>
@@ -461,7 +463,7 @@
                                                 </div>
 
                                                 <div class="card-footer">
-                                                    <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitForm('filiatorios')">Guardar</button>
+                                                    <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary">Guardar</button>
                                                 </div>
                                             </form>
 

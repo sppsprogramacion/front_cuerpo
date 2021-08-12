@@ -55,6 +55,7 @@ export class Personal{
     public situacion_id? : number,
     public situacion? : string,
     public foto?: string,
+    public pdfs?: any[]
     ){}
 
 }

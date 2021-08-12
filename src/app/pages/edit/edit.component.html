@@ -706,6 +706,118 @@
                                     <div class="content">
 
 
+                                        <p-table #dt id="pdfs-table" [value]="pdfsList" [style]="{width:'100%'}" selectionMode="multiple" dataKey="id_personal" [rowHover]="true" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50]" [loading]="loadingTablaPdfs" [paginator]="true"
+                                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']" [scrollable]="true" scrollHeight="100%"
+                                            [responsive]="false">
+
+                                            <ng-template pTemplate="caption">
+
+                                                <div class="table-header">
+                                                    Tabla: Expediente Digital
+
+                                                    <!-- <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
+                        </span> -->
+                                                </div>
+                                            </ng-template>
+                                            <ng-template pTemplate="colgroup" let-columns>
+                                                <colgroup>
+                                                    <col style="width:70px">
+                                                    <col style="width:100px">
+                                                    <col style="width:150px">
+                                                    <col style="width:150px">
+                                                    <col style="width:150px">
+                                                    <col style="width:150px">
+                                                    <col style="width:150px">
+
+                                                </colgroup>
+                                            </ng-template>
+                                            <ng-template pTemplate="header">
+                                                <tr>
+                                                    <th></th>
+                                                    <th>
+                                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                                            Id
+                                                        </div>
+                                                    </th>
+                                                    <th>
+                                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                                            Legajo
+                                                        </div>
+                                                    </th>
+                                                    <th>
+                                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                                            Nombre del Archivo
+                                                        </div>
+                                                    </th>
+                                                    <th>
+                                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                                            Detalle
+                                                            <p-columnFilter type="text" field="detalle" display="menu" class="p-ml-auto"></p-columnFilter>
+                                                        </div>
+                                                    </th>
+                                                    <th pSortableColumn="indice">
+                                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                                            Indice
+                                                            <p-sortIcon field="indice"></p-sortIcon>
+                                                        </div>
+                                                    </th>
+                                                    <th pSortableColumn="fecha_documento">
+                                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                                            Fecha
+                                                            <p-sortIcon field="fecha_documento"></p-sortIcon>
+                                                        </div>
+                                                    </th>
+
+
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="body" let-pdf>
+                                                <tr class="p-selectable-row">
+                                                    <td>
+                                                        <!-- <button type="button" pButton pRipple icon="pi pi-file-pdf" class="p-button-warning p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button> -->
+                                                        <button type="button" pButton pRipple icon="pi pi-file-pdf" class="p-button-warning p-mr-2" pTooltip="PDF" tooltipPosition="bottom" onclick="printJS({printable:'pdf.id_archivo | pdfpersonal', type:'pdf', showModal:true})">
+                                                         
+                                                         </button>
+
+                                                    </td>
+                                                    <td>
+                                                        <!-- <span class="p-column-title">Codigo</span> -->
+                                                        {{pdf.id_archivo}}
+                                                    </td>
+                                                    <td>
+                                                        <!-- <span class="p-column-title">Apellido 1</span> -->
+                                                        {{pdf.legajo_personal}}
+                                                    </td>
+                                                    <td>
+                                                        <!-- <span class="p-column-title">Apellido 2</span> -->
+                                                        {{pdf.nombre_archivo}}
+                                                    </td>
+                                                    <td>
+                                                        <!-- <span class="p-column-title">Nombre 1</span> -->
+                                                        {{pdf.detalle}}
+                                                    </td>
+                                                    <td>
+                                                        <!-- <span class="p-column-title">Nombre 2</span>  -->
+                                                        {{pdf.indice}}
+                                                    </td>
+                                                    <td>
+                                                        <!-- <span class="p-column-title">Nombre 3</span>  -->
+                                                        {{pdf.fecha_documento}}
+                                                    </td>
+
+
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="emptymessage">
+                                                <tr>
+                                                    <td colspan="8">No customers found.</td>
+                                                </tr>
+                                            </ng-template>
+
+
+                                        </p-table>
 
 
 

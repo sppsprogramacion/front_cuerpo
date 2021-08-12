@@ -28,6 +28,8 @@ import { MunicipioModel } from '../../models/municipio.model';
 import { csLocale } from 'ngx-bootstrap/chronos';
 import { NivelEducativoModel } from '../../models/nivel_educativo.model';
 import { SituacionModel } from '../../models/situacion.model';
+import { PdfModel } from '../../models/pdf.model';
+import { PdfpersonalPipe } from 'src/app/pipes/pdfpersonal.pipe';
 
 
 @Component({
@@ -41,6 +43,8 @@ export class EditComponent implements OnInit {
   forma: FormGroup;
   formaFiliatorios: FormGroup;
   dataEdit: Personal={};
+  pdfsList: PdfModel[] = [];
+  loadingTablaPdfs: boolean = false;
   nombreCompleto: string="";
   
   administrador: boolean = false;
@@ -95,10 +99,18 @@ export class EditComponent implements OnInit {
 
       //configurar idioma bsDatepicker
       this.localeService.use('en');
-    
-    
 
-    //creando el formulario
+    //cargar lista de pdfs
+    if(this.dataEdit.pdfs != null){
+      this.pdfsList = this.dataEdit.pdfs.map(item => {
+        const pdf: PdfModel = {
+          ...item
+        }
+        return pdf;
+          });
+    }
+
+     //creando el formulario
     this.forma = this.fb.group({
        id_personal: [this.dataEdit.id_personal,Validators.required],
        apellido_1: [this.dataEdit.apellido_1,Validators.required],

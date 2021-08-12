@@ -151,6 +151,15 @@ export class ListComponent implements OnInit {
        this.dataService.personalData = data;
      }
 
+     MostrarSelected(){
+       console.log('DATA SELECCIONADA', this.selectedPersonal);
+      //  const selectedNewFormato = this.selectedPersonal.map(item =>{
+      //    return {
+      //      nombre: item.nombre_1
+      //    }
+       //});
+     }
+
      printTabla() {
       
       printJS({

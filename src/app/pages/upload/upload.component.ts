@@ -2,7 +2,8 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
-import { departamentos, departamentos_provincial, divisiones, escalafon, escalaJerarquica, estados_civil, grados, municipios, nivelEducativo, provincias, secciones_guardia, sectores, sexos, situacion } from 'src/app/common/data-mockeada';
+import { departamentos, departamentos_provincial, destinos, divisiones, escalafon, escalaJerarquica, estados_civil, grados, municipios, nivelEducativo, provincias, secciones_guardia, sectores, sexos, situacion } from 'src/app/common/data-mockeada';
+import { globalConstants } from 'src/app/common/global-constants';
 import { DepartamentoModel } from 'src/app/models/departamento.model';
 import { DepartamentoProvincialModel } from 'src/app/models/departamento_provincial.model';
 import { DestinoModel } from 'src/app/models/destino.model';
@@ -13,11 +14,13 @@ import { EstadoCivilModel } from 'src/app/models/estado_civil.model';
 import { GradoModel } from 'src/app/models/grado.model';
 import { MunicipioModel } from 'src/app/models/municipio.model';
 import { NivelEducativoModel } from 'src/app/models/nivel_educativo.model';
+import { Personal } from 'src/app/models/personal.model';
 import { ProvinciaModel } from 'src/app/models/provincia.model';
 import { SeccionGuardia } from 'src/app/models/seccion_guardia.model';
 import { sectorModel } from 'src/app/models/sector.model';
 import { SexoModel } from 'src/app/models/sexo.model';
 import { SituacionModel } from 'src/app/models/situacion.model';
+import { PersonalService } from 'src/app/services/personal.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -29,8 +32,8 @@ import Swal from 'sweetalert2';
 export class UploadComponent implements OnInit {
 
   forma: FormGroup;
-  
   administrador: boolean = false;
+  
   destino_txt: string="";
 
   departamentos: DepartamentoModel[]=[];
@@ -61,6 +64,7 @@ export class UploadComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private readonly datePipe: DatePipe,
+    private readonly personalService: PersonalService,
     private localeService: BsLocaleService
   ) 
   {
@@ -80,44 +84,44 @@ export class UploadComponent implements OnInit {
     //formulario personal
     this.forma = this.fb.group({
        id_personal: [Validators.required],
-       apellido_1: [Validators.required],
-       apellido_2: [],
-       nombre_1: [Validators.required],
-       nombre_2: [],
-       nombre_3: [],
-       legajo: [[Validators.required]],
-       destino_id: [[Validators.required]],
-       departamento_id: [],
-       division_id: [],
-       sector_id: [],
-       funcion: [],
-       seccion_guardia_id: [],
+       apellido_1: ["diaz",Validators.required],
+       apellido_2: ["diaz"],
+       nombre_1: ["pedro",Validators.required],
+       nombre_2: ["Pedro"],
+       nombre_3: ["pedro"],
+       legajo: [3155,Validators.required],
+       destino_id: [1,Validators.required],
+       departamento_id: [1],
+       division_id: [5],
+       sector_id: [0],
+       funcion: ["Celador"],
+       seccion_guardia_id: [1],
        escalafon_id: [],
        escala_jerarquica_id: [],
        grado_id: [],
-       foto: [],
+       //foto: [],
        ultimo_ascenso: [],
 
        //campos filiatorios
-       dni: [Validators.required],
-      fecha_nacimiento: [Validators.required],
+       dni: [32505424,Validators.required],
+      fecha_nacimiento: ["",Validators.required],
       fecha_ingreso: [],
-      cuil: [Validators.required],
-      sexo_id: [],
-      estado_civil_id: [],
-      nacionalidad: [[Validators.required]],
-      domicilio: [[Validators.required]],
+      cuil: ["20325054248",Validators.required],
+      sexo_id: [1],
+      estado_civil_id: [2],
+      nacionalidad: ["argentino",Validators.required],
+      domicilio: ["Barrio los gremios",Validators.required],
       provincia_id: [],
       departamento_provincial_id: [],
       municipio_id: [],
       //ciudad_id: [this.dataEdit.ciudad_id],
-      nivel_educativo_id: [],
-      telefonos: [],
-      email: [],
-      altura: [],
-      peso: [],
+      nivel_educativo_id: [4],
+      telefonos: ["154853487"],
+      email: ["pedrodiaz0487@gmail.com"],
+      altura: [1.8],
+      peso: [72.5],
       //registrado_por: [],
-      situacion_id: []
+      situacion_id: [1]
 
 
     });
@@ -125,13 +129,16 @@ export class UploadComponent implements OnInit {
 
 
     //cargar desplegables
-    // this.cargarDepartamentos(this.dataEdit.destino_id!);
+    //this.cargarDepartamentos(this.dataEdit.destino_id!);
     // this.cargarDepartamentosProvinciales(this.dataEdit.provincia_id!)
     // this.cargarDivisiones(this.dataEdit.departamento_id!);
     // this.cargarGrados(this.dataEdit.escala_jerarquica_id!);
     // this.cargarMunicipios(this.dataEdit.departamento_provincial_id!);
     // this.cargarSeccionesGuardia(this.dataEdit.departamento_id!);
 
+    this.administrador = (globalConstants.rol_usuario == "0")? true: false;
+
+    this.destinos = destinos;
     this.estados_civil = estados_civil;    
     this.escalafones = escalafon;
     this.escalas = escalaJerarquica;
@@ -196,7 +203,7 @@ export class UploadComponent implements OnInit {
    }
   
    onChangeProvincia(){
-     const id = this.formaFiliatorios.get('provincia_id')?.value;
+     const id = this.forma.get('provincia_id')?.value;
      if(id != null){
        this.cargarDepartamentosProvinciales(parseInt(id.toString()));
        //this.cargarSeccionesGuardia(parseInt(id.toString()));
@@ -212,7 +219,7 @@ export class UploadComponent implements OnInit {
    }
   
    onChangeDepartamentoProvincial(){
-     const id = this.formaFiliatorios.get('departamento_provincial_id')?.value;
+     const id = this.forma.get('departamento_provincial_id')?.value;
      if(id != null){
        this.cargarMunicipios(parseInt(id.toString()));
        //this.cargarSeccionesGuardia(parseInt(id.toString()));
@@ -326,5 +333,70 @@ export class UploadComponent implements OnInit {
     return fechaAuxiliar;
   }
   //fin metodos de formatosd e fechas
+
+  //guardar personal
+
+  submitForm(){
+    if(this.forma.invalid){
+               return Object.values(this.forma.controls).forEach(control => control.markAsTouched());
+           }
+     
+     let data: Personal;
+     //crear la data
+     
+      data = {
+          legajo: parseInt(this.forma.get('legajo')?.value),
+          apellido_1: this.forma.get('apellido_1')?.value,
+          apellido_2: this.forma.get('apellido_2')?.value,
+          nombre_1: this.forma.get('nombre_1')?.value,
+          nombre_2: this.forma.get('nombre_2')?.value,
+          nombre_3: this.forma.get('nombre_3')?.value,
+          destino_id: parseInt(this.forma.get('destino_id')?.value),
+          departamento_id: parseInt(this.forma.get('departamento_id')?.value),
+          division_id: parseInt(this.forma.get('division_id')?.value),
+          sector_id: parseInt(this.forma.get('sector_id')?.value),
+          seccion_guardia_id: parseInt(this.forma.get('seccion_guardia_id')?.value),
+          escalafon_id: parseInt(this.forma.get('escalafon_id')?.value),
+          escala_jerarquica_id: parseInt(this.forma.get('escala_jerarquica_id')?.value),
+          grado_id: parseInt(this.forma.get('grado_id')?.value),
+          ultimo_ascenso: this.auxiliarDate,          
+
+          dni: parseInt(this.forma.get('dni')?.value),
+          fecha_nacimiento: this.changeFormatoFechaGuardar(this.forma.get('fecha_nacimiento')?.value), 
+          fecha_ingreso: this.changeFormatoFechaGuardar(this.forma.get('fecha_ingreso')?.value), 
+          cuil: this.forma.get('cuil')?.value,
+          sexo_id: parseInt(this.forma.get('sexo_id')?.value),
+          estado_civil_id: parseInt(this.forma.get('estado_civil_id')?.value),
+          nacionalidad: this.forma.get('nacionalidad')?.value,
+          domicilio: this.forma.get('domicilio')?.value,
+          provincia_id: parseInt(this.forma.get('provincia_id')?.value),
+          departamento_provincial_id: parseInt(this.forma.get('departamento_provincial_id')?.value),
+          municipio_id: parseInt(this.forma.get('municipio_id')?.value),
+          //ciudad_id: [this.dataEdit.ciudad_id],
+          nivel_educativo_id: parseInt(this.forma.get('nivel_educativo_id')?.value),
+          telefonos: this.forma.get('telefonos')?.value,
+          email: this.forma.get('email')?.value,
+          altura: parseInt(this.forma.get('altura')?.value),
+          peso: parseInt(this.forma.get('peso')?.value),
+          registrado_por: 1,
+          situacion_id: parseInt(this.forma.get('situacion_id')?.value)
+      }
+              
+      this.personalService.guardarPersonal(data)
+              .subscribe(resultado => {
+                console.log("datos nuevos enviados", data);
+                  Swal.fire('Exito',`El Registro ha sido guardado con Exito`,"success");
+                  
+                  //this.actualizarUsuarios();
+                  //this.hideDialog();
+              },
+              error => {
+                  console.log("personal a nuevo error", data);
+                  Swal.fire('Error',`Error al Editar el Usuario ${error.error.message}`,"error")                          
+              });
+  
+  }
+
+  //fin guardar personal
 
 }

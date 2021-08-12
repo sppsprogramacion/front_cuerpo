@@ -11,7 +11,7 @@ export class SidebarService {
       icono: 'fas fa-tachometer-alt',
       submenu:[
         {titulo: 'Cargar', url: 'upload'},
-        {titulo: 'Editar', url: 'edit'},
+        // {titulo: 'Editar', url: 'edit'},
         {titulo: 'Listar', url: 'list'},
       ]
     },
@@ -30,7 +30,7 @@ export class SidebarService {
       icono: 'fas fa-tachometer-alt',
       submenu:[
         {titulo: 'Cargar', url: 'upload'},
-        {titulo: 'Editar', url: 'edit'},
+        // {titulo: 'Editar', url: 'edit'},
         {titulo: 'Listar', url: 'list'},
       ]
     }   

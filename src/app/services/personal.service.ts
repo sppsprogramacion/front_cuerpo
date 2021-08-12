@@ -27,6 +27,12 @@ export class PersonalService {
         editPersonal(data: Partial<Personal>,id: number){
             return this.http.put(`${base_url}/personal/${id}`, data);
         }
+
+        guardarPersonal(data: any){
+            let personal: Personal= new Personal();
+            personal={...data};
+            return this.http.post(`${base_url}/personal`, personal);
+        }
     
 
 

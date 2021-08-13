@@ -378,7 +378,7 @@ export class UploadComponent implements OnInit {
           email: this.forma.get('email')?.value,
           altura: parseInt(this.forma.get('altura')?.value),
           peso: parseInt(this.forma.get('peso')?.value),
-          registrado_por: 1,
+          registrado_por: globalConstants.id_usuario,
           situacion_id: parseInt(this.forma.get('situacion_id')?.value)
       }
               

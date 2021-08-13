@@ -466,7 +466,7 @@ submitForm(formEnviado:string){
               email: this.formaFiliatorios.get('email')?.value,
               altura: parseInt(this.formaFiliatorios.get('altura')?.value),
               peso: parseInt(this.formaFiliatorios.get('peso')?.value),
-              registrado_por: 1,
+              registrado_por: globalConstants.id_usuario,
               situacion_id: parseInt(this.formaFiliatorios.get('situacion_id')?.value),
 
 

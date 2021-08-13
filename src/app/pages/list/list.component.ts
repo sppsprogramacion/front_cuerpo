@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { PersonalService } from '../../services/personal.service';
 import { Personal, IPersonalTable } from '../../models/personal.model';
 import { globalConstants } from '../../common/global-constants';
-import { destinos, escalafon, escalaJerarquica, grados, nivelEducativo, sexos, situacion, departamentos } from 'src/app/common/data-mockeada';
+import { destinos, escalafon, escalaJerarquica, grados, nivelEducativo, sexos, situacion, departamentos, provincias } from 'src/app/common/data-mockeada';
 //import * as path from 'path';
 import { DataService } from '../../services/data.service';
 import { FotopersonalPipe } from '../../pipes/fotopersonal.pipe';
 
 import * as printJS from 'print-js';
 import * as FileSaver from 'file-saver';
-import { DepartamentoModel } from '../../models/departamento.model';
+import { estados_civil } from '../../common/data-mockeada';
 
 
 interface IObjectModel{
@@ -28,7 +28,7 @@ export class ListComponent implements OnInit {
   personalList: Personal[]=[];
   dataTable: IPersonalTable[]=[];
   totalRecords: number = 0;
-  selectedPersonal: IPersonalTable[]=[];
+  selectedPersonal: Personal[]=[];
   grados: {label: string, value: string,img_name: string}[]=[];
   loading: boolean = true;
   sexos: IObjectModel[]=[];
@@ -183,11 +183,42 @@ export class ListComponent implements OnInit {
         let personal: Personal= new Personal();
         personal={...item};
          return {
-           nombre: item.nombre_1,
-           apellido: item.apellido_1,
-           departamento: item.departamento
+          primer_apellido: item.apellido_1,
+          segundo_apellido: item.apellido_2,
+          primer_nombre: item.nombre_1,
+          segundo_nombre: item.nombre_2,
+          tercer_nombre: item.nombre_2,
+          dni: item.dni,
+          fecha_nacimiento: item.fecha_nacimiento,
+          ultimo_ascenso: item.ultimo_ascenso,
+          cuil: item.cuil,
+          sexo: item.sexo_id,
+          estado_civil: item.estado_civil_id,
+          destino: item.destino_id,
+          departamento: item.departamento_id,
+          division: item.division_id,
+          sector: item.sector_id,
+          seccion_guardia: item.seccion_guardia_id,
+          funcion: item.funcion,
+          escalafon: item.escalafon_id,
+          escala_jerarquica: item.escala_jerarquica_id,
+          grado: item.grado_id,
+          nacionalidad: item.nacionalidad,
+          domicilio: item.domicilio,
+          provincia: item.provincia_id,
+          departamento_provincial: item.departamento_provincial_id,
+          municipio: item.municipio_id,
+          telefono: item.telefonos,
+          email: item.email,
+          altura: item.altura,
+          peso: item.peso,
+          nivel_educativo: item.nivel_educativo,
+          situacion: item.situacion_id,
+
          }
-       });
+      });
+      console.log('un obbjeto del nuevo formato', selectedNewFormato[0].departamento);
+
       import("xlsx").then(xlsx => {
           const worksheet = xlsx.utils.json_to_sheet(selectedNewFormato);
           const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };

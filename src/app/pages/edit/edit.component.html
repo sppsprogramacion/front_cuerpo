@@ -63,15 +63,15 @@
                                                                     <p-fileUpload name="foto" [customUpload]="true" [multiple]="true" (uploadHandler)="onUpload($event.files[0])"></p-fileUpload>
                                                                 </div>
                                                             </div>
-                                                            <button type="button" pButton pRipple icon="pi pi-print" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom" onclick="printJS({ printable: 'foto-personal', type: 'html', header: 'Datos Laborales' })">
-
-                                                            </button>
+                                                            <!-- <button type="button" pButton pRipple icon="pi pi-print" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom" onclick="printJS({ printable: 'foto-personal', type: 'html', header: 'Datos Laborales' })"> </button> -->
+                                                            <p-button label="Imprimir Foto" icon="pi pi-print" iconPos="left" onclick="printJS({ printable: 'foto-personal', type: 'html', header: 'Foto del Personal' })" class="p-button-success p-mr-2"></p-button>
                                                         </div>
                                                         <div class="col-12 col-sm-8">
                                                             <!-- <form [formGroup]="forma"> -->
                                                             <div class="card card-warning">
                                                                 <div class="card-header">
                                                                     <h3 class="card-title">Edición de Datos</h3>
+
                                                                 </div>
                                                                 <!-- /.card-header -->
                                                                 <div class="card-body">
@@ -231,9 +231,10 @@
 
 
                                                                     </form>
-                                                                    <button type="button" pButton pRipple icon="pi pi-print" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom" onclick="printJS({ printable: 'edicion-form-print', type: 'html', header: 'Datos Laborales' })">
+                                                                    <!-- <button type="button" pButton pRipple icon="pi pi-print" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom" onclick="printJS({ printable: 'edicion-form-print', type: 'html', header: 'Datos Laborales' })">
 
-                                                                    </button>
+                                                                    </button> -->
+                                                                    <p-button label="Imprimir Datos Laborales" icon="pi pi-print" iconPos="left" onclick="printJS({ printable: 'edicion-form-print', type: 'html', header: 'Datos Laborales' })" class="p-button-success p-mr-2"></p-button>
 
                                                                 </div>
                                                                 <!-- /.card-body -->
@@ -245,9 +246,9 @@
 
 
                                                         </div>
-                                                        <button type="button" pButton pRipple icon="pi pi-print" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom" onclick="printJS({ printable: 'datos-personal-print', type: 'html', header: 'Datos Laborales' })">
+                                                        <!-- <button type="button" pButton pRipple icon="pi pi-print" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom" onclick="printJS({ printable: 'datos-personal-print', type: 'html', header: 'Datos Laborales' })">
 
-                                                        </button>
+                                                        </button> -->
 
                                                     </div>
                                                     <div class="row mt-4">

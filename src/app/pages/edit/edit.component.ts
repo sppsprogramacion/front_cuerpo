@@ -222,11 +222,31 @@ export class EditComponent implements OnInit {
 
   
 
-  async descargarPdf(url: string){
-    console.log('LA URL ES: ', url);
-    await  this.pdfService.getPdf(url).then();
-     
-   
+  // async descargarPdf(url: string){
+  //   console.log('LA URL ES: ', url);
+  //   await  this.pdfService.getPdf(url).then();   
+  // }
+
+  descargarPdf(){
+    this.pdfService.getPDF(7)
+    .subscribe(
+      (data: Blob) => {
+        var file = new Blob([data], { type: 'application/pdf' })
+        var fileURL = URL.createObjectURL(file);
+
+// if you want to open PDF in new tab
+        window.open(fileURL); 
+        var a         = document.createElement('a');
+        a.href        = fileURL; 
+        a.target      = '_blank';
+        a.download    = 'bill.pdf';
+        document.body.appendChild(a);
+        a.click();
+      },
+      (error) => {
+        console.log('getPDF error: ',error);
+      }
+    );
   }
 
   get apellido1NoValido(){
@@ -301,8 +321,7 @@ export class EditComponent implements OnInit {
     const id = this.formaFiliatorios.get('provincia_id')?.value;
     if(id != null){
       this.cargarDepartamentosProvinciales(parseInt(id.toString()));
-      //this.cargarSeccionesGuardia(parseInt(id.toString()));
-      
+           
     }    
   }
 
@@ -317,8 +336,7 @@ export class EditComponent implements OnInit {
     const id = this.formaFiliatorios.get('departamento_provincial_id')?.value;
     if(id != null){
       this.cargarMunicipios(parseInt(id.toString()));
-      //this.cargarSeccionesGuardia(parseInt(id.toString()));
-      
+           
     }    
   }
   
@@ -401,13 +419,7 @@ export class EditComponent implements OnInit {
 onDateChange(nuevaFecha: Date){
   if(nuevaFecha != null){
     this.auxiliarDate = this.datePipe.transform(nuevaFecha,"yyyy-MM-dd")!;
-    //console.log('AUXILIAR DATE', this.auxiliarDate);
-    // this.forma.get('ultimo_ascenso')?.setValue(auxiliarDate);
-    // let d: Date = new Date(auxiliarDate);
-    // console.log('FECHA ==>>>>>>', d);
-    // let v = d.toISOString();
-    // console.log('TOSISOSTRING >>>>>>>', v);    
-    
+      
   }
 }
 
@@ -475,15 +487,10 @@ submitForm(formEnviado:string){
         }
                  
           this.personalService.editPersonal(data,parseInt(this.dataEdit.id_personal?.toString()!))
-                                                              .subscribe(resultado => {
-                                                                console.log("datos ediciion enviados", data);
+                                                              .subscribe(resultado => {                                                                
                                                                   Swal.fire('Exito',`El Registro ha sido editado con Exito`,"success");
-                                                                  
-                                                                  //this.actualizarUsuarios();
-                                                                  //this.hideDialog();
-                                                              },
-                                                              error => {
-                                                                  console.log("personal a editar", data);
+                                                                              },
+                                                              error => {                                                                
                                                                   Swal.fire('Error',`Error al Editar el Usuario ${error.error.message}`,"error")                          
                                                               });
          

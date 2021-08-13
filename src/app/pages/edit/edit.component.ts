@@ -227,8 +227,10 @@ export class EditComponent implements OnInit {
   //   await  this.pdfService.getPdf(url).then();   
   // }
 
-  descargarPdf(){
-    this.pdfService.getPDF(7)
+  descargarPdf(id: number){
+    
+    
+    this.pdfService.getPDF(id)
     .subscribe(
       (data: Blob) => {
         var file = new Blob([data], { type: 'application/pdf' })

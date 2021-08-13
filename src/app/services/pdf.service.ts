@@ -26,7 +26,7 @@ export class PdfService {
 
   getPDF(id : number): Observable<Blob>
      {
-         const url = 'http://localhost:3000/archivo/id/pdf?id=7';
+         const url = `http://localhost:3000/archivo/id/pdf?id=${id}`;
          var authorization = 'Bearer '+sessionStorage.getItem("access_token");
 
          const headers = new HttpHeaders({ 
@@ -37,22 +37,7 @@ export class PdfService {
          return this.http.get<Blob>(url, { headers : headers,responseType : 
          'blob' as 'json'});
      }
-    // try {
-    //   return await this.http
-    //   .get(url, {
-    //     observe: 'response',
-    //     responseType: 'blob',
-    //   }).subscribe(res => {
-    //     this._FileSaverService.save((<any>res)._body, 'demo-fer.pdf');
-    //   });     ;
-
-      
-      
-    // } catch (error) {
-    //     return error;
-    // }
-
-  //}
+   
 
 
 }

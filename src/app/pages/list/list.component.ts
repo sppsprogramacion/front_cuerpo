@@ -8,6 +8,9 @@ import { DataService } from '../../services/data.service';
 import { FotopersonalPipe } from '../../pipes/fotopersonal.pipe';
 
 import * as printJS from 'print-js';
+import * as FileSaver from 'file-saver';
+import { DepartamentoModel } from '../../models/departamento.model';
+
 
 interface IObjectModel{
   label: string; 
@@ -153,11 +156,15 @@ export class ListComponent implements OnInit {
 
      MostrarSelected(){
        console.log('DATA SELECCIONADA', this.selectedPersonal);
-      //  const selectedNewFormato = this.selectedPersonal.map(item =>{
-      //    return {
-      //      nombre: item.nombre_1
-      //    }
-       //});
+       const selectedNewFormato = this.selectedPersonal.map(item =>{
+        
+         return {
+           nombre: item.nombre_1,
+           apellido: item.apellido_1,
+           departamento:  item.departamento
+         }
+       });
+       console.log('nuevo formato', selectedNewFormato);
      }
 
      printTabla() {
@@ -170,6 +177,33 @@ export class ListComponent implements OnInit {
 
       })
     }
+
+    exportExcel() {
+      const selectedNewFormato = this.selectedPersonal.map(item =>{
+        let personal: Personal= new Personal();
+        personal={...item};
+         return {
+           nombre: item.nombre_1,
+           apellido: item.apellido_1,
+           departamento: item.departamento
+         }
+       });
+      import("xlsx").then(xlsx => {
+          const worksheet = xlsx.utils.json_to_sheet(selectedNewFormato);
+          const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+          const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+          this.saveAsExcelFile(excelBuffer, "Personal");
+      });
+  }
+  
+    saveAsExcelFile(buffer: any, fileName: string): void {
+      let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+      let EXCEL_EXTENSION = '.xlsx';
+      const data: Blob = new Blob([buffer], {
+          type: EXCEL_TYPE
+      });
+      FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+  }
 
     // cargarListaPersonal(event: LazyLoadEvent) {  
     //     this.loading = true;

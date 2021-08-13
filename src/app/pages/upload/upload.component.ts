@@ -116,7 +116,7 @@ export class UploadComponent implements OnInit {
       municipio_id: [],
       //ciudad_id: [this.dataEdit.ciudad_id],
       nivel_educativo_id: [4],
-      telefonos: ["154853487"],
+      telefonos: ["0387154853487"],
       email: ["pedrodiaz0487@gmail.com"],
       altura: [1.8],
       peso: [72.5],

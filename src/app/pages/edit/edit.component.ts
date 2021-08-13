@@ -30,6 +30,7 @@ import { NivelEducativoModel } from '../../models/nivel_educativo.model';
 import { SituacionModel } from '../../models/situacion.model';
 import { PdfModel } from '../../models/pdf.model';
 import { PdfpersonalPipe } from 'src/app/pipes/pdfpersonal.pipe';
+import { PdfService } from 'src/app/services/pdf.service';
 
 
 @Component({
@@ -49,6 +50,7 @@ export class EditComponent implements OnInit {
   
   administrador: boolean = false;
   destino_txt: string="";
+  url_pdf: string = "";
 
   departamentos: DepartamentoModel[]=[];
   departamentos_provincial: DepartamentoProvincialModel[]=[];
@@ -80,7 +82,8 @@ export class EditComponent implements OnInit {
     private readonly fileUploadService: FileUploadService,
     private readonly personalService: PersonalService,
     private readonly datePipe: DatePipe,
-    private localeService: BsLocaleService
+    private localeService: BsLocaleService,
+    private pdfService: PdfService
   ) {
     this.dataEdit= dataService.personalData;
     
@@ -124,6 +127,8 @@ export class EditComponent implements OnInit {
         return pdf;
           });
     }
+
+    
 
      //creando el formulario
     this.forma = this.fb.group({
@@ -213,6 +218,15 @@ export class EditComponent implements OnInit {
 
        
     
+  }
+
+  
+
+  async descargarPdf(url: string){
+    console.log('LA URL ES: ', url);
+    await  this.pdfService.getPdf(url).then();
+     
+   
   }
 
   get apellido1NoValido(){

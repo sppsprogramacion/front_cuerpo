@@ -12,7 +12,7 @@ import { PagesModule } from './pages/pages.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { FileSaverModule } from 'ngx-filesaver';
 
 
 @NgModule({
@@ -31,7 +31,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     BsDatepickerModule.forRoot(),
     BrowserAnimationsModule,
-    
+    FileSaverModule
 
   ],
   providers: [],

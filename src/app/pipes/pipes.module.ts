@@ -14,7 +14,8 @@ import { PdfpersonalPipe } from './pdfpersonal.pipe';
   ],
   exports:[
     FotopersonalPipe,
-    FechasPipe
+    FechasPipe,
+    PdfpersonalPipe
   ],
   imports: [
     CommonModule

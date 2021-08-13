@@ -7,7 +7,7 @@ import { PipesModule } from '../../pipes/pipes.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import {DatePipe} from '@angular/common';
-
+import { FileSaverModule } from 'ngx-filesaver';
 
 @NgModule({
   declarations: [
@@ -21,13 +21,15 @@ import {DatePipe} from '@angular/common';
     PipesModule,
     BsDatepickerModule.forRoot(),
     BrowserAnimationsModule,
+    FileSaverModule
   ],
   exports: [
     FormsModule,
     ReactiveFormsModule,
     EditComponent,
     ngPrimeModule,
-    PipesModule
+    PipesModule,
+    FileSaverModule
   ],
   providers: [
     DatePipe

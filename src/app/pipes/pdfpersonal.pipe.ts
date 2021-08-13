@@ -8,8 +8,11 @@ const base_url = environment.URL_BASE;
 })
 export class PdfpersonalPipe implements PipeTransform {
 
-  transform(pdf_id: string): string {
-    return `${base_url}/archivo/id/pdf?id=${pdf_id}`;
+  transform(pdf_id: number): string {
+    const url: string =  `${base_url}/archivo/id/pdf?id=${pdf_id}`;
+    console.log('DESDE EL PIPE', url);
+    return url;
+  
   }
 
 }

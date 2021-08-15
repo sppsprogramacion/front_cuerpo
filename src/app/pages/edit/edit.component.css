@@ -10,6 +10,16 @@
     align-items: center;
 }
 
+.primengTable tr {
+    background: black;
+    color: white;
+}
+
+.primengTable th {
+    background: black;
+    color: white;
+}
+
 
 /*-----Estilos generales de las tarjetas-------------*/
 

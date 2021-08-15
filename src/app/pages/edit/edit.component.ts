@@ -47,11 +47,17 @@ export class EditComponent implements OnInit {
   pdfsList: PdfModel[] = [];
   loadingTablaPdfs: boolean = false;
   nombreCompleto: string="";
-  
+
   administrador: boolean = false;
   destino_txt: string="";
-  url_pdf: string = "";
 
+  //variables de manejo de pdf
+  newFileDialog: boolean = false;
+  url_pdf: string = "";
+  regPdf: PdfModel = new PdfModel();
+  submitted: boolean = false;
+
+  //manejo de forumulario de personal
   departamentos: DepartamentoModel[]=[];
   departamentos_provincial: DepartamentoProvincialModel[]=[];
   destinos: DestinoModel[]=[];
@@ -208,7 +214,10 @@ export class EditComponent implements OnInit {
       this.foto_nombre = this.dataEdit.foto?.toString();
 
     }
+
     
+
+       
   }
   //fin constructor
 
@@ -498,6 +507,11 @@ submitForm(formEnviado:string){
          
         
   
+}
+
+//manejo de tabla de registros de pdfs
+crearRegistro(){
+  this.newFileDialog = true;
 }
 
   

@@ -25,9 +25,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" id="custom-tabs-five-overlay-dark-tab" data-toggle="pill" href="#custom-tabs-five-overlay-dark" role="tab" aria-controls="custom-tabs-five-overlay-dark" aria-selected="false">Datos Personales</a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link" id="custom-tabs-five-normal-tab" data-toggle="pill" href="#custom-tabs-five-normal" role="tab" aria-controls="custom-tabs-five-normal" aria-selected="false">Trámites Varios</a>
-                            </li>
+                            </li> -->
                             <li class="nav-item">
                                 <a class="nav-link" id="tabs-credencial-tab" data-toggle="pill" href="#tab-credencial" role="tab" aria-controls="tabs-credencial" aria-selected="false">Credencial</a>
                             </li>
@@ -468,17 +468,7 @@
                                                 </div>
                                             </form>
 
-                                            <!-- datos pre-->
-                                            <hr>
-                                            <pre>
-                                                Estado del Formulario: {{formaFiliatorios.valid}}
-                                                <br>
-                                                Status: {{formaFiliatorios.status}}
-                                            </pre>
-                                            <pre>
-                                                {{formaFiliatorios.value | json}}
-                                            </pre>
-                                            <!-- FIN datos pre-->
+
 
                                         </div>
                                     </div>
@@ -487,163 +477,7 @@
                             </div>
                             <!-- FIN PANEL 2 DATOS PERSONALES-->
 
-                            <!-- PANEL 3 -->
-                            <div class="tab-pane fade" id="custom-tabs-five-normal" role="tabpanel" aria-labelledby="custom-tabs-five-normal-tab">
-                                <form action="">
-                                    <div class="card card-warning">
-                                        <div class="card-header">
-                                            <h3 class="card-title">General Elements</h3>
-                                        </div>
-                                        <!-- /.card-header -->
-                                        <div class="card-body">
-                                            <form>
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <!-- text input -->
-                                                        <div class="form-group">
-                                                            <label>Text</label>
-                                                            <input type="text" class="form-control" placeholder="Enter ...">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Text Disabled</label>
-                                                            <input type="text" class="form-control" placeholder="Enter ..." disabled>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <!-- textarea -->
-                                                        <div class="form-group">
-                                                            <label>Textarea</label>
-                                                            <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Textarea Disabled</label>
-                                                            <textarea class="form-control" rows="3" placeholder="Enter ..." disabled></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
 
-                                                <!-- input states -->
-                                                <div class="form-group">
-                                                    <label class="col-form-label" for="inputSuccess"><i class="fas fa-check"></i> Input with
-                                    success</label>
-                                                    <input type="text" class="form-control is-valid" id="inputSuccess" placeholder="Enter ...">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-form-label" for="inputWarning"><i class="far fa-bell"></i> Input with
-                                    warning</label>
-                                                    <input type="text" class="form-control is-warning" id="inputWarning" placeholder="Enter ...">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-form-label" for="inputError"><i class="far fa-times-circle"></i> Input with
-                                    error</label>
-                                                    <input type="text" class="form-control is-invalid" id="inputError" placeholder="Enter ...">
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <!-- checkbox -->
-                                                        <div class="form-group">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox">
-                                                                <label class="form-check-label">Checkbox</label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" checked>
-                                                                <label class="form-check-label">Checkbox checked</label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" disabled>
-                                                                <label class="form-check-label">Checkbox disabled</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <!-- radio -->
-                                                        <div class="form-group">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="radio1">
-                                                                <label class="form-check-label">Radio</label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="radio1" checked>
-                                                                <label class="form-check-label">Radio checked</label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio" disabled>
-                                                                <label class="form-check-label">Radio disabled</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <!-- select -->
-                                                        <div class="form-group">
-                                                            <label>Select</label>
-                                                            <select class="form-control">
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
-                                        <option>option 5</option>
-                                      </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Select Disabled</label>
-                                                            <select class="form-control" disabled>
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
-                                        <option>option 5</option>
-                                      </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <!-- Select multiple-->
-                                                        <div class="form-group">
-                                                            <label>Select Multiple</label>
-                                                            <select multiple class="form-control">
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
-                                        <option>option 5</option>
-                                      </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Select Multiple Disabled</label>
-                                                            <select multiple class="form-control" disabled>
-                                        <option>option 1</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
-                                        <option>option 5</option>
-                                      </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <!-- /.card-body -->
-                                    </div>
-                                </form>
-                            </div>
-                            <!-- FIN PANEL 3 -->
 
                             <!-- PANEL 4 CREDENCIAL -->
                             <div class="tab-pane fade" id="tab-credencial" role="tabpanel" aria-labelledby="tabs-credencial-tab">
@@ -708,118 +542,210 @@
 
                                     <div class="content">
 
+                                        <div class="card">
+                                            <!-- <div class="card-header">
+                                                <h3 class="card-title">Tabla: Expediente Digital</h3>
+                                            </div> -->
+                                            <div class="card-body">
+                                                <div class="card">
+                                                    <p-toolbar styleClass="p-mb-4" [style]="{background:'black'}">
+                                                        <ng-template pTemplate="left">
+                                                            <button pButton pRipple label="Nuevo Registro" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="crearRegistro()"></button>
+                                                        </ng-template>
+                                                        <ng-template pTemplate="right">
+                                                            <h3 class="">Tabla: Expediente Digital</h3>
+                                                        </ng-template>
 
-                                        <p-table #dt id="pdfs-table" [value]="pdfsList" [style]="{width:'100%'}" selectionMode="multiple" dataKey="id_personal" [rowHover]="true" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50]" [loading]="loadingTablaPdfs" [paginator]="true"
-                                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']" [scrollable]="true" scrollHeight="100%"
-                                            [responsive]="false">
+                                                    </p-toolbar>
+                                                    <p-table #dt id="pdfs-table" class="primengTable" [value]="pdfsList" [style]="{width:'100%'}" selectionMode="multiple" dataKey="id_personal" [rowHover]="true" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50]" [loading]="loadingTablaPdfs"
+                                                        [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']" [scrollable]="true"
+                                                        scrollHeight="100%" [responsive]="false">
 
-                                            <ng-template pTemplate="caption">
+                                                        <!-- <ng-template pTemplate="caption">
 
-                                                <div class="table-header">
-                                                    Tabla: Expediente Digital
+                                                        <div class="table-header">
+                                                                Tabla: Expediente Digital                                                                
+                                                            </div>
+                                                    </ng-template> -->
+                                                        <ng-template pTemplate="colgroup" let-columns>
+                                                            <colgroup>
+                                                                <col style="width:70px">
+                                                                <col style="width:100px">
+                                                                <col style="width:150px">
+                                                                <col style="width:150px">
+                                                                <col style="width:150px">
+                                                                <col style="width:150px">
+                                                                <col style="width:150px">
 
-                                                    <!-- <span class="p-input-icon-left">
-                            <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
-                        </span> -->
+                                                            </colgroup>
+                                                        </ng-template>
+                                                        <ng-template pTemplate="header">
+                                                            <tr>
+                                                                <th></th>
+                                                                <th>
+                                                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                                                        Id
+                                                                    </div>
+                                                                </th>
+                                                                <th>
+                                                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                                                        Legajo
+                                                                    </div>
+                                                                </th>
+                                                                <th>
+                                                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                                                        Nombre del Archivo
+                                                                    </div>
+                                                                </th>
+                                                                <th>
+                                                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                                                        Detalle
+                                                                        <p-columnFilter type="text" field="detalle" display="menu" class="p-ml-auto"></p-columnFilter>
+                                                                    </div>
+                                                                </th>
+                                                                <th pSortableColumn="indice">
+                                                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                                                        Indice
+                                                                        <p-sortIcon field="indice"></p-sortIcon>
+                                                                    </div>
+                                                                </th>
+                                                                <th pSortableColumn="fecha_documento">
+                                                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                                                        Fecha
+                                                                        <p-sortIcon field="fecha_documento"></p-sortIcon>
+                                                                    </div>
+                                                                </th>
+
+
+                                                            </tr>
+                                                        </ng-template>
+                                                        <ng-template pTemplate="body" let-pdf>
+                                                            <tr class="p-selectable-row">
+                                                                <td>
+                                                                    <!-- <button type="button" pButton pRipple icon="pi pi-file-pdf" class="p-button-warning p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button> -->
+                                                                    <!-- <button type="button" pButton pRipple icon="pi pi-file-pdf" class="p-button-warning p-mr-2" pTooltip="PDF" tooltipPosition="bottom" onclick="printJS({printable:'pdf.id_archivo | pdfpersonal', type:'pdf', showModal:true})"> -->
+                                                                    <button type="button" pButton pRipple icon="pi pi-file-pdf" class="p-button-warning p-mr-2" pTooltip="PDF" tooltipPosition="bottom" (click)="descargarPdf(pdf.id_archivo)"></button>
+
+                                                                </td>
+                                                                <td>
+                                                                    <!-- <span class="p-column-title">Codigo</span> -->
+                                                                    {{pdf.id_archivo}}
+                                                                </td>
+                                                                <td>
+                                                                    <!-- <span class="p-column-title">Apellido 1</span> -->
+                                                                    {{pdf.legajo_personal}}
+                                                                </td>
+                                                                <td>
+                                                                    <!-- <span class="p-column-title">Apellido 2</span> -->
+                                                                    {{pdf.nombre_archivo}}
+                                                                </td>
+                                                                <td>
+                                                                    <!-- <span class="p-column-title">Nombre 1</span> -->
+                                                                    {{pdf.detalle}}
+                                                                </td>
+                                                                <td>
+                                                                    <!-- <span class="p-column-title">Nombre 2</span>  -->
+                                                                    {{pdf.indice}}
+                                                                </td>
+                                                                <td>
+                                                                    <!-- <span class="p-column-title">Nombre 3</span>  -->
+                                                                    {{pdf.fecha_documento}}
+                                                                </td>
+
+
+                                                            </tr>
+                                                        </ng-template>
+                                                        <ng-template pTemplate="emptymessage">
+                                                            <tr>
+                                                                <td colspan="8">No customers found.</td>
+                                                            </tr>
+                                                        </ng-template>
+
+
+                                                    </p-table>
                                                 </div>
-                                            </ng-template>
-                                            <ng-template pTemplate="colgroup" let-columns>
-                                                <colgroup>
-                                                    <col style="width:70px">
-                                                    <col style="width:100px">
-                                                    <col style="width:150px">
-                                                    <col style="width:150px">
-                                                    <col style="width:150px">
-                                                    <col style="width:150px">
-                                                    <col style="width:150px">
 
-                                                </colgroup>
-                                            </ng-template>
-                                            <ng-template pTemplate="header">
-                                                <tr>
-                                                    <th></th>
-                                                    <th>
-                                                        <div class="p-d-flex p-jc-between p-ai-center">
-                                                            Id
+                                                <!-- Dialogo Modal: Formulario de Carga de Nuevo Pdf -->
+                                                <p-dialog [(visible)]="newFileDialog" [style]="{width: '450px'}" header="Nuevo Registro Pdf" [modal]="true" styleClass="p-fluid">
+                                                    <ng-template pTemplate="content">
+                                                        <!-- <img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.image" class="product-image" *ngIf="product.image"> -->
+
+                                                        <div class="p-fluid p-flex-column">
+                                                            <div class="p-field p-grid">
+                                                                <label class="p-col-12 p-mb-2 p-md-2 p-mb-md-0" for="legajo">Personal</label>
+                                                                <div class="p-col-12 p-md-10">
+                                                                    <input type="number" id="legajo" [(ngModel)]="regPdf.legajo_personal" required autofocus/>
+                                                                    <small class="p-error" *ngIf="submitted && !regPdf.legajo_personal">El Personal es requerido!</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="p-field p-grid">
+                                                                <label class="p-col-2 p-mb-2 p-mb-md-0" for="nombre">Nombre del Archivo</label>
+                                                                <div class="p-col-12 p-md-10">
+                                                                    <input type="text" pInputText id="nombre" [(ngModel)]="regPdf.nombre_archivo" required/>
+                                                                    <small class="p-error" *ngIf="submitted && !regPdf.nombre_archivo">El Nombre del Archivos es requerido!</small>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="p-field p-grid">
+                                                                <label class="p-col-2 p-mb-2 p-mb-md-0" for="detalle">Detalle</label>
+                                                                <div class="p-col-12 p-md-10">
+                                                                    <input type="text" pInputText id="detalle" [(ngModel)]="regPdf.detalle" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="p-field p-grid">
+                                                                <label class="p-col-2 p-mb-2 p-mb-md-0" for="indice">Indice</label>
+                                                                <div class="p-col-12 p-md-10">
+                                                                    <input type="text" pInputText id="indice" [(ngModel)]="regPdf.indice" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="p-field p-grid">
+                                                                <label class="p-col-2 p-mb-2 p-mb-md-0" for="fecha">Fecha del Pdf</label>
+                                                                <div class="p-col-12 p-md-10">
+                                                                    <input type="text" pInputText id="fecha" [(ngModel)]="regPdf.fecha_documento" required />
+                                                                    <small class="p-error" *ngIf="submitted && !regPdf.fecha_documento">La Fecha es requerida!</small>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- <div class="p-field p-grid">
+                                                                <label class="p-col-2 p-mb-2 p-mb-md-0" for="img">Imagen</label>
+                                                                <div class="p-col-12 p-md-10">
+                                                                    <input type="text" pInputText id="img" [(ngModel)]="usuario.img" required autofocus />
+                                                          
+                                                                </div>
+                                                            </div> -->
                                                         </div>
-                                                    </th>
-                                                    <th>
-                                                        <div class="p-d-flex p-jc-between p-ai-center">
-                                                            Legajo
-                                                        </div>
-                                                    </th>
-                                                    <th>
-                                                        <div class="p-d-flex p-jc-between p-ai-center">
-                                                            Nombre del Archivo
-                                                        </div>
-                                                    </th>
-                                                    <th>
-                                                        <div class="p-d-flex p-jc-between p-ai-center">
-                                                            Detalle
-                                                            <p-columnFilter type="text" field="detalle" display="menu" class="p-ml-auto"></p-columnFilter>
-                                                        </div>
-                                                    </th>
-                                                    <th pSortableColumn="indice">
-                                                        <div class="p-d-flex p-jc-between p-ai-center">
-                                                            Indice
-                                                            <p-sortIcon field="indice"></p-sortIcon>
-                                                        </div>
-                                                    </th>
-                                                    <th pSortableColumn="fecha_documento">
-                                                        <div class="p-d-flex p-jc-between p-ai-center">
-                                                            Fecha
-                                                            <p-sortIcon field="fecha_documento"></p-sortIcon>
-                                                        </div>
-                                                    </th>
+
+                                                        <!-- <div class="p-field p-grid">
+                                                            <img class="p-col-12 p-mb-2 p-mb-md-0" *ngIf="this.editando" [src]="baseUrlImg + usuario.img" [alt]="usuario.img" style="border-radius: 50px;" width="100" class="p-shadow-4" />
+                                                            <div class="p-col-12 p-md-10">
+                                                            </div>
+                                                            <div class="p-field p-grid">
+                                                            </div>
+                                                        
+                                                            <div class="p-col-12 p-md-10">
+                                                                <p-fileUpload *ngIf="this.editando" name="foto" [customUpload]="true" [multiple]="true" (uploadHandler)="onUpload($event.files[0])"></p-fileUpload>
+                                                            </div>
+                                                        </div> -->
 
 
-                                                </tr>
-                                            </ng-template>
-                                            <ng-template pTemplate="body" let-pdf>
-                                                <tr class="p-selectable-row">
-                                                    <td>
-                                                        <!-- <button type="button" pButton pRipple icon="pi pi-file-pdf" class="p-button-warning p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button> -->
-                                                        <!-- <button type="button" pButton pRipple icon="pi pi-file-pdf" class="p-button-warning p-mr-2" pTooltip="PDF" tooltipPosition="bottom" onclick="printJS({printable:'pdf.id_archivo | pdfpersonal', type:'pdf', showModal:true})"> -->
-                                                        <button type="button" pButton pRipple icon="pi pi-file-pdf" class="p-button-warning p-mr-2" pTooltip="PDF" tooltipPosition="bottom" (click)="descargarPdf(pdf.id_archivo)"></button>
-
-                                                    </td>
-                                                    <td>
-                                                        <!-- <span class="p-column-title">Codigo</span> -->
-                                                        {{pdf.id_archivo}}
-                                                    </td>
-                                                    <td>
-                                                        <!-- <span class="p-column-title">Apellido 1</span> -->
-                                                        {{pdf.legajo_personal}}
-                                                    </td>
-                                                    <td>
-                                                        <!-- <span class="p-column-title">Apellido 2</span> -->
-                                                        {{pdf.nombre_archivo}}
-                                                    </td>
-                                                    <td>
-                                                        <!-- <span class="p-column-title">Nombre 1</span> -->
-                                                        {{pdf.detalle}}
-                                                    </td>
-                                                    <td>
-                                                        <!-- <span class="p-column-title">Nombre 2</span>  -->
-                                                        {{pdf.indice}}
-                                                    </td>
-                                                    <td>
-                                                        <!-- <span class="p-column-title">Nombre 3</span>  -->
-                                                        {{pdf.fecha_documento}}
-                                                    </td>
 
 
-                                                </tr>
-                                            </ng-template>
-                                            <ng-template pTemplate="emptymessage">
-                                                <tr>
-                                                    <td colspan="8">No customers found.</td>
-                                                </tr>
-                                            </ng-template>
+
+                                                    </ng-template>
+
+                                                    <!-- <ng-template pTemplate="footer">
+                                                        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+                                                        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+                                                    </ng-template> -->
+                                                </p-dialog>
 
 
-                                        </p-table>
+                                            </div>
+
+                                        </div>
+
+
 
 
 

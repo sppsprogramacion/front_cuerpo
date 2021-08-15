@@ -514,6 +514,15 @@ crearRegistro(){
   this.newFileDialog = true;
 }
 
+grabarRegPdf(){
+  this.submitted = true;
+  console.log('DATA RECIBIDA PARA GRABAR', this.regPdf);
+}
+
+ocultarDialogo(){
+  this.newFileDialog = false
+}
+
   
 
     

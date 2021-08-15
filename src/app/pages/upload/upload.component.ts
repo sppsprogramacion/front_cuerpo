@@ -91,13 +91,13 @@ export class UploadComponent implements OnInit {
        nombre_3: ["pedro"],
        legajo: [3155,Validators.required],
        destino_id: [1,Validators.required],
-       departamento_id: [1],
+       departamento_id: [3],
        division_id: [5],
        sector_id: [0],
        funcion: ["Celador"],
        seccion_guardia_id: [1],
-       escalafon_id: [],
-       escala_jerarquica_id: [],
+       escalafon_id: [1],
+       escala_jerarquica_id: [1],
        grado_id: [],
        //foto: [],
        ultimo_ascenso: [],
@@ -111,7 +111,7 @@ export class UploadComponent implements OnInit {
       estado_civil_id: [2],
       nacionalidad: ["argentino",Validators.required],
       domicilio: ["Barrio los gremios",Validators.required],
-      provincia_id: [],
+      provincia_id: [1],
       departamento_provincial_id: [],
       municipio_id: [],
       //ciudad_id: [this.dataEdit.ciudad_id],
@@ -129,10 +129,10 @@ export class UploadComponent implements OnInit {
 
 
     //cargar desplegables
-    //this.cargarDepartamentos(this.dataEdit.destino_id!);
-    // this.cargarDepartamentosProvinciales(this.dataEdit.provincia_id!)
+    this.cargarDepartamentos(parseInt(this.forma.get('destino_id')?.value));
+    this.cargarDepartamentosProvinciales(parseInt(this.forma.get('provincia_id')?.value))
     // this.cargarDivisiones(this.dataEdit.departamento_id!);
-    // this.cargarGrados(this.dataEdit.escala_jerarquica_id!);
+    this.cargarGrados(parseInt(this.forma.get('escala_jerarquica_id')?.value));
     // this.cargarMunicipios(this.dataEdit.departamento_provincial_id!);
     // this.cargarSeccionesGuardia(this.dataEdit.departamento_id!);
 

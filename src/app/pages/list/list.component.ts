@@ -90,7 +90,7 @@ export class ListComponent implements OnInit {
                         subscribe(respuesta => {
             this.totalRecords = respuesta[1];
             this.personalList = respuesta[0];
-            console.log("personal retornado", this.personalList);
+
             const lista = respuesta[0];
             
               });
@@ -155,7 +155,7 @@ export class ListComponent implements OnInit {
      }
 
      MostrarSelected(){
-       console.log('DATA SELECCIONADA', this.selectedPersonal);
+       
        const selectedNewFormato = this.selectedPersonal.map(item =>{
         
          return {
@@ -164,7 +164,7 @@ export class ListComponent implements OnInit {
            departamento:  item.departamento
          }
        });
-       console.log('nuevo formato', selectedNewFormato);
+       
      }
 
      printTabla() {
@@ -217,7 +217,7 @@ export class ListComponent implements OnInit {
 
          }
       });
-      console.log('un obbjeto del nuevo formato', selectedNewFormato[0].departamento);
+      
 
       import("xlsx").then(xlsx => {
           const worksheet = xlsx.utils.json_to_sheet(selectedNewFormato);

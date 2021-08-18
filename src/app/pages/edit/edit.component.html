@@ -82,8 +82,10 @@
                                                                                     <div class="form-group">
                                                                                         <label>Primer Apellido</label>
                                                                                         <input formControlName="apellido_1" type="text" class="form-control" placeholder="primer apellido" [class.is-invalid]="apellido1NoValido">
+                                                                                        <small *ngIf="apellido1NoValido" class="form-text text-danger">El primer apellido es obligatorio</small>
+
                                                                                     </div>
-                                                                                    <small *ngIf="apellido1NoValido" class="form-text text-danger">El primer apellido es obligatorio</small>
+
                                                                                 </div>
                                                                                 <div class="col-sm-6">
                                                                                     <div class="form-group">
@@ -97,8 +99,9 @@
                                                                                     <div class="form-group">
                                                                                         <label>Primer Nombre</label>
                                                                                         <input formControlName="nombre_1" type="text" class="form-control" placeholder="primer nombre" [class.is-invalid]="nombre1NoValido">
+                                                                                        <small *ngIf="nombre1NoValido" class="form-text text-danger">El primer nombre es obligatorio</small>
                                                                                     </div>
-                                                                                    <small *ngIf="nombre1NoValido" class="form-text text-danger">El primer nombre es obligatorio</small>
+
                                                                                 </div>
                                                                                 <div class="col-sm-6">
                                                                                     <div class="form-group">
@@ -119,8 +122,8 @@
                                                                                     <div class="form-group">
                                                                                         <label>Legajo</label>
                                                                                         <input formControlName="legajo" type="text" class="form-control" placeholder="legajo" [class.is-invalid]="legajoNoValido">
+                                                                                        <small *ngIf="legajoNoValido" class="form-text text-danger">El legajo es obligatorio</small>
                                                                                     </div>
-                                                                                    <small *ngIf="legajoNoValido" class="form-text text-danger">El legajo es obligatorio</small>
                                                                                 </div>
                                                                             </div>
 

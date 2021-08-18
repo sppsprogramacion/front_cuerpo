@@ -113,16 +113,16 @@ export class EditComponent implements OnInit {
            
     }
 
-     //configuracion de datepicker
-     this.bsDatePickerConfig = Object.assign({}, 
-      { isAnimated: true, 
-        dateInputFormat: 'DD/MM/YYYY', 
-        containerClass: 'theme-dark-blue' 
-    
-      });
+    //configuracion de datepicker
+    this.bsDatePickerConfig = Object.assign({}, 
+    { isAnimated: true, 
+      dateInputFormat: 'DD/MM/YYYY', 
+      containerClass: 'theme-dark-blue' 
+  
+    });
 
-      //configurar idioma bsDatepicker
-      this.localeService.use('en');
+    //configurar idioma bsDatepicker
+    this.localeService.use('en');
 
     //cargar lista de pdfs
     if(this.dataEdit.pdfs != null){
@@ -223,13 +223,9 @@ export class EditComponent implements OnInit {
 
   ngOnInit(): void {
     //cargar el array de destinos
-    this.destinos = destinos;
-
-       
+    this.destinos = destinos;      
     
-  }
-
-  
+  }  
 
   // async descargarPdf(url: string){
   //   console.log('LA URL ES: ', url);
@@ -237,8 +233,6 @@ export class EditComponent implements OnInit {
   // }
 
   descargarPdf(id: number){
-    
-    
     this.pdfService.getPDF(id)
     .subscribe(
       (data: Blob) => {
@@ -373,7 +367,7 @@ export class EditComponent implements OnInit {
     this.sectores = sectores.filter(sector => {
        
       return sector.division_id == division_id || sector.division_id == 0;
- });
+    });
   }
 
   onChangeDivision(){
@@ -425,107 +419,104 @@ export class EditComponent implements OnInit {
         
         Swal.fire('Error', error.message, "error");    
     }
-}
+  }
 
-onDateChange(nuevaFecha: Date){
-  if(nuevaFecha != null){
-    this.auxiliarDate = this.datePipe.transform(nuevaFecha,"yyyy-MM-dd")!;
+  onDateChange(nuevaFecha: Date){
+    if(nuevaFecha != null){
+      this.auxiliarDate = this.datePipe.transform(nuevaFecha,"yyyy-MM-dd")!;
+        
+    }
+  }
+
+  changeFormatoFechaGuardar(nuevaFecha: Date){
+    let fechaAuxiliar:any = null;
+    if(nuevaFecha != null){
+      fechaAuxiliar = this.datePipe.transform(nuevaFecha,"yyyy-MM-dd")!;
       
+    }
+    return fechaAuxiliar;
   }
-}
-
-changeFormatoFechaGuardar(nuevaFecha: Date){
-  let fechaAuxiliar:any = null;
-  if(nuevaFecha != null){
-    fechaAuxiliar = this.datePipe.transform(nuevaFecha,"yyyy-MM-dd")!;
-    
-  }
-  return fechaAuxiliar;
-}
   
 
-submitForm(formEnviado:string){
-       if(this.forma.invalid){
-                  return Object.values(this.forma.controls).forEach(control => control.markAsTouched());
-              }
-        
-        let data: Partial<Personal>;
-        //crear la data
-        if(formEnviado == 'laboral'){
-          data = {
-                legajo: this.forma.get('legajo')?.value,
-                apellido_1: this.forma.get('apellido_1')?.value,
-                apellido_2: this.forma.get('apellido_2')?.value,
-                nombre_1: this.forma.get('nombre_1')?.value,
-                nombre_2: this.forma.get('nombre_2')?.value,
-                nombre_3: this.forma.get('nombre_3')?.value,
-                destino_id: parseInt(this.forma.get('destino_id')?.value),
-                departamento_id: parseInt(this.forma.get('departamento_id')?.value),
-                division_id: parseInt(this.forma.get('division_id')?.value),
-                sector_id: parseInt(this.forma.get('sector_id')?.value),
-                seccion_guardia_id: parseInt(this.forma.get('seccion_guardia_id')?.value),
-                escalafon_id: parseInt(this.forma.get('escalafon_id')?.value),
-                escala_jerarquica_id: parseInt(this.forma.get('escala_jerarquica_id')?.value),
-                grado_id: parseInt(this.forma.get('grado_id')?.value),
-                ultimo_ascenso: this.auxiliarDate,
-                
-          }}else{
-            data = {
-
-              dni: parseInt(this.formaFiliatorios.get('dni')?.value),
-              fecha_nacimiento: this.changeFormatoFechaGuardar(this.formaFiliatorios.get('fecha_nacimiento')?.value), 
-              fecha_ingreso: this.changeFormatoFechaGuardar(this.formaFiliatorios.get('fecha_ingreso')?.value), 
-              cuil: this.formaFiliatorios.get('cuil')?.value,
-              sexo_id: parseInt(this.formaFiliatorios.get('sexo_id')?.value),
-              estado_civil_id: parseInt(this.formaFiliatorios.get('estado_civil_id')?.value),
-              nacionalidad: this.formaFiliatorios.get('nacionalidad')?.value,
-              domicilio: this.formaFiliatorios.get('domicilio')?.value,
-              provincia_id: parseInt(this.formaFiliatorios.get('provincia_id')?.value),
-              departamento_provincial_id: parseInt(this.formaFiliatorios.get('departamento_provincial_id')?.value),
-              municipio_id: parseInt(this.formaFiliatorios.get('municipio_id')?.value),
-              //ciudad_id: [this.dataEdit.ciudad_id],
-              nivel_educativo_id: parseInt(this.formaFiliatorios.get('nivel_educativo_id')?.value),
-              telefonos: this.formaFiliatorios.get('telefonos')?.value,
-              email: this.formaFiliatorios.get('email')?.value,
-              altura: parseInt(this.formaFiliatorios.get('altura')?.value),
-              peso: parseInt(this.formaFiliatorios.get('peso')?.value),
-              registrado_por: globalConstants.id_usuario,
-              situacion_id: parseInt(this.formaFiliatorios.get('situacion_id')?.value),
-
-
-          }
+  submitForm(formEnviado:string){
+    if(this.forma.invalid){
+      return Object.values(this.forma.controls).forEach(control => control.markAsTouched());
+    }
           
-        }
-                 
-          this.personalService.editPersonal(data,parseInt(this.dataEdit.id_personal?.toString()!))
-                                                              .subscribe(resultado => {                                                                
-                                                                  Swal.fire('Exito',`El Registro ha sido editado con Exito`,"success");
-                                                                              },
-                                                              error => {                                                                
-                                                                  Swal.fire('Error',`Error al Editar el Usuario ${error.error.message}`,"error")                          
-                                                              });
-         
+    let data: Partial<Personal>;
+    //crear la data
+    if(formEnviado == 'laboral'){
+      data = {
+        legajo: this.forma.get('legajo')?.value,
+        apellido_1: this.forma.get('apellido_1')?.value,
+        apellido_2: this.forma.get('apellido_2')?.value,
+        nombre_1: this.forma.get('nombre_1')?.value,
+        nombre_2: this.forma.get('nombre_2')?.value,
+        nombre_3: this.forma.get('nombre_3')?.value,
+        destino_id: parseInt(this.forma.get('destino_id')?.value),
+        departamento_id: parseInt(this.forma.get('departamento_id')?.value),
+        division_id: parseInt(this.forma.get('division_id')?.value),
+        sector_id: parseInt(this.forma.get('sector_id')?.value),
+        seccion_guardia_id: parseInt(this.forma.get('seccion_guardia_id')?.value),
+        escalafon_id: parseInt(this.forma.get('escalafon_id')?.value),
+        escala_jerarquica_id: parseInt(this.forma.get('escala_jerarquica_id')?.value),
+        grado_id: parseInt(this.forma.get('grado_id')?.value),
+        ultimo_ascenso: this.auxiliarDate,
         
+    }}else{
+      data = {
+        dni: parseInt(this.formaFiliatorios.get('dni')?.value),
+        fecha_nacimiento: this.changeFormatoFechaGuardar(this.formaFiliatorios.get('fecha_nacimiento')?.value), 
+        fecha_ingreso: this.changeFormatoFechaGuardar(this.formaFiliatorios.get('fecha_ingreso')?.value), 
+        cuil: this.formaFiliatorios.get('cuil')?.value,
+        sexo_id: parseInt(this.formaFiliatorios.get('sexo_id')?.value),
+        estado_civil_id: parseInt(this.formaFiliatorios.get('estado_civil_id')?.value),
+        nacionalidad: this.formaFiliatorios.get('nacionalidad')?.value,
+        domicilio: this.formaFiliatorios.get('domicilio')?.value,
+        provincia_id: parseInt(this.formaFiliatorios.get('provincia_id')?.value),
+        departamento_provincial_id: parseInt(this.formaFiliatorios.get('departamento_provincial_id')?.value),
+        municipio_id: parseInt(this.formaFiliatorios.get('municipio_id')?.value),
+        //ciudad_id: [this.dataEdit.ciudad_id],
+        nivel_educativo_id: parseInt(this.formaFiliatorios.get('nivel_educativo_id')?.value),
+        telefonos: this.formaFiliatorios.get('telefonos')?.value,
+        email: this.formaFiliatorios.get('email')?.value,
+        altura: parseInt(this.formaFiliatorios.get('altura')?.value),
+        peso: parseInt(this.formaFiliatorios.get('peso')?.value),
+        registrado_por: globalConstants.id_usuario,
+        situacion_id: parseInt(this.formaFiliatorios.get('situacion_id')?.value),
   
-}
+      }
+        
+    }
+                
+    this.personalService.editPersonal(data,parseInt(this.dataEdit.id_personal?.toString()!))
+      .subscribe(
+        resultado => {                                                                
+          Swal.fire('Exito',`El Registro ha sido editado con Exito`,"success");
+        },
+        error => {                                                                
+          Swal.fire('Error',`Error al Editar el Usuario ${error.error.message}`,"error")                          
+        }
+      );  
+    
+  }
 
-//manejo de tabla de registros de pdfs
-crearRegistro(){
-  this.newFileDialog = true;
-}
-
-grabarRegPdf(){
-  this.submitted = true;
-  console.log('DATA RECIBIDA PARA GRABAR', this.regPdf);
-}
-
-ocultarDialogo(){
-  this.newFileDialog = false
-}
+  //manejo de tabla de registros de pdfs
+  crearRegistro(){
+    this.newFileDialog = true;
+  }
+  
+  grabarRegPdf(){
+    this.submitted = true;
+    console.log('DATA RECIBIDA PARA GRABAR', this.regPdf);
+  }
+  
+  ocultarDialogo(){
+    this.newFileDialog = false
+  }
 
   
 
     
-
 
 }

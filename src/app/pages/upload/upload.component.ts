@@ -309,8 +309,7 @@ export class UploadComponent implements OnInit {
   }
   //fin validaciones de campos de formulario
 
-  //metodos de formatos de fecha
-  
+  //metodos de formatos de fecha  
   onDateChange(nuevaFecha: Date){
     if(nuevaFecha != null){
       this.auxiliarDate = this.datePipe.transform(nuevaFecha,"yyyy-MM-dd")!;
@@ -335,7 +334,6 @@ export class UploadComponent implements OnInit {
   //fin metodos de formatosd e fechas
 
   //guardar personal
-
   submitForm(){
     if(this.forma.invalid){
                return Object.values(this.forma.controls).forEach(control => control.markAsTouched());
@@ -392,7 +390,7 @@ export class UploadComponent implements OnInit {
               },
               error => {
                   console.log("personal a nuevo error", data);
-                  Swal.fire('Error',`Error al Editar el Usuario ${error.error.message}`,"error")                          
+                  Swal.fire('Error',`Error al cargar el nuevo personal ${error.error.message}`,"error")                          
               });
   
   }

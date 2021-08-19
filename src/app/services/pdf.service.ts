@@ -49,10 +49,10 @@ base_url: string = environment.URL_BASE;
           const url = `${this.base_url}/archivo/pdf`;
           const formData = new FormData();
           formData.append('pdf', archivo);
-          // formData.append('legajo', legajo.toString());
-          // formData.append('detalle', detalle);
-          // formData.append('fecha_documento', fecha_pdf.toISOString());
-          // formData.append('indice', indice.toString());
+          formData.append('legajo', legajo.toString());
+          formData.append('detalle', detalle);
+          formData.append('fecha_documento', fecha_pdf.toString());
+          formData.append('indice', indice.toString());
           const respuesta = await fetch(url,{
             method: "POST",
             body: formData

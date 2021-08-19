@@ -670,63 +670,64 @@
                                                     <ng-template pTemplate="content">
                                                         <!-- <img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.image" class="product-image" *ngIf="product.image"> -->
 
-                                                        <div class="p-fluid p-flex-column">
-                                                            <div class="p-field p-grid">
-                                                                <label class="p-col-12 p-mb-2 p-md-2 p-mb-md-0" for="legajo">Personal</label>
-                                                                <div class="p-col-12 p-md-10">
-                                                                    <input type="number" id="legajo" [(ngModel)]="regPdf.legajo_personal" required autofocus/>
-                                                                    <small class="p-error" *ngIf="submitted && !regPdf.legajo_personal">El Personal es requerido!</small>
-                                                                </div>
-                                                            </div>
-                                                            <div class="p-field p-grid">
-                                                                <label class="p-col-2 p-mb-2 p-mb-md-0" for="nombre">Nombre del Archivo</label>
-                                                                <div class="p-col-12 p-md-10">
-                                                                    <input type="text" pInputText id="nombre" [(ngModel)]="regPdf.nombre_archivo" required/>
-                                                                    <small class="p-error" *ngIf="submitted && !regPdf.nombre_archivo">El Nombre del Archivos es requerido!</small>
-                                                                </div>
-                                                            </div>
+
+                                                        <div class="p-field p-grid">
+                                                            <div class="p-col-12 p-md-10">
+
+                                                                <!-- inicio de formulario -->
+                                                                <div class="p-fluid p-flex-column">
+                                                                    <div class="p-field p-grid">
+                                                                        <label class="p-col-12 p-mb-2 p-md-2 p-mb-md-0" for="legajo">Personal</label>
+                                                                        <div class="p-col-12 p-md-10">
+                                                                            <input type="number" id="legajo" [(ngModel)]="regPdf.legajo_personal" required autofocus/>
+                                                                            <small class="p-error" *ngIf="submitted && !regPdf.legajo_personal">El Personal es requerido!</small>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="p-field p-grid">
+                                                                        <label class="p-col-2 p-mb-2 p-mb-md-0" for="nombre">Nombre del Archivo</label>
+                                                                        <div class="p-col-12 p-md-10">
+                                                                            <input type="text" pInputText id="nombre" [(ngModel)]="regPdf.nombre_archivo" required/>
+                                                                            <small class="p-error" *ngIf="submitted && !regPdf.nombre_archivo">El Nombre del Archivos es requerido!</small>
+                                                                        </div>
+                                                                    </div>
 
 
-                                                            <div class="p-field p-grid">
-                                                                <label class="p-col-2 p-mb-2 p-mb-md-0" for="detalle">Detalle</label>
-                                                                <div class="p-col-12 p-md-10">
-                                                                    <input type="text" pInputText id="detalle" [(ngModel)]="regPdf.detalle" />
+                                                                    <div class="p-field p-grid">
+                                                                        <label class="p-col-2 p-mb-2 p-mb-md-0" for="detalle">Detalle</label>
+                                                                        <div class="p-col-12 p-md-10">
+                                                                            <input type="text" pInputText id="detalle" [(ngModel)]="regPdf.detalle" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="p-field p-grid">
+                                                                        <label class="p-col-2 p-mb-2 p-mb-md-0" for="indice">Indice</label>
+                                                                        <div class="p-col-12 p-md-10">
+                                                                            <input type="text" pInputText id="indice" [(ngModel)]="regPdf.indice" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="p-field p-grid">
+                                                                        <label class="p-col-2 p-mb-2 p-mb-md-0" for="fecha">Fecha del Pdf</label>
+                                                                        <div class="p-col-12 p-md-10">
+                                                                            <input type="text" pInputText id="fecha" [(ngModel)]="regPdf.fecha_documento" required />
+                                                                            <small class="p-error" *ngIf="submitted && !regPdf.fecha_documento">La Fecha es requerida!</small>
+                                                                        </div>
+                                                                    </div>
+
+
                                                                 </div>
+
+
+
+                                                                <!-- fin de formulario -->
+                                                            </div>
+                                                            <div class="p-col-12 p-md-10">
                                                             </div>
                                                             <div class="p-field p-grid">
-                                                                <label class="p-col-2 p-mb-2 p-mb-md-0" for="indice">Indice</label>
-                                                                <div class="p-col-12 p-md-10">
-                                                                    <input type="text" pInputText id="indice" [(ngModel)]="regPdf.indice" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="p-field p-grid">
-                                                                <label class="p-col-2 p-mb-2 p-mb-md-0" for="fecha">Fecha del Pdf</label>
-                                                                <div class="p-col-12 p-md-10">
-                                                                    <input type="text" pInputText id="fecha" [(ngModel)]="regPdf.fecha_documento" required />
-                                                                    <small class="p-error" *ngIf="submitted && !regPdf.fecha_documento">La Fecha es requerida!</small>
-                                                                </div>
                                                             </div>
 
-                                                            <!-- <div class="p-field p-grid">
-                                                                <label class="p-col-2 p-mb-2 p-mb-md-0" for="img">Imagen</label>
-                                                                <div class="p-col-12 p-md-10">
-                                                                    <input type="text" pInputText id="img" [(ngModel)]="usuario.img" required autofocus />
-                                                          
-                                                                </div>
-                                                            </div> -->
+                                                            <div class="p-col-12 p-md-10">
+                                                                <p-fileUpload name="pdf" [customUpload]="true" (uploadHandler)="onUploadPdf($event.files[0])" accept=".pdf"></p-fileUpload>
+                                                            </div>
                                                         </div>
-
-                                                        <!-- <div class="p-field p-grid">
-                                                            <img class="p-col-12 p-mb-2 p-mb-md-0" *ngIf="this.editando" [src]="baseUrlImg + usuario.img" [alt]="usuario.img" style="border-radius: 50px;" width="100" class="p-shadow-4" />
-                                                            <div class="p-col-12 p-md-10">
-                                                            </div>
-                                                            <div class="p-field p-grid">
-                                                            </div>
-                                                        
-                                                            <div class="p-col-12 p-md-10">
-                                                                <p-fileUpload *ngIf="this.editando" name="foto" [customUpload]="true" [multiple]="true" (uploadHandler)="onUpload($event.files[0])"></p-fileUpload>
-                                                            </div>
-                                                        </div> -->
 
 
 

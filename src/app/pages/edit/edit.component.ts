@@ -31,7 +31,7 @@ import { SituacionModel } from '../../models/situacion.model';
 import { PdfModel } from '../../models/pdf.model';
 import { PdfpersonalPipe } from 'src/app/pipes/pdfpersonal.pipe';
 import { PdfService } from 'src/app/services/pdf.service';
-
+import {environment} from 'src/environments/environment';
 
 @Component({
   selector: 'app-edit',
@@ -41,6 +41,8 @@ import { PdfService } from 'src/app/services/pdf.service';
   ]
 })
 export class EditComponent implements OnInit {
+  base_url:string = environment.URL_BASE;
+  
   forma: FormGroup;
   formaFiliatorios: FormGroup;
   dataEdit: Personal={};
@@ -50,12 +52,13 @@ export class EditComponent implements OnInit {
 
   administrador: boolean = false;
   destino_txt: string="";
-
+  
   //variables de manejo de pdf
   newFileDialog: boolean = false;
   url_pdf: string = "";
   regPdf: PdfModel = new PdfModel();
   submitted: boolean = false;
+  baseUrlPdf: string = `${this.base_url}/archivo/pdf`;
 
   //manejo de forumulario de personal
   departamentos: DepartamentoModel[]=[];
@@ -77,6 +80,7 @@ export class EditComponent implements OnInit {
 
   foto_nombre: string = 'no-image.png';
   fotoSubir: File | undefined;
+  pdfSubir: File | undefined;
   modo: string = 'laboral';
   auxiliarDate: any = null;
   
@@ -311,7 +315,7 @@ export class EditComponent implements OnInit {
         }else{
           Swal.fire('Error: repita la operación por favor', '', 'info')
         }
-        Swal.fire('Saved!', '', 'success')
+        Swal.fire('Exito!', '', 'success')
       } else if (result.isDenied) {
         this.forma.get('destino_id')?.setValue(this.dataEdit.destino_id);
         Swal.fire('Usted ha cancelado el cambio de destino', '', 'info')
@@ -523,7 +527,28 @@ ocultarDialogo(){
   this.newFileDialog = false
 }
 
-  
+onUploadPdf(event: File){
+    try {
+      this.pdfSubir = event;
+      let legajo: number =  this.regPdf.legajo_personal! ;
+      let detalle: string =  this.regPdf.detalle! ;
+      let fecha_pdf: Date =  this.regPdf.fecha_documento! ;
+      let indice: number =  this.regPdf.indice! ;
+     this.pdfService.postPdf(this.pdfSubir, legajo, detalle, fecha_pdf, indice).then(respuesta => {
+         if(respuesta.ok){
+          Swal.fire('Carga Exitosa!!', "El pdf del legajo digital ha sido subido  con éxito","success");
+         }else{
+             throw new Error('Error al cargar el pdf');
+         }
+     }).catch(error => {
+      Swal.fire('Error', error.message, "error"); 
+     });
+      
+  } catch (error) {
+      
+      Swal.fire('Error', error.message, "error");    
+  }
+}
 
     
 

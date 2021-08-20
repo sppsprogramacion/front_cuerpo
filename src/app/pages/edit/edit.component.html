@@ -315,14 +315,37 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label>DNI</label>
-                                                            <input formControlName="dni" type="text" class="form-control" placeholder="dni">
+                                                            <input formControlName="dni" type="text" class="form-control" placeholder="dni" [class.is-invalid]="dniNoValido">
+                                                            <small *ngIf="dniNoValido" class="form-text text-danger">
+                                                                <p *ngIf="formaFiliatorios.get('dni')?.hasError('required')">
+                                                                    El dni es obligatorio.
+                                                                </p>
+                                                                <p *ngIf="formaFiliatorios.get('dni')?.hasError('pattern')">
+                                                                    El valor ingresado no es un número.
+                                                                </p> 
+                                                                <p *ngIf="formaFiliatorios.get('dni')?.hasError('min')">
+                                                                    El número ingresado es bajo.
+                                                                </p>  
+                                                                <p *ngIf="formaFiliatorios.get('dni')?.hasError('max')">
+                                                                    El número ingresado es alto.
+                                                                </p>                                                                  
+                                                            </small>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label>Cuil</label>
-                                                            <input formControlName="cuil" type="text" class="form-control" placeholder="cuil">
+                                                            <input formControlName="cuil" type="text" class="form-control" placeholder="cuil" [class.is-invalid]="cuilNoValido">
+                                                            <small *ngIf="cuilNoValido" class="form-text text-danger">
+                                                                <p *ngIf="formaFiliatorios.get('cuil')?.hasError('required')">
+                                                                    El cuit es obligatorio.
+                                                                </p>
+                                                                <p *ngIf="formaFiliatorios.get('cuil')?.hasError('pattern')">
+                                                                    El valor ingresado no es un número de cuit válido.
+                                                                </p> 
+                                                                                                                          
+                                                            </small>
                                                         </div>
                                                     </div>
 

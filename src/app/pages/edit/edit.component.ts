@@ -162,10 +162,10 @@ export class EditComponent implements OnInit {
 
     //FORMULARIO DATOS FILIATORIOS
     this.formaFiliatorios = this.fb.group({   
-      dni: [this.dataEdit.dni,Validators.required],
+      dni: [this.dataEdit.dni,[Validators.required,Validators.pattern("^[0-9]*$"), Validators.min(1000000), Validators.max(150000000)]],
       fecha_nacimiento: [this.dataEdit.fecha_nacimiento,Validators.required],
       fecha_ingreso: [this.dataEdit.fecha_ingreso],
-      cuil: [this.dataEdit.cuil,Validators.required],
+      cuil: [this.dataEdit.cuil,[Validators.required]],
       sexo_id: [this.dataEdit.sexo_id],
       estado_civil_id: [this.dataEdit.estado_civil_id],
       nacionalidad: [this.dataEdit.nacionalidad,[Validators.required]],
@@ -254,19 +254,17 @@ export class EditComponent implements OnInit {
     );
   }
 
+  //VALIDACIONES FORMULARIOS DATOS LABORALES
   get apellido1NoValido(){
     return this.forma.get('apellido_1')?.invalid && this.forma.get('apellido_1')?.touched;
   }
 
   get nombre1NoValido(){
     return this.forma.get('nombre_1')?.invalid && this.forma.get('nombre_1')?.touched;
-  }
-
-  get dniNoValido(){
-    return this.forma.get('dni')?.invalid && this.forma.get('dni')?.touched;
-  }
+  }  
 
   get legajoNoValido(){
+    
     return this.forma.get('legajo')?.invalid && this.forma.get('legajo')?.touched;
   }
 
@@ -277,6 +275,18 @@ export class EditComponent implements OnInit {
   get departamentoNoValido(){
     return this.forma.get('departamento_id')?.invalid && this.forma.get('departamento_id')?.touched;
   }
+  //FIN VALIDACIONES FORMULARIO DATOS LABORALES
+
+  //VALIDACIONES FORMULARIO FILIATORIOS
+  get dniNoValido(){
+    return this.formaFiliatorios.get('dni')?.invalid && this.formaFiliatorios.get('dni')?.touched;
+  }
+
+  get cuilNoValido(){
+    return this.formaFiliatorios.get('cuil')?.invalid && this.formaFiliatorios.get('cuil')?.touched;
+  }
+
+  //FIN VALIDACIONES FORMULARIO FILIATORIOS
 
   cargarDepartamentos(destino_id: number){
      this.departamentos=departamentos.filter(departamento => {
@@ -441,6 +451,9 @@ export class EditComponent implements OnInit {
   submitForm(formEnviado:string){
     if(this.forma.invalid){
       return Object.values(this.forma.controls).forEach(control => control.markAsTouched());
+    }
+    if(this.formaFiliatorios.invalid){
+      return Object.values(this.formaFiliatorios.controls).forEach(control => control.markAsTouched());
     }
           
     let data: Partial<Personal>;

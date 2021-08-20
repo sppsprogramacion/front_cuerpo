@@ -336,13 +336,13 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label>Cuil</label>
-                                                            <input formControlName="cuil" type="text" class="form-control" placeholder="cuil" [class.is-invalid]="cuilNoValido">
+                                                            <input formControlName="cuil" type="text" class="form-control" [class.is-invalid]="cuilNoValido" data-inputmask="'mask': ['99-99999999-9 [x99999]']" data-mask>
                                                             <small *ngIf="cuilNoValido" class="form-text text-danger">
                                                                 <p *ngIf="formaFiliatorios.get('cuil')?.hasError('required')">
-                                                                    El cuit es obligatorio.
+                                                                    El cuil es obligatorio.
                                                                 </p>
                                                                 <p *ngIf="formaFiliatorios.get('cuil')?.hasError('pattern')">
-                                                                    El valor ingresado no es un número de cuit válido.
+                                                                    El valor ingresado no es un número de cuil válido (Ej. 20-32505425-8).
                                                                 </p> 
                                                                                                                           
                                                             </small>
@@ -355,7 +355,16 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label>Fecha Nacimiento</label>
-                                                            <input type="text" bsDatepicker [bsConfig]=bsDatePickerConfig id="datebirth2" class="form-control" formControlName="fecha_nacimiento" [ngModel]="dataEdit.fecha_nacimiento">
+                                                            <input type="text" bsDatepicker [bsConfig]=bsDatePickerConfig id="datebirth2" class="form-control" formControlName="fecha_nacimiento" [ngModel]="dataEdit.fecha_nacimiento" [class.is-invalid]="fechaNacimientoNoValido">
+                                                            <!-- <small *ngIf="fechaNacimientoNoValido" class="form-text text-danger">
+                                                                <p *ngIf="formaFiliatorios.get('fecha_nacimiento')?.hasError('required')">
+                                                                    Este la fecha de nacimiento es obligatoria.
+                                                                </p>
+                                                                <p *ngIf="formaFiliatorios.get('fecha_nacimiento')?.hasError('pattern')">
+                                                                    El valor ingresado no es una fecha válida (Ej. 07/07/1987).
+                                                                </p> 
+                                                                                                                          
+                                                            </small> -->
                                                         </div>
                                                     </div>
 

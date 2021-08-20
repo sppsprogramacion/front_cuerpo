@@ -139,9 +139,9 @@ export class EditComponent implements OnInit {
      //creando el formulario
     this.forma = this.fb.group({
        id_personal: [this.dataEdit.id_personal,Validators.required],
-       apellido_1: [this.dataEdit.apellido_1,Validators.required],
+       apellido_1: [this.dataEdit.apellido_1,[Validators.required, Validators.min(2), Validators.max(50)]],
        apellido_2: [this.dataEdit.apellido_2],
-       nombre_1: [this.dataEdit.nombre_1,Validators.required],
+       nombre_1: [this.dataEdit.nombre_1,[Validators.required, Validators.min(2), Validators.max(50)]],
        nombre_2: [this.dataEdit.nombre_2],
        nombre_3: [this.dataEdit.nombre_3],
       //  dni: [this.dataEdit.dni,[Validators.required,Validators.min(1111111),Validators.max(99999999)]],
@@ -162,10 +162,10 @@ export class EditComponent implements OnInit {
 
     //FORMULARIO DATOS FILIATORIOS
     this.formaFiliatorios = this.fb.group({   
-      dni: [this.dataEdit.dni,[Validators.required,Validators.pattern("^[0-9]*$"), Validators.min(1000000), Validators.max(150000000)]],
-      fecha_nacimiento: [this.dataEdit.fecha_nacimiento,Validators.required],
-      fecha_ingreso: [this.dataEdit.fecha_ingreso],
-      cuil: [this.dataEdit.cuil,[Validators.required]],
+      dni: [this.dataEdit.dni,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1000000), Validators.max(99000000)]],
+      fecha_nacimiento: [this.dataEdit.fecha_nacimiento,[Validators.required]],
+      fecha_ingreso: [this.dataEdit.fecha_ingreso, ],
+      cuil: [this.dataEdit.cuil,[Validators.required, Validators.pattern(/\b(20|23|24|27)(\D)?[0-9]{8}(\D)?[0-9]/)]],
       sexo_id: [this.dataEdit.sexo_id],
       estado_civil_id: [this.dataEdit.estado_civil_id],
       nacionalidad: [this.dataEdit.nacionalidad,[Validators.required]],
@@ -284,6 +284,10 @@ export class EditComponent implements OnInit {
 
   get cuilNoValido(){
     return this.formaFiliatorios.get('cuil')?.invalid && this.formaFiliatorios.get('cuil')?.touched;
+  }
+
+  get fechaNacimientoNoValido(){
+    return this.formaFiliatorios.get('fecha_nacimiento')?.invalid && this.formaFiliatorios.get('fecha_nacimiento')?.touched;
   }
 
   //FIN VALIDACIONES FORMULARIO FILIATORIOS
@@ -526,10 +530,7 @@ export class EditComponent implements OnInit {
   
   ocultarDialogo(){
     this.newFileDialog = false
-  }
+  }  
 
-  
-
-    
 
 }

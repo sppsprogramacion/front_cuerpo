@@ -5,6 +5,7 @@ import { FileSaverModule, FileSaverService } from 'ngx-filesaver';
 import { FileSaverOptions } from 'file-saver';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { PdfModel } from '../models/pdf.model';
 
 
 @Injectable({
@@ -17,6 +18,7 @@ export class PdfService {
   };
 
 base_url: string = environment.URL_BASE;  
+listadoPdfs: PdfModel[] = [];
 
   constructor(
     private http: HttpClient,
@@ -45,8 +47,22 @@ base_url: string = environment.URL_BASE;
 
      async postPdf(archivo: File, legajo: number, detalle: string, fecha_pdf: Date, indice: number){
        try {
-         console.log('FILE EN EL SERVICIO', archivo);
           const url = `${this.base_url}/archivo/pdf`;
+          if(!detalle || detalle === null){
+            throw new Error('El detalle del Pdf debe ser llenado');
+          }
+          if(!fecha_pdf || fecha_pdf === null){
+            throw new Error('Debe proveer la fecha del pdf');
+          }
+          if(!indice || indice === null){
+            throw new Error('El indice es la posición del pdf y es obligatorio');
+          }
+          if(!archivo || archivo === null){
+            throw new Error('Debe adjuntar un Archivo pdf');
+          }
+          if(!legajo || legajo === null){
+            throw new Error('Falta agregar dato del personal');
+          }
           const formData = new FormData();
           formData.append('pdf', archivo);
           formData.append('legajo', legajo.toString());
@@ -67,7 +83,18 @@ base_url: string = environment.URL_BASE;
                return error
         }
     }
-   
+
+    
+    async getPdfsXLegajo(legajo: number): Promise<PdfModel[]>{
+      try {
+        const url = `${this.base_url}/archivo/${legajo}`;
+        this.listadoPdfs = await this.http.get<[personal: any[],total:number]>(url)
+
+           return this.listadoPdfs;       
+      } catch (error) {
+        throw new Error(error.message)
+      }
+    }
 
 
 }

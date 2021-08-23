@@ -133,17 +133,16 @@ export class EditComponent implements OnInit {
         return pdf;
           });
     }
-
     
 
-     //creando el formulario
+    //creando el formulario
     this.forma = this.fb.group({
        id_personal: [this.dataEdit.id_personal,Validators.required],
-       apellido_1: [this.dataEdit.apellido_1,[Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-       apellido_2: [this.dataEdit.apellido_2,[Validators.minLength(2), Validators.maxLength(50)]],
-       nombre_1: [this.dataEdit.nombre_1,[Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-       nombre_2: [this.dataEdit.nombre_2,[Validators.minLength(2), Validators.maxLength(50)]],
-       nombre_3: [this.dataEdit.nombre_3,[Validators.minLength(2), Validators.maxLength(50)]],
+       apellido_1: [this.dataEdit.apellido_1,[Validators.pattern(/^[A-Za-z\s]+$/), Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+       apellido_2: [this.dataEdit.apellido_2,[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+       nombre_1: [this.dataEdit.nombre_1,[Validators.pattern(/^[A-Za-z\s]+$/), Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+       nombre_2: [this.dataEdit.nombre_2,[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+       nombre_3: [this.dataEdit.nombre_3,[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
       //  dni: [this.dataEdit.dni,[Validators.required,Validators.min(1111111),Validators.max(99999999)]],
        legajo: [this.dataEdit.legajo,[Validators.required,,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
        destino_id: [this.dataEdit.destino_id,[Validators.required]],
@@ -176,7 +175,7 @@ export class EditComponent implements OnInit {
       //ciudad_id: [this.dataEdit.ciudad_id],
       nivel_educativo_id: [this.dataEdit.nivel_educativo_id],
       telefonos: [this.dataEdit.telefonos,[Validators.minLength(1), Validators.maxLength(300)]],
-      email: [this.dataEdit.email,[Validators.email, Validators.minLength(4), Validators.maxLength(50)]],
+      email: [this.dataEdit.email,[Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/), Validators.minLength(4), Validators.maxLength(50)]],
       altura: [this.dataEdit.altura],
       peso: [this.dataEdit.peso],
       registrado_por: [this.dataEdit.registrado_por],
@@ -251,31 +250,36 @@ export class EditComponent implements OnInit {
     );
   }
 
-  //VALIDACIONES FORMULARIOS DATOS LABORALES
-
+  //VALIDACIONES FORMULARIOS
+  //mensajes de validaciones
   user_validation_messages = {
     //Formulario datos laborales
     'apellido_1': [
       { type: 'required', message: 'El primer apellio es requerido' },
-      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2' },
-      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50' }
+      { type: 'pattern', message: 'Solo se pueden ingresar letras y espacios.' },
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.' }
     ],
     'apellido_2': [
-      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2' },
-      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50'}
+      { type: 'pattern', message: 'Solo se pueden ingresar letras y espacios.' },
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.'}
     ],
     'nombre_1': [
       { type: 'required', message: 'El primer nombre es requerido' },
-      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2' },
-      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50' }
+      { type: 'pattern', message: 'Solo se pueden ingresar letras y espacios.' },
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.' }
     ],
     'nombre_2': [
-      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2' },
-      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50'}
+      { type: 'pattern', message: 'Solo se pueden ingresar letras y espacios.' },
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.'}
     ],
     'nombre_3': [
-      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2' },
-      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50'}
+      { type: 'pattern', message: 'Solo se pueden ingresar letras y espacios.' },
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.'}
     ],
     'legajo': [
       { type: 'required', message: 'El legajo es requerido.'},
@@ -301,25 +305,28 @@ export class EditComponent implements OnInit {
       { type: 'pattern', message: 'El valor ingresado no es un número de cuil válido (Ej. 20-32505425-8).' }
     ],
     'nacionalidad': [
-      { type: 'minlength', message: 'La cantidad mínima de caracteres es 1' },
-      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50'}
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 1.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.'}
     ],
     'domicilio': [
-      { type: 'minlength', message: 'La cantidad mínima de caracteres es 1' },
-      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 300'}
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 1.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 300.'}
     ],
     'telefonos': [
-      { type: 'minlength', message: 'La cantidad mínima de caracteres es 1' },
-      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 300'}
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 1.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 300.'}
     ],
     'email': [
-      { type: 'minlength', message: 'La cantidad mínima de caracteres es 4' },
-      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50'}
+      { type: 'pattern', message: 'No es un email válido.' },
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 4.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.'}
     ]
 
     //fin Formulario datos personales
   }
+  //FIN mensajes de validaciones
 
+  //fin validaciones formulario laborales
   get apellido1NoValido(){
     return this.forma.get('apellido_1')?.invalid && this.forma.get('apellido_1')?.touched;
   }
@@ -353,9 +360,9 @@ export class EditComponent implements OnInit {
   get departamentoNoValido(){
     return this.forma.get('departamento_id')?.invalid && this.forma.get('departamento_id')?.touched;
   }
-  //FIN VALIDACIONES FORMULARIO DATOS LABORALES
+  //fin validaciones formulario laborales
 
-  //VALIDACIONES FORMULARIO FILIATORIOS
+  //validaciones formulario filatorios
   get dniNoValido(){
     return this.formaFiliatorios.get('dni')?.invalid && this.formaFiliatorios.get('dni')?.touched;
   }
@@ -369,23 +376,24 @@ export class EditComponent implements OnInit {
   }
 
   get nacionalidadNoValido(){    
-    return this.formaFiliatorios.get('nacionalidad')?.invalid && this.forma.get('nacionalidad')?.touched;
+    return this.formaFiliatorios.get('nacionalidad')?.invalid && this.formaFiliatorios.get('nacionalidad')?.touched;
   }
 
   get domicilioNoValido(){    
-    return this.formaFiliatorios.get('domicilio')?.invalid && this.forma.get('domicilio')?.touched;
+    return this.formaFiliatorios.get('domicilio')?.invalid && this.formaFiliatorios.get('domicilio')?.touched;
   }
 
   get telefonosNoValido(){    
-    return this.formaFiliatorios.get('telefonos')?.invalid && this.forma.get('telefonos')?.touched;
+    return this.formaFiliatorios.get('telefonos')?.invalid && this.formaFiliatorios.get('telefonos')?.touched;
   }
 
   get emailNoValido(){    
-    return this.formaFiliatorios.get('email')?.invalid && this.forma.get('email')?.touched;
+    return this.formaFiliatorios.get('email')?.invalid && this.formaFiliatorios.get('email')?.touched;
   }
-
   
-  //FIN VALIDACIONES FORMULARIO FILIATORIOS
+  //fin validaciones formulario filatorios
+  //FIN VALIDACIONES FORMULARIOS
+
 
   cargarDepartamentos(destino_id: number){
      this.departamentos=departamentos.filter(departamento => {

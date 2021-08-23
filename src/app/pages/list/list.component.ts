@@ -242,7 +242,7 @@ export class ListComponent implements OnInit {
     const data: Blob = new Blob([buffer], {
         type: EXCEL_TYPE
     });
-    FileSaver.saveAs(data, fileName + '_export_' + new Date().getDate() + EXCEL_EXTENSION);
+    FileSaver.saveAs(data, fileName + '-' + this.datePipe.transform(new Date(),"dd-MM-yyyy") + EXCEL_EXTENSION);
   }
   //FIN METODO PARA GUARDAR EL ARCHIVO EXCEL
 

@@ -18,7 +18,7 @@ export class PdfService {
   };
 
 base_url: string = environment.URL_BASE;  
-listadoPdfs: PdfModel[] = [];
+//listadoPdfs: PdfModel[] = [];
 
   constructor(
     private http: HttpClient,
@@ -85,12 +85,11 @@ listadoPdfs: PdfModel[] = [];
     }
 
     
-    async getPdfsXLegajo(legajo: number): Promise<PdfModel[]>{
+    async getxlegajo(legajo: number) {
       try {
         const url = `${this.base_url}/archivo/${legajo}`;
-        this.listadoPdfs = await this.http.get<[personal: any[],total:number]>(url)
-
-           return this.listadoPdfs;       
+                      return await this.http.get<[personal: any[],total:number]>(url);
+           
       } catch (error) {
         throw new Error(error.message)
       }

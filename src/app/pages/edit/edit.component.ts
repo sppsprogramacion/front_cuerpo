@@ -646,5 +646,31 @@ export class EditComponent implements OnInit {
     this.newFileDialog = false
   }  
 
+  onUploadPdf(event: File){
+    try {
+      this.submitted = true;
+      this.pdfSubir = event;
+      let legajo: number =  this.dataEdit.legajo! ;
+      let detalle: string =  this.regPdf.detalle! ;
+      let fecha_pdf: Date =  this.regPdf.fecha_documento! ;
+      let indice: number =  this.regPdf.indice! ;
+      this.pdfService.postPdf(this.pdfSubir, legajo, detalle, fecha_pdf, indice).then(respuesta => {
+         if(respuesta.ok){
+          Swal.fire('Carga Exitosa!!', "El pdf del legajo digital ha sido subido  con éxito","success");
+          this.submitted = false;
+          this.newFileDialog = false;
+             }else{
+                 throw new Error(respuesta.message);
+         }
+     }).catch(error => {
+      Swal.fire('Error', error.message, "error"); 
+     });
+     
+      
+  } catch (error) {
+       Swal.fire('Error', error.message, "error");    
+  }
+}
+
 
 }

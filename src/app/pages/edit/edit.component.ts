@@ -56,7 +56,7 @@ export class EditComponent implements OnInit {
   //variables de manejo de pdf
   newFileDialog: boolean = false;
   url_pdf: string = "";
-  regPdf: PdfModel = new PdfModel();
+  regPdf: Partial<PdfModel> = new PdfModel();
   submitted: boolean = false;
   baseUrlPdf: string = `${this.base_url}/archivo/pdf`;
 
@@ -96,7 +96,7 @@ export class EditComponent implements OnInit {
     private pdfService: PdfService
   ) {
     this.dataEdit= dataService.personalData;
-    
+    this.regPdf.legajo_personal = this.dataEdit.legajo!;  
     if(this.dataEdit.ultimo_ascenso != null){
       //debe ser MM-dd-yyyy porque el tipo Date recibe ese formato... con dd-MM-yyyy intercambia mes con dia
       let auxiliar = this.datePipe.transform(this.dataEdit.ultimo_ascenso, "MM-dd-yyyy");
@@ -519,7 +519,7 @@ crearRegistro(){
 }
 
 grabarRegPdf(){
-  this.submitted = true;
+  
   console.log('DATA RECIBIDA PARA GRABAR', this.regPdf);
 }
 
@@ -529,24 +529,27 @@ ocultarDialogo(){
 
 onUploadPdf(event: File){
     try {
+      this.submitted = true;
       this.pdfSubir = event;
-      let legajo: number =  this.regPdf.legajo_personal! ;
+      let legajo: number =  this.dataEdit.legajo! ;
       let detalle: string =  this.regPdf.detalle! ;
       let fecha_pdf: Date =  this.regPdf.fecha_documento! ;
       let indice: number =  this.regPdf.indice! ;
-     this.pdfService.postPdf(this.pdfSubir, legajo, detalle, fecha_pdf, indice).then(respuesta => {
+      this.pdfService.postPdf(this.pdfSubir, legajo, detalle, fecha_pdf, indice).then(respuesta => {
          if(respuesta.ok){
           Swal.fire('Carga Exitosa!!', "El pdf del legajo digital ha sido subido  con éxito","success");
-         }else{
-             throw new Error('Error al cargar el pdf');
+          this.submitted = false;
+          this.newFileDialog = false;
+             }else{
+                 throw new Error(respuesta.message);
          }
      }).catch(error => {
       Swal.fire('Error', error.message, "error"); 
      });
+     
       
   } catch (error) {
-      
-      Swal.fire('Error', error.message, "error");    
+       Swal.fire('Error', error.message, "error");    
   }
 }
 

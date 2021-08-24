@@ -569,9 +569,9 @@
                                                     </ng-template> -->
                                                         <ng-template pTemplate="colgroup" let-columns>
                                                             <colgroup>
-                                                                <col style="width:70px">
+                                                                <!-- <col style="width:70px">
                                                                 <col style="width:100px">
-                                                                <col style="width:150px">
+                                                                <col style="width:150px"> -->
                                                                 <col style="width:150px">
                                                                 <col style="width:150px">
                                                                 <col style="width:150px">
@@ -582,7 +582,7 @@
                                                         <ng-template pTemplate="header">
                                                             <tr>
                                                                 <th></th>
-                                                                <th>
+                                                                <!-- <th>
                                                                     <div class="p-d-flex p-jc-between p-ai-center">
                                                                         Id
                                                                     </div>
@@ -596,7 +596,7 @@
                                                                     <div class="p-d-flex p-jc-between p-ai-center">
                                                                         Nombre del Archivo
                                                                     </div>
-                                                                </th>
+                                                                </th> -->
                                                                 <th>
                                                                     <div class="p-d-flex p-jc-between p-ai-center">
                                                                         Detalle
@@ -627,18 +627,18 @@
                                                                     <button type="button" pButton pRipple icon="pi pi-file-pdf" class="p-button-warning p-mr-2" pTooltip="PDF" tooltipPosition="bottom" (click)="descargarPdf(pdf.id_archivo)"></button>
 
                                                                 </td>
-                                                                <td>
-                                                                    <!-- <span class="p-column-title">Codigo</span> -->
+                                                                <!-- <td>
+                                                                    
                                                                     {{pdf.id_archivo}}
                                                                 </td>
                                                                 <td>
-                                                                    <!-- <span class="p-column-title">Apellido 1</span> -->
+                                                                    
                                                                     {{pdf.legajo_personal}}
                                                                 </td>
                                                                 <td>
-                                                                    <!-- <span class="p-column-title">Apellido 2</span> -->
+                                                                    
                                                                     {{pdf.nombre_archivo}}
-                                                                </td>
+                                                                </td> -->
                                                                 <td>
                                                                     <!-- <span class="p-column-title">Nombre 1</span> -->
                                                                     {{pdf.detalle}}
@@ -676,32 +676,34 @@
 
                                                                 <!-- inicio de formulario -->
                                                                 <div class="p-fluid p-flex-column">
-                                                                    <div class="p-field p-grid">
+                                                                    <!-- <div class="p-field p-grid">
                                                                         <label class="p-col-12 p-mb-2 p-md-2 p-mb-md-0" for="legajo">Personal</label>
                                                                         <div class="p-col-12 p-md-10">
                                                                             <input type="number" id="legajo" [(ngModel)]="regPdf.legajo_personal" required autofocus/>
                                                                             <small class="p-error" *ngIf="submitted && !regPdf.legajo_personal">El Personal es requerido!</small>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="p-field p-grid">
+                                                                    </div> -->
+                                                                    <!-- <div class="p-field p-grid">
                                                                         <label class="p-col-2 p-mb-2 p-mb-md-0" for="nombre">Nombre del Archivo</label>
                                                                         <div class="p-col-12 p-md-10">
                                                                             <input type="text" pInputText id="nombre" [(ngModel)]="regPdf.nombre_archivo" required/>
                                                                             <small class="p-error" *ngIf="submitted && !regPdf.nombre_archivo">El Nombre del Archivos es requerido!</small>
                                                                         </div>
-                                                                    </div>
+                                                                    </div> -->
 
 
                                                                     <div class="p-field p-grid">
                                                                         <label class="p-col-2 p-mb-2 p-mb-md-0" for="detalle">Detalle</label>
                                                                         <div class="p-col-12 p-md-10">
                                                                             <input type="text" pInputText id="detalle" [(ngModel)]="regPdf.detalle" />
+                                                                            <small class="p-error" *ngIf="submitted && !regPdf.detalle">El Detalle del Archivo es requerido!</small>
                                                                         </div>
                                                                     </div>
                                                                     <div class="p-field p-grid">
                                                                         <label class="p-col-2 p-mb-2 p-mb-md-0" for="indice">Indice</label>
                                                                         <div class="p-col-12 p-md-10">
                                                                             <input type="text" pInputText id="indice" [(ngModel)]="regPdf.indice" />
+                                                                            <small class="p-error" *ngIf="submitted && !regPdf.indice">El indice es el orden del Archivo y es requerido!</small>
                                                                         </div>
                                                                     </div>
                                                                     <div class="p-field p-grid">
@@ -737,7 +739,7 @@
 
                                                     <ng-template pTemplate="footer">
                                                         <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="ocultarDialogo()"></button>
-                                                        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="grabarRegPdf()"></button>
+                                                        <!-- <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="grabarRegPdf()"></button> -->
                                                     </ng-template>
                                                 </p-dialog>
 

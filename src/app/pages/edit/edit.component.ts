@@ -3,7 +3,7 @@ import { Personal } from 'src/app/models/personal.model';
 import { DataService } from 'src/app/services/data.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DestinoModel } from '../../models/destino.model';
-import { destinos, departamentos, departamentos_provincial, divisiones, estados_civil, municipios, nivelEducativo, sectores, secciones_guardia, situacion, escalaJerarquica, escalafon, grados, sexos, provincias} from 'src/app/common/data-mockeada';
+import { destinos, departamentos, departamentos_provinciales, divisiones, estados_civil, municipios, nivelEducativo, sectores, secciones_guardia, situacion, escalaJerarquica, escalafon, grados, sexos, provincias} from 'src/app/common/data-mockeada';
 import { globalConstants } from '../../common/global-constants';
 import { DepartamentoModel } from '../../models/departamento.model';
 import { DivisionModel } from '../../models/division.model';
@@ -437,7 +437,7 @@ export class EditComponent implements OnInit {
   }
   
   cargarDepartamentosProvinciales(provincia_id: number){
-    this.departamentos_provincial=departamentos_provincial.filter(departamento_provincial => {
+    this.departamentos_provincial=departamentos_provinciales.filter(departamento_provincial => {
       
              return departamento_provincial.provincia_id == provincia_id || departamento_provincial.provincia_id == 0;
         });

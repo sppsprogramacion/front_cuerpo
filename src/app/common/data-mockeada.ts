@@ -195,6 +195,11 @@ export const nivelEducativo = [
 
 export const provincias = [
         {
+            "id_provincia": 25,
+            "provincia": "sin definir"
+           
+        },
+        {
             "id_provincia": 1,
             "provincia": "CAPITAL FEDERAL"
            
@@ -307,7 +312,12 @@ export const provincias = [
         }
 ];
 
-export const departamentos_provincial = [
+export const departamentos_provinciales = [
+    {
+        "id_dpto_prov": 212000,
+        "departamento_provincial": "sin definir",
+        "provincia_id": 25
+    },
     {
         "id_dpto_prov": 10,
         "departamento_provincial": "CAPITAL FEDERAL",
@@ -25606,6 +25616,12 @@ export const departamentos_provincial = [
 ];
 
 export const municipios = [
+    {
+        "id_municipio": 3986,
+        "municipio": "sin definir",
+        "provincia_id": 25,
+        "departamento_id": 212000
+    },
     {
         "id_municipio": 11,
         "municipio": "CAPITAL FEDERAL",

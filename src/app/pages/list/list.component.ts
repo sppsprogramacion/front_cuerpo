@@ -9,7 +9,7 @@ import { FotopersonalPipe } from '../../pipes/fotopersonal.pipe';
 
 import * as printJS from 'print-js';
 import * as FileSaver from 'file-saver';
-import { estados_civil, departamentos_provincial, sectores } from '../../common/data-mockeada';
+import { estados_civil, departamentos_provinciales, sectores } from '../../common/data-mockeada';
 import { DepartamentoModel } from '../../models/departamento.model';
 import { DatePipe } from '@angular/common';
 

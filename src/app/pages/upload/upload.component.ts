@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
-import { departamentos, departamentos_provincial, destinos, divisiones, escalafon, escalaJerarquica, estados_civil, grados, municipios, nivelEducativo, provincias, secciones_guardia, sectores, sexos, situacion } from 'src/app/common/data-mockeada';
+import { departamentos, departamentos_provinciales, destinos, divisiones, escalafon, escalaJerarquica, estados_civil, grados, municipios, nivelEducativo, provincias, secciones_guardia, sectores, sexos, situacion } from 'src/app/common/data-mockeada';
 import { globalConstants } from 'src/app/common/global-constants';
 import { DepartamentoModel } from 'src/app/models/departamento.model';
 import { DepartamentoProvincialModel } from 'src/app/models/departamento_provincial.model';
@@ -37,7 +37,7 @@ export class UploadComponent implements OnInit {
   destino_txt: string="";
 
   departamentos: DepartamentoModel[]=[];
-  departamentos_provincial: DepartamentoProvincialModel[]=[];
+  departamentos_provinciales: DepartamentoProvincialModel[]=[];
   destinos: DestinoModel[]=[];
   divisiones: DivisionModel[]=[];  
   escalas: EscalaJerarquicaModel[]=[];
@@ -84,17 +84,17 @@ export class UploadComponent implements OnInit {
     //formulario personal
     this.forma = this.fb.group({
        id_personal: [Validators.required],
-       apellido_1: ["diaz",[Validators.required, Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
-       apellido_2: ["diaz",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
-       nombre_1: ["pedro",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-       nombre_2: ["Pedro",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
-       nombre_3: ["pedro",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+       apellido_1: ["test",[Validators.required, Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+       apellido_2: ["",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+       nombre_1: ["test",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+       nombre_2: ["",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+       nombre_3: ["",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
        legajo: [3155,[Validators.required,,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
        destino_id: [1],
        departamento_id: [3],
        division_id: [5],
        sector_id: [],
-       funcion: ["Celador", [Validators.minLength(1), Validators.maxLength(200)]],
+       funcion: ["", [Validators.minLength(1), Validators.maxLength(200)]],
        seccion_guardia_id: [1],
        escalafon_id: [1],
        escala_jerarquica_id: [1],
@@ -111,9 +111,9 @@ export class UploadComponent implements OnInit {
       estado_civil_id: [2],
       nacionalidad: ["argentino",[Validators.minLength(1), Validators.maxLength(50)]],
       domicilio: ["Barrio los gremios",[Validators.minLength(1), Validators.maxLength(300)]],
-      provincia_id: [1],
-      departamento_provincial_id: [],
-      municipio_id: [],
+      provincia_id: [17],
+      departamento_provincial_id: [212000],
+      municipio_id: [3986],
       //ciudad_id: [this.dataEdit.ciudad_id],
       nivel_educativo_id: [4],
       telefonos: ["0387154853487",[Validators.minLength(1), Validators.maxLength(300)]],
@@ -133,7 +133,7 @@ export class UploadComponent implements OnInit {
     this.cargarDepartamentosProvinciales(parseInt(this.forma.get('provincia_id')?.value))
     // this.cargarDivisiones(this.dataEdit.departamento_id!);
     this.cargarGrados(parseInt(this.forma.get('escala_jerarquica_id')?.value));
-    // this.cargarMunicipios(this.dataEdit.departamento_provincial_id!);
+    this.cargarMunicipios(parseInt(this.forma.get('departamento_provincial_id')?.value));
     // this.cargarSeccionesGuardia(this.dataEdit.departamento_id!);
 
     this.administrador = (globalConstants.rol_usuario == "0")? true: false;
@@ -310,38 +310,23 @@ export class UploadComponent implements OnInit {
   
    onChangeDestino(){
      
-     Swal.fire({
-       title: 'Confirma el cambio de destino del personal?',
-       showDenyButton: true,
-       //showCancelButton: true,
-       confirmButtonText: `Cambiar de Destino`,
-       denyButtonText: `Cancelar Cambio de Destino`,
-     }).then((result) => {
-       /* Read more about isConfirmed, isDenied below */
-       if (result.isConfirmed) {
-         const id = this.forma.get('destino_id')?.value;
-         if(id != null){
-           this.cargarDepartamentos(parseInt(id.toString()));
-           this.divisiones = [];
-           this.sectores = [];
-           this.secciones_guardia= [];      
-         }else{
-           Swal.fire('Error: repita la operación por favor', '', 'info')
-         }
-         Swal.fire('Saved!', '', 'success')
-       } else if (result.isDenied) {
-         this.forma.get('destino_id')?.setValue(0);
-         Swal.fire('Usted ha cancelado el cambio de destino', '', 'info')
-       }
-     })
+    const id = this.forma.get('destino_id')?.value;
+    if(id != null){
+      this.cargarDepartamentos(parseInt(id.toString()));
+      this.divisiones = [];
+      this.sectores = [];
+      this.secciones_guardia= [];      
+    }else{
+      Swal.fire('Error: repita la operación por favor', '', 'info')
+    }
   
      
    }
    
    cargarDepartamentosProvinciales(provincia_id: number){
-     this.departamentos_provincial=departamentos_provincial.filter(departamento_provincial => {
+     this.departamentos_provinciales= departamentos_provinciales.filter(departamento_provincial => {
        
-              return departamento_provincial.provincia_id == provincia_id || departamento_provincial.provincia_id == 0;
+              return departamento_provincial.provincia_id == provincia_id || departamento_provincial.provincia_id == 25;
          });
    }
   
@@ -357,7 +342,7 @@ export class UploadComponent implements OnInit {
    cargarMunicipios(departamento_provincial_id: number){
      this.municipios=municipios.filter(municipio => {
        
-              return municipio.departamento_id == departamento_provincial_id || municipio.departamento_id == 0;
+              return municipio.departamento_id == departamento_provincial_id || municipio.departamento_id == 212000;
          });
    }
   

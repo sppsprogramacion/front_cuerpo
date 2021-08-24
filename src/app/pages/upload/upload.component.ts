@@ -59,7 +59,7 @@ export class UploadComponent implements OnInit {
   auxiliarDate: any = null;
   
   bsDatePickerConfig!: Partial<BsDatepickerConfig>;
-  formaFiliatorios: any;
+  //formaFiliatorios: any;
 
   constructor(
     private fb: FormBuilder,
@@ -84,17 +84,17 @@ export class UploadComponent implements OnInit {
     //formulario personal
     this.forma = this.fb.group({
        id_personal: [Validators.required],
-       apellido_1: ["diaz",Validators.required],
-       apellido_2: ["diaz"],
-       nombre_1: ["pedro",Validators.required],
-       nombre_2: ["Pedro"],
-       nombre_3: ["pedro"],
-       legajo: [3155,Validators.required],
-       destino_id: [1,Validators.required],
+       apellido_1: ["diaz",[Validators.required, Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+       apellido_2: ["diaz",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+       nombre_1: ["pedro",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+       nombre_2: ["Pedro",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+       nombre_3: ["pedro",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+       legajo: [3155,[Validators.required,,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
+       destino_id: [1],
        departamento_id: [3],
        division_id: [5],
-       sector_id: [0],
-       funcion: ["Celador"],
+       sector_id: [],
+       funcion: ["Celador", [Validators.minLength(1), Validators.maxLength(200)]],
        seccion_guardia_id: [1],
        escalafon_id: [1],
        escala_jerarquica_id: [1],
@@ -103,21 +103,21 @@ export class UploadComponent implements OnInit {
        ultimo_ascenso: [],
 
        //campos filiatorios
-       dni: [32505424,Validators.required],
-      fecha_nacimiento: ["",Validators.required],
+       dni: [32505424,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1000000), Validators.max(99000000)]],
+      fecha_nacimiento: [],
       fecha_ingreso: [],
-      cuil: ["20325054248",Validators.required],
+      cuil: ["20-32505424-8",[Validators.required, Validators.pattern(/\b(20|23|24|27)(\D)?[0-9]{8}(\D)?[0-9]/)]],
       sexo_id: [1],
       estado_civil_id: [2],
-      nacionalidad: ["argentino",Validators.required],
-      domicilio: ["Barrio los gremios",Validators.required],
+      nacionalidad: ["argentino",[Validators.minLength(1), Validators.maxLength(50)]],
+      domicilio: ["Barrio los gremios",[Validators.minLength(1), Validators.maxLength(300)]],
       provincia_id: [1],
       departamento_provincial_id: [],
       municipio_id: [],
       //ciudad_id: [this.dataEdit.ciudad_id],
       nivel_educativo_id: [4],
-      telefonos: ["154853487"],
-      email: ["pedrodiaz0487@gmail.com"],
+      telefonos: ["0387154853487",[Validators.minLength(1), Validators.maxLength(300)]],
+      email: ["pedrodiaz0487@gmail.com", [Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/), Validators.minLength(4), Validators.maxLength(50)]],
       altura: [1.8],
       peso: [72.5],
       //registrado_por: [],
@@ -156,6 +156,149 @@ export class UploadComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+  //VALIDACIONES FORMULARIOS
+  //mensajes de validaciones
+  user_validation_messages = {
+    //datos laborales
+    'apellido_1': [
+      { type: 'required', message: 'El primer apellio es requerido' },
+      { type: 'pattern', message: 'Solo se pueden ingresar letras y espacios.' },
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.' }
+    ],
+    'apellido_2': [
+      { type: 'pattern', message: 'Solo se pueden ingresar letras y espacios.' },
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.'}
+    ],
+    'nombre_1': [
+      { type: 'required', message: 'El primer nombre es requerido' },
+      { type: 'pattern', message: 'Solo se pueden ingresar letras y espacios.' },
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.' }
+    ],
+    'nombre_2': [
+      { type: 'pattern', message: 'Solo se pueden ingresar letras y espacios.' },
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.'}
+    ],
+    'nombre_3': [
+      { type: 'pattern', message: 'Solo se pueden ingresar letras y espacios.' },
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.'}
+    ],
+    'legajo': [
+      { type: 'required', message: 'El legajo es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' },
+      { type: 'min', message: 'El número ingresado es bajo.(minimo: 1)' },
+      { type: 'max', message: 'El número ingresado es alto (maximo: 500000).'} 
+    ],
+    'funcion': [
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 1' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 200'}
+    ],
+    //fin datos laborales
+    //datos personales
+    'dni': [
+      { type: 'required', message: 'El dni es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' },
+      { type: 'min', message: 'El número ingresado es bajo.(minimo: 1000000)' },
+      { type: 'max', message: 'El número ingresado es alto (maximo: 99000000).'} 
+    ],
+    'cuil': [
+      { type: 'required', message: 'El cuil es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número de cuil válido (Ej. 20-32505425-8).' }
+    ],
+    'nacionalidad': [
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 1.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.'}
+    ],
+    'domicilio': [
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 1.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 300.'}
+    ],
+    'telefonos': [
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 1.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 300.'}
+    ],
+    'email': [
+      { type: 'pattern', message: 'No es un email válido.' },
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 4.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.'}
+    ]
+
+    //fin datos personales
+  }
+  //FIN mensajes de validaciones
+
+  //validaciones formulario laborales
+  get apellido1NoValido(){
+    return this.forma.get('apellido_1')?.invalid && this.forma.get('apellido_1')?.touched;
+  }
+
+  get apellido2NoValido(){
+    return this.forma.get('apellido_2')?.invalid && this.forma.get('apellido_2')?.touched;
+  }
+
+  get nombre1NoValido(){
+    return this.forma.get('nombre_1')?.invalid && this.forma.get('nombre_1')?.touched;
+  }  
+  get nombre2NoValido(){
+    return this.forma.get('nombre_2')?.invalid && this.forma.get('nombre_2')?.touched;
+  }  
+  get nombre3NoValido(){
+    return this.forma.get('nombre_3')?.invalid && this.forma.get('nombre_3')?.touched;
+  }  
+
+  get legajoNoValido(){    
+    return this.forma.get('legajo')?.invalid && this.forma.get('legajo')?.touched;
+  }
+
+  get funcionNoValido(){    
+    return this.forma.get('funcion')?.invalid && this.forma.get('funcion')?.touched;
+  }
+
+  get destinoNoValido(){
+    return this.forma.get('destino_id')?.invalid && this.forma.get('destino_1')?.touched;
+  }
+
+  get departamentoNoValido(){
+    return this.forma.get('departamento_id')?.invalid && this.forma.get('departamento_id')?.touched;
+  }
+  //fin validaciones formulario laborales
+
+  //validaciones formulario filatorios
+  get dniNoValido(){
+    return this.forma.get('dni')?.invalid && this.forma.get('dni')?.touched;
+  }
+
+  get cuilNoValido(){
+    return this.forma.get('cuil')?.invalid && this.forma.get('cuil')?.touched;
+  }
+
+  get fechaNacimientoNoValido(){
+    return this.forma.get('fecha_nacimiento')?.invalid && this.forma.get('fecha_nacimiento')?.touched;
+  }
+
+  get nacionalidadNoValido(){    
+    return this.forma.get('nacionalidad')?.invalid && this.forma.get('nacionalidad')?.touched;
+  }
+
+  get domicilioNoValido(){    
+    return this.forma.get('domicilio')?.invalid && this.forma.get('domicilio')?.touched;
+  }
+
+  get telefonosNoValido(){    
+    return this.forma.get('telefonos')?.invalid && this.forma.get('telefonos')?.touched;
+  }
+
+  get emailNoValido(){    
+    return this.forma.get('email')?.invalid && this.forma.get('email')?.touched;
+  }  
+  //fin validaciones formulario filatorios
+  //FIN VALIDACIONES FORMULARIOS
+  
 
   //metodos para cargar listas desplegables  
   cargarDepartamentos(destino_id: number){
@@ -283,34 +426,9 @@ export class UploadComponent implements OnInit {
    }
   //fin metodos para cargar listas desplegables
 
-  //validaciones de campos de formulario
-  get apellido1NoValido(){
-    return this.forma.get('apellido_1')?.invalid && this.forma.get('apellido_1')?.touched;
-  }
-
-  get nombre1NoValido(){
-    return this.forma.get('nombre_1')?.invalid && this.forma.get('nombre_1')?.touched;
-  }
-
-  get dniNoValido(){
-    return this.forma.get('dni')?.invalid && this.forma.get('dni')?.touched;
-  }
-
-  get legajoNoValido(){
-    return this.forma.get('legajo')?.invalid && this.forma.get('legajo')?.touched;
-  }
-
-  get destinoNoValido(){
-    return this.forma.get('destino_id')?.invalid && this.forma.get('destino_1')?.touched;
-  }
-
-  get departamentoNoValido(){
-    return this.forma.get('departamento_id')?.invalid && this.forma.get('departamento_id')?.touched;
-  }
-  //fin validaciones de campos de formulario
-
-  //metodos de formatos de fecha
   
+
+  //metodos de formatos de fecha  
   onDateChange(nuevaFecha: Date){
     if(nuevaFecha != null){
       this.auxiliarDate = this.datePipe.transform(nuevaFecha,"yyyy-MM-dd")!;
@@ -335,11 +453,11 @@ export class UploadComponent implements OnInit {
   //fin metodos de formatosd e fechas
 
   //guardar personal
-
   submitForm(){
     if(this.forma.invalid){
-               return Object.values(this.forma.controls).forEach(control => control.markAsTouched());
-           }
+      Swal.fire('Formulario con errores','Complete correctamente todos los campos del formulario',"warning");
+      return Object.values(this.forma.controls).forEach(control => control.markAsTouched());
+    }
      
      let data: Personal;
      //crear la data
@@ -392,7 +510,7 @@ export class UploadComponent implements OnInit {
               },
               error => {
                   console.log("personal a nuevo error", data);
-                  Swal.fire('Error',`Error al Editar el Usuario ${error.error.message}`,"error")                          
+                  Swal.fire('Error',`Error al cargar el nuevo personal ${error.error.message}`,"error")                          
               });
   
   }

@@ -117,16 +117,16 @@ export class EditComponent implements OnInit {
            
     }
 
-     //configuracion de datepicker
-     this.bsDatePickerConfig = Object.assign({}, 
-      { isAnimated: true, 
-        dateInputFormat: 'DD/MM/YYYY', 
-        containerClass: 'theme-dark-blue' 
-    
-      });
+    //configuracion de datepicker
+    this.bsDatePickerConfig = Object.assign({}, 
+    { isAnimated: true, 
+      dateInputFormat: 'DD/MM/YYYY', 
+      containerClass: 'theme-dark-blue' 
+  
+    });
 
-      //configurar idioma bsDatepicker
-      this.localeService.use('en');
+    //configurar idioma bsDatepicker
+    this.localeService.use('en');
 
     //cargar lista de pdfs
     if(this.dataEdit.pdfs != null){
@@ -137,24 +137,23 @@ export class EditComponent implements OnInit {
         return pdf;
           });
     }
-
     
 
-     //creando el formulario
+    //creando el formulario
     this.forma = this.fb.group({
        id_personal: [this.dataEdit.id_personal,Validators.required],
-       apellido_1: [this.dataEdit.apellido_1,Validators.required],
-       apellido_2: [this.dataEdit.apellido_2],
-       nombre_1: [this.dataEdit.nombre_1,Validators.required],
-       nombre_2: [this.dataEdit.nombre_2],
-       nombre_3: [this.dataEdit.nombre_3],
+       apellido_1: [this.dataEdit.apellido_1,[Validators.pattern(/^[A-Za-z\s]+$/), Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+       apellido_2: [this.dataEdit.apellido_2,[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+       nombre_1: [this.dataEdit.nombre_1,[Validators.pattern(/^[A-Za-z\s]+$/), Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+       nombre_2: [this.dataEdit.nombre_2,[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+       nombre_3: [this.dataEdit.nombre_3,[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
       //  dni: [this.dataEdit.dni,[Validators.required,Validators.min(1111111),Validators.max(99999999)]],
-       legajo: [this.dataEdit.legajo,[Validators.required]],
+       legajo: [this.dataEdit.legajo,[Validators.required,,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
        destino_id: [this.dataEdit.destino_id,[Validators.required]],
        departamento_id: [this.dataEdit.departamento_id],
        division_id: [this.dataEdit.division_id],
        sector_id: [this.dataEdit.sector_id],
-       funcion: [this.dataEdit.funcion],
+       funcion: [this.dataEdit.funcion,[Validators.minLength(1), Validators.maxLength(200)]],
        seccion_guardia_id: [this.dataEdit.seccion_guardia_id],
        escalafon_id: [this.dataEdit.escalafon_id],
        escala_jerarquica_id: [this.dataEdit.escala_jerarquica_id],
@@ -166,21 +165,21 @@ export class EditComponent implements OnInit {
 
     //FORMULARIO DATOS FILIATORIOS
     this.formaFiliatorios = this.fb.group({   
-      dni: [this.dataEdit.dni,Validators.required],
-      fecha_nacimiento: [this.dataEdit.fecha_nacimiento,Validators.required],
-      fecha_ingreso: [this.dataEdit.fecha_ingreso],
-      cuil: [this.dataEdit.cuil,Validators.required],
+      dni: [this.dataEdit.dni,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1000000), Validators.max(99000000)]],
+      fecha_nacimiento: [this.dataEdit.fecha_nacimiento,[Validators.required]],
+      fecha_ingreso: [this.dataEdit.fecha_ingreso, ],
+      cuil: [this.dataEdit.cuil,[Validators.required, Validators.pattern(/\b(20|23|24|27)(\D)?[0-9]{8}(\D)?[0-9]/)]],
       sexo_id: [this.dataEdit.sexo_id],
       estado_civil_id: [this.dataEdit.estado_civil_id],
-      nacionalidad: [this.dataEdit.nacionalidad,[Validators.required]],
-      domicilio: [this.dataEdit.domicilio,[Validators.required]],
+      nacionalidad: [this.dataEdit.nacionalidad,[Validators.minLength(1), Validators.maxLength(50)]],
+      domicilio: [this.dataEdit.domicilio,[Validators.minLength(1), Validators.maxLength(300)]],
       provincia_id: [this.dataEdit.provincia_id],
       departamento_provincial_id: [this.dataEdit.departamento_provincial_id],
       municipio_id: [this.dataEdit.municipio_id],
       //ciudad_id: [this.dataEdit.ciudad_id],
       nivel_educativo_id: [this.dataEdit.nivel_educativo_id],
-      telefonos: [this.dataEdit.telefonos],
-      email: [this.dataEdit.email],
+      telefonos: [this.dataEdit.telefonos,[Validators.minLength(1), Validators.maxLength(300)]],
+      email: [this.dataEdit.email,[Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/), Validators.minLength(4), Validators.maxLength(50)]],
       altura: [this.dataEdit.altura],
       peso: [this.dataEdit.peso],
       registrado_por: [this.dataEdit.registrado_por],
@@ -219,21 +218,14 @@ export class EditComponent implements OnInit {
 
     }
 
-    
-
-       
   }
   //fin constructor
 
   ngOnInit(): void {
     //cargar el array de destinos
-    this.destinos = destinos;
-
-       
+    this.destinos = destinos;      
     
-  }
-
-  
+  }  
 
   // async descargarPdf(url: string){
   //   console.log('LA URL ES: ', url);
@@ -241,8 +233,6 @@ export class EditComponent implements OnInit {
   // }
 
   descargarPdf(id: number){
-    
-    
     this.pdfService.getPDF(id)
     .subscribe(
       (data: Blob) => {
@@ -264,20 +254,107 @@ export class EditComponent implements OnInit {
     );
   }
 
+  //VALIDACIONES FORMULARIOS
+  //mensajes de validaciones
+  user_validation_messages = {
+    //Formulario datos laborales
+    'apellido_1': [
+      { type: 'required', message: 'El primer apellio es requerido' },
+      { type: 'pattern', message: 'Solo se pueden ingresar letras y espacios.' },
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.' }
+    ],
+    'apellido_2': [
+      { type: 'pattern', message: 'Solo se pueden ingresar letras y espacios.' },
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.'}
+    ],
+    'nombre_1': [
+      { type: 'required', message: 'El primer nombre es requerido' },
+      { type: 'pattern', message: 'Solo se pueden ingresar letras y espacios.' },
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.' }
+    ],
+    'nombre_2': [
+      { type: 'pattern', message: 'Solo se pueden ingresar letras y espacios.' },
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.'}
+    ],
+    'nombre_3': [
+      { type: 'pattern', message: 'Solo se pueden ingresar letras y espacios.' },
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.'}
+    ],
+    'legajo': [
+      { type: 'required', message: 'El legajo es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' },
+      { type: 'min', message: 'El número ingresado es bajo.(minimo: 1)' },
+      { type: 'max', message: 'El número ingresado es alto (maximo: 500000).'} 
+    ],
+    'funcion': [
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 1' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 200'}
+    ],
+    //fin Formulario datos laborales
+
+    //Formulario datos personales
+    'dni': [
+      { type: 'required', message: 'El dni es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' },
+      { type: 'min', message: 'El número ingresado es bajo.(minimo: 1000000)' },
+      { type: 'max', message: 'El número ingresado es alto (maximo: 99000000).'} 
+    ],
+    'cuil': [
+      { type: 'required', message: 'El cuil es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número de cuil válido (Ej. 20-32505425-8).' }
+    ],
+    'nacionalidad': [
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 1.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.'}
+    ],
+    'domicilio': [
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 1.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 300.'}
+    ],
+    'telefonos': [
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 1.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 300.'}
+    ],
+    'email': [
+      { type: 'pattern', message: 'No es un email válido.' },
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 4.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.'}
+    ]
+
+    //fin Formulario datos personales
+  }
+  //FIN mensajes de validaciones
+
+  //fin validaciones formulario laborales
   get apellido1NoValido(){
     return this.forma.get('apellido_1')?.invalid && this.forma.get('apellido_1')?.touched;
   }
 
+  get apellido2NoValido(){
+    return this.forma.get('apellido_2')?.invalid && this.forma.get('apellido_2')?.touched;
+  }
+
   get nombre1NoValido(){
     return this.forma.get('nombre_1')?.invalid && this.forma.get('nombre_1')?.touched;
-  }
+  }  
+  get nombre2NoValido(){
+    return this.forma.get('nombre_2')?.invalid && this.forma.get('nombre_2')?.touched;
+  }  
+  get nombre3NoValido(){
+    return this.forma.get('nombre_3')?.invalid && this.forma.get('nombre_3')?.touched;
+  }  
 
-  get dniNoValido(){
-    return this.forma.get('dni')?.invalid && this.forma.get('dni')?.touched;
-  }
-
-  get legajoNoValido(){
+  get legajoNoValido(){    
     return this.forma.get('legajo')?.invalid && this.forma.get('legajo')?.touched;
+  }
+
+  get funcionNoValido(){    
+    return this.forma.get('funcion')?.invalid && this.forma.get('funcion')?.touched;
   }
 
   get destinoNoValido(){
@@ -287,6 +364,40 @@ export class EditComponent implements OnInit {
   get departamentoNoValido(){
     return this.forma.get('departamento_id')?.invalid && this.forma.get('departamento_id')?.touched;
   }
+  //fin validaciones formulario laborales
+
+  //validaciones formulario filatorios
+  get dniNoValido(){
+    return this.formaFiliatorios.get('dni')?.invalid && this.formaFiliatorios.get('dni')?.touched;
+  }
+
+  get cuilNoValido(){
+    return this.formaFiliatorios.get('cuil')?.invalid && this.formaFiliatorios.get('cuil')?.touched;
+  }
+
+  get fechaNacimientoNoValido(){
+    return this.formaFiliatorios.get('fecha_nacimiento')?.invalid && this.formaFiliatorios.get('fecha_nacimiento')?.touched;
+  }
+
+  get nacionalidadNoValido(){    
+    return this.formaFiliatorios.get('nacionalidad')?.invalid && this.formaFiliatorios.get('nacionalidad')?.touched;
+  }
+
+  get domicilioNoValido(){    
+    return this.formaFiliatorios.get('domicilio')?.invalid && this.formaFiliatorios.get('domicilio')?.touched;
+  }
+
+  get telefonosNoValido(){    
+    return this.formaFiliatorios.get('telefonos')?.invalid && this.formaFiliatorios.get('telefonos')?.touched;
+  }
+
+  get emailNoValido(){    
+    return this.formaFiliatorios.get('email')?.invalid && this.formaFiliatorios.get('email')?.touched;
+  }
+  
+  //fin validaciones formulario filatorios
+  //FIN VALIDACIONES FORMULARIOS
+
 
   cargarDepartamentos(destino_id: number){
      this.departamentos=departamentos.filter(departamento => {
@@ -377,7 +488,7 @@ export class EditComponent implements OnInit {
     this.sectores = sectores.filter(sector => {
        
       return sector.division_id == division_id || sector.division_id == 0;
- });
+    });
   }
 
   onChangeDivision(){
@@ -429,131 +540,111 @@ export class EditComponent implements OnInit {
         
         Swal.fire('Error', error.message, "error");    
     }
-}
+  }
 
-onDateChange(nuevaFecha: Date){
-  if(nuevaFecha != null){
-    this.auxiliarDate = this.datePipe.transform(nuevaFecha,"yyyy-MM-dd")!;
+  onDateChange(nuevaFecha: Date){
+    if(nuevaFecha != null){
+      this.auxiliarDate = this.datePipe.transform(nuevaFecha,"yyyy-MM-dd")!;
+        
+    }
+  }
+
+  changeFormatoFechaGuardar(nuevaFecha: Date){
+    let fechaAuxiliar:any = null;
+    if(nuevaFecha != null){
+      fechaAuxiliar = this.datePipe.transform(nuevaFecha,"yyyy-MM-dd")!;
       
+    }
+    return fechaAuxiliar;
   }
-}
-
-changeFormatoFechaGuardar(nuevaFecha: Date){
-  let fechaAuxiliar:any = null;
-  if(nuevaFecha != null){
-    fechaAuxiliar = this.datePipe.transform(nuevaFecha,"yyyy-MM-dd")!;
-    
-  }
-  return fechaAuxiliar;
-}
   
 
-submitForm(formEnviado:string){
-       if(this.forma.invalid){
-                  return Object.values(this.forma.controls).forEach(control => control.markAsTouched());
-              }
+  submitForm(formEnviado:string){
+    
+    let data: Partial<Personal>;
+    //crear la data
+    if(formEnviado == 'laboral'){
+
+      if(this.forma.invalid){
+        Swal.fire('Formulario con errores','Complete correctamente todos los campos del formulario',"warning");
+        return Object.values(this.forma.controls).forEach(control => control.markAsTouched());
+      }
+
+      data = {        
+        legajo: parseInt(this.forma.get('legajo')?.value),
+        apellido_1: this.forma.get('apellido_1')?.value,
+        apellido_2: this.forma.get('apellido_2')?.value,
+        nombre_1: this.forma.get('nombre_1')?.value,
+        nombre_2: this.forma.get('nombre_2')?.value,
+        nombre_3: this.forma.get('nombre_3')?.value,
+        destino_id: parseInt(this.forma.get('destino_id')?.value),
+        departamento_id: parseInt(this.forma.get('departamento_id')?.value),
+        division_id: parseInt(this.forma.get('division_id')?.value),
+        sector_id: parseInt(this.forma.get('sector_id')?.value),
+        funcion: this.forma.get('funcion')?.value,
+        seccion_guardia_id: parseInt(this.forma.get('seccion_guardia_id')?.value),
+        escalafon_id: parseInt(this.forma.get('escalafon_id')?.value),
+        escala_jerarquica_id: parseInt(this.forma.get('escala_jerarquica_id')?.value),
+        grado_id: parseInt(this.forma.get('grado_id')?.value),
+        ultimo_ascenso: this.auxiliarDate,
         
-        let data: Partial<Personal>;
-        //crear la data
-        if(formEnviado == 'laboral'){
-          data = {
-                legajo: this.forma.get('legajo')?.value,
-                apellido_1: this.forma.get('apellido_1')?.value,
-                apellido_2: this.forma.get('apellido_2')?.value,
-                nombre_1: this.forma.get('nombre_1')?.value,
-                nombre_2: this.forma.get('nombre_2')?.value,
-                nombre_3: this.forma.get('nombre_3')?.value,
-                destino_id: parseInt(this.forma.get('destino_id')?.value),
-                departamento_id: parseInt(this.forma.get('departamento_id')?.value),
-                division_id: parseInt(this.forma.get('division_id')?.value),
-                sector_id: parseInt(this.forma.get('sector_id')?.value),
-                seccion_guardia_id: parseInt(this.forma.get('seccion_guardia_id')?.value),
-                escalafon_id: parseInt(this.forma.get('escalafon_id')?.value),
-                escala_jerarquica_id: parseInt(this.forma.get('escala_jerarquica_id')?.value),
-                grado_id: parseInt(this.forma.get('grado_id')?.value),
-                ultimo_ascenso: this.auxiliarDate,
+    }}else{
+
+      if(this.formaFiliatorios.invalid){
+        Swal.fire('Formulario con errores','Complete correctamente todos los campos del formulario',"warning");
+        return Object.values(this.formaFiliatorios.controls).forEach(control => control.markAsTouched());
+      }
+
+      data = {
+        dni: parseInt(this.formaFiliatorios.get('dni')?.value),
+        fecha_nacimiento: this.changeFormatoFechaGuardar(this.formaFiliatorios.get('fecha_nacimiento')?.value), 
+        fecha_ingreso: this.changeFormatoFechaGuardar(this.formaFiliatorios.get('fecha_ingreso')?.value), 
+        cuil: this.formaFiliatorios.get('cuil')?.value,
+        sexo_id: parseInt(this.formaFiliatorios.get('sexo_id')?.value),
+        estado_civil_id: parseInt(this.formaFiliatorios.get('estado_civil_id')?.value),
+        nacionalidad: this.formaFiliatorios.get('nacionalidad')?.value,
+        domicilio: this.formaFiliatorios.get('domicilio')?.value,
+        provincia_id: parseInt(this.formaFiliatorios.get('provincia_id')?.value),
+        departamento_provincial_id: parseInt(this.formaFiliatorios.get('departamento_provincial_id')?.value),
+        municipio_id: parseInt(this.formaFiliatorios.get('municipio_id')?.value),
+        //ciudad_id: [this.dataEdit.ciudad_id],
+        nivel_educativo_id: parseInt(this.formaFiliatorios.get('nivel_educativo_id')?.value),
+        telefonos: this.formaFiliatorios.get('telefonos')?.value,
+        email: this.formaFiliatorios.get('email')?.value,
+        altura: parseInt(this.formaFiliatorios.get('altura')?.value),
+        peso: parseInt(this.formaFiliatorios.get('peso')?.value),
+        registrado_por: globalConstants.id_usuario,
+        situacion_id: parseInt(this.formaFiliatorios.get('situacion_id')?.value),
+  
+      }
+        
+    }
                 
-          }}else{
-            data = {
-
-              dni: parseInt(this.formaFiliatorios.get('dni')?.value),
-              fecha_nacimiento: this.changeFormatoFechaGuardar(this.formaFiliatorios.get('fecha_nacimiento')?.value), 
-              fecha_ingreso: this.changeFormatoFechaGuardar(this.formaFiliatorios.get('fecha_ingreso')?.value), 
-              cuil: this.formaFiliatorios.get('cuil')?.value,
-              sexo_id: parseInt(this.formaFiliatorios.get('sexo_id')?.value),
-              estado_civil_id: parseInt(this.formaFiliatorios.get('estado_civil_id')?.value),
-              nacionalidad: this.formaFiliatorios.get('nacionalidad')?.value,
-              domicilio: this.formaFiliatorios.get('domicilio')?.value,
-              provincia_id: parseInt(this.formaFiliatorios.get('provincia_id')?.value),
-              departamento_provincial_id: parseInt(this.formaFiliatorios.get('departamento_provincial_id')?.value),
-              municipio_id: parseInt(this.formaFiliatorios.get('municipio_id')?.value),
-              //ciudad_id: [this.dataEdit.ciudad_id],
-              nivel_educativo_id: parseInt(this.formaFiliatorios.get('nivel_educativo_id')?.value),
-              telefonos: this.formaFiliatorios.get('telefonos')?.value,
-              email: this.formaFiliatorios.get('email')?.value,
-              altura: parseInt(this.formaFiliatorios.get('altura')?.value),
-              peso: parseInt(this.formaFiliatorios.get('peso')?.value),
-              registrado_por: globalConstants.id_usuario,
-              situacion_id: parseInt(this.formaFiliatorios.get('situacion_id')?.value),
-
-
-          }
-          
+    this.personalService.editPersonal(data,parseInt(this.dataEdit.id_personal?.toString()!))
+      .subscribe(
+        resultado => {                                                                
+          Swal.fire('Exito',`El Registro ha sido editado con Exito`,"success");
+        },
+        error => {                                                                
+          Swal.fire('Error',`Error al Editar el Usuario ${error.error.message}`,"error")                          
         }
-                 
-          this.personalService.editPersonal(data,parseInt(this.dataEdit.id_personal?.toString()!))
-                                                              .subscribe(resultado => {                                                                
-                                                                  Swal.fire('Exito',`El Registro ha sido editado con Exito`,"success");
-                                                                              },
-                                                              error => {                                                                
-                                                                  Swal.fire('Error',`Error al Editar el Usuario ${error.error.message}`,"error")                          
-                                                              });
-         
-        
-  
-}
-
-//manejo de tabla de registros de pdfs
-crearRegistro(){
-  this.newFileDialog = true;
-}
-
-grabarRegPdf(){
-  
-  console.log('DATA RECIBIDA PARA GRABAR', this.regPdf);
-}
-
-ocultarDialogo(){
-  this.newFileDialog = false
-}
-
-onUploadPdf(event: File){
-    try {
-      this.submitted = true;
-      this.pdfSubir = event;
-      let legajo: number =  this.dataEdit.legajo! ;
-      let detalle: string =  this.regPdf.detalle! ;
-      let fecha_pdf: Date =  this.regPdf.fecha_documento! ;
-      let indice: number =  this.regPdf.indice! ;
-      this.pdfService.postPdf(this.pdfSubir, legajo, detalle, fecha_pdf, indice).then(respuesta => {
-         if(respuesta.ok){
-          Swal.fire('Carga Exitosa!!', "El pdf del legajo digital ha sido subido  con éxito","success");
-          this.submitted = false;
-          this.newFileDialog = false;
-             }else{
-                 throw new Error(respuesta.message);
-         }
-     }).catch(error => {
-      Swal.fire('Error', error.message, "error"); 
-     });
-     
-      
-  } catch (error) {
-       Swal.fire('Error', error.message, "error");    
-  }
-}
-
+      );  
     
+  }
+
+  //manejo de tabla de registros de pdfs
+  crearRegistro(){
+    this.newFileDialog = true;
+  }
+  
+  grabarRegPdf(){
+    this.submitted = true;
+    console.log('DATA RECIBIDA PARA GRABAR', this.regPdf);
+  }
+  
+  ocultarDialogo(){
+    this.newFileDialog = false
+  }  
 
 
 }

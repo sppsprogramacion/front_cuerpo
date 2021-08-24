@@ -9,7 +9,9 @@ import { FotopersonalPipe } from '../../pipes/fotopersonal.pipe';
 
 import * as printJS from 'print-js';
 import * as FileSaver from 'file-saver';
-import { estados_civil } from '../../common/data-mockeada';
+import { estados_civil, departamentos_provincial, sectores } from '../../common/data-mockeada';
+import { DepartamentoModel } from '../../models/departamento.model';
+import { DatePipe } from '@angular/common';
 
 
 interface IObjectModel{
@@ -48,11 +50,13 @@ export class ListComponent implements OnInit {
     
     // representatives: Representative[];
 
-    constructor(
-      private personalService: PersonalService,
-      public dataService: DataService
-      ) { }
+  constructor(
+    private personalService: PersonalService,
+    public dataService: DataService,
+    private readonly datePipe: DatePipe
+  ) { }
 
+  //ONINIT
   ngOnInit() {
     //inicializacion de cabeceras de columnas
     this.colsTablaPersonalExport = [      
@@ -148,11 +152,12 @@ export class ListComponent implements OnInit {
               this.loading = false;
     
 
-     }
+  }
+  //fin oninit
 
-     EditarPersonal(data: Personal){
-       this.dataService.personalData = data;
-     }
+  EditarPersonal(data: Personal){
+    this.dataService.personalData = data;
+  }
 
      MostrarSelected(){
        
@@ -178,63 +183,70 @@ export class ListComponent implements OnInit {
       })
     }
 
-    exportExcel() {
-      const selectedNewFormato = this.selectedPersonal.map(item =>{
-        let personal: Personal= new Personal();
-        personal={...item};
-         return {
-          primer_apellido: item.apellido_1,
-          segundo_apellido: item.apellido_2,
-          primer_nombre: item.nombre_1,
-          segundo_nombre: item.nombre_2,
-          tercer_nombre: item.nombre_2,
-          dni: item.dni,
-          fecha_nacimiento: item.fecha_nacimiento,
-          ultimo_ascenso: item.ultimo_ascenso,
-          cuil: item.cuil,
-          sexo: item.sexo_id,
-          estado_civil: item.estado_civil_id,
-          destino: item.destino_id,
-          departamento: item.departamento_id,
-          division: item.division_id,
-          sector: item.sector_id,
-          seccion_guardia: item.seccion_guardia_id,
-          funcion: item.funcion,
-          escalafon: item.escalafon_id,
-          escala_jerarquica: item.escala_jerarquica_id,
-          grado: item.grado_id,
-          nacionalidad: item.nacionalidad,
-          domicilio: item.domicilio,
-          provincia: item.provincia_id,
-          departamento_provincial: item.departamento_provincial_id,
-          municipio: item.municipio_id,
-          telefono: item.telefonos,
-          email: item.email,
-          altura: item.altura,
-          peso: item.peso,
-          nivel_educativo: item.nivel_educativo,
-          situacion: item.situacion_id,
 
-         }
-      });
-      
-
-      import("xlsx").then(xlsx => {
-          const worksheet = xlsx.utils.json_to_sheet(selectedNewFormato);
-          const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-          const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-          this.saveAsExcelFile(excelBuffer, "Personal");
-      });
-  }
+    
+  //EXPORTAR A EXCEL
+  exportExcel() {
+    //mapeo de campos desde personal seleccionado para excel
+    const selectedNewFormato = this.selectedPersonal.map(item =>{
+      return {
+        legajo: item.legajo,
+        primer_apellido: item.apellido_1,
+        segundo_apellido: item.apellido_2,
+        primer_nombre: item.nombre_1,
+        segundo_nombre: item.nombre_2,
+        tercer_nombre: item.nombre_2,
+        dni: item.dni,
+        fecha_nacimiento: (item.fecha_nacimiento!=null)?this.datePipe.transform(item.fecha_nacimiento, "dd/MM/yyyy"):'',
+        fecha_ingreso: (item.fecha_ingreso!=null)?this.datePipe.transform(item.fecha_ingreso, "dd/MM/yyyy"):'',
+        ultimo_ascenso: (item.ultimo_ascenso!=null)?this.datePipe.transform(item.ultimo_ascenso, "dd/MM/yyyy"):'',
+        cuil: item.cuil,
+        sexo: (item.sexo)?(JSON.parse(JSON.stringify(item.sexo))).sexo:'',
+        estado_civil: (item.estado_civil)?(JSON.parse(JSON.stringify(item.estado_civil))).estado_civil:'',
+        destino: (item.destino)?(JSON.parse(JSON.stringify(item.destino))).destino:'',
+        departamento: (item.departamento)?(JSON.parse(JSON.stringify(item.departamento))).departamento:'',
+        division: (item.division)?(JSON.parse(JSON.stringify(item.division))).division:'',
+        sector: (item.sector)?(JSON.parse(JSON.stringify(item.sector))).sector:'',
+        seccion_guardia: (item.seccion_guardia)?(JSON.parse(JSON.stringify(item.seccion_guardia))).seccion: '',
+        funcion: item.funcion,
+        escalafon: (item.escalafon)?(JSON.parse(JSON.stringify(item.escalafon))).escalafon:'',
+        escala_jerarquica: (item.escala_jerarquica)?(JSON.parse(JSON.stringify(item.escala_jerarquica))).escala_jerarquica:'',
+        grado: (item.grado)?(JSON.parse(JSON.stringify(item.grado))).grado:'',
+        nacionalidad: item.nacionalidad,
+        domicilio: item.domicilio,
+        provincia: (item.provincia)?(JSON.parse(JSON.stringify(item.provincia))).provincia:'',
+        departamento_provincial: (item.departamento_provincial)?(JSON.parse(JSON.stringify(item.departamento_provincial))).departamento_provincial:'',
+        municipio: (item.municipio)?(JSON.parse(JSON.stringify(item.municipio))).municipio:'',
+        telefono: item.telefonos,
+        email: item.email,
+        altura: item.altura,
+        peso: item.peso,
+        nivel_educativo: (item.nivel_educativo)?(JSON.parse(JSON.stringify(item.nivel_educativo))).nivel_educativo:'',
+        situacion: (item.situacion)?(JSON.parse(JSON.stringify(item.situacion))).situacion:'',
   
-    saveAsExcelFile(buffer: any, fileName: string): void {
-      let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-      let EXCEL_EXTENSION = '.xlsx';
-      const data: Blob = new Blob([buffer], {
-          type: EXCEL_TYPE
-      });
-      FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+      }
+    });
+
+    //armado de archivo excel con lalista mapeada, utilizacion de metodo "saveAsExcelFile"para guardarlo  
+    import("xlsx").then(xlsx => {
+      const worksheet = xlsx.utils.json_to_sheet(selectedNewFormato);
+      const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+      const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcelFile(excelBuffer, "Personal");
+    });
   }
+  //FIN EXPORTAR A EXCEL
+  
+  //METODO PARA GUARDAR EL ARCHIVO EXCEL
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+        type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + '-' + this.datePipe.transform(new Date(),"dd-MM-yyyy") + EXCEL_EXTENSION);
+  }
+  //FIN METODO PARA GUARDAR EL ARCHIVO EXCEL
 
     // cargarListaPersonal(event: LazyLoadEvent) {  
     //     this.loading = true;
@@ -248,4 +260,4 @@ export class ListComponent implements OnInit {
     //     }, 1000);
     // }
 
-  }
+}

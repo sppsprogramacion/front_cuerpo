@@ -49475,6 +49475,15 @@ export const municipios = [
 
 ];
 
+export const ciudades = [
+    {
+        "id_ciudad": 1,
+        "ciudad": "sin definir",
+        "municipio_id": 3986,
+        "provincia_id": 25
+    }
+]
+
 export const sexos = [
     {
         "id_sexo": 2,
@@ -49588,7 +49597,7 @@ export const divisiones = [
     {
         "id_division": 3,
         "division": "Registro y Requisa",
-        "departamento_id": 2
+        "departamento_id": 3
     },
     {
         "id_division": 4,
@@ -49597,7 +49606,7 @@ export const divisiones = [
     },
     {
         "id_division": 5,
-        "division": "sin destino",
+        "division": "sin division",
         "departamento_id": 0
     },
     {

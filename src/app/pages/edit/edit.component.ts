@@ -3,7 +3,7 @@ import { Personal } from 'src/app/models/personal.model';
 import { DataService } from 'src/app/services/data.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DestinoModel } from '../../models/destino.model';
-import { destinos, departamentos, departamentos_provinciales, divisiones, estados_civil, municipios, nivelEducativo, sectores, secciones_guardia, situacion, escalaJerarquica, escalafon, grados, sexos, provincias} from 'src/app/common/data-mockeada';
+import { destinos, departamentos, departamentos_provinciales, divisiones, estados_civil, municipios, nivelEducativo, sectores, secciones_guardia, situacion, escalaJerarquica, escalafon, grados, sexos, provincias, ciudades} from 'src/app/common/data-mockeada';
 import { globalConstants } from '../../common/global-constants';
 import { DepartamentoModel } from '../../models/departamento.model';
 import { DivisionModel } from '../../models/division.model';
@@ -32,6 +32,7 @@ import { PdfModel } from '../../models/pdf.model';
 import { PdfpersonalPipe } from 'src/app/pipes/pdfpersonal.pipe';
 import { PdfService } from 'src/app/services/pdf.service';
 import {environment} from 'src/environments/environment';
+import { CiudadModel } from '../../models/ciudad.model';
 
 @Component({
   selector: 'app-edit',
@@ -76,6 +77,7 @@ export class EditComponent implements OnInit {
   secciones_guardia: SeccionGuardia[]=[];
   sexos: SexoModel[]=[];
   situaciones: SituacionModel[]=[];
+  ciudades: CiudadModel[]=[];
 
 
   foto_nombre: string = 'no-image.png';
@@ -176,7 +178,7 @@ export class EditComponent implements OnInit {
       provincia_id: [this.dataEdit.provincia_id],
       departamento_provincial_id: [this.dataEdit.departamento_provincial_id],
       municipio_id: [this.dataEdit.municipio_id],
-      //ciudad_id: [this.dataEdit.ciudad_id],
+      ciudad_id: [this.dataEdit.ciudad_id],
       nivel_educativo_id: [this.dataEdit.nivel_educativo_id],
       telefonos: [this.dataEdit.telefonos,[Validators.minLength(1), Validators.maxLength(300)]],
       email: [this.dataEdit.email,[Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/), Validators.minLength(4), Validators.maxLength(50)]],
@@ -465,6 +467,23 @@ export class EditComponent implements OnInit {
            
     }    
   }
+
+  cargarCiudades(municipio_id: number){
+    this.ciudades= ciudades.filter(ciudad => {
+      
+             return ciudad.municipio_id == municipio_id || ciudad.municipio_id == 3986;
+        });
+  }
+
+  onChangeMunicipios(){
+    const id = this.forma.get('municipio_id')?.value;
+    if(id != null){
+      this.cargarCiudades(parseInt(id.toString()));
+      //this.cargarSeccionesGuardia(parseInt(id.toString()));
+      
+    }    
+  }
+
   
   onChangeDepartamento(){
     const id = this.forma.get('departamento_id')?.value;

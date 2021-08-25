@@ -49597,7 +49597,7 @@ export const divisiones = [
     },
     {
         "id_division": 5,
-        "division": "sin destino",
+        "division": "sin division",
         "departamento_id": 0
     },
     {
@@ -49706,6 +49706,15 @@ export const estados_civil = [
     {
         "id_estado_civil": 4,
         "estado_civil": "viudo"
+    }
+];
+
+export const ciudades = [
+    {
+        "id_ciudad": 1,
+        "ciudad": "sin definir",
+        "municipio_id": 3986,
+        "provincia_id": 25
     }
 ];
 

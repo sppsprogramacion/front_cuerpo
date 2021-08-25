@@ -2,7 +2,8 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
-import { departamentos, departamentos_provinciales, destinos, divisiones, escalafon, escalaJerarquica, estados_civil, grados, municipios, nivelEducativo, provincias, secciones_guardia, sectores, sexos, situacion } from 'src/app/common/data-mockeada';
+import { departamentos, departamentos_provinciales, destinos, divisiones, escalafon, escalaJerarquica, estados_civil, grados, municipios, nivelEducativo, 
+         provincias, secciones_guardia, sectores, sexos, situacion, ciudades } from 'src/app/common/data-mockeada';
 import { globalConstants } from 'src/app/common/global-constants';
 import { DepartamentoModel } from 'src/app/models/departamento.model';
 import { DepartamentoProvincialModel } from 'src/app/models/departamento_provincial.model';
@@ -22,6 +23,7 @@ import { SexoModel } from 'src/app/models/sexo.model';
 import { SituacionModel } from 'src/app/models/situacion.model';
 import { PersonalService } from 'src/app/services/personal.service';
 import Swal from 'sweetalert2';
+import { CiudadModel } from '../../models/ciudad.model';
 
 @Component({
   selector: 'app-upload',
@@ -51,6 +53,7 @@ export class UploadComponent implements OnInit {
   secciones_guardia: SeccionGuardia[]=[];
   sexos: SexoModel[]=[];
   situaciones: SituacionModel[]=[];
+  ciudades: CiudadModel[]=[];
 
 
   foto_nombre: string = 'no-image.png';
@@ -93,7 +96,7 @@ export class UploadComponent implements OnInit {
        destino_id: [1],
        departamento_id: [3],
        division_id: [5],
-       sector_id: [],
+       sector_id: [1],
        funcion: ["", [Validators.minLength(1), Validators.maxLength(200)]],
        seccion_guardia_id: [1],
        escalafon_id: [1],
@@ -114,7 +117,7 @@ export class UploadComponent implements OnInit {
       provincia_id: [17],
       departamento_provincial_id: [212000],
       municipio_id: [3986],
-      //ciudad_id: [this.dataEdit.ciudad_id],
+      ciudad_id: [1],
       nivel_educativo_id: [4],
       telefonos: ["0387154853487",[Validators.minLength(1), Validators.maxLength(300)]],
       email: ["pedrodiaz0487@gmail.com", [Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/), Validators.minLength(4), Validators.maxLength(50)]],
@@ -129,12 +132,14 @@ export class UploadComponent implements OnInit {
 
 
     //cargar desplegables
-    this.cargarDepartamentos(parseInt(this.forma.get('destino_id')?.value));
+    this.cargarDepartamentos(0);
+    this.cargarDivisiones(0);
+    this.cargarSectores(0);
+    this.cargarSeccionesGuardia(0);
     this.cargarDepartamentosProvinciales(parseInt(this.forma.get('provincia_id')?.value))
-    // this.cargarDivisiones(this.dataEdit.departamento_id!);
     this.cargarGrados(parseInt(this.forma.get('escala_jerarquica_id')?.value));
     this.cargarMunicipios(parseInt(this.forma.get('departamento_provincial_id')?.value));
-    // this.cargarSeccionesGuardia(this.dataEdit.departamento_id!);
+    this.cargarCiudades(3986);
 
     this.administrador = (globalConstants.rol_usuario == "0")? true: false;
 
@@ -146,6 +151,7 @@ export class UploadComponent implements OnInit {
     this.provincias = provincias;
     this.sexos = sexos;
     this.situaciones= situacion;
+    
     //fin cargar desplegables
 
 
@@ -301,6 +307,24 @@ export class UploadComponent implements OnInit {
   
 
   //metodos para cargar listas desplegables  
+  onChangeDestino(){
+    
+    const id = this.forma.get('destino_id')?.value;
+    if(id != null){
+      this.cargarDepartamentos(parseInt(id.toString()));
+      this.cargarDivisiones(0);
+      this.cargarSectores(0);
+      this.cargarSeccionesGuardia(0);
+      this.forma.get('division_id')?.setValue(5);
+      this.forma.get('sector_id')?.setValue(1);
+      this.forma.get('seccion_guardia_id')?.setValue(1);
+    }else{
+      Swal.fire('Error: repita la operación por favor', '', 'info')
+    }
+    
+    
+  }
+  
   cargarDepartamentos(destino_id: number){
     this.departamentos=departamentos.filter(departamento => {
       
@@ -308,21 +332,6 @@ export class UploadComponent implements OnInit {
         });
    }
   
-   onChangeDestino(){
-     
-    const id = this.forma.get('destino_id')?.value;
-    if(id != null){
-      this.cargarDepartamentos(parseInt(id.toString()));
-      this.divisiones = [];
-      this.sectores = [];
-      this.secciones_guardia= [];      
-    }else{
-      Swal.fire('Error: repita la operación por favor', '', 'info')
-    }
-  
-     
-   }
-   
    cargarDepartamentosProvinciales(provincia_id: number){
      this.departamentos_provinciales= departamentos_provinciales.filter(departamento_provincial => {
        
@@ -334,7 +343,7 @@ export class UploadComponent implements OnInit {
      const id = this.forma.get('provincia_id')?.value;
      if(id != null){
        this.cargarDepartamentosProvinciales(parseInt(id.toString()));
-       //this.cargarSeccionesGuardia(parseInt(id.toString()));
+       this.forma.get('municipio_id')?.setValue(3986);
        
      }    
    }
@@ -345,6 +354,22 @@ export class UploadComponent implements OnInit {
               return municipio.departamento_id == departamento_provincial_id || municipio.departamento_id == 212000;
          });
    }
+
+   onChangeMunicipios(){
+    const id = this.forma.get('municipio_id')?.value;
+    if(id != null){
+      this.cargarCiudades(parseInt(id.toString()));
+      //this.cargarSeccionesGuardia(parseInt(id.toString()));
+      
+    }    
+  }
+
+   cargarCiudades(municipio_id: number){
+    this.ciudades= ciudades.filter(ciudad => {
+      
+             return ciudad.municipio_id == municipio_id || ciudad.municipio_id == 3986;
+        });
+  }
   
    onChangeDepartamentoProvincial(){
      const id = this.forma.get('departamento_provincial_id')?.value;
@@ -354,13 +379,17 @@ export class UploadComponent implements OnInit {
        
      }    
    }
+
    
    onChangeDepartamento(){
      const id = this.forma.get('departamento_id')?.value;
      if(id != null){
        this.cargarDivisiones(parseInt(id.toString()));
+       this.cargarSectores(0);
        this.cargarSeccionesGuardia(parseInt(id.toString()));
-       
+       this.forma.get('division_id')?.setValue(5);
+       this.forma.get('sector_id')?.setValue(1);
+       this.forma.get('seccion_guardia_id')?.setValue(1);   
      }
    }
   
@@ -384,7 +413,7 @@ export class UploadComponent implements OnInit {
      const id = this.forma.get('division_id')?.value;
      if(id != null){
        this.cargarSectores(parseInt(id.toString()));
-       
+       this.forma.get('sector_id')?.setValue(1);
      }
    }
   
@@ -487,14 +516,14 @@ export class UploadComponent implements OnInit {
               
       this.personalService.guardarPersonal(data)
               .subscribe(resultado => {
-                console.log("datos nuevos enviados", data);
+                
                   Swal.fire('Exito',`El Registro ha sido guardado con Exito`,"success");
                   
                   //this.actualizarUsuarios();
                   //this.hideDialog();
               },
               error => {
-                  console.log("personal a nuevo error", data);
+                  
                   Swal.fire('Error',`Error al cargar el nuevo personal ${error.error.message}`,"error")                          
               });
   

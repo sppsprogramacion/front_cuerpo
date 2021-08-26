@@ -54,7 +54,7 @@ export class UploadComponent implements OnInit {
   secciones_guardia: SeccionGuardia[]=[];
   sexos: SexoModel[]=[];
   situaciones: SituacionModel[]=[];
-  ciudades: CiudadModel[]=[];
+  //ciudades: CiudadModel[]=[];
 
 
   foto_nombre: string = 'no-image.png';

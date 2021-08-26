@@ -251,8 +251,8 @@
                                                     <option *ngFor="let escala of escalas" [value]="escala.id_escala_jerarquica">{{escala.escala_jerarquica}}</option> 
                                                 </select>
                                                     <small *ngIf="escalaJerarquicaNoValido" class="form-text text-danger">
-                                                    <div *ngFor="let validation of user_validation_messages.escalafon_id" >
-                                                        <div  *ngIf="forma.get('escalafon_id')?.hasError(validation.type)">
+                                                    <div *ngFor="let validation of user_validation_messages.escala_jerarquica_id" >
+                                                        <div  *ngIf="forma.get('escala_jerarquica_id')?.hasError(validation.type)">
                                                             {{validation.message}}
                                                         </div>
                                                     </div>
@@ -266,7 +266,8 @@
                                                 <!-- select -->
                                                 <div class="form-group">
                                                     <label>Grado</label>
-                                                    <select formControlName="grado_id" class="form-control"> 
+                                                    <select formControlName="grado_id" class="form-control" [class.is-invalid]="gradoNoValido"> 
+                                                        <option></option>
                                                         <option *ngFor="let grado of grados" [value]="grado.id_grado" >{{grado.grado}}</option> 
                                                   </select>
                                                     <small *ngIf="gradoNoValido" class="form-text text-danger">
@@ -351,17 +352,31 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Sexo</label>
-                                                    <select formControlName="sexo_id" class="form-control"> 
-                                                            <option *ngFor="let sexo of sexos" [value]="sexo.id_sexo">{{sexo.sexo}}</option> 
-                                                        </select>
+                                                    <select formControlName="sexo_id" class="form-control" [class.is-invalid]="sexoNoValido"> 
+                                                        <option *ngFor="let sexo of sexos" [value]="sexo.id_sexo" >{{sexo.sexo}}</option> 
+                                                    </select>
+                                                    <small *ngIf="sexoNoValido" class="form-text text-danger">
+                                                        <div *ngFor="let validation of user_validation_messages.sexo_id" >
+                                                            <div  *ngIf="forma.get('sexo_id')?.hasError(validation.type)">
+                                                                {{validation.message}}
+                                                            </div>
+                                                        </div>
+                                                    </small>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Estado Civil</label>
-                                                    <select formControlName="estado_civil_id" class="form-control"> 
+                                                    <select formControlName="estado_civil_id" class="form-control" [class.is-invalid]="estadoCivilNoValido"> 
                                                             <option *ngFor="let estado_civil of estados_civil" [value]="estado_civil.id_estado_civil">{{estado_civil.estado_civil}}</option> 
-                                                        </select>
+                                                    </select>
+                                                    <small *ngIf="estadoCivilNoValido" class="form-text text-danger">
+                                                        <div *ngFor="let validation of user_validation_messages.estado_civil_id" >
+                                                            <div  *ngIf="forma.get('estado_civil_id')?.hasError(validation.type)">
+                                                                {{validation.message}}
+                                                            </div>
+                                                        </div>
+                                                    </small>
                                                 </div>
                                             </div>
                                         </div>
@@ -399,17 +414,31 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Provincia</label>
-                                                    <select formControlName="provincia_id" class="form-control" (change)=" onChangeProvincia()"> 
+                                                    <select formControlName="provincia_id" class="form-control" (change)=" onChangeProvincia()" [class.is-invalid]="provinciaNoValido"> 
                                                         <option *ngFor="let provincia of provincias" [value]="provincia.id_provincia">{{provincia.provincia}}</option> 
                                                     </select>
+                                                    <small *ngIf="provinciaNoValido" class="form-text text-danger">
+                                                        <div *ngFor="let validation of user_validation_messages.provincia_id" >
+                                                            <div  *ngIf="forma.get('provincia_id')?.hasError(validation.type)">
+                                                                {{validation.message}}
+                                                            </div>
+                                                        </div>
+                                                    </small>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Departamento Provincial</label>
-                                                    <select formControlName="departamento_provincial_id" class="form-control" (change)=" onChangeDepartamentoProvincial()"> 
+                                                    <select formControlName="departamento_provincial_id" class="form-control" (change)=" onChangeDepartamentoProvincial()" [class.is-invalid]="departamentoProvincialNoValido"> 
                                                         <option *ngFor="let departamento_provincial of departamentos_provinciales" [value]="departamento_provincial.id_dpto_prov">{{departamento_provincial.departamento_provincial}}</option> 
                                                     </select>
+                                                    <small *ngIf="departamentoProvincialNoValido" class="form-text text-danger">
+                                                        <div *ngFor="let validation of user_validation_messages.departamento_provincial_id" >
+                                                            <div  *ngIf="forma.get('departamento_provincial_id')?.hasError(validation.type)">
+                                                                {{validation.message}}
+                                                            </div>
+                                                        </div>
+                                                    </small>
                                                 </div>
                                             </div>
                                         </div>
@@ -418,33 +447,50 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Municipio</label>
-                                                    <select formControlName="municipio_id" class="form-control"> 
-                                                            <option *ngFor="let municipio of municipios" [value]="municipio.id_municipio">{{municipio.municipio}}</option> 
-                                                        </select>
+                                                    <select formControlName="municipio_id" class="form-control" [class.is-invalid]="municipioNoValido"> 
+                                                        <option *ngFor="let municipio of municipios" [value]="municipio.id_municipio">{{municipio.municipio}}</option> 
+                                                    </select>
+                                                    <small *ngIf="municipioNoValido" class="form-text text-danger">
+                                                        <div *ngFor="let validation of user_validation_messages.municipio_id" >
+                                                            <div  *ngIf="forma.get('municipio_id')?.hasError(validation.type)">
+                                                                {{validation.message}}
+                                                            </div>
+                                                        </div>
+                                                    </small>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Ciudad</label>
-                                                    <select formControlName="ciudad_id" class="form-control"> 
-                                                            <option *ngFor="let ciudad of ciudades" [value]="ciudad.id_ciudad">{{ciudad.ciudad}}</option> 
-                                                        </select>
+                                                    <select formControlName="ciudad_id" class="form-control" [class.is-invalid]="ciudadNoValido"> 
+                                                        <option *ngFor="let ciudad of ciudades" [value]="ciudad.id_ciudad">{{ciudad.ciudad}}</option> 
+                                                    </select>
+                                                    <small *ngIf="ciudadNoValido" class="form-text text-danger">
+                                                        <div *ngFor="let validation of user_validation_messages.ciudad_id" >
+                                                            <div  *ngIf="forma.get('ciudad_id')?.hasError(validation.type)">
+                                                                {{validation.message}}
+                                                            </div>
+                                                        </div>
+                                                    </small>
                                                 </div>
                                             </div>
 
                                         </div>
 
-
-
-
-
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Nivel Educativo</label>
-                                                    <select formControlName="nivel_educativo_id" class="form-control"> 
-                                                            <option *ngFor="let nivel_educativo of niveles_educativo" [value]="nivel_educativo.id_nivel_educativo">{{nivel_educativo.nivel_educativo}}</option> 
-                                                        </select>
+                                                    <select formControlName="nivel_educativo_id" class="form-control" [class.is-invalid]="nivelEducativoNoValido"> 
+                                                        <option *ngFor="let nivel_educativo of niveles_educativo" [value]="nivel_educativo.id_nivel_educativo">{{nivel_educativo.nivel_educativo}}</option> 
+                                                    </select>
+                                                    <small *ngIf="nivelEducativoNoValido" class="form-text text-danger">
+                                                        <div *ngFor="let validation of user_validation_messages.nivel_educativo_id" >
+                                                            <div  *ngIf="forma.get('nivel_educativo_id')?.hasError(validation.type)">
+                                                                {{validation.message}}
+                                                            </div>
+                                                        </div>
+                                                    </small>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
@@ -480,9 +526,16 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Situacion</label>
-                                                    <select formControlName="situacion_id" class="form-control"> 
-                                                            <option *ngFor="let situacion of situaciones" [value]="situacion.id_situacion">{{situacion.situacion}}</option> 
-                                                        </select>
+                                                    <select formControlName="situacion_id" class="form-control" [class.is-invalid]="situacionNoValido"> 
+                                                        <option *ngFor="let situacion of situaciones" [value]="situacion.id_situacion">{{situacion.situacion}}</option> 
+                                                    </select>
+                                                    <small *ngIf="situacionNoValido" class="form-text text-danger">
+                                                        <div *ngFor="let validation of user_validation_messages.situacion_id" >
+                                                            <div  *ngIf="forma.get('situacion_id')?.hasError(validation.type)">
+                                                                {{validation.message}}
+                                                            </div>
+                                                        </div>
+                                                    </small>
                                                 </div>
                                             </div>
 

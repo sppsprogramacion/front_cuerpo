@@ -93,15 +93,15 @@ export class UploadComponent implements OnInit {
        nombre_1: ["test",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
        nombre_2: ["",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
        nombre_3: ["",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
-       legajo: [3155,[Validators.required,,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
-       destino_id: [1],
-       departamento_id: [3],
-       division_id: [5],
-       sector_id: [1],
+       legajo: [3155,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
+       destino_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       departamento_id: [3,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       division_id: [5,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       sector_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        funcion: ["", [Validators.minLength(1), Validators.maxLength(200)]],
-       seccion_guardia_id: [,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-       escalafon_id: [,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-       escala_jerarquica_id: [,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       seccion_guardia_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       escalafon_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       escala_jerarquica_id: [1,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
        grado_id: [,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        //foto: [],
        ultimo_ascenso: [],
@@ -111,21 +111,21 @@ export class UploadComponent implements OnInit {
       fecha_nacimiento: [],
       fecha_ingreso: [],
       cuil: ["20-32505424-8",[Validators.required, Validators.pattern(/\b(20|23|24|27)(\D)?[0-9]{8}(\D)?[0-9]/)]],
-      sexo_id: [1],
-      estado_civil_id: [2],
+      sexo_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      estado_civil_id: [2,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       nacionalidad: ["argentino",[Validators.minLength(1), Validators.maxLength(50)]],
       domicilio: ["Barrio los gremios",[Validators.minLength(1), Validators.maxLength(300)]],
-      provincia_id: [17],
-      departamento_provincial_id: [212000],
-      municipio_id: [3986],
-      ciudad_id: [1],
-      nivel_educativo_id: [4],
+      provincia_id: [17,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      departamento_provincial_id: [212000,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+      municipio_id: [3986,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      ciudad_id: [1,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+      nivel_educativo_id: [4,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       telefonos: ["0387154853487",[Validators.minLength(1), Validators.maxLength(300)]],
       email: ["pedrodiaz0487@gmail.com", [Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/), Validators.minLength(4), Validators.maxLength(50)]],
       altura: [1.8],
       peso: [72.5],
       //registrado_por: [],
-      situacion_id: [1]
+      situacion_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]]
 
 
     });
@@ -133,7 +133,7 @@ export class UploadComponent implements OnInit {
 
 
     //cargar desplegables
-    this.cargarDepartamentos(0);
+    this.cargarDepartamentos(parseInt(this.forma.get('destino_id')?.value));
     this.cargarDivisiones(0);
     this.cargarSectores(0);
     this.cargarSeccionesGuardia(0);
@@ -272,7 +272,35 @@ export class UploadComponent implements OnInit {
     'sexo_id': [
       { type: 'required', message: 'El sexo es requerido.'},
       { type: 'pattern', message: 'El valor ingresado no es un número.' }
-    ]
+    ],
+    'estado_civil_id': [
+      { type: 'required', message: 'El estado civil es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'provincia_id': [
+      { type: 'required', message: 'La provincia  es requerida.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'departamento_provincial_id': [
+      { type: 'required', message: 'El departamento provincial  es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'municipio_id': [
+      { type: 'required', message: 'El municipio es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'ciudad_id': [
+      { type: 'required', message: 'La ciudad es requerida.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'nivel_educativo_id': [
+      { type: 'required', message: 'El nivel educativo es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'situacion_id': [
+      { type: 'required', message: 'La situacion educativo es requerida.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
 
     //fin datos personales
   }
@@ -417,6 +445,7 @@ export class UploadComponent implements OnInit {
       this.cargarDivisiones(0);
       this.cargarSectores(0);
       this.cargarSeccionesGuardia(0);
+      this.forma.get('departamento_id')?.setValue(3);
       this.forma.get('division_id')?.setValue(5);
       this.forma.get('sector_id')?.setValue(1);
       this.forma.get('seccion_guardia_id')?.setValue(1);
@@ -536,7 +565,10 @@ export class UploadComponent implements OnInit {
    onChangeEscala(){
      const id = this.forma.get('escala_jerarquica_id')?.value;
      if(id != null){
-       this.cargarGrados(parseInt(id.toString()));
+      
+      this.forma.get('grado_id')?.setValue(null);
+      this.cargarGrados(parseInt(id.toString()));
+       
        
      }
    }

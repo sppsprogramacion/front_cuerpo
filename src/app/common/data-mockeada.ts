@@ -49475,6 +49475,8 @@ export const municipios = [
 
 ];
 
+
+
 export const sexos = [
     {
         "id_sexo": 2,
@@ -49588,7 +49590,7 @@ export const divisiones = [
     {
         "id_division": 3,
         "division": "Registro y Requisa",
-        "departamento_id": 2
+        "departamento_id": 3
     },
     {
         "id_division": 4,

@@ -226,7 +226,7 @@ export class EditComponent implements OnInit {
   ngOnInit(): void {
     //cargar el array de destinos
     this.destinos = destinos;      
-    
+    this.cargarPdfs();
   }  
 
   // async descargarPdf(url: string){
@@ -691,5 +691,11 @@ export class EditComponent implements OnInit {
   }
 }
 
-
+async cargarPdfs(){
+    const legajo = 3200;
+    const respuesta = await (await this.pdfService.getxlegajo(legajo)).subscribe(res => {
+      console.log('>>>>>>>>>>>>',res);
+    });
+     
+}
 }

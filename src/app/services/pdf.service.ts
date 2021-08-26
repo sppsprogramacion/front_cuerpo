@@ -3,7 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
 import { FileSaverModule, FileSaverService } from 'ngx-filesaver';
 import { FileSaverOptions } from 'file-saver';
-import { Observable } from 'rxjs';
+import { Observable} from 'rxjs';
+import { map} from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { PdfModel } from '../models/pdf.model';
 
@@ -18,8 +19,8 @@ export class PdfService {
   };
 
 base_url: string = environment.URL_BASE;  
-//listadoPdfs: PdfModel[] = [];
-
+listadoPdfs: PdfModel[] = [];
+pdf: PdfModel = new PdfModel();
   constructor(
     private http: HttpClient,
     private _FileSaverService: FileSaverService
@@ -88,7 +89,22 @@ base_url: string = environment.URL_BASE;
     async getxlegajo(legajo: number) {
       try {
         const url = `${this.base_url}/archivo/${legajo}`;
-                      return await this.http.get<[personal: any[],total:number]>(url);
+        //return await this.http.get(url);
+        return await this.http.get(url)
+                            .pipe(
+                              map((resp: {ok: boolean, pdfs: PdfModel[]}) => {
+                                this.listadoPdfs = resp[0].map((item: any) => {
+                                  const {id_archivo, legajo_personal, nombre_archivo, detalle, inidce, fecha_documento} = item;
+                                  this.pdf = new PdfModel(id_archivo, legajo_personal, nombre_archivo, detalle, inidce, fecha_documento);
+                                  return this.pdf;                                     
+                                });
+                                return resp = {
+                                  ok: true,
+                                  pdfs: this.listadoPdfs
+                                }
+                              })
+                            )
+        ;
            
       } catch (error) {
         throw new Error(error.message)

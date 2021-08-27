@@ -226,8 +226,7 @@ export class EditComponent implements OnInit {
   ngOnInit(): void {
     //cargar el array de destinos
     this.destinos = destinos;      
-    this.cargarPdfs();
-  }  
+    }  
 
   // async descargarPdf(url: string){
   //   console.log('LA URL ES: ', url);
@@ -676,8 +675,10 @@ export class EditComponent implements OnInit {
       this.pdfService.postPdf(this.pdfSubir, legajo, detalle, fecha_pdf, indice).then(respuesta => {
          if(respuesta.ok){
           Swal.fire('Carga Exitosa!!', "El pdf del legajo digital ha sido subido  con éxito","success");
+          this.listarPdfs(legajo);    
           this.submitted = false;
           this.newFileDialog = false;
+          this.regPdf = new PdfModel();
              }else{
                  throw new Error(respuesta.message);
          }
@@ -691,11 +692,68 @@ export class EditComponent implements OnInit {
   }
 }
 
-async cargarPdfs(){
-    const legajo = 3200;
-    const respuesta = await (await this.pdfService.getxlegajo(legajo)).subscribe(res => {
-      console.log('>>>>>>>>>>>>',res);
+listarPdfs(numLegajo: number){
+    
+    const respuesta =  (this.pdfService.getxlegajo(numLegajo)).subscribe((res: {ok: boolean,total: number,  pdfs: PdfModel[]}) => {
+       this.pdfsList = res.pdfs;
     });
      
 }
+
+editRegPdf(pdf: PdfModel){
+
+}
+
+deletePdf(pdf: PdfModel){
+    const idPdf: number = parseInt(pdf.id_archivo.toString());
+    let legajo: number =  this.dataEdit.legajo!;
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })  
+    swalWithBootstrapButtons.fire({
+      title: 'Confirma el borrado de los Archivo ',
+      text: "Esta Acción no podrá revertirse!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, borrar el Archivo PDF Seleccionado',
+      cancelButtonText: 'No, cancelar!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.pdfService.deletePdf(idPdf)
+        .subscribe(
+          resultado => {
+            this.listarPdfs(legajo);
+           }
+          ,error => {                                                                
+            Swal.fire('Error',`Error al Eliminar el Archivo ${error.error.message}`,"error")                          
+          }
+      );
+          
+         
+        swalWithBootstrapButtons.fire(
+          'Eliminados!',
+          'Los Registros Seleccionados han sido borrados.',
+          'success'
+        )
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'Se ha cancelado la eliminación deL Archivo :)',
+          'error'
+        )
+      }
+    })
+
+  
+}
+
 }

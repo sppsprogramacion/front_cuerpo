@@ -21,6 +21,8 @@ export class PdfService {
 base_url: string = environment.URL_BASE;  
 listadoPdfs: PdfModel[] = [];
 pdf: PdfModel = new PdfModel();
+
+
   constructor(
     private http: HttpClient,
     private _FileSaverService: FileSaverService
@@ -86,20 +88,24 @@ pdf: PdfModel = new PdfModel();
     }
 
     
-    async getxlegajo(legajo: number) {
+    getxlegajo(legajo: number) {
+      let total: number = 0;
       try {
         const url = `${this.base_url}/archivo/${legajo}`;
         //return await this.http.get(url);
-        return await this.http.get(url)
+        return  this.http.get(url)
                             .pipe(
-                              map((resp: {ok: boolean, pdfs: PdfModel[]}) => {
+                              map((resp: any) => {
+                                
                                 this.listadoPdfs = resp[0].map((item: any) => {
-                                  const {id_archivo, legajo_personal, nombre_archivo, detalle, inidce, fecha_documento} = item;
-                                  this.pdf = new PdfModel(id_archivo, legajo_personal, nombre_archivo, detalle, inidce, fecha_documento);
+                                  const total: number = item[1];
+                                  const {id_archivo, legajo_personal, nombre_archivo, detalle, indice, fecha_documento} = item;
+                                  this.pdf = new PdfModel(id_archivo, legajo_personal, nombre_archivo, detalle, indice, fecha_documento);
                                   return this.pdf;                                     
                                 });
                                 return resp = {
                                   ok: true,
+                                  total,
                                   pdfs: this.listadoPdfs
                                 }
                               })
@@ -108,6 +114,16 @@ pdf: PdfModel = new PdfModel();
            
       } catch (error) {
         throw new Error(error.message)
+      }
+    }
+
+    deletePdf(id: number){
+      try {
+            const url = `${this.base_url}/archivo/${id}`;
+            return this.http.delete(url);
+        } catch (error) {
+            throw new Error(error);
+        
       }
     }
 

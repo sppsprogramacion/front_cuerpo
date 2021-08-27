@@ -657,42 +657,20 @@
                                                         [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']" [scrollable]="true"
                                                         scrollHeight="100%" [responsive]="false">
 
-                                                        <!-- <ng-template pTemplate="caption">
-
-                                                        <div class="table-header">
-                                                                Tabla: Expediente Digital                                                                
-                                                            </div>
-                                                    </ng-template> -->
                                                         <ng-template pTemplate="colgroup" let-columns>
                                                             <colgroup>
-                                                                <!-- <col style="width:70px">
-                                                                <col style="width:100px">
-                                                                <col style="width:150px"> -->
+
                                                                 <col style="width:150px">
                                                                 <col style="width:150px">
                                                                 <col style="width:150px">
                                                                 <col style="width:150px">
+                                                                <col style="width:70px">
 
                                                             </colgroup>
                                                         </ng-template>
                                                         <ng-template pTemplate="header">
                                                             <tr>
                                                                 <th></th>
-                                                                <!-- <th>
-                                                                    <div class="p-d-flex p-jc-between p-ai-center">
-                                                                        Id
-                                                                    </div>
-                                                                </th>
-                                                                <th>
-                                                                    <div class="p-d-flex p-jc-between p-ai-center">
-                                                                        Legajo
-                                                                    </div>
-                                                                </th>
-                                                                <th>
-                                                                    <div class="p-d-flex p-jc-between p-ai-center">
-                                                                        Nombre del Archivo
-                                                                    </div>
-                                                                </th> -->
                                                                 <th>
                                                                     <div class="p-d-flex p-jc-between p-ai-center">
                                                                         Detalle
@@ -711,6 +689,7 @@
                                                                         <p-sortIcon field="fecha_documento"></p-sortIcon>
                                                                     </div>
                                                                 </th>
+                                                                <th></th>
 
 
                                                             </tr>
@@ -747,8 +726,10 @@
                                                                     <!-- <span class="p-column-title">Nombre 3</span>  -->
                                                                     {{pdf.fecha_documento}}
                                                                 </td>
-
-
+                                                                <td>
+                                                                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editRegPdf(pdf)"></button>
+                                                                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deletePdf(pdf)"></button>
+                                                                </td>
                                                             </tr>
                                                         </ng-template>
                                                         <ng-template pTemplate="emptymessage">

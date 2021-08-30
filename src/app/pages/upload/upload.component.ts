@@ -430,17 +430,14 @@ export class UploadComponent implements OnInit {
     return this.forma.get('situacion_id')?.invalid && this.forma.get('situacion_id')?.touched;
   }
 
-
   //fin validaciones formulario filatorios
   //FIN VALIDACIONES FORMULARIOS
   
 
   //metodos para cargar listas desplegables  
-  onChangeDestino(){
-    
+  onChangeDestino(){    
     const id = this.forma.get('destino_id')?.value;
-    if(id != null){
-      
+    if(id != null){      
       this.cargarDepartamentos(parseInt(id.toString()));
       this.cargarDivisiones(0);
       this.cargarSectores(0);
@@ -451,127 +448,121 @@ export class UploadComponent implements OnInit {
       this.forma.get('seccion_guardia_id')?.setValue(1);
     }else{
       Swal.fire('Error: repita la operación por favor', '', 'info')
-    }
-    
+    }   
     
   }
   
   cargarDepartamentos(destino_id: number){
     this.departamentos=departamentos.filter(departamento => {
-      
-             return departamento.destino_id == destino_id || departamento.destino_id == 0;
-        });
-   }
-  
-   cargarDepartamentosProvinciales(provincia_id: number){
-     this.departamentos_provinciales= departamentos_provinciales.filter(departamento_provincial => {
-       
-              return departamento_provincial.provincia_id == provincia_id || departamento_provincial.provincia_id == 25;
-         });
-   }
-  
-   onChangeProvincia(){
-     const id = this.forma.get('provincia_id')?.value;
-     if(id != null){
-       this.cargarDepartamentosProvinciales(parseInt(id.toString()));
-       this.forma.get('municipio_id')?.setValue(3986);
-       
-     }    
-   }
-  
-   cargarMunicipios(departamento_provincial_id: number){
-     this.municipios=municipios.filter(municipio => {
-       
-              return municipio.departamento_id == departamento_provincial_id || municipio.departamento_id == 212000;
-         });
-   }
+      return departamento.destino_id == destino_id || departamento.destino_id == 0;
+    });
+  }
 
-   onChangeMunicipios(){
-    const id = this.forma.get('municipio_id')?.value;
+  onChangeDepartamento(){
+    const id = this.forma.get('departamento_id')?.value;
     if(id != null){
-      this.cargarCiudades(parseInt(id.toString()));
-      //this.cargarSeccionesGuardia(parseInt(id.toString()));
+      this.cargarDivisiones(parseInt(id.toString()));
+      this.cargarSectores(0);
+      this.cargarSeccionesGuardia(parseInt(id.toString()));
+      this.forma.get('division_id')?.setValue(5);
+      this.forma.get('sector_id')?.setValue(1);
+      this.forma.get('seccion_guardia_id')?.setValue(1);   
+    }
+  }
+  
+  cargarDivisiones(departamento_id: number){
+    this.divisiones = divisiones.filter(division => {
+      
+      return division.departamento_id == departamento_id || division.departamento_id == 0;
+    });
+  } 
+
+  onChangeDivision(){
+    const id = this.forma.get('division_id')?.value;
+    if(id != null){
+      this.cargarSectores(parseInt(id.toString()));
+      this.forma.get('sector_id')?.setValue(1);
+    }
+  }
+  
+  cargarSectores(division_id: number){
+    this.sectores = sectores.filter(sector => {
+      
+      return sector.division_id == division_id || sector.division_id == 0;
+    });
+  } 
+  
+  cargarSeccionesGuardia(departamento_id: number){
+    this.secciones_guardia = secciones_guardia.filter(seccion_gdia => {
+      
+      return seccion_gdia.departamento_id == departamento_id || seccion_gdia.departamento_id == 0;
+    });
+  }  
+
+  onChangeProvincia(){
+    const id = this.forma.get('provincia_id')?.value;
+    if(id != null){
+      this.cargarDepartamentosProvinciales(parseInt(id.toString()));
+      this.forma.get('departamento_provincial_id')?.setValue(212000);
+      this.cargarMunicipios(212000);      
+      this.forma.get('municipio_id')?.setValue(3986);
       
     }    
   }
 
-   cargarCiudades(municipio_id: number){
+  cargarDepartamentosProvinciales(provincia_id: number){
+    this.departamentos_provinciales= departamentos_provinciales.filter(departamento_provincial => {
+      
+      return departamento_provincial.provincia_id == provincia_id || departamento_provincial.provincia_id == 25;
+    });
+  }
+
+  onChangeDepartamentoProvincial(){
+    const id = this.forma.get('departamento_provincial_id')?.value;
+    if(id != null){
+      this.cargarMunicipios(parseInt(id.toString()));
+      this.forma.get('municipio_id')?.setValue(3986);
+      
+    }    
+  }  
+  
+  cargarMunicipios(departamento_provincial_id: number){
+    this.municipios=municipios.filter(municipio => {       
+      return municipio.departamento_id == departamento_provincial_id || municipio.departamento_id == 212000;
+    });
+  }
+
+  onChangeMunicipios(){
+    const id = this.forma.get('municipio_id')?.value;
+    if(id != null){
+      this.cargarCiudades(parseInt(id.toString()));
+      this.forma.get('ciudad_id')?.setValue(1);
+    }    
+  }
+
+  cargarCiudades(municipio_id: number){
     this.ciudades= ciudades.filter(ciudad => {
       
-             return ciudad.municipio_id == municipio_id || ciudad.municipio_id == 3986;
-        });
+      return ciudad.municipio_id == municipio_id || ciudad.municipio_id == 3986;
+    });
   }
   
-   onChangeDepartamentoProvincial(){
-     const id = this.forma.get('departamento_provincial_id')?.value;
-     if(id != null){
-       this.cargarMunicipios(parseInt(id.toString()));
-       //this.cargarSeccionesGuardia(parseInt(id.toString()));
-       
-     }    
-   }
-
-   
-   onChangeDepartamento(){
-     const id = this.forma.get('departamento_id')?.value;
-     if(id != null){
-       this.cargarDivisiones(parseInt(id.toString()));
-       this.cargarSectores(0);
-       this.cargarSeccionesGuardia(parseInt(id.toString()));
-       this.forma.get('division_id')?.setValue(5);
-       this.forma.get('sector_id')?.setValue(1);
-       this.forma.get('seccion_guardia_id')?.setValue(1);   
-     }
-   }
-  
-   cargarDivisiones(departamento_id: number){
-     this.divisiones = divisiones.filter(division => {
-        
-       return division.departamento_id == departamento_id || division.departamento_id == 0;
-    });
-   }
-  
-  
-  
-   cargarSectores(division_id: number){
-     this.sectores = sectores.filter(sector => {
-        
-       return sector.division_id == division_id || sector.division_id == 0;
-  });
-   }
-  
-   onChangeDivision(){
-     const id = this.forma.get('division_id')?.value;
-     if(id != null){
-       this.cargarSectores(parseInt(id.toString()));
-       this.forma.get('sector_id')?.setValue(1);
-     }
-   }
-  
-   cargarSeccionesGuardia(departamento_id: number){
-     this.secciones_guardia = secciones_guardia.filter(seccion_gdia => {
-        
-       return seccion_gdia.departamento_id == departamento_id || seccion_gdia.departamento_id == 0;
-  });
-   }
-  
-   cargarGrados(escala_jerarquica_id: number){
-     this.grados = grados.filter(grado => {
-        
-       return grado.escala_jerarquica_id == escala_jerarquica_id || grado.escala_jerarquica_id == 0;
-  });
-   }
-  
-   onChangeEscala(){
-     const id = this.forma.get('escala_jerarquica_id')?.value;
-     if(id != null){
+  cargarGrados(escala_jerarquica_id: number){
+    this.grados = grados.filter(grado => {
       
-      this.forma.get('grado_id')?.setValue(null);
+      return grado.escala_jerarquica_id == escala_jerarquica_id || grado.escala_jerarquica_id == 0;
+    });
+  }
+  
+  onChangeEscala(){
+    const id = this.forma.get('escala_jerarquica_id')?.value;
+    if(id != null){         
+      this.forma.get('grado_id')?.setValue(null);      
       this.cargarGrados(parseInt(id.toString()));
-       
-       
-     }
-   }
+      this.forma.get('grado_id')?.markAsUntouched();
+      
+    }
+  }
   //fin metodos para cargar listas desplegables
 
   
@@ -580,13 +571,7 @@ export class UploadComponent implements OnInit {
   onDateChange(nuevaFecha: Date){
     if(nuevaFecha != null){
       this.auxiliarDate = this.datePipe.transform(nuevaFecha,"yyyy-MM-dd")!;
-      //console.log('AUXILIAR DATE', this.auxiliarDate);
-      // this.forma.get('ultimo_ascenso')?.setValue(auxiliarDate);
-      // let d: Date = new Date(auxiliarDate);
-      // console.log('FECHA ==>>>>>>', d);
-      // let v = d.toISOString();
-      // console.log('TOSISOSTRING >>>>>>>', v);    
-      
+            
     }
   }
   
@@ -658,7 +643,7 @@ export class UploadComponent implements OnInit {
               },
               error => {
                   
-                  Swal.fire('Error',`Error al cargar el nuevo personal ${error.error.message}`,"error")                          
+                  Swal.fire('Error',`Error al cargar el nuevo personal: ${error.error.message}`,"error")                          
               });
   
   }

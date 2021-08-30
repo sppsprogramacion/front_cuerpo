@@ -45,7 +45,7 @@
                                     <col style="width:150px">
                                     <col style="width:150px">
                                     <col style="width:150px">
-                                    <col style="width:150px">
+                                    <col style="width:200px">
                                     <col style="width:150px">
                                     <col style="width:150px">
                                     <col style="width:150px">
@@ -220,11 +220,11 @@
                                             <p-columnFilter type="text" field="sector.sector" display="menu" class="p-ml-auto"></p-columnFilter>
                                         </div>
                                     </th>
-                                    <th pSortableColumn="seccion_guardia">
+                                    <th pSortableColumn="seccion_guardia.seccion">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Guardia
-                                            <p-sortIcon field="seccion_guardia"></p-sortIcon>
-                                            <p-columnFilter type="text" field="seccion_guardia" display="menu" class="p-ml-auto"></p-columnFilter>
+                                            <p-sortIcon field="seccion_guardia.seccion"></p-sortIcon>
+                                            <p-columnFilter type="text" field="seccion_guardia.seccion" display="menu" class="p-ml-auto"></p-columnFilter>
                                         </div>
                                     </th>
                                     <th pSortableColumn="funcion">
@@ -403,7 +403,7 @@
                                     </td>
                                     <td>
                                         <!-- <span class="p-column-title">Guardia</span>  -->
-                                        {{personal.seccion_guardia}}
+                                        {{personal.seccion_guardia.seccion}}
                                     </td>
                                     <td>
                                         <!-- <span class="p-column-title">Funcion</span>  -->
@@ -444,7 +444,7 @@
                                     </td>
                                     <td>
                                         <!-- <span class="p-column-title">Ciudad</span>  -->
-                                        {{personal.ciudad}}
+                                        {{(personal.ciudad != null)? personal.ciudad.ciudad : 'sin dato'}}
                                     </td>
 
                                     <!-- <td>

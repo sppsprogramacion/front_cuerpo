@@ -262,7 +262,9 @@
                                                                                     <!-- select -->
                                                                                     <div class="form-group">
                                                                                         <label>Grado</label>
+
                                                                                         <select formControlName="grado_id" class="form-control" [ngModel]="dataEdit.grado_id"> 
+                                                                                            <option></option>
                                                                                             <option *ngFor="let grado of grados" [value]="grado.id_grado" >{{grado.grado}}</option> 
                                                                                       </select>
                                                                                     </div>

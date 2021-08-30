@@ -199,14 +199,18 @@ export class EditComponent implements OnInit {
     auxiliar = this.dataEdit.destino;    
 
     this.cargarDepartamentos(this.dataEdit.destino_id!);
-    this.cargarDepartamentosProvinciales(this.dataEdit.provincia_id!)
     this.cargarDivisiones(this.dataEdit.departamento_id!);
-    this.cargarGrados(this.dataEdit.escala_jerarquica_id!);
+    this.cargarSectores(this.dataEdit.division_id!);
+    this.cargarSeccionesGuardia(this.dataEdit.departamento_id!);    
+    this.cargarDepartamentosProvinciales(this.dataEdit.provincia_id!)    
     this.cargarMunicipios(this.dataEdit.departamento_provincial_id!);
-    this.cargarSeccionesGuardia(this.dataEdit.departamento_id!);
+    this.cargarGrados(this.dataEdit.escala_jerarquica_id!);
+    
+    
     
     this.destino_txt = auxiliar.destino;
-
+    //cargar el array de destinos
+    this.destinos = destinos;      
     this.estados_civil = estados_civil;    
     this.escalafones = escalafon;
     this.escalas = escalaJerarquica;
@@ -224,8 +228,7 @@ export class EditComponent implements OnInit {
   //fin constructor
 
   ngOnInit(): void {
-    //cargar el array de destinos
-    this.destinos = destinos;      
+    
     
   }  
 
@@ -241,7 +244,7 @@ export class EditComponent implements OnInit {
         var file = new Blob([data], { type: 'application/pdf' })
         var fileURL = URL.createObjectURL(file);
 
-// if you want to open PDF in new tab
+    // if you want to open PDF in new tab
         window.open(fileURL); 
         var a         = document.createElement('a');
         a.href        = fileURL; 
@@ -400,16 +403,9 @@ export class EditComponent implements OnInit {
   //fin validaciones formulario filatorios
   //FIN VALIDACIONES FORMULARIOS
 
-
-  cargarDepartamentos(destino_id: number){
-     this.departamentos=departamentos.filter(departamento => {
-       
-              return departamento.destino_id == destino_id || departamento.destino_id == 0;
-         });
-  }
-
-  onChangeDestino(){
-    
+  
+  //metodos para cargar listas desplegables  
+  onChangeDestino(){    
     Swal.fire({
       title: 'Confirma el cambio de destino del personal?',
       showDenyButton: true,
@@ -422,9 +418,16 @@ export class EditComponent implements OnInit {
         const id = this.forma.get('destino_id')?.value;
         if(id != null){
           this.cargarDepartamentos(parseInt(id.toString()));
-          this.divisiones = [];
-          this.sectores = [];
-          this.secciones_guardia= [];      
+          this.cargarDivisiones(0);
+          this.cargarSectores(0);
+          this.cargarSeccionesGuardia(0);
+          this.forma.get('departamento_id')?.setValue(3);
+          this.forma.get('division_id')?.setValue(5);
+          this.forma.get('sector_id')?.setValue(1);
+          this.forma.get('seccion_guardia_id')?.setValue(1);
+          // this.divisiones = [];
+          // this.sectores = [];
+          // this.secciones_guardia= [];      
         }else{
           Swal.fire('Error: repita la operación por favor', '', 'info')
         }
@@ -433,80 +436,33 @@ export class EditComponent implements OnInit {
         this.forma.get('destino_id')?.setValue(this.dataEdit.destino_id);
         Swal.fire('Usted ha cancelado el cambio de destino', '', 'info')
       }
-    })
-
-    
-  }
-  
-  cargarDepartamentosProvinciales(provincia_id: number){
-    this.departamentos_provincial=departamentos_provinciales.filter(departamento_provincial => {
-      
-             return departamento_provincial.provincia_id == provincia_id || departamento_provincial.provincia_id == 0;
-        });
+    })    
   }
 
-  onChangeProvincia(){
-    const id = this.formaFiliatorios.get('provincia_id')?.value;
-    if(id != null){
-      this.cargarDepartamentosProvinciales(parseInt(id.toString()));
-           
-    }    
+  cargarDepartamentos(destino_id: number){
+    this.departamentos=departamentos.filter(departamento => {       
+      return departamento.destino_id == destino_id || departamento.destino_id == 0;
+    });
   }
 
-  cargarMunicipios(departamento_provincial_id: number){
-    this.municipios=municipios.filter(municipio => {
-      
-             return municipio.departamento_id == departamento_provincial_id || municipio.departamento_id == 0;
-        });
-  }
-
-  onChangeDepartamentoProvincial(){
-    const id = this.formaFiliatorios.get('departamento_provincial_id')?.value;
-    if(id != null){
-      this.cargarMunicipios(parseInt(id.toString()));
-           
-    }    
-  }
-
-  cargarCiudades(municipio_id: number){
-    this.ciudades= ciudades.filter(ciudad => {
-      
-             return ciudad.municipio_id == municipio_id || ciudad.municipio_id == 3986;
-        });
-  }
-
-  onChangeMunicipios(){
-    const id = this.forma.get('municipio_id')?.value;
-    if(id != null){
-      this.cargarCiudades(parseInt(id.toString()));
-      //this.cargarSeccionesGuardia(parseInt(id.toString()));
-      
-    }    
-  }
-
-  
   onChangeDepartamento(){
     const id = this.forma.get('departamento_id')?.value;
     if(id != null){
       this.cargarDivisiones(parseInt(id.toString()));
+      this.cargarSectores(0);
       this.cargarSeccionesGuardia(parseInt(id.toString()));
+      this.forma.get('division_id')?.setValue(5);
+      this.forma.get('sector_id')?.setValue(1);
+      this.forma.get('seccion_guardia_id')?.setValue(1);
+      // this.cargarDivisiones(parseInt(id.toString()));
+      // this.cargarSeccionesGuardia(parseInt(id.toString()));
       
     }
   }
 
   cargarDivisiones(departamento_id: number){
     this.divisiones = divisiones.filter(division => {
-       
       return division.departamento_id == departamento_id || division.departamento_id == 0;
- });
-  }
-
- 
-
-  cargarSectores(division_id: number){
-    this.sectores = sectores.filter(sector => {
-       
-      return sector.division_id == division_id || sector.division_id == 0;
     });
   }
 
@@ -514,50 +470,106 @@ export class EditComponent implements OnInit {
     const id = this.forma.get('division_id')?.value;
     if(id != null){
       this.cargarSectores(parseInt(id.toString()));
+      this.forma.get('sector_id')?.setValue(1);
+      // this.cargarSectores(parseInt(id.toString()));
       
     }
   }
 
-  cargarSeccionesGuardia(departamento_id: number){
-    this.secciones_guardia = secciones_guardia.filter(seccion_gdia => {
+  cargarSectores(division_id: number){
+    this.sectores = sectores.filter(sector => {
        
+      return sector.division_id == division_id || sector.division_id == 0;
+    });
+  }  
+
+  cargarSeccionesGuardia(departamento_id: number){
+    this.secciones_guardia = secciones_guardia.filter(seccion_gdia => {       
       return seccion_gdia.departamento_id == departamento_id || seccion_gdia.departamento_id == 0;
- });
+    });
+  }
+  
+  
+  onChangeProvincia(){
+    const id = this.formaFiliatorios.get('provincia_id')?.value;
+    if(id != null){
+      this.cargarDepartamentosProvinciales(parseInt(id.toString()));
+      this.forma.get('departamento_provincial_id')?.setValue(212000);
+      this.cargarMunicipios(212000);      
+      this.forma.get('municipio_id')?.setValue(3986);           
+    }    
   }
 
+  cargarDepartamentosProvinciales(provincia_id: number){
+    this.departamentos_provincial=departamentos_provinciales.filter(departamento_provincial => {      
+      return departamento_provincial.provincia_id == provincia_id || departamento_provincial.provincia_id == 25;
+    });
+  }
+
+  onChangeDepartamentoProvincial(){
+    const id = this.formaFiliatorios.get('departamento_provincial_id')?.value;
+    if(id != null){
+      this.cargarMunicipios(212000);
+      this.forma.get('municipio_id')?.setValue(3986);
+           
+    }    
+  }
+
+  cargarMunicipios(departamento_provincial_id: number){
+    this.municipios=municipios.filter(municipio => {
+      return municipio.departamento_id == departamento_provincial_id || municipio.departamento_id == 212000;
+    });
+  }  
+
+  onChangeMunicipios(){
+    const id = this.forma.get('municipio_id')?.value;
+    if(id != null){
+      this.cargarCiudades(parseInt(id.toString()));
+      this.forma.get('ciudad_id')?.setValue(1);
+    }    
+  }
+
+  cargarCiudades(municipio_id: number){
+    this.ciudades= ciudades.filter(ciudad => {      
+      return ciudad.municipio_id == municipio_id || ciudad.municipio_id == 3986;
+    });
+  }  
+
   cargarGrados(escala_jerarquica_id: number){
-    this.grados = grados.filter(grado => {
-       
+    this.grados = grados.filter(grado => {       
       return grado.escala_jerarquica_id == escala_jerarquica_id || grado.escala_jerarquica_id == 0;
- });
+    });
   }
 
   onChangeEscala(){
     const id = this.forma.get('escala_jerarquica_id')?.value;
     if(id != null){
+      this.forma.get('grado_id')?.setValue(null);      
       this.cargarGrados(parseInt(id.toString()));
+      this.forma.get('grado_id')?.markAsUntouched();
       
     }
   }
+  //Fin metodos para cargar listas desplegables  
 
   onUpload(event: File){
     try {
-        console.log('DATA DEL ARCHIVO', event);
-        this.fotoSubir = event;
-        let id: number =  this.dataEdit.id_personal! ;
-       this.fileUploadService.actualizarFotoPersonal(this.fotoSubir, id).then(respuesta => {
-           if(respuesta.ok){
-            Swal.fire('Actualización Exitosa!!', "La foto del Usuario ha sido cambiada con éxito","success");
-           }else{
-               throw new Error('Error al Actualizar la foto');
-           }
-       }).catch(error => {
+      console.log('DATA DEL ARCHIVO', event);
+      this.fotoSubir = event;
+      let id: number =  this.dataEdit.id_personal! ;
+      this.fileUploadService.actualizarFotoPersonal(this.fotoSubir, id).then(respuesta => {
+        if(respuesta.ok){
+          Swal.fire('Actualización Exitosa!!', "La foto del Usuario ha sido cambiada con éxito","success");
+        }else{
+          throw new Error('Error al Actualizar la foto');
+        }
+      }).catch(error => {
         Swal.fire('Error', error.message, "error"); 
-       });
+      });
         
     } catch (error) {
         
-        Swal.fire('Error', error.message, "error");    
+      Swal.fire('Error', error.message, "error");    
     }
   }
 
@@ -577,7 +589,7 @@ export class EditComponent implements OnInit {
     return fechaAuxiliar;
   }
   
-
+  //enviar formulario
   submitForm(formEnviado:string){
     
     let data: Partial<Personal>;
@@ -607,7 +619,8 @@ export class EditComponent implements OnInit {
         grado_id: parseInt(this.forma.get('grado_id')?.value),
         ultimo_ascenso: this.auxiliarDate,
         
-    }}else{
+      }
+    }else{
 
       if(this.formaFiliatorios.invalid){
         Swal.fire('Formulario con errores','Complete correctamente todos los campos del formulario',"warning");
@@ -635,8 +648,7 @@ export class EditComponent implements OnInit {
         registrado_por: globalConstants.id_usuario,
         situacion_id: parseInt(this.formaFiliatorios.get('situacion_id')?.value),
   
-      }
-        
+      }        
     }
                 
     this.personalService.editPersonal(data,parseInt(this.dataEdit.id_personal?.toString()!))
@@ -650,6 +662,7 @@ export class EditComponent implements OnInit {
       );  
     
   }
+  //fin enviar formulario
 
   //manejo de tabla de registros de pdfs
   crearRegistro(){
@@ -674,22 +687,22 @@ export class EditComponent implements OnInit {
       let fecha_pdf: Date =  this.regPdf.fecha_documento! ;
       let indice: number =  this.regPdf.indice! ;
       this.pdfService.postPdf(this.pdfSubir, legajo, detalle, fecha_pdf, indice).then(respuesta => {
-         if(respuesta.ok){
-          Swal.fire('Carga Exitosa!!', "El pdf del legajo digital ha sido subido  con éxito","success");
-          this.submitted = false;
-          this.newFileDialog = false;
-             }else{
-                 throw new Error(respuesta.message);
-         }
-     }).catch(error => {
-      Swal.fire('Error', error.message, "error"); 
-     });
+        if(respuesta.ok){
+        Swal.fire('Carga Exitosa!!', "El pdf del legajo digital ha sido subido  con éxito","success");
+        this.submitted = false;
+        this.newFileDialog = false;
+            }else{
+                throw new Error(respuesta.message);
+        }
+      }).catch(error => {
+        Swal.fire('Error', error.message, "error"); 
+      });
      
       
-  } catch (error) {
-       Swal.fire('Error', error.message, "error");    
+    } catch (error) {
+          Swal.fire('Error', error.message, "error");    
+    }
   }
-}
 
 
 }

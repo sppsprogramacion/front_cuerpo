@@ -49717,6 +49717,12 @@ export const ciudades = [
         "ciudad": "sin definir",
         "municipio_id": 3986,
         "provincia_id": 25
+    },
+    {
+        "id_ciudad": 2,
+        "ciudad": "Salta capital",
+        "municipio_id": 2657,
+        "provincia_id": 17
     }
 ];
 

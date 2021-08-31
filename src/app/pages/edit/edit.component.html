@@ -172,10 +172,17 @@
                                                                                     <div class="form-group">
                                                                                         <label>Destino</label>
                                                                                         <!-- <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChangeDestino()">  -->
-                                                                                        <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChangeDestino()"> 
+                                                                                        <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChangeDestino()" [class.is-invalid]="destinoNoValido"> 
                                                                                               <option *ngFor="let destino of destinos" [value]="destino.id_destino" >{{destino.destino}}</option>
                                                                                         </select>
                                                                                         <input *ngIf="!administrador" type="text" class="form-control" [placeholder]="destino_txt" disabled>
+                                                                                        <small *ngIf="destinoNoValido" class="form-text text-danger">
+                                                                                            <div *ngFor="let validation of user_validation_messages.destino_id" >
+                                                                                                <div  *ngIf="forma.get('destino_id')?.hasError(validation.type)">
+                                                                                                    {{validation.message}}
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </small>
 
                                                                                         <!-- <p-dropdown class="form-control" [options]="destinos" formControlName="destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown> -->
                                                                                     </div>
@@ -183,9 +190,16 @@
                                                                                 <div class="col-sm-6">
                                                                                     <div class="form-group">
                                                                                         <label>Departamento</label>
-                                                                                        <select formControlName="departamento_id" class="form-control" [ngModel]="dataEdit.departamento_id" (change)=" onChangeDepartamento()"> 
+                                                                                        <select formControlName="departamento_id" class="form-control" [ngModel]="dataEdit.departamento_id" (change)=" onChangeDepartamento()" [class.is-invalid]="departamentoNoValido"> 
                                                                                             <option *ngFor="let departamento of departamentos" [value]="departamento.id_departamento" >{{departamento.departamento}}</option>
-                                                                                      </select>
+                                                                                        </select>
+                                                                                        <small *ngIf="departamentoNoValido" class="form-text text-danger">
+                                                                                            <div *ngFor="let validation of user_validation_messages.departamento_id" >
+                                                                                                <div  *ngIf="forma.get('departamento_id')?.hasError(validation.type)">
+                                                                                                    {{validation.message}}
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </small>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -196,18 +210,31 @@
                                                                                     <div class="form-group">
                                                                                         <label>Divisiones</label>
                                                                                         <!-- <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id">  -->
-                                                                                        <select formControlName="division_id" class="form-control" [ngModel]="dataEdit.division_id" (change)=" onChangeDivision()"> 
+                                                                                        <select formControlName="division_id" class="form-control" [ngModel]="dataEdit.division_id" (change)=" onChangeDivision()" [class.is-invalid]="divisionNoValido"> 
                                                                                               <option *ngFor="let division of divisiones" [value]="division.id_division" >{{division.division}}</option>
                                                                                         </select>
-                                                                                        <!-- <p-dropdown class="form-control" [options]="destinos" formControlName="destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown> -->
+                                                                                        <small *ngIf="divisionNoValido" class="form-text text-danger">
+                                                                                            <div *ngFor="let validation of user_validation_messages.division_id" >
+                                                                                                <div  *ngIf="forma.get('division_id')?.hasError(validation.type)">
+                                                                                                    {{validation.message}}
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </small>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-sm-6">
                                                                                     <div class="form-group">
                                                                                         <label>Sectores</label>
-                                                                                        <select formControlName="sector_id" class="form-control" [ngModel]="dataEdit.sector_id"> 
+                                                                                        <select formControlName="sector_id" class="form-control" [ngModel]="dataEdit.sector_id" [class.is-invalid]="sectorNoValido"> 
                                                                                             <option *ngFor="let sector of sectores" [value]="sector.id_sector" >{{sector.sector}}</option>
                                                                                       </select>
+                                                                                        <small *ngIf="sectorNoValido" class="form-text text-danger">
+                                                                                        <div *ngFor="let validation of user_validation_messages.sector_id" >
+                                                                                            <div  *ngIf="forma.get('sector_id')?.hasError(validation.type)">
+                                                                                                {{validation.message}}
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </small>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -230,9 +257,16 @@
                                                                                 <div class="col-sm-6">
                                                                                     <div class="form-group">
                                                                                         <label>Sección de Guardia</label>
-                                                                                        <select formControlName="seccion_guardia_id" class="form-control" [ngModel]="dataEdit.seccion_guardia_id"> 
+                                                                                        <select formControlName="seccion_guardia_id" class="form-control" [ngModel]="dataEdit.seccion_guardia_id" [class.is-invalid]="seccionGuardiaNoValido"> 
                                                                                             <option *ngFor="let guardia of secciones_guardia" [value]="guardia.id_seccion" >{{guardia.seccion}}</option>
-                                                                                      </select>
+                                                                                        </select>
+                                                                                        <small *ngIf="seccionGuardiaNoValido" class="form-text text-danger">
+                                                                                            <div *ngFor="let validation of user_validation_messages.seccion_guardia_id" >
+                                                                                                <div  *ngIf="forma.get('seccion_guardia_id')?.hasError(validation.type)">
+                                                                                                    {{validation.message}}
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </small>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -242,17 +276,31 @@
                                                                                     <!-- select -->
                                                                                     <div class="form-group">
                                                                                         <label>Escalafón</label>
-                                                                                        <select formControlName="escalafon_id" class="form-control" [ngModel]="dataEdit.escalafon_id"> 
+                                                                                        <select formControlName="escalafon_id" class="form-control" [ngModel]="dataEdit.escalafon_id" [class.is-invalid]="escalafonNoValido"> 
                                                                                             <option *ngFor="let escalafon of escalafones" [value]="escalafon.id_escalafon" >{{escalafon.escalafon}}</option> 
-                                                                                      </select>
+                                                                                        </select>
+                                                                                        <small *ngIf="escalafonNoValido" class="form-text text-danger">
+                                                                                            <div *ngFor="let validation of user_validation_messages.escalafon_id" >
+                                                                                                <div  *ngIf="forma.get('escalafon_id')?.hasError(validation.type)">
+                                                                                                    {{validation.message}}
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </small>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-sm-6">
                                                                                     <div class="form-group">
                                                                                         <label>Escala Jerárquica</label>
-                                                                                        <select formControlName="escala_jerarquica_id" class="form-control" [ngModel]="dataEdit.escala_jerarquica_id" (change)=" onChangeEscala()"> 
-                                                                                        <option *ngFor="let escala of escalas" [value]="escala.id_escala_jerarquica">{{escala.escala_jerarquica}}</option> 
-                                                                                    </select>
+                                                                                        <select formControlName="escala_jerarquica_id" class="form-control" [ngModel]="dataEdit.escala_jerarquica_id" (change)=" onChangeEscala()" [class.is-invalid]="escalaJerarquicaNoValido"> 
+                                                                                            <option *ngFor="let escala of escalas" [value]="escala.id_escala_jerarquica">{{escala.escala_jerarquica}}</option> 
+                                                                                        </select>
+                                                                                        <small *ngIf="escalaJerarquicaNoValido" class="form-text text-danger">
+                                                                                            <div *ngFor="let validation of user_validation_messages.escala_jerarquica_id" >
+                                                                                                <div  *ngIf="forma.get('escala_jerarquica_id')?.hasError(validation.type)">
+                                                                                                    {{validation.message}}
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </small>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -262,11 +310,17 @@
                                                                                     <!-- select -->
                                                                                     <div class="form-group">
                                                                                         <label>Grado</label>
-
-                                                                                        <select formControlName="grado_id" class="form-control" [ngModel]="dataEdit.grado_id"> 
+                                                                                        <select formControlName="grado_id" class="form-control" [ngModel]="dataEdit.grado_id" [class.is-invalid]="gradoNoValido"> 
                                                                                             <option></option>
                                                                                             <option *ngFor="let grado of grados" [value]="grado.id_grado" >{{grado.grado}}</option> 
-                                                                                      </select>
+                                                                                        </select>
+                                                                                        <small *ngIf="gradoNoValido" class="form-text text-danger">
+                                                                                            <div *ngFor="let validation of user_validation_messages.grado_id" >
+                                                                                                <div  *ngIf="forma.get('grado_id')?.hasError(validation.type)">
+                                                                                                    {{validation.message}}
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </small>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-sm-6">
@@ -291,6 +345,8 @@
                                                                 </div>
                                                             </div>
                                                             <!-- </form> -->
+
+
 
 
                                                         </div>
@@ -392,15 +448,7 @@
                                                         <div class="form-group">
                                                             <label>Fecha Nacimiento</label>
                                                             <input type="text" bsDatepicker [bsConfig]=bsDatePickerConfig id="datebirth2" class="form-control" formControlName="fecha_nacimiento" [ngModel]="dataEdit.fecha_nacimiento" [class.is-invalid]="fechaNacimientoNoValido">
-                                                            <!-- <small *ngIf="fechaNacimientoNoValido" class="form-text text-danger">
-                                                                <p *ngIf="formaFiliatorios.get('fecha_nacimiento')?.hasError('required')">
-                                                                    Este la fecha de nacimiento es obligatoria.
-                                                                </p>
-                                                                <p *ngIf="formaFiliatorios.get('fecha_nacimiento')?.hasError('pattern')">
-                                                                    El valor ingresado no es una fecha válida (Ej. 07/07/1987).
-                                                                </p> 
-                                                                                                                          
-                                                            </small> -->
+
                                                         </div>
                                                     </div>
 
@@ -416,17 +464,31 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label>Sexo</label>
-                                                            <select formControlName="sexo_id" class="form-control" [ngModel]="dataEdit.sexo_id"> 
-                                                            <option *ngFor="let sexo of sexos" [value]="sexo.id_sexo">{{sexo.sexo}}</option> 
-                                                        </select>
+                                                            <select formControlName="sexo_id" class="form-control" [ngModel]="dataEdit.sexo_id" [class.is-invalid]="sexoNoValido"> 
+                                                                <option *ngFor="let sexo of sexos" [value]="sexo.id_sexo">{{sexo.sexo}}</option> 
+                                                            </select>
+                                                            <small *ngIf="sexoNoValido" class="form-text text-danger">
+                                                                <div *ngFor="let validation of user_validation_messages.sexo_id" >
+                                                                    <div  *ngIf="formaFiliatorios.get('sexo_id')?.hasError(validation.type)">
+                                                                        {{validation.message}}
+                                                                    </div>
+                                                                </div>
+                                                            </small>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label>Estado Civil</label>
-                                                            <select formControlName="estado_civil_id" class="form-control" [ngModel]="dataEdit.estado_civil_id"> 
-                                                            <option *ngFor="let estado_civil of estados_civil" [value]="estado_civil.id_estado_civil">{{estado_civil.estado_civil}}</option> 
-                                                        </select>
+                                                            <select formControlName="estado_civil_id" class="form-control" [ngModel]="dataEdit.estado_civil_id" [class.is-invalid]="estadoCivilNoValido"> 
+                                                                <option *ngFor="let estado_civil of estados_civil" [value]="estado_civil.id_estado_civil">{{estado_civil.estado_civil}}</option> 
+                                                            </select>
+                                                            <small *ngIf="estadoCivilNoValido" class="form-text text-danger">
+                                                                <div *ngFor="let validation of user_validation_messages.estado_civil_id" >
+                                                                    <div  *ngIf="formaFiliatorios.get('estado_civil_id')?.hasError(validation.type)">
+                                                                        {{validation.message}}
+                                                                    </div>
+                                                                </div>
+                                                            </small>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -464,17 +526,31 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label>Provincia</label>
-                                                            <select formControlName="provincia_id" class="form-control" [ngModel]="dataEdit.provincia_id" (change)=" onChangeProvincia()"> 
-                                                            <option *ngFor="let provincia of provincias" [value]="provincia.id_provincia">{{provincia.provincia}}</option> 
-                                                        </select>
+                                                            <select formControlName="provincia_id" class="form-control" [ngModel]="dataEdit.provincia_id" (change)=" onChangeProvincia()" [class.is-invalid]="provinciaNoValido"> 
+                                                                <option *ngFor="let provincia of provincias" [value]="provincia.id_provincia">{{provincia.provincia}}</option> 
+                                                            </select>
+                                                            <small *ngIf="provinciaNoValido" class="form-text text-danger">
+                                                                <div *ngFor="let validation of user_validation_messages.provincia_id" >
+                                                                    <div  *ngIf="formaFiliatorios.get('provincia_id')?.hasError(validation.type)">
+                                                                        {{validation.message}}
+                                                                    </div>
+                                                                </div>
+                                                            </small>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label>Departamento Provincial</label>
-                                                            <select formControlName="departamento_provincial_id" class="form-control" [ngModel]="dataEdit.departamento_provincial_id" (change)=" onChangeDepartamentoProvincial()"> 
-                                                            <option *ngFor="let departamento_provincial of departamentos_provincial" [value]="departamento_provincial.id_dpto_prov">{{departamento_provincial.departamento_provincial}}</option> 
-                                                        </select>
+                                                            <select formControlName="departamento_provincial_id" class="form-control" [ngModel]="dataEdit.departamento_provincial_id" (change)=" onChangeDepartamentoProvincial()" [class.is-invalid]="departamentoProvincialNoValido"> 
+                                                                <option *ngFor="let departamento_provincial of departamentos_provincial" [value]="departamento_provincial.id_dpto_prov">{{departamento_provincial.departamento_provincial}}</option> 
+                                                            </select>
+                                                            <small *ngIf="departamentoProvincialNoValido" class="form-text text-danger">
+                                                                <div *ngFor="let validation of user_validation_messages.departamento_provincial_id" >
+                                                                    <div  *ngIf="formaFiliatorios.get('departamento_provincial_id')?.hasError(validation.type)">
+                                                                        {{validation.message}}
+                                                                    </div>
+                                                                </div>
+                                                            </small>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -483,17 +559,31 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label>Municipio</label>
-                                                            <select formControlName="municipio_id" class="form-control" [ngModel]="dataEdit.municipio_id"> 
-                                                            <option *ngFor="let municipio of municipios" [value]="municipio.id_municipio">{{municipio.municipio}}</option> 
-                                                        </select>
+                                                            <select formControlName="municipio_id" class="form-control" [ngModel]="dataEdit.municipio_id" (change)=" onChangeMunicipios()" [class.is-invalid]="municipioNoValido"> 
+                                                                <option *ngFor="let municipio of municipios" [value]="municipio.id_municipio">{{municipio.municipio}}</option> 
+                                                            </select>
+                                                            <small *ngIf="municipioNoValido" class="form-text text-danger">
+                                                                <div *ngFor="let validation of user_validation_messages.municipio_id" >
+                                                                    <div  *ngIf="formaFiliatorios.get('municipio_id')?.hasError(validation.type)">
+                                                                        {{validation.message}}
+                                                                    </div>
+                                                                </div>
+                                                            </small>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label>Ciudad</label>
-                                                            <select formControlName="ciudad_id" class="form-control"> 
-                                                                    <option *ngFor="let ciudad of ciudades" [value]="ciudad.id_ciudad">{{ciudad.ciudad}}</option> 
-                                                                </select>
+                                                            <select formControlName="ciudad_id" class="form-control" [class.is-invalid]="ciudadNoValido"> 
+                                                                <option *ngFor="let ciudad of ciudades" [value]="ciudad.id_ciudad">{{ciudad.ciudad}}</option> 
+                                                            </select>
+                                                            <small *ngIf="ciudadNoValido" class="form-text text-danger">
+                                                                <div *ngFor="let validation of user_validation_messages.ciudad_id" >
+                                                                    <div  *ngIf="formaFiliatorios.get('ciudad_id')?.hasError(validation.type)">
+                                                                        {{validation.message}}
+                                                                    </div>
+                                                                </div>
+                                                            </small>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -502,9 +592,16 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label>Nivel Educativo</label>
-                                                            <select formControlName="nivel_educativo_id" class="form-control" [ngModel]="dataEdit.nivel_educativo_id"> 
-                                                            <option *ngFor="let nivel_educativo of niveles_educativo" [value]="nivel_educativo.id_nivel_educativo">{{nivel_educativo.nivel_educativo}}</option> 
-                                                        </select>
+                                                            <select formControlName="nivel_educativo_id" class="form-control" [ngModel]="dataEdit.nivel_educativo_id" [class.is-invalid]="nivelEducativoNoValido"> 
+                                                                <option *ngFor="let nivel_educativo of niveles_educativo" [value]="nivel_educativo.id_nivel_educativo">{{nivel_educativo.nivel_educativo}}</option> 
+                                                            </select>
+                                                            <small *ngIf="nivelEducativoNoValido" class="form-text text-danger">
+                                                                <div *ngFor="let validation of user_validation_messages.nivel_educativo_id" >
+                                                                    <div  *ngIf="formaFiliatorios.get('nivel_educativo_id')?.hasError(validation.type)">
+                                                                        {{validation.message}}
+                                                                    </div>
+                                                                </div>
+                                                            </small>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
@@ -539,9 +636,16 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label>Situacion</label>
-                                                            <select formControlName="situacion_id" class="form-control" [ngModel]="dataEdit.situacion_id"> 
-                                                            <option *ngFor="let situacion of situaciones" [value]="situacion.id_situacion">{{situacion.situacion}}</option> 
-                                                        </select>
+                                                            <select formControlName="situacion_id" class="form-control" [ngModel]="dataEdit.situacion_id" [class.is-invalid]="situacionNoValido"> 
+                                                                <option *ngFor="let situacion of situaciones" [value]="situacion.id_situacion">{{situacion.situacion}}</option> 
+                                                            </select>
+                                                            <small *ngIf="situacionNoValido" class="form-text text-danger">
+                                                                <div *ngFor="let validation of user_validation_messages.situacion_id" >
+                                                                    <div  *ngIf="formaFiliatorios.get('situacion_id')?.hasError(validation.type)">
+                                                                        {{validation.message}}
+                                                                    </div>
+                                                                </div>
+                                                            </small>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -565,6 +669,17 @@
                                                     <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary">Guardar</button>
                                                 </div>
                                             </form>
+                                            <!-- datos pre-->
+                                            <hr>
+                                            <pre>
+                                                Estado del Formulario: {{formaFiliatorios.valid}}
+                                                <br>
+                                                Status: {{formaFiliatorios.status}}
+                                            </pre>
+                                            <pre>
+                                                {{formaFiliatorios.value | json}}
+                                            </pre>
+                                            <!-- FIN datos pre-->
 
 
 

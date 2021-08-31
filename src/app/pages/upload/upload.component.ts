@@ -137,15 +137,15 @@ export class UploadComponent implements OnInit {
     this.cargarDivisiones(0);
     this.cargarSectores(0);
     this.cargarSeccionesGuardia(0);
-    this.cargarDepartamentosProvinciales(parseInt(this.forma.get('provincia_id')?.value))
-    this.cargarGrados(parseInt(this.forma.get('escala_jerarquica_id')?.value));
-    this.cargarDepartamentosProvinciales(parseInt(this.forma.get('provincia_id')?.value))
+    this.cargarDepartamentosProvinciales(parseInt(this.forma.get('provincia_id')?.value));
     this.cargarMunicipios(parseInt(this.forma.get('departamento_provincial_id')?.value));
-    this.cargarCiudades(3986);
+    this.cargarCiudades(parseInt(this.forma.get('municipio_id')?.value));
+    this.cargarGrados(parseInt(this.forma.get('escala_jerarquica_id')?.value));
+    
 
     this.administrador = (globalConstants.rol_usuario == "0")? true: false;
 
-    this.ciudades = ciudades;
+    //this.ciudades = ciudades;
     this.destinos = destinos;
     this.estados_civil = estados_civil;    
     this.escalafones = escalafon;
@@ -542,7 +542,6 @@ export class UploadComponent implements OnInit {
 
   cargarCiudades(municipio_id: number){
     this.ciudades= ciudades.filter(ciudad => {
-      
       return ciudad.municipio_id == municipio_id || ciudad.municipio_id == 3986;
     });
   }

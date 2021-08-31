@@ -144,22 +144,22 @@ export class EditComponent implements OnInit {
     //creando el formulario
     this.forma = this.fb.group({
        id_personal: [this.dataEdit.id_personal,Validators.required],
-       apellido_1: [this.dataEdit.apellido_1,[Validators.pattern(/^[A-Za-z\s]+$/), Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+       apellido_1: [this.dataEdit.apellido_1,[Validators.required,Validators.pattern(/^[A-Za-z\s]+$/), Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
        apellido_2: [this.dataEdit.apellido_2,[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
-       nombre_1: [this.dataEdit.nombre_1,[Validators.pattern(/^[A-Za-z\s]+$/), Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+       nombre_1: [this.dataEdit.nombre_1,[Validators.required,Validators.pattern(/^[A-Za-z\s]+$/), Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
        nombre_2: [this.dataEdit.nombre_2,[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
        nombre_3: [this.dataEdit.nombre_3,[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
       //  dni: [this.dataEdit.dni,[Validators.required,Validators.min(1111111),Validators.max(99999999)]],
        legajo: [this.dataEdit.legajo,[Validators.required,,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
-       destino_id: [this.dataEdit.destino_id,[Validators.required]],
-       departamento_id: [this.dataEdit.departamento_id],
-       division_id: [this.dataEdit.division_id],
-       sector_id: [this.dataEdit.sector_id],
+       destino_id: [this.dataEdit.destino_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       departamento_id: [this.dataEdit.departamento_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       division_id: [this.dataEdit.division_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       sector_id: [this.dataEdit.sector_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        funcion: [this.dataEdit.funcion,[Validators.minLength(1), Validators.maxLength(200)]],
-       seccion_guardia_id: [this.dataEdit.seccion_guardia_id],
-       escalafon_id: [this.dataEdit.escalafon_id],
-       escala_jerarquica_id: [this.dataEdit.escala_jerarquica_id],
-       grado_id: [this.dataEdit.grado_id],
+       seccion_guardia_id: [this.dataEdit.seccion_guardia_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       escalafon_id: [this.dataEdit.escalafon_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       escala_jerarquica_id: [this.dataEdit.escala_jerarquica_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       grado_id: [this.dataEdit.grado_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        foto: [this.dataEdit.foto],
        ultimo_ascenso: [this.dataEdit.ultimo_ascenso],
       //  fecha_nacimiento:[this.dataEdit.fecha_nacimiento],
@@ -171,21 +171,21 @@ export class EditComponent implements OnInit {
       fecha_nacimiento: [this.dataEdit.fecha_nacimiento,[Validators.required]],
       fecha_ingreso: [this.dataEdit.fecha_ingreso, ],
       cuil: [this.dataEdit.cuil,[Validators.required, Validators.pattern(/\b(20|23|24|27)(\D)?[0-9]{8}(\D)?[0-9]/)]],
-      sexo_id: [this.dataEdit.sexo_id],
-      estado_civil_id: [this.dataEdit.estado_civil_id],
+      sexo_id: [this.dataEdit.sexo_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      estado_civil_id: [this.dataEdit.estado_civil_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       nacionalidad: [this.dataEdit.nacionalidad,[Validators.minLength(1), Validators.maxLength(50)]],
       domicilio: [this.dataEdit.domicilio,[Validators.minLength(1), Validators.maxLength(300)]],
-      provincia_id: [this.dataEdit.provincia_id],
-      departamento_provincial_id: [this.dataEdit.departamento_provincial_id],
-      municipio_id: [this.dataEdit.municipio_id],
-      ciudad_id: [this.dataEdit.ciudad_id],
-      nivel_educativo_id: [this.dataEdit.nivel_educativo_id],
+      provincia_id: [this.dataEdit.provincia_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      departamento_provincial_id: [this.dataEdit.departamento_provincial_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      municipio_id: [this.dataEdit.municipio_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      ciudad_id: [this.dataEdit.ciudad_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      nivel_educativo_id: [this.dataEdit.nivel_educativo_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       telefonos: [this.dataEdit.telefonos,[Validators.minLength(1), Validators.maxLength(300)]],
       email: [this.dataEdit.email,[Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/), Validators.minLength(4), Validators.maxLength(50)]],
       altura: [this.dataEdit.altura],
       peso: [this.dataEdit.peso],
       registrado_por: [this.dataEdit.registrado_por],
-      situacion_id: [this.dataEdit.situacion_id]
+      situacion_id: [this.dataEdit.situacion_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]]
     });
     //FIN FORMULARIO DATOS FILIATORIOS
   
@@ -204,6 +204,7 @@ export class EditComponent implements OnInit {
     this.cargarSeccionesGuardia(this.dataEdit.departamento_id!);    
     this.cargarDepartamentosProvinciales(this.dataEdit.provincia_id!)    
     this.cargarMunicipios(this.dataEdit.departamento_provincial_id!);
+    this.cargarCiudades(this.dataEdit.municipio_id!);
     this.cargarGrados(this.dataEdit.escala_jerarquica_id!);
     
     
@@ -300,6 +301,38 @@ export class EditComponent implements OnInit {
       { type: 'minlength', message: 'La cantidad mínima de caracteres es 1' },
       { type: 'maxlength', message: 'La cantidad máxima de caracteres es 200'}
     ],
+    'destino_id': [
+      { type: 'required', message: 'El destino es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'departamento_id': [
+      { type: 'required', message: 'El departamento es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'division_id': [
+      { type: 'required', message: 'La division es requerida.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'sector_id': [
+      { type: 'required', message: 'El sector es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'seccion_guardia_id': [
+      { type: 'required', message: 'La seccion guardia es requerida.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'escalafon_id': [
+      { type: 'required', message: 'El escalafon  es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'escala_jerarquica_id': [
+      { type: 'required', message: 'La escala jerarquica es requerida.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'grado_id': [
+      { type: 'required', message: 'El grado es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
     //fin Formulario datos laborales
 
     //Formulario datos personales
@@ -329,6 +362,38 @@ export class EditComponent implements OnInit {
       { type: 'pattern', message: 'No es un email válido.' },
       { type: 'minlength', message: 'La cantidad mínima de caracteres es 4.' },
       { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.'}
+    ],
+    'sexo_id': [
+      { type: 'required', message: 'El sexo es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'estado_civil_id': [
+      { type: 'required', message: 'El estado civil es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'provincia_id': [
+      { type: 'required', message: 'La provincia  es requerida.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'departamento_provincial_id': [
+      { type: 'required', message: 'El departamento provincial  es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'municipio_id': [
+      { type: 'required', message: 'El municipio es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'ciudad_id': [
+      { type: 'required', message: 'La ciudad es requerida.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'nivel_educativo_id': [
+      { type: 'required', message: 'El nivel educativo es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'situacion_id': [
+      { type: 'required', message: 'La situacion educativo es requerida.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
     ]
 
     //fin Formulario datos personales
@@ -369,6 +434,31 @@ export class EditComponent implements OnInit {
   get departamentoNoValido(){
     return this.forma.get('departamento_id')?.invalid && this.forma.get('departamento_id')?.touched;
   }
+
+  get divisionNoValido(){
+    return this.forma.get('division_id')?.invalid && this.forma.get('division_id')?.touched;
+  }  
+
+  get sectorNoValido(){
+    return this.forma.get('sector_id')?.invalid && this.forma.get('sector_id')?.touched;
+  }
+
+  get seccionGuardiaNoValido(){
+    return this.forma.get('seccion_guardia_id')?.invalid && this.forma.get('seccion_guardia_id')?.touched;
+  }
+
+  get escalafonNoValido(){
+    return this.forma.get('escalafon_id')?.invalid && this.forma.get('escalafon_id')?.touched;
+  }
+
+  get escalaJerarquicaNoValido(){
+    return this.forma.get('escala_jerarquica_id')?.invalid && this.forma.get('escala_jerarquica_id')?.touched;
+  }
+
+  get gradoNoValido(){
+    return this.forma.get('grado_id')?.invalid && this.forma.get('grado_id')?.touched;
+  }
+
   //fin validaciones formulario laborales
 
   //validaciones formulario filatorios
@@ -399,6 +489,39 @@ export class EditComponent implements OnInit {
   get emailNoValido(){    
     return this.formaFiliatorios.get('email')?.invalid && this.formaFiliatorios.get('email')?.touched;
   }
+
+  get sexoNoValido(){
+    return this.formaFiliatorios.get('sexo_id')?.invalid && this.formaFiliatorios.get('sexo_id')?.touched;
+  }
+
+  get estadoCivilNoValido(){
+    return this.formaFiliatorios.get('estado_civil_id')?.invalid && this.formaFiliatorios.get('estado_civil_id')?.touched;
+  }
+
+  get provinciaNoValido(){
+    return this.formaFiliatorios.get('provincia_id')?.invalid && this.formaFiliatorios.get('provincia_id')?.touched;
+  }
+
+  get departamentoProvincialNoValido(){
+    return this.formaFiliatorios.get('departamento_provincial_id')?.invalid && this.formaFiliatorios.get('departamento_provincial_id')?.touched;
+  }
+
+  get municipioNoValido(){
+    return this.formaFiliatorios.get('municipio_id')?.invalid && this.formaFiliatorios.get('municipio_id')?.touched;
+  }
+
+  get ciudadNoValido(){
+    return this.formaFiliatorios.get('ciudad_id')?.invalid && this.formaFiliatorios.get('ciudad_id')?.touched;
+  }
+
+  get nivelEducativoNoValido(){
+    return this.formaFiliatorios.get('nivel_educativo_id')?.invalid && this.formaFiliatorios.get('nivel_educativo_id')?.touched;
+  }
+
+  get situacionNoValido(){
+    return this.formaFiliatorios.get('situacion_id')?.invalid && this.formaFiliatorios.get('situacion_id')?.touched;
+  }
+
   
   //fin validaciones formulario filatorios
   //FIN VALIDACIONES FORMULARIOS
@@ -494,9 +617,9 @@ export class EditComponent implements OnInit {
     const id = this.formaFiliatorios.get('provincia_id')?.value;
     if(id != null){
       this.cargarDepartamentosProvinciales(parseInt(id.toString()));
-      this.forma.get('departamento_provincial_id')?.setValue(212000);
+      this.formaFiliatorios.get('departamento_provincial_id')?.setValue(212000);
       this.cargarMunicipios(212000);      
-      this.forma.get('municipio_id')?.setValue(3986);           
+      this.formaFiliatorios.get('municipio_id')?.setValue(3986);           
     }    
   }
 
@@ -509,8 +632,8 @@ export class EditComponent implements OnInit {
   onChangeDepartamentoProvincial(){
     const id = this.formaFiliatorios.get('departamento_provincial_id')?.value;
     if(id != null){
-      this.cargarMunicipios(212000);
-      this.forma.get('municipio_id')?.setValue(3986);
+      this.cargarMunicipios(parseInt(id.toString()));
+      this.formaFiliatorios.get('municipio_id')?.setValue(3986);
            
     }    
   }
@@ -522,10 +645,10 @@ export class EditComponent implements OnInit {
   }  
 
   onChangeMunicipios(){
-    const id = this.forma.get('municipio_id')?.value;
+    const id = this.formaFiliatorios.get('municipio_id')?.value;
     if(id != null){
       this.cargarCiudades(parseInt(id.toString()));
-      this.forma.get('ciudad_id')?.setValue(1);
+      this.formaFiliatorios.get('ciudad_id')?.setValue(1);
     }    
   }
 

@@ -19,7 +19,11 @@
                         </ng-template>
                     </p-toolbar>
 
-                    <p-table #dt [value]="usuarios" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" [(selection)]="selectedUsuarios" [rowHover]="true" dataKey="id_usuario" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    <div *ngIf="cargando" class="card text-center">
+                        <p-progressSpinner [style]="{width: '25%', height: '25%'}" strokeWidth="5"></p-progressSpinner>
+                    </div>
+
+                    <p-table *ngIf="!cargando" #dt [value]="usuarios" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" [(selection)]="selectedUsuarios" [rowHover]="true" dataKey="id_usuario" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                         [showCurrentPageReport]="true">
                         <ng-template pTemplate="caption">
                             <div class="p-d-flex p-ai-center p-jc-between">

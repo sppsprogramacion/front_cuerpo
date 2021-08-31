@@ -14,6 +14,7 @@ import { DepartamentoModel } from '../../models/departamento.model';
 import { DatePipe } from '@angular/common';
 
 
+
 interface IObjectModel{
   label: string; 
   value: string;
@@ -41,6 +42,7 @@ export class ListComponent implements OnInit {
   situacion: IObjectModel[] = [];
   departamentos: IObjectModel[] = [];
   urlEdit: string = '../edit';
+  cargando: boolean = true;
 
   colsTablaPersonalExport: any[]=[]; //array de columnas de la tabla
   nombre_archivo:string="Tabla de datos";
@@ -94,8 +96,9 @@ export class ListComponent implements OnInit {
                         subscribe(respuesta => {
             this.totalRecords = respuesta[1];
             this.personalList = respuesta[0];
-            console.log("personal retornado", this.personalList);
+            // console.log("personal retornado", this.personalList);
             const lista = respuesta[0];
+            this.cargando = false;
             
               });
 

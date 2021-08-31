@@ -4,7 +4,7 @@ import { ListComponent } from './list.component';
 import { ngPrimeModule } from '../../ngprime.module';
 import { RouterModule } from '@angular/router';
 import { PipesModule } from '../../pipes/pipes.module';
-
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 
 
@@ -17,7 +17,8 @@ import { PipesModule } from '../../pipes/pipes.module';
     CommonModule,
     ngPrimeModule,
     RouterModule,
-    PipesModule
+    PipesModule,
+    ProgressSpinnerModule
   ],
   exports: [
     ListComponent,

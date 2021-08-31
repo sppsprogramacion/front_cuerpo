@@ -35,6 +35,7 @@ export class UsuariosComponent implements OnInit {
     selectedDestino: number=8;
     baseUrlImg: string = `${base_url}/usuarios/foto?foto_nombre=`;
     fotoSubir: File | undefined;
+    cargando: boolean = true;
     
       //usuariofrm: IUsuario = {};
   //constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
@@ -55,11 +56,13 @@ export class UsuariosComponent implements OnInit {
         this.usuariosService.getUsuarios().subscribe(resultado => {
             this.total = resultado[1];
             this.usuarios = resultado[0];
+            this.cargando = false;
                });
+
              this.destinosService.listarDestinos().
                                      subscribe((resultado: any[]) => {
                                          let destinoItem: DestinoModel;
-                                         const listado: any[] = resultado[0];
+                                         const listado: any[] = resultado;
                                         const destinosLista: DestinoModel[] = listado.map(item =>  {
                                             destinoItem = {...item};
                                             return destinoItem;
@@ -72,6 +75,7 @@ export class UsuariosComponent implements OnInit {
         this.usuariosService.getUsuarios().subscribe(resultado => {
             this.total = resultado[1];
             this.usuarios = resultado[0];
+            this.cargando = false;
                });
     }
 
@@ -127,6 +131,7 @@ selectedUsuarios: Usuario[] = [];
             reverseButtons: true
           }).then((result) => {
             if (result.isConfirmed) {
+                      this.cargando = true;
                       this.selectedUsuarios.forEach(usuario => {
                       const id: number = parseInt(usuario.id_usuario!.toString());
                       this.usuariosService.deleteUsuario(id)
@@ -187,6 +192,7 @@ selectedUsuarios: Usuario[] = [];
             reverseButtons: true
           }).then((result) => {
             if (result.isConfirmed) {
+              this.cargando = true;
                 this.usuariosService.deleteUsuario(id)
                                     .subscribe(resultado => {
                                         this.actualizarUsuarios();
@@ -220,7 +226,7 @@ selectedUsuarios: Usuario[] = [];
     
     saveProduct() {
          this.submitted = true;
-
+          this.cargando = true;
          if(this.editando){
                        
             if(this.usuario.id_usuario){
@@ -270,12 +276,14 @@ selectedUsuarios: Usuario[] = [];
 
     onUpload(event: File){
             try {
+              this.cargando = true;
                 console.log('DATA DEL ARCHIVO', event);
                 this.fotoSubir = event;
                 let id: number =  this.usuario.id_usuario! ;
                this.fileUploadService.actualizarFoto(this.fotoSubir, id).then(respuesta => {
                    if(respuesta.ok){
                     Swal.fire('Actualización Exitosa!!', "La foto del Usuario ha sido cambiada con éxito","success");
+                    this.cargando = false;
                    }else{
                        throw new Error('Error al Actualizar la foto');
                    }

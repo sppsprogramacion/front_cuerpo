@@ -1,3 +1,10 @@
+<!-- <div *ngIf="cargando" class="row">
+    <div class="col-12 text-center">
+        <p-progressSpinner></p-progressSpinner>
+
+    </div>
+</div> -->
+
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -7,8 +14,11 @@
             <div class="card-body">
                 <div class="card">
 
-                    <div class="card">
+                    <div *ngIf="cargando" class="card text-center">
+                        <p-progressSpinner [style]="{width: '25%', height: '25%'}" strokeWidth="5"></p-progressSpinner>
+                    </div>
 
+                    <div *ngIf="!cargando" class="card">
                         <p-table #dt id="personal-table" [value]="personalList" [style]="{width:'100%'}" [columns]="colsTablaPersonalExport" [exportFilename]="nombre_archivo" selectionMode="multiple" [(selection)]="selectedPersonal" dataKey="id_personal" [rowHover]="true" [rows]="5"
                             [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50]" [loading]="loading" [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']"
                             [scrollable]="true" scrollHeight="100%" [responsive]="false">
@@ -484,8 +494,6 @@
 
 
                         </p-table>
-
-
                     </div>
 
                 </div>

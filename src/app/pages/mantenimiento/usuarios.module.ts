@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ngPrimeModule } from '../../ngprime.module';
 import { FormsModule } from '@angular/forms';
-
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 
 @NgModule({
@@ -13,7 +13,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ngPrimeModule,
-    FormsModule
+    FormsModule,
+    ProgressSpinnerModule
   ],
   exports: [
     UsuariosComponent

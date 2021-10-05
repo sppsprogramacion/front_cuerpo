@@ -58,7 +58,7 @@
                                                         <div class="col-12 col-sm-4">
                                                             <div class="col-12" id="foto-personal">
 
-                                                                <img [src]="foto_nombre | fotopersonal" class="product-image" alt="Product Image">
+                                                                <img [src]="foto_nombre" class="product-image" alt="Product Image">
                                                                 <div class="p-col-12 p-md-10">
                                                                     <p-fileUpload name="foto" [customUpload]="true" [multiple]="true" (uploadHandler)="onUpload($event.files[0])"></p-fileUpload>
                                                                 </div>

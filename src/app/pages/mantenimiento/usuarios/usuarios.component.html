@@ -67,7 +67,8 @@
                                     <p-tableCheckbox [value]="usuario"></p-tableCheckbox>
                                 </td>
                                 <!-- <td>{{usuario.img}}</td> -->
-                                <td><img [src]="baseUrlImg + usuario.img" [alt]="usuario.img" style="border-radius: 150px;" width="50" class="p-shadow-4" /></td>
+                                <!-- <td><img [src]="baseUrlImg + usuario.img" [alt]="usuario.img" style="border-radius: 150px;" width="50" class="p-shadow-4" /></td> -->
+                                <td><img [src]="usuario.img" [alt]="usuario.img" style="border-radius: 150px;" width="50" class="p-shadow-4" /></td>
                                 <td>{{usuario.id_usuario}}</td>
                                 <td>{{usuario.nombre}}</td>
                                 <td>{{usuario.apellido}}</td>
@@ -153,7 +154,7 @@
                         </div>
 
                         <div class="p-field p-grid">
-                            <img class="p-col-12 p-mb-2 p-mb-md-0" *ngIf="this.editando" [src]="baseUrlImg + usuario.img" [alt]="usuario.img" style="border-radius: 50px;" width="100" class="p-shadow-4" />
+                            <img class="p-col-12 p-mb-2 p-mb-md-0" *ngIf="this.editando" [src]="usuario.img" [alt]="usuario.img" style="border-radius: 50px;" width="100" class="p-shadow-4" />
                             <div class="p-col-12 p-md-10">
                             </div>
                             <div class="p-field p-grid">

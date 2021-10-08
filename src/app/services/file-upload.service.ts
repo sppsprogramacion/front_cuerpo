@@ -16,10 +16,6 @@ export class FileUploadService {
   ) { }
 
   async actualizarFoto(archivo: File, id: number){
-    // const url = `${base_url}/usuarios/foto?id=${id}`;
-    // const formData = new FormData();
-    // formData.append('foto', archivo);
-    // return this.http.post(url, formData);
       try {
         const url = `${base_url}/usuarios/foto?id=${id}`;
         const formData = new FormData();
@@ -39,11 +35,7 @@ export class FileUploadService {
   }
 
   async actualizarFotoPersonal(archivo: File, id: number){
-    // const url = `${base_url}/usuarios/foto?id=${id}`;
-    // const formData = new FormData();
-    // formData.append('foto', archivo);
-    // return this.http.post(url, formData);
-      try {
+     try {
         const url = `${base_url}/personal/foto?id=${id}`;
         const formData = new FormData();
         formData.append('foto', archivo);

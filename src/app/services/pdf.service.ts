@@ -32,10 +32,9 @@ pdf: PdfModel = new PdfModel();
 
 
 
-  getPDF(id : number): Observable<Blob>
+  getPDF(key : string): Observable<Blob>
      {
-        //  const url = `http://localhost:3000/archivo/id/pdf?id=${id}`;
-        const url = `${this.base_url}/archivo/id/pdf?id=${id}`;
+         const url = `${this.base_url}/archivo/s3/pdf?key=${key}`;
          var authorization = 'Bearer '+sessionStorage.getItem("access_token");
 
          const headers = new HttpHeaders({ 
@@ -112,7 +111,7 @@ pdf: PdfModel = new PdfModel();
                             )
         ;
            
-      } catch (error) {
+      } catch (error:any) {
         throw new Error(error.message)
       }
     }
@@ -121,7 +120,7 @@ pdf: PdfModel = new PdfModel();
       try {
             const url = `${this.base_url}/archivo/${id}`;
             return this.http.delete(url);
-        } catch (error) {
+        } catch (error: any) {
             throw new Error(error);
         
       }

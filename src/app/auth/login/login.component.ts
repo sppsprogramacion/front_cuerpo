@@ -31,7 +31,7 @@ export class LoginComponent {
        if(user.correo){
          correoAux= user.correo;
        }
-       globalConstants.urlImagen = user.fotoUrl;                                      
+       globalConstants.urlImagen = user.img!;                                      
        globalConstants.nombreUsuario = user.nombre + " " + user.apellido;
        globalConstants.emailUsuario = correoAux;
        globalConstants.destino_usuario = user.destino_id!;

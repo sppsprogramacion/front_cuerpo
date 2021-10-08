@@ -709,7 +709,7 @@
 
                                                         <div class="foto-marco-vertical">
                                                             <div class="foto-marco">
-                                                                <img class="foto" [src]="foto_nombre | fotopersonal">
+                                                                <img class="foto" [src]="foto_nombre">
                                                                 <!-- <img class="foto" src="../../../assets/img/avatar4.png"> -->
 
                                                             </div>
@@ -816,21 +816,10 @@
                                                                 <td>
                                                                     <!-- <button type="button" pButton pRipple icon="pi pi-file-pdf" class="p-button-warning p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button> -->
                                                                     <!-- <button type="button" pButton pRipple icon="pi pi-file-pdf" class="p-button-warning p-mr-2" pTooltip="PDF" tooltipPosition="bottom" onclick="printJS({printable:'pdf.id_archivo | pdfpersonal', type:'pdf', showModal:true})"> -->
-                                                                    <button type="button" pButton pRipple icon="pi pi-file-pdf" class="p-button-warning p-mr-2" pTooltip="PDF" tooltipPosition="bottom" (click)="descargarPdf(pdf.id_archivo)"></button>
+                                                                    <button type="button" pButton pRipple icon="pi pi-file-pdf" class="p-button-warning p-mr-2" pTooltip="PDF" tooltipPosition="bottom" (click)="descargarPdf(pdf.nombre_archivo)"></button>
 
                                                                 </td>
-                                                                <!-- <td>
-                                                                    
-                                                                    {{pdf.id_archivo}}
-                                                                </td>
-                                                                <td>
-                                                                    
-                                                                    {{pdf.legajo_personal}}
-                                                                </td>
-                                                                <td>
-                                                                    
-                                                                    {{pdf.nombre_archivo}}
-                                                                </td> -->
+
                                                                 <td>
                                                                     <!-- <span class="p-column-title">Nombre 1</span> -->
                                                                     {{pdf.detalle}}

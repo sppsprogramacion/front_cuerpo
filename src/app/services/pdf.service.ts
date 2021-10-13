@@ -86,6 +86,11 @@ pdf: PdfModel = new PdfModel();
         }
     }
 
+
+    editPdf(id: number, data: Partial<PdfModel>){
+      return this.http.put(`${this.base_url}/archivo/${id}`, data);
+    }
+
     
     getxlegajo(legajo: number) {
       let total: number = 0;

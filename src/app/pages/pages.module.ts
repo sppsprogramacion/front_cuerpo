@@ -13,6 +13,14 @@ import { ngPrimeModule } from '../ngprime.module';
 import { FotopersonalPipe } from '../pipes/fotopersonal.pipe';
 import { PipesModule } from '../pipes/pipes.module';
 
+import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  dayGridPlugin,
+  interactionPlugin
+]);
+
 
 
  @NgModule({
@@ -36,7 +44,8 @@ import { PipesModule } from '../pipes/pipes.module';
      UsuariosModule,
      HttpClientModule,
      ngPrimeModule,
-     PipesModule
+     PipesModule,
+     FullCalendarModule
    ]
  })
 export class PagesModule { }

@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit {
 
   bsDatePickerConfig!: Partial<BsDatepickerConfig>;
   regEvento: Partial<EventoModel> = new EventoModel();
-
+  listaEventos: Partial<EventoModel>[] = [];
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     dateClick: this.handleDateClick.bind(this), // bind is important!
@@ -84,8 +84,18 @@ export class DashboardComponent implements OnInit {
     // this.tituloFormPdf="Editar Registro Pdf"
     // this.editandoPdf = true;
     // this.regPdf = {...pdf};
-    this.newFileDialog = true;
+    let data: Partial<EventoModel>;
+    data = {
+        detalle: this.regEvento.detalle,
+        indice: this.regEvento.indice,
+        fecha_inicio: this.regEvento.fecha_inicio!
+    }
+    console.log("nuevo evento ",data);
+    this.listaEventos.push(data);
+    console.log("Lista Eventos", this.listaEventos);
+    this.ocultarDialogo();
   }
+
   ocultarDialogo(){
     
     this.newFileDialog = false

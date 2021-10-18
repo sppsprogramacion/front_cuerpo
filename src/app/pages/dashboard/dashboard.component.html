@@ -44,7 +44,7 @@
                                             <label class="p-col-2 p-mb-2 p-mb-md-0" for="detalle">Detalle</label>
                                             <div class="p-col-12 p-md-10">
                                                 <!-- <input type="text" pInputText id="detalle" [(ngModel)]="regPdf.detalle" /> -->
-                                                <input type="text" pInputText id="detalle" />
+                                                <input type="text" pInputText id="detalle" [(ngModel)]="regEvento.detalle" />
                                                 <!-- <small class="p-error" *ngIf="submitted && !regPdf.detalle">El Detalle del Archivo es requerido!</small> -->
                                             </div>
                                         </div>
@@ -52,7 +52,7 @@
                                             <label class="p-col-2 p-mb-2 p-mb-md-0" for="indice">Indice</label>
                                             <div class="p-col-12 p-md-10">
                                                 <!-- <input type="number" pInputText id="indice" [(ngModel)]="regPdf.indice" /> -->
-                                                <input type="number" pInputText id="indice" />
+                                                <input type="number" pInputText id="indice" [(ngModel)]="regEvento.indice" />
                                                 <!-- <small class="p-error" *ngIf="submitted && !regPdf.indice">El indice es el orden del Archivo y es requerido!</small> -->
                                             </div>
                                         </div>
@@ -77,7 +77,7 @@
                         </ng-template>
                         <ng-template pTemplate="footer">
                             <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="ocultarDialogo()"></button>
-                            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"></button>
+                            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="nuevoEvento()"></button>
                             <!-- <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="grabarRegPdf()"></button> -->
                         </ng-template>
                     </p-dialog>

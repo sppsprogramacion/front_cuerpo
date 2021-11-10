@@ -34,6 +34,7 @@ export class UsuariosComponent implements OnInit {
     destinos: DestinoModel[]=[];
     selectedDestino: number=8;
     baseUrlImg: string = `${base_url}/usuarios/foto?foto_nombre=`;
+    noImagen: string = './assets/img/no-image.jpg';
     fotoSubir: File | undefined;
     cargando: boolean = true;
     

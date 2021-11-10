@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { globalConstants } from '../common/global-constants';
 
 
 
@@ -10,11 +11,11 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class PagesComponent implements OnInit {
-
+  
   constructor() { }
 
   ngOnInit(): void {
-
+    
   }
 
 }

@@ -222,7 +222,12 @@ export class EditComponent implements OnInit {
     this.situaciones= situacion;
 
     if(this.dataEdit.foto){
-      this.foto_nombre = this.dataEdit.foto?.toString();
+      if(this.dataEdit.foto?.toString() != "no-image.png"){
+        this.foto_nombre = this.dataEdit.foto?.toString();
+      }
+      else{
+        this.foto_nombre = "./assets/img/no-image.jpg";
+      }     
 
     }
 

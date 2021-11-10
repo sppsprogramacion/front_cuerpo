@@ -43,6 +43,7 @@ export class ListComponent implements OnInit {
   departamentos: IObjectModel[] = [];
   urlEdit: string = '../edit';
   cargando: boolean = true;
+  noImagen: string = './assets/img/no-image.jpg';
 
   colsTablaPersonalExport: any[]=[]; //array de columnas de la tabla
   nombre_archivo:string="Tabla de datos";

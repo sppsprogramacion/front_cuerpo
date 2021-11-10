@@ -348,7 +348,7 @@
                                         <p-tableCheckbox [value]="personal"></p-tableCheckbox>
                                     </td>
                                     <td>
-                                        <img class="p-col-12 p-mb-2 p-mb-md-0" [src]="personal.foto" [alt]="personal" style="border-radius: 10px;" width="80" class="p-shadow-4" />
+                                        <img class="p-col-12 p-mb-2 p-mb-md-0" [src]="personal.foto!= 'no-image.png' ? personal.foto : noImagen" [alt]="personal" style="border-radius: 10px;" width="80" class="p-shadow-4" />
                                         <!-- <span class="p-column-title">Codigo</span> {{personal.foto | fotopersonal}} -->
                                     </td>
                                     <td>

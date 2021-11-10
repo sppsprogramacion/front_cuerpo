@@ -35,6 +35,7 @@ export class LoginComponent {
        globalConstants.nombreUsuario = user.nombre + " " + user.apellido;
        globalConstants.emailUsuario = correoAux;
        globalConstants.destino_usuario = user.destino_id!;
+      console.log("data", data);
        globalConstants.rol_usuario = user.role!;
        globalConstants.id_usuario = user.id_usuario!;
   }

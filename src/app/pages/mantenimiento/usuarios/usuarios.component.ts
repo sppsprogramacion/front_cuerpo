@@ -280,7 +280,7 @@ selectedUsuarios: Usuario[] = [];
                 console.log('DATA DEL ARCHIVO', event);
                 this.fotoSubir = event;
                 let id: number =  this.usuario.id_usuario! ;
-               this.fileUploadService.actualizarFoto(this.fotoSubir, id).then(respuesta => {
+               this.fileUploadService.actualizarFoto(this.fotoSubir, id).then((respuesta: any) => {
                    if(respuesta.ok){
                     Swal.fire('Actualización Exitosa!!', "La foto del Usuario ha sido cambiada con éxito","success");
                     this.cargando = false;
@@ -291,7 +291,7 @@ selectedUsuarios: Usuario[] = [];
                 Swal.fire('Error', error.message, "error"); 
                });
                 
-            } catch (error) {
+            } catch (error:any) {
                 
                 Swal.fire('Error', error.message, "error");    
             }

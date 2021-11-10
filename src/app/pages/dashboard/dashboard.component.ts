@@ -24,6 +24,19 @@ export class DashboardComponent implements OnInit {
     { title: 'event 2', date: '2021-10-20' }
   ];
 
+  // calendarOptions: CalendarOptions = {
+  //   headerToolbar: {
+  //     left: 'prev,next today',
+  //     center: 'title',
+  //     right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+  //   },
+  //   initialView: 'dayGridMonth',
+  //   dateClick: this.handleDateClick.bind(this), // bind is important!
+  //   events: this.listaEventos,
+  //   editable: true 
+    
+  // };
+
   calendarOptions: CalendarOptions = {
     headerToolbar: {
       left: 'prev,next today',
@@ -31,10 +44,20 @@ export class DashboardComponent implements OnInit {
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
     initialView: 'dayGridMonth',
-    dateClick: this.handleDateClick.bind(this), // bind is important!
-    events: this.listaEventos,
-    editable: true 
-    
+    initialEvents: this.listaEventos, // alternatively, use the `events` setting to fetch from a feed
+    weekends: true,
+    editable: true,
+    selectable: true,
+    selectMirror: true,
+    dayMaxEvents: true,
+    // select: this.handleDateSelect.bind(this),
+    // eventClick: this.handleEventClick.bind(this),
+    // eventsSet: this.handleEvents.bind(this)
+    /* you can update a remote database when these fire:
+    eventAdd:
+    eventChange:
+    eventRemove:
+    */
   };
 
   handleDateClick(arg:any) {

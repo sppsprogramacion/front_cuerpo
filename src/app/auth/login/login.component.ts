@@ -55,13 +55,14 @@ export class LoginComponent {
   login(){
     return this.loginService.login(this.loginForm.value)
                                     .subscribe((respuesta) => {
-                                       this.extraerData(respuesta);
+                                      this.extraerData(respuesta);
                                      
                                       Swal.fire({
                                         title: "Logeo Exitoso",
                                         text: "Ha ingresado a la Aplicación",
                                         icon: 'success'                                     
                                       });
+                                      
                                       //este codigo modifica una variable global para que el guard permita el acceso
                                       globalConstants.validado = true;
                                       console.log('EL USUARIO QUE INGRESA TIENE ESTE ROL', globalConstants.rol_usuario);

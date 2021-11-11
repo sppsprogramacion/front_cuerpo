@@ -255,7 +255,7 @@ export class EditComponent implements OnInit {
         var a         = document.createElement('a');
         a.href        = fileURL; 
         a.target      = '_blank';
-        a.download    = 'bill.pdf';
+        //a.download    = 'bill.pdf';
         document.body.appendChild(a);
         a.click();
       },

@@ -35,23 +35,25 @@ export class LoginComponent {
        globalConstants.inicialesUsuario= user.nombre?.charAt(0).toUpperCase() + "" + user.apellido?.charAt(0).toUpperCase();
        globalConstants.emailUsuario = correoAux;
        globalConstants.destino_usuario = user.destino_id!;
+       this.nombreCortoDestino(user.destino_id!);
       console.log("data", data);
        globalConstants.rol_usuario = user.role!;
        globalConstants.id_usuario = user.id_usuario!;
   }
 
- public loginForm = this.fb.group({
-   correo: [localStorage.getItem('email') || ' ',[Validators.required, Validators.email]],
-   clave: ['',Validators.required],
-   recuerdame: [false]
- });
+  public loginForm = this.fb.group({
+    correo: [localStorage.getItem('email') || ' ',[Validators.required, Validators.email]],
+    clave: ['',Validators.required],
+    recuerdame: [false]
+  });
 
   constructor(
     private fb: FormBuilder,
     private loginService: UsuariosService,
     private router: Router
   ) { }
-
+  
+  //INICIO DE SESION
   login(){
     return this.loginService.login(this.loginForm.value)
                                     .subscribe((respuesta) => {
@@ -82,6 +84,54 @@ export class LoginComponent {
                                       globalConstants.validado = false;
                                     });
   }
+  //FIN INICIO DE SESION...................................................
+
+  //ESTABLECER NOMBRE CORTO DE DESTINO
+  private nombreCortoDestino(id_destino: number){
+    switch(id_destino){
+      case 1:{
+          globalConstants.destino_corto = "U.C.N° 1";
+        break;
+      }
+      case 2:{
+        globalConstants.destino_corto = "U.C.N° 2";
+        break;
+      }
+      case 3:{
+        globalConstants.destino_corto = "U.C.N° 3";
+        break;
+      }
+      case 4:{
+        globalConstants.destino_corto = "U.C.N° 4";
+        break;
+      }
+      case 5:{
+        globalConstants.destino_corto = "U.C.N° 5";
+        break;
+      }
+      case 6:{
+        globalConstants.destino_corto = "U.C.N° 6";
+        break;
+      }
+      case 7:{
+        globalConstants.destino_corto = "U.C.N° 7";
+        break;
+      }
+      case 9:{
+        globalConstants.destino_corto= "Direccion General";
+        break;
+
+      }
+      case 10:{
+        globalConstants.destino_corto= "Cuerpo";
+        break;
+
+      }
+
+    }
+  }
+
+  //FIN ESTABLECER NOMBRE CORTO DE DESTINO.................................
 
   
 }

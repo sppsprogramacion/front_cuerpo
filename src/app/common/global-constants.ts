@@ -8,7 +8,7 @@ export class globalConstants {
     public static emailUsuario: string = "";
     public static temaOscuro: boolean = true;
     public static destino_usuario: number;
-    public static destino_nombre: string;
+    public static destino_corto: string;
     public static rol_usuario: string;
     public static id_usuario: number;
 }

@@ -13,7 +13,7 @@ export class BreadcrumbComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.destino_nombre = globalConstants.destino_nombre;
+    this.destino_nombre = globalConstants.destino_corto;
     this.destino_id = globalConstants.destino_usuario;
   }
 

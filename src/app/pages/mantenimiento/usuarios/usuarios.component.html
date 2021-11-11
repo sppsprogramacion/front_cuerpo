@@ -134,12 +134,16 @@
                                 </div>
                             </div>
                             <div class="p-field p-grid">
+                                <label class="p-col-2 p-mb-2 p-mb-md-0" for="">Rol</label>
                                 <div class="p-col-12 p-md-10">
+
                                     <p-dropdown class="p-col-12 p-mb-2 p-mb-md-0" [options]="roles" [(ngModel)]="usuario.role" optionLabel="role_name" optionValue="code" appendTo="body"></p-dropdown>
                                 </div>
                             </div>
                             <div class="p-field p-grid">
+                                <label class="p-col-2 p-mb-2 p-mb-md-0" for="">Destino</label>
                                 <div class="p-col-12 p-md-10">
+
                                     <p-dropdown class="p-col-12 p-mb-2 p-mb-md-0" [options]="destinos" [(ngModel)]="usuario.destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown>
                                 </div>
                             </div>
@@ -154,7 +158,9 @@
                         </div>
 
                         <div class="p-field p-grid">
-                            <img class="p-col-12 p-mb-2 p-mb-md-0" *ngIf="this.editando" [src]="usuario.img!= 'no-image.jpg' ? usuario.img : noImagen" [alt]="usuario.img" style="border-radius: 50px;" width="100" class="p-shadow-4" />
+                            <div class="p-field justify-content-center text-center">
+                                <img class="p-col-12 p-mb-2 p-mb-md-0" *ngIf="this.editando" [src]="usuario.img!= 'no-image.jpg' ? usuario.img : noImagen" [alt]="usuario.img" style="border-radius: 50px;" width="100" class="p-shadow-4" />
+                            </div>
                             <div class="p-col-12 p-md-10">
                             </div>
                             <div class="p-field p-grid">

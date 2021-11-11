@@ -49541,12 +49541,12 @@ export const situacion = [
 export const departamentos = [
     {
         "id_departamento": 1,
-        "departamento": "Vigilancia y Tratamiento",
+        "departamento": "Vigilancia y Tratamiento - UC1",
         "destino_id": 1
     },
     {
         "id_departamento": 2,
-        "departamento": "Seguridad Externa",
+        "departamento": "Seguridad Externa - UC1",
         "destino_id": 1
     },
     {
@@ -49556,12 +49556,12 @@ export const departamentos = [
     },
     {
         "id_departamento": 4,
-        "departamento": "Perimetral",
+        "departamento": "Seguridad Externa - UC5",
         "destino_id": 5
     },
     {
         "id_departamento": 5,
-        "departamento": "Seguridad Interna",
+        "departamento": "Vigilancia y Tratamiento - UC5",
         "destino_id": 5
     },
     {
@@ -49573,6 +49573,56 @@ export const departamentos = [
         "id_departamento": 10,
         "departamento": "Sanidad",
         "destino_id": 9
+    },
+    {
+        "id_departamento": 17,
+        "departamento": "Seguridad Externa - UC2",
+        "destino_id": 2
+    },
+    {
+        "id_departamento": 18,
+        "departamento": "Vigilancia y Tratamiento - UC2",
+        "destino_id": 2
+    },
+    {
+        "id_departamento": 20,
+        "departamento": "Vigilancia y Tratamiento - UC3",
+        "destino_id": 3
+    },
+    {
+        "id_departamento": 21,
+        "departamento": "Seguridad Externa - UC3",
+        "destino_id": 3
+    },
+    {
+        "id_departamento": 22,
+        "departamento": "Seguridad Externa - UC4",
+        "destino_id": 4
+    },
+    {
+        "id_departamento": 23,
+        "departamento": "Vigilancia y Tratamiento - UC4",
+        "destino_id": 4
+    },
+    {
+        "id_departamento": 25,
+        "departamento": "Vigilancia y Tratamiento - UC6",
+        "destino_id": 6
+    },
+    {
+        "id_departamento": 26,
+        "departamento": "Seguridad Externa - UC6",
+        "destino_id": 6
+    },
+    {
+        "id_departamento": 27,
+        "departamento": "Seguridad Externa - UC7",
+        "destino_id": 7
+    },
+    {
+        "id_departamento": 28,
+        "departamento": "Vigilancia y Tratamiento - UC7",
+        "destino_id": 7
     }
 ];
 

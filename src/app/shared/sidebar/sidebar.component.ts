@@ -13,6 +13,7 @@ export class SidebarComponent implements OnInit {
   menu: any[] = [];
   imgUrl: string = "";
   nombreUsuario: string = "";
+  inicialesUsuario: string = "";
   emailUsuario: string = "";
   icono: string = "";
 
@@ -29,6 +30,7 @@ export class SidebarComponent implements OnInit {
     
     this.imgUrl = globalConstants.urlImagen;
     this.nombreUsuario = globalConstants.nombreUsuario;
+    this.inicialesUsuario = globalConstants.inicialesUsuario;
     this.emailUsuario = globalConstants.emailUsuario;
     
     

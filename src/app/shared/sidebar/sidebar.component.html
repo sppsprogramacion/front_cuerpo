@@ -1,7 +1,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="../../index3.html" class="brand-link">
+    <a routerLink="/dashboard/" class="brand-link">
         <img src="./assets/img/logo1.png" alt="SPPS" class="brand-image img-circle elevation-0" style="opacity: .8">
         <span class="brand-text font-weight-light">SPPS Legajos</span>
     </a>
@@ -22,7 +22,7 @@
                         <a class="navbar-link">
                             <!-- <img [src]="imgUrl" class="img-circle elevation-2" style="vertical-align: middle;"> -->
                             <img [src]="imgUrl" class="p-shadow-4" style="border-radius: 10px;">
-                            <span> {{nombreUsuario}}</span>
+                            <span class="rounded-circle" style="background-color: darkviolet; width: 50rem; height: 50rem;color: azure;padding:5px;margin-left: 10px; text-align: center;">{{inicialesUsuario}}</span>
                         </a>
                     </div>
 
@@ -31,7 +31,7 @@
                         <ul class="nav nav-pills nav-sidebar flex-column">
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    <i class="fas fa-sign-out-alt"></i>
+                                    <i class="fas fa-power-off"></i>
                                     <p>&nbsp;Cerrar Sesi&oacute;n</p>
                                 </a>
                             </li>

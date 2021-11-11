@@ -14,8 +14,7 @@ import { globalConstants } from 'src/app/common/global-constants';
   ]
 })
 export class LoginComponent {
-
-
+  
   extraerData(data: any) {
       //voy a desestructurar respuesta
        const {id_usuario, apellido, correo, dni, img, nombre, role, destino_id} = data;
@@ -33,6 +32,7 @@ export class LoginComponent {
        }
        globalConstants.urlImagen = user.img!;                                      
        globalConstants.nombreUsuario = user.nombre + " " + user.apellido;
+       globalConstants.inicialesUsuario= user.nombre?.charAt(0).toUpperCase() + "" + user.apellido?.charAt(0).toUpperCase();
        globalConstants.emailUsuario = correoAux;
        globalConstants.destino_usuario = user.destino_id!;
       console.log("data", data);

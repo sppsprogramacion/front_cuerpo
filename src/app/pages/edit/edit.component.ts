@@ -546,7 +546,7 @@ export class EditComponent implements OnInit {
         const id = this.forma.get('destino_id')?.value;
         if(id != null){
           this.cargarDepartamentos(parseInt(id.toString()));
-          this.cargarDivisiones(0);
+          this.cargarDivisiones(3);
           this.cargarSectores(0);
           this.cargarSeccionesGuardia(0);
           this.forma.get('departamento_id')?.setValue(3);

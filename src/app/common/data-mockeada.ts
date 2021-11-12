@@ -49490,8 +49490,28 @@ export const sexos = [
 
 export const destinos = [
     {
+        "id_destino": 13,
+        "destino": "Direccion Correccional"
+    },
+    {
+        "id_destino": 11,
+        "destino": "Direccion de Administracion"
+    },
+    {
+        "id_destino": 10,
+        "destino": "Direccion de Cuerpo Penitenciario"
+    },
+    {
         "id_destino": 9,
         "destino": "Dirección General"
+    },
+    {
+        "id_destino": 12,
+        "destino": "Direccion Industrial"
+    },
+    {
+        "id_destino": 14,
+        "destino": "Inspeccion General"
     },
     {
         "id_destino": 8,
@@ -49671,6 +49691,16 @@ export const divisiones = [
         "id_division": 9,
         "division": "Mesa de Entrada y Archivo General",
         "departamento_id": 6
+    },
+    {
+        "id_division": 10,
+        "division": "Custodia y Traslado",
+        "departamento_id": 3
+    },
+    {
+        "id_division": 11,
+        "division": "Judiciales",
+        "departamento_id": 3
     }
 ];
 

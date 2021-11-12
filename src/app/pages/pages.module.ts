@@ -16,6 +16,16 @@ import { PipesModule } from '../pipes/pipes.module';
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
+// Import pdfmake-wrapper and the fonts to use
+import { PdfMakeWrapper } from 'pdfmake-wrapper';
+import * as pdfFonts from "pdfmake/build/vfs_fonts"; // fonts provided for pdfmake
+
+// If any issue using previous fonts import. you can try this:
+// import pdfFonts from "pdfmake/build/vfs_fonts";
+
+// registrar las fuentes
+PdfMakeWrapper.setFonts(pdfFonts);
+
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin

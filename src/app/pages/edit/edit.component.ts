@@ -33,6 +33,7 @@ import { PdfpersonalPipe } from 'src/app/pipes/pdfpersonal.pipe';
 import { PdfService } from 'src/app/services/pdf.service';
 import {environment} from 'src/environments/environment';
 import { CiudadModel } from '../../models/ciudad.model';
+import { Img, PdfMakeWrapper, Txt } from 'pdfmake-wrapper';
 
 @Component({
   selector: 'app-edit',
@@ -166,6 +167,8 @@ export class EditComponent implements OnInit {
       //  fecha_nacimiento:[this.dataEdit.fecha_nacimiento],
     });
 
+  
+
     //FORMULARIO DATOS FILIATORIOS
     this.formaFiliatorios = this.fb.group({   
       dni: [this.dataEdit.dni,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1000000), Validators.max(99000000)]],
@@ -196,7 +199,10 @@ export class EditComponent implements OnInit {
     auxiliar = this.dataEdit.grado;
     this.nombreCompleto = (auxiliar.grado! || "") + " " + (this.dataEdit.apellido_1! || "") + " " + (this.dataEdit.apellido_2! || "") +" " + (this.dataEdit.nombre_1! || "") +" " + (this.dataEdit.nombre_2! || "") +" " + (this.dataEdit.nombre_3! || "");
     this.nombreCompleto = this.nombreCompleto.toUpperCase();
+    
+    //analizar si es administrador o no
     this.administrador = (globalConstants.rol_usuario == "0")? true: false;
+    this.deshabilitarCampos(this.administrador);
     auxiliar = this.dataEdit.destino;    
 
     this.cargarDepartamentos(this.dataEdit.destino_id!);
@@ -230,6 +236,8 @@ export class EditComponent implements OnInit {
       }     
 
     }
+
+    
 
   }
   //fin constructor
@@ -889,18 +897,18 @@ export class EditComponent implements OnInit {
           Swal.fire('Error', error.message, "error");    
     }
   }
+  
+  listarPdfs(numLegajo: number){
+      
+      const respuesta =  (this.pdfService.getxlegajo(numLegajo)).subscribe((res: {ok: boolean,total: number,  pdfs: PdfModel[]}) => {
+         this.pdfsList = res.pdfs;
+      });
+       
+  }
 
-listarPdfs(numLegajo: number){
-    
-    const respuesta =  (this.pdfService.getxlegajo(numLegajo)).subscribe((res: {ok: boolean,total: number,  pdfs: PdfModel[]}) => {
-       this.pdfsList = res.pdfs;
-    });
-     
-}
 
 
-
-deletePdf(pdf: PdfModel){
+  deletePdf(pdf: PdfModel){
     const idPdf: number = parseInt(pdf.id_archivo.toString());
     let legajo: number =  this.dataEdit.legajo!;
     const swalWithBootstrapButtons = Swal.mixin({
@@ -950,6 +958,52 @@ deletePdf(pdf: PdfModel){
     })
 
   
-}
+  }
+
+  //DESABHILITAR CAMPOS
+  private deshabilitarCampos(valor: boolean){
+    if(valor==false){
+      this.forma.controls['apellido_1'].disable();
+      this.forma.controls['apellido_2'].disable();
+      this.forma.controls['nombre_1'].disable();
+      this.forma.controls['nombre_2'].disable();
+      this.forma.controls['nombre_3'].disable();
+      this.forma.controls['legajo'].disable();
+      this.forma.controls['destino_id'].disable();
+      this.forma.controls['escalafon_id'].disable();
+      this.forma.controls['escala_jerarquica_id'].disable();
+      this.forma.controls['grado_id'].disable();
+      this.forma.controls['ultimo_ascenso'].disable();
+      
+    }
+  }
+  
+  //FIN DESHABILITAR CAMPOS
+
+  async generarPdfDatosPersonal() {
+    const pdf = new PdfMakeWrapper();
+    pdf.add( await new Img('../../../../assets/img/logo_spps.png').fit([30,30]).alignment('left').build());
+ 
+    pdf.add(
+      new Txt('Datos del personal').bold().fontSize(13).alignment('center').end
+    );
+
+    pdf.add(' ');
+
+    pdf.add( await new Img(this.foto_nombre).fit([100,100]).alignment('center').build());
+    pdf.add(
+      new Txt(this.nombreCompleto).bold().fontSize(12).alignment('center').end
+    );
+   
+    pdf.add(' ');
+ 
+    pdf.add(
+      new Txt('Personal: '+this.dataEdit.apellido_1).fontSize(11).end
+     
+      );
+   
+    pdf.create().open();
+                             
+  }
 
 }

@@ -336,7 +336,7 @@
                                                                     <!-- <button type="button" pButton pRipple icon="pi pi-print" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom" onclick="printJS({ printable: 'edicion-form-print', type: 'html', header: 'Datos Laborales' })">
 
                                                                     </button> -->
-                                                                    <p-button label="Imprimir Datos Laborales" icon="pi pi-print" iconPos="left" onclick="printJS({ printable: 'edicion-form-print', type: 'html', header: 'Datos Laborales' })" class="p-button-success p-mr-2"></p-button>
+                                                                    <p-button label="Imprimir Datos" icon="pi pi-print" iconPos="left" (click)="generarPdfDatosPersonal()" class="p-button-success p-mr-2"></p-button>
 
                                                                 </div>
                                                                 <!-- /.card-body -->

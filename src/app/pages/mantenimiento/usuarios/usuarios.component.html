@@ -24,7 +24,7 @@
                     </div>
 
                     <p-table *ngIf="!cargando" #dt [value]="usuarios" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" [(selection)]="selectedUsuarios" [rowHover]="true" dataKey="id_usuario" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                        [showCurrentPageReport]="true">
+                        [showCurrentPageReport]="true" [scrollable]="true" [style]="{width:'100%'}">
                         <ng-template pTemplate="caption">
                             <div class="p-d-flex p-ai-center p-jc-between">
                                 <h5 class="p-m-0">Tabla de Manejo de Usuarios</h5>
@@ -33,6 +33,19 @@
                             <!-- <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." /> -->
                         </span>
                             </div>
+                        </ng-template>
+                        <ng-template pTemplate="colgroup" let-columns>
+                            <colgroup>
+                                <col style="width:50px">
+                                <col style="width:100px">
+                                <col style="width:80px">
+                                <col style="width:250px">
+                                <col style="width:250px">
+                                <col style="width:250px">
+                                <col style="width:150px">
+                                <col style="width:250px">
+                                <col style="width:150px">
+                            </colgroup>
                         </ng-template>
                         <ng-template pTemplate="header">
                             <tr>

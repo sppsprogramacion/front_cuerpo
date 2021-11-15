@@ -16,6 +16,12 @@ export class PersonalService {
     ){}
 
 
+        buscarPersonal(legajo: number){
+            
+            return this.http.get<Personal>(`${base_url}/personal/${legajo}`)
+            
+        }
+
         listarPersonal(destino: number){
             if(globalConstants.rol_usuario == "0"){
                 return this.http.get<[personal: any[],total:number]>(`${base_url}/personal`)    

@@ -209,7 +209,7 @@
                                                                                     <div class="form-group">
                                                                                         <label>Grado</label>
                                                                                         <select formControlName="grado_id" class="form-control" [ngModel]="dataEdit.grado_id" [class.is-invalid]="gradoNoValido"> 
-                                                                                            <option></option>
+                                                                                            <!-- <option></option> -->
                                                                                             <option *ngFor="let grado of grados" [value]="grado.id_grado" >{{grado.grado}}</option> 
                                                                                         </select>
                                                                                         <small *ngIf="gradoNoValido" class="form-text text-danger">
@@ -634,12 +634,26 @@
                                                         <div class="form-group">
                                                             <label>Altura</label>
                                                             <input formControlName="altura" type="text" class="form-control" placeholder="altura">
+                                                            <small *ngIf="alturaNoValido" class="form-text text-danger">
+                                                                <div *ngFor="let validation of user_validation_messages.altura" >
+                                                                    <div  *ngIf="formaFiliatorios.get('altura')?.hasError(validation.type)">
+                                                                        {{validation.message}}
+                                                                    </div>
+                                                                </div>
+                                                            </small>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label>Peso</label>
                                                             <input formControlName="peso" type="text" class="form-control" placeholder="peso">
+                                                            <small *ngIf="pesoNoValido" class="form-text text-danger">
+                                                                <div *ngFor="let validation of user_validation_messages.peso" >
+                                                                    <div  *ngIf="formaFiliatorios.get('peso')?.hasError(validation.type)">
+                                                                        {{validation.message}}
+                                                                    </div>
+                                                                </div>
+                                                            </small>
                                                         </div>
                                                     </div>
                                                 </div>

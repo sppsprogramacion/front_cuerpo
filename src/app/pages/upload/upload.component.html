@@ -265,7 +265,7 @@
                                                 <div class="form-group">
                                                     <label>Grado</label>
                                                     <select formControlName="grado_id" class="form-control" [class.is-invalid]="gradoNoValido"> 
-                                                        <option></option>
+                                                        <!-- <option></option> -->
                                                             <option *ngFor="let grado of grados" [value]="grado.id_grado" >{{grado.grado}}</option> 
                                                     </select>
                                                     <small *ngIf="gradoNoValido" class="form-text text-danger">

@@ -43,6 +43,7 @@ export class FileUploadService {
           method: "POST",
           body: formData
         });
+        
         if(!respuesta.ok){
           throw new Error('Error en la Actualización de la Foto del Personal');
         }

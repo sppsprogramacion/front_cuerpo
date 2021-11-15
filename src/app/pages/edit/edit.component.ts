@@ -178,16 +178,16 @@ export class EditComponent implements OnInit {
       sexo_id: [this.dataEdit.sexo_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       estado_civil_id: [this.dataEdit.estado_civil_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       nacionalidad: [this.dataEdit.nacionalidad,[Validators.minLength(1), Validators.maxLength(50)]],
-      domicilio: [this.dataEdit.domicilio,[Validators.minLength(1), Validators.maxLength(300)]],
+      domicilio: [this.dataEdit.domicilio,[Validators.required,Validators.minLength(1), Validators.maxLength(300)]],
       provincia_id: [this.dataEdit.provincia_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       departamento_provincial_id: [this.dataEdit.departamento_provincial_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       municipio_id: [this.dataEdit.municipio_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       ciudad_id: [this.dataEdit.ciudad_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       nivel_educativo_id: [this.dataEdit.nivel_educativo_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      telefonos: [this.dataEdit.telefonos,[Validators.minLength(1), Validators.maxLength(300)]],
-      email: [this.dataEdit.email,[Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/), Validators.minLength(4), Validators.maxLength(50)]],
-      altura: [this.dataEdit.altura],
-      peso: [this.dataEdit.peso],
+      telefonos: [this.dataEdit.telefonos,[Validators.required,Validators.minLength(1), Validators.maxLength(300)]],
+      email: [this.dataEdit.email,[Validators.required,Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/), Validators.minLength(4), Validators.maxLength(50)]],
+      altura: [this.dataEdit.altura,[Validators.pattern(/^\d+(\.\d{1,2})$/), Validators.min(1), Validators.max(3)]],
+      peso: [this.dataEdit.peso,[Validators.pattern(/^\d+(\.\d{1,2})?$/), Validators.min(20), Validators.max(400)]],
       registrado_por: [this.dataEdit.registrado_por],
       situacion_id: [this.dataEdit.situacion_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]]
     });
@@ -364,14 +364,17 @@ export class EditComponent implements OnInit {
       { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.'}
     ],
     'domicilio': [
+      { type: 'required', message: 'El domicilio es requerido.'},
       { type: 'minlength', message: 'La cantidad mínima de caracteres es 1.' },
       { type: 'maxlength', message: 'La cantidad máxima de caracteres es 300.'}
     ],
     'telefonos': [
+      { type: 'required', message: 'El telefono es requerido.'},
       { type: 'minlength', message: 'La cantidad mínima de caracteres es 1.' },
       { type: 'maxlength', message: 'La cantidad máxima de caracteres es 300.'}
     ],
     'email': [
+      { type: 'required', message: 'El email es requerido.'},
       { type: 'pattern', message: 'No es un email válido.' },
       { type: 'minlength', message: 'La cantidad mínima de caracteres es 4.' },
       { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.'}
@@ -407,6 +410,16 @@ export class EditComponent implements OnInit {
     'situacion_id': [
       { type: 'required', message: 'La situacion educativo es requerida.'},
       { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'altura': [
+      { type: 'min', message: 'El número ingresado es bajo.(minimo: 1)' },
+      { type: 'max', message: 'El número ingresado es alto (maximo: 3).'},
+      { type: 'pattern', message: 'El valor ingresado no es un número correcto (use el punto (.) como separador decimal y hasta dos decimales).' }
+    ],
+    'peso': [
+      { type: 'min', message: 'El número ingresado es bajo.(minimo: 20)' },
+      { type: 'max', message: 'El número ingresado es alto (maximo: 400).'},
+      { type: 'pattern', message: 'El valor ingresado no es un número correcto (use el punto (.) como separador decimal y hasta dos decimales).' }
     ]
 
     //fin Formulario datos personales
@@ -533,6 +546,14 @@ export class EditComponent implements OnInit {
 
   get situacionNoValido(){
     return this.formaFiliatorios.get('situacion_id')?.invalid && this.formaFiliatorios.get('situacion_id')?.touched;
+  }
+
+  get alturaNoValido(){
+    return this.formaFiliatorios.get('altura')?.invalid && this.formaFiliatorios.get('altura')?.touched;
+  }
+
+  get pesoNoValido(){
+    return this.formaFiliatorios.get('peso')?.invalid && this.formaFiliatorios.get('peso')?.touched;
   }
 
   
@@ -680,7 +701,12 @@ export class EditComponent implements OnInit {
   onChangeEscala(){
     const id = this.forma.get('escala_jerarquica_id')?.value;
     if(id != null){
-      this.forma.get('grado_id')?.setValue(null);      
+      if(id==1){
+        this.forma.get('grado_id')?.setValue(13); 
+      }   
+      if(id==2){
+        this.forma.get('grado_id')?.setValue(1); 
+      }     
       this.cargarGrados(parseInt(id.toString()));
       this.forma.get('grado_id')?.markAsUntouched();
       
@@ -688,6 +714,7 @@ export class EditComponent implements OnInit {
   }
   //Fin metodos para cargar listas desplegables  
 
+  //guardar imagen
   onUpload(event: File){
     try {
       console.log('DATA DEL ARCHIVO', event);
@@ -696,6 +723,7 @@ export class EditComponent implements OnInit {
       this.fileUploadService.actualizarFotoPersonal(this.fotoSubir, id).then((respuesta: any) => {
         if(respuesta.ok){
           Swal.fire('Actualización Exitosa!!', "La foto del Usuario ha sido cambiada con éxito","success");
+          this.buscarPersonal(this.dataEdit.legajo!)
         }else{
           throw new Error('Error al Actualizar la foto');
         }
@@ -708,6 +736,7 @@ export class EditComponent implements OnInit {
       Swal.fire('Error', error.message, "error");    
     }
   }
+  //Fin guardar imagen..................................
 
   onDateChange(nuevaFecha: Date){
     if(nuevaFecha != null){
@@ -799,6 +828,17 @@ export class EditComponent implements OnInit {
     
   }
   //fin enviar formulario
+
+  //buscar personal
+  buscarPersonal(legajo: number){
+    this.personalService.buscarPersonal(legajo)
+      .subscribe(
+        personal => {
+          this.foto_nombre = personal.foto!;
+        }
+      )
+  }
+  //fin buscar personal
 
   //manejo de tabla de registros de pdfs
   crearRegistro(){

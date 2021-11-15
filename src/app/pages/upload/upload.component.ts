@@ -120,10 +120,10 @@ export class UploadComponent implements OnInit {
       municipio_id: [3986,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       ciudad_id: [1,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
       nivel_educativo_id: [4,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      telefonos: ["",Validators.required,[Validators.minLength(1), Validators.maxLength(300)]],
+      telefonos: ["",[Validators.required,Validators.minLength(1), Validators.maxLength(300)]],
       email: ["", [Validators.required,Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/), Validators.minLength(4), Validators.maxLength(50)]],
-      altura: [,[Validators.pattern(/^\d+(\.\d{1,2})$/)]],
-      peso: [,[Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
+      altura: [,[Validators.pattern(/^\d+(\.\d{1,2})$/), Validators.min(1), Validators.max(3)]],
+      peso: [,[Validators.pattern(/^\d+(\.\d{1,2})?$/), Validators.min(20), Validators.max(400)]],
       //registrado_por: [],
       situacion_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]]
 
@@ -305,11 +305,14 @@ export class UploadComponent implements OnInit {
       { type: 'pattern', message: 'El valor ingresado no es un número.' }
     ],
     'altura': [
-      
+
+      { type: 'min', message: 'El número ingresado es bajo.(minimo: 1)' },
+      { type: 'max', message: 'El número ingresado es alto (maximo: 3).'},
       { type: 'pattern', message: 'El valor ingresado no es un número correcto (use el punto (.) como separador decimal y hasta dos decimales).' }
     ],
     'peso': [
-      
+      { type: 'min', message: 'El número ingresado es bajo.(minimo: 20)' },
+      { type: 'max', message: 'El número ingresado es alto (maximo: 400).'},
       { type: 'pattern', message: 'El valor ingresado no es un número correcto (use el punto (.) como separador decimal y hasta dos decimales).' }
     ]
 

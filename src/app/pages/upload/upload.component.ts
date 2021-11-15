@@ -88,12 +88,12 @@ export class UploadComponent implements OnInit {
     //formulario personal
     this.forma = this.fb.group({
        id_personal: [Validators.required],
-       apellido_1: ["test",[Validators.required, Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+       apellido_1: ["",[Validators.required, Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
        apellido_2: ["",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
-       nombre_1: ["test",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+       nombre_1: ["",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
        nombre_2: ["",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
        nombre_3: ["",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
-       legajo: [3155,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
+       legajo: [,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
        destino_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        departamento_id: [3,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        division_id: [5,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
@@ -102,28 +102,28 @@ export class UploadComponent implements OnInit {
        seccion_guardia_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        escalafon_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        escala_jerarquica_id: [1,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
-       grado_id: [,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       grado_id: [13,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        //foto: [],
        ultimo_ascenso: [],
 
        //campos filiatorios
-       dni: [32505424,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1000000), Validators.max(99000000)]],
+       dni: [,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1000000), Validators.max(99000000)]],
       fecha_nacimiento: [],
       fecha_ingreso: [],
-      cuil: ["20-32505424-8",[Validators.required, Validators.pattern(/\b(20|23|24|27)(\D)?[0-9]{8}(\D)?[0-9]/)]],
+      cuil: ["",[Validators.required, Validators.pattern(/\b(20|23|24|27)(\D)?[0-9]{8}(\D)?[0-9]/)]],
       sexo_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       estado_civil_id: [2,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      nacionalidad: ["argentino",[Validators.minLength(1), Validators.maxLength(50)]],
-      domicilio: ["Barrio los gremios",[Validators.minLength(1), Validators.maxLength(300)]],
+      nacionalidad: ["",[Validators.minLength(1), Validators.maxLength(50)]],
+      domicilio: ["",[Validators.required,Validators.minLength(1), Validators.maxLength(300)]],
       provincia_id: [17,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       departamento_provincial_id: [212000,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
       municipio_id: [3986,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       ciudad_id: [1,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
       nivel_educativo_id: [4,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      telefonos: ["0387154853487",[Validators.minLength(1), Validators.maxLength(300)]],
-      email: ["pedrodiaz0487@gmail.com", [Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/), Validators.minLength(4), Validators.maxLength(50)]],
-      altura: [1.8],
-      peso: [72.5],
+      telefonos: ["",Validators.required,[Validators.minLength(1), Validators.maxLength(300)]],
+      email: ["", [Validators.required,Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/), Validators.minLength(4), Validators.maxLength(50)]],
+      altura: [,[Validators.pattern(/^\d+(\.\d{1,2})$/)]],
+      peso: [,[Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
       //registrado_por: [],
       situacion_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]]
 
@@ -257,14 +257,17 @@ export class UploadComponent implements OnInit {
       { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.'}
     ],
     'domicilio': [
+      { type: 'required', message: 'El domicilio es requerido.'},
       { type: 'minlength', message: 'La cantidad mínima de caracteres es 1.' },
       { type: 'maxlength', message: 'La cantidad máxima de caracteres es 300.'}
     ],
     'telefonos': [
+      { type: 'required', message: 'El telefono es requerido.'},
       { type: 'minlength', message: 'La cantidad mínima de caracteres es 1.' },
       { type: 'maxlength', message: 'La cantidad máxima de caracteres es 300.'}
     ],
     'email': [
+      { type: 'required', message: 'El email es requerido.'},
       { type: 'pattern', message: 'No es un email válido.' },
       { type: 'minlength', message: 'La cantidad mínima de caracteres es 4.' },
       { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.'}
@@ -301,6 +304,14 @@ export class UploadComponent implements OnInit {
       { type: 'required', message: 'La situacion educativo es requerida.'},
       { type: 'pattern', message: 'El valor ingresado no es un número.' }
     ],
+    'altura': [
+      
+      { type: 'pattern', message: 'El valor ingresado no es un número correcto (use el punto (.) como separador decimal y hasta dos decimales).' }
+    ],
+    'peso': [
+      
+      { type: 'pattern', message: 'El valor ingresado no es un número correcto (use el punto (.) como separador decimal y hasta dos decimales).' }
+    ]
 
     //fin datos personales
   }
@@ -430,6 +441,14 @@ export class UploadComponent implements OnInit {
     return this.forma.get('situacion_id')?.invalid && this.forma.get('situacion_id')?.touched;
   }
 
+  get alturaNoValido(){
+    return this.forma.get('altura')?.invalid && this.forma.get('altura')?.touched;
+  }
+
+  get pesoNoValido(){
+    return this.forma.get('peso')?.invalid && this.forma.get('peso')?.touched;
+  }
+
   //fin validaciones formulario filatorios
   //FIN VALIDACIONES FORMULARIOS
   
@@ -555,8 +574,14 @@ export class UploadComponent implements OnInit {
   
   onChangeEscala(){
     const id = this.forma.get('escala_jerarquica_id')?.value;
-    if(id != null){         
-      this.forma.get('grado_id')?.setValue(null);      
+    if(id != null){ 
+      if(id==1){
+        this.forma.get('grado_id')?.setValue(13); 
+      }   
+      if(id==2){
+        this.forma.get('grado_id')?.setValue(1); 
+      }     
+         
       this.cargarGrados(parseInt(id.toString()));
       this.forma.get('grado_id')?.markAsUntouched();
       
@@ -636,7 +661,7 @@ export class UploadComponent implements OnInit {
               .subscribe(resultado => {
                 
                   Swal.fire('Exito',`El Registro ha sido guardado con Exito`,"success");
-                  
+                  this.limpiarFormulario();
                   //this.actualizarUsuarios();
                   //this.hideDialog();
               },
@@ -648,5 +673,57 @@ export class UploadComponent implements OnInit {
   }
 
   //fin guardar personal
+
+  //limpiar formulario
+  limpiarFormulario() {
+    //console.log("clear clicked")
+    //this.forma.reset();
+    //formulario personal
+    this.forma = this.fb.group({
+      id_personal: [Validators.required],
+       apellido_1: ["",[Validators.required, Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+       apellido_2: ["",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+       nombre_1: ["",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+       nombre_2: ["",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+       nombre_3: ["",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+       legajo: [,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
+       destino_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       departamento_id: [3,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       division_id: [5,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       sector_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       funcion: ["", [Validators.minLength(1), Validators.maxLength(200)]],
+       seccion_guardia_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       escalafon_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       escala_jerarquica_id: [1,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+       grado_id: [13,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       //foto: [],
+       ultimo_ascenso: [],
+
+       //campos filiatorios
+       dni: [,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1000000), Validators.max(99000000)]],
+      fecha_nacimiento: [],
+      fecha_ingreso: [],
+      cuil: ["",[Validators.required, Validators.pattern(/\b(20|23|24|27)(\D)?[0-9]{8}(\D)?[0-9]/)]],
+      sexo_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      estado_civil_id: [2,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      nacionalidad: ["",[Validators.minLength(1), Validators.maxLength(50)]],
+      domicilio: ["",[Validators.required,Validators.minLength(1), Validators.maxLength(300)]],
+      provincia_id: [17,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      departamento_provincial_id: [212000,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+      municipio_id: [3986,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      ciudad_id: [1,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+      nivel_educativo_id: [4,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      telefonos: ["",Validators.required,[Validators.minLength(1), Validators.maxLength(300)]],
+      email: ["", [Validators.required,Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/), Validators.minLength(4), Validators.maxLength(50)]],
+      altura: [,[Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
+      peso: [,[Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
+      //registrado_por: [],
+      situacion_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]]
+
+
+   });
+   //fin formulario personal
+  }
+  //fin limpiar formulario
 
 }

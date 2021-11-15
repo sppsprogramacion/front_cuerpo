@@ -545,18 +545,35 @@
                                                 <div class="form-group">
                                                     <label>Altura</label>
                                                     <input formControlName="altura" type="text" class="form-control" placeholder="altura">
+                                                    <small *ngIf="alturaNoValido" class="form-text text-danger">
+                                                        <div *ngFor="let validation of user_validation_messages.altura" >
+                                                            <div  *ngIf="forma.get('altura')?.hasError(validation.type)">
+                                                                {{validation.message}}
+                                                            </div>
+                                                        </div>
+                                                    </small>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Peso</label>
                                                     <input formControlName="peso" type="text" class="form-control" placeholder="peso">
+                                                    <small *ngIf="pesoNoValido" class="form-text text-danger">
+                                                        <div *ngFor="let validation of user_validation_messages.peso" >
+                                                            <div  *ngIf="forma.get('peso')?.hasError(validation.type)">
+                                                                {{validation.message}}
+                                                            </div>
+                                                        </div>
+                                                    </small>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="card-footer">
                                             <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (ngSubmit)="submitForm()">Guardar</button>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button style="width: 100%; text-align: center;" type="button" class="btn btn-danger" (click)="limpiarFormulario()">Cancelar</button>
                                         </div>
 
 

@@ -47,14 +47,16 @@
 
                                     <div class="content">
 
-
                                         <!-- Main content -->
                                         <section class="content">
-
+                                            <div>
+                                                <p-button label="Imprimir Datos" icon="pi pi-print" iconPos="left" (click)="generarPdfDatosPersonal()" class="p-button-success p-mr-2"></p-button>
+                                            </div>
                                             <!-- Default box -->
-                                            <div class="card card-solid">
+                                            <div class="card card-solid mt-2">
                                                 <div class="card-body">
                                                     <div class="row" id="datos-personal-print">
+
                                                         <div class="col-12 col-sm-4">
                                                             <div class="col-12" id="foto-personal">
 
@@ -63,8 +65,8 @@
                                                                     <p-fileUpload name="foto" [customUpload]="true" [multiple]="true" (uploadHandler)="onUpload($event.files[0])"></p-fileUpload>
                                                                 </div>
                                                             </div>
-                                                            <!-- <button type="button" pButton pRipple icon="pi pi-print" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom" onclick="printJS({ printable: 'foto-personal', type: 'html', header: 'Datos Laborales' })"> </button> -->
-                                                            <p-button label="Imprimir Foto" icon="pi pi-print" iconPos="left" onclick="printJS({ printable: 'foto-personal', type: 'html', header: 'Foto del Personal' })" class="p-button-success p-mr-2"></p-button>
+                                                            <!-- Imprimime html (foto)-->
+                                                            <!-- <p-button label="Imprimir Foto" icon="pi pi-print" iconPos="left" onclick="printJS({ printable: 'foto-personal', type: 'html', header: 'Foto del Personal' })" class="p-button-success p-mr-2"></p-button> -->
                                                         </div>
                                                         <div class="col-12 col-sm-8">
                                                             <!-- <form [formGroup]="forma"> -->
@@ -162,6 +164,67 @@
                                                                                                 </div>
                                                                                             </div>
                                                                                         </small>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                            <div class="row">
+                                                                                <div class="col-sm-6">
+                                                                                    <!-- select -->
+                                                                                    <div class="form-group">
+                                                                                        <label>Escalafón</label>
+                                                                                        <select formControlName="escalafon_id" class="form-control" [ngModel]="dataEdit.escalafon_id" [class.is-invalid]="escalafonNoValido"> 
+                                                                                            <option *ngFor="let escalafon of escalafones" [value]="escalafon.id_escalafon" >{{escalafon.escalafon}}</option> 
+                                                                                        </select>
+                                                                                        <small *ngIf="escalafonNoValido" class="form-text text-danger">
+                                                                                            <div *ngFor="let validation of user_validation_messages.escalafon_id" >
+                                                                                                <div  *ngIf="forma.get('escalafon_id')?.hasError(validation.type)">
+                                                                                                    {{validation.message}}
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </small>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-sm-6">
+                                                                                    <div class="form-group">
+                                                                                        <label>Escala Jerárquica</label>
+                                                                                        <select formControlName="escala_jerarquica_id" class="form-control" [ngModel]="dataEdit.escala_jerarquica_id" (change)=" onChangeEscala()" [class.is-invalid]="escalaJerarquicaNoValido"> 
+                                                                                            <option *ngFor="let escala of escalas" [value]="escala.id_escala_jerarquica">{{escala.escala_jerarquica}}</option> 
+                                                                                        </select>
+                                                                                        <small *ngIf="escalaJerarquicaNoValido" class="form-text text-danger">
+                                                                                            <div *ngFor="let validation of user_validation_messages.escala_jerarquica_id" >
+                                                                                                <div  *ngIf="forma.get('escala_jerarquica_id')?.hasError(validation.type)">
+                                                                                                    {{validation.message}}
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </small>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row">
+                                                                                <div class="col-sm-6">
+                                                                                    <!-- select -->
+                                                                                    <div class="form-group">
+                                                                                        <label>Grado</label>
+                                                                                        <select formControlName="grado_id" class="form-control" [ngModel]="dataEdit.grado_id" [class.is-invalid]="gradoNoValido"> 
+                                                                                            <option></option>
+                                                                                            <option *ngFor="let grado of grados" [value]="grado.id_grado" >{{grado.grado}}</option> 
+                                                                                        </select>
+                                                                                        <small *ngIf="gradoNoValido" class="form-text text-danger">
+                                                                                            <div *ngFor="let validation of user_validation_messages.grado_id" >
+                                                                                                <div  *ngIf="forma.get('grado_id')?.hasError(validation.type)">
+                                                                                                    {{validation.message}}
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </small>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-sm-6">
+                                                                                    <div class="form-group">
+                                                                                        <label for="datebirth">Ultimo Ascenso:</label>
+                                                                                        <input type="text" bsDatepicker [bsConfig]=bsDatePickerConfig (bsValueChange)="onDateChange($event)" id="datebirth" class="form-control" formControlName="ultimo_ascenso" [ngModel]="dataEdit.ultimo_ascenso">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -271,72 +334,13 @@
                                                                                 </div>
                                                                             </div>
 
-                                                                            <div class="row">
-                                                                                <div class="col-sm-6">
-                                                                                    <!-- select -->
-                                                                                    <div class="form-group">
-                                                                                        <label>Escalafón</label>
-                                                                                        <select formControlName="escalafon_id" class="form-control" [ngModel]="dataEdit.escalafon_id" [class.is-invalid]="escalafonNoValido"> 
-                                                                                            <option *ngFor="let escalafon of escalafones" [value]="escalafon.id_escalafon" >{{escalafon.escalafon}}</option> 
-                                                                                        </select>
-                                                                                        <small *ngIf="escalafonNoValido" class="form-text text-danger">
-                                                                                            <div *ngFor="let validation of user_validation_messages.escalafon_id" >
-                                                                                                <div  *ngIf="forma.get('escalafon_id')?.hasError(validation.type)">
-                                                                                                    {{validation.message}}
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </small>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-sm-6">
-                                                                                    <div class="form-group">
-                                                                                        <label>Escala Jerárquica</label>
-                                                                                        <select formControlName="escala_jerarquica_id" class="form-control" [ngModel]="dataEdit.escala_jerarquica_id" (change)=" onChangeEscala()" [class.is-invalid]="escalaJerarquicaNoValido"> 
-                                                                                            <option *ngFor="let escala of escalas" [value]="escala.id_escala_jerarquica">{{escala.escala_jerarquica}}</option> 
-                                                                                        </select>
-                                                                                        <small *ngIf="escalaJerarquicaNoValido" class="form-text text-danger">
-                                                                                            <div *ngFor="let validation of user_validation_messages.escala_jerarquica_id" >
-                                                                                                <div  *ngIf="forma.get('escala_jerarquica_id')?.hasError(validation.type)">
-                                                                                                    {{validation.message}}
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </small>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="row">
-                                                                                <div class="col-sm-6">
-                                                                                    <!-- select -->
-                                                                                    <div class="form-group">
-                                                                                        <label>Grado</label>
-                                                                                        <select formControlName="grado_id" class="form-control" [ngModel]="dataEdit.grado_id" [class.is-invalid]="gradoNoValido"> 
-                                                                                            <option></option>
-                                                                                            <option *ngFor="let grado of grados" [value]="grado.id_grado" >{{grado.grado}}</option> 
-                                                                                        </select>
-                                                                                        <small *ngIf="gradoNoValido" class="form-text text-danger">
-                                                                                            <div *ngFor="let validation of user_validation_messages.grado_id" >
-                                                                                                <div  *ngIf="forma.get('grado_id')?.hasError(validation.type)">
-                                                                                                    {{validation.message}}
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </small>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-sm-6">
-                                                                                    <div class="form-group">
-                                                                                        <label for="datebirth">Ultimo Ascenso:</label>
-                                                                                        <input type="text" bsDatepicker [bsConfig]=bsDatePickerConfig (bsValueChange)="onDateChange($event)" id="datebirth" class="form-control" formControlName="ultimo_ascenso" [ngModel]="dataEdit.ultimo_ascenso">
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
                                                                         </div>
 
                                                                     </form>
                                                                     <!-- <button type="button" pButton pRipple icon="pi pi-print" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom" onclick="printJS({ printable: 'edicion-form-print', type: 'html', header: 'Datos Laborales' })">
 
                                                                     </button> -->
-                                                                    <p-button label="Imprimir Datos" icon="pi pi-print" iconPos="left" (click)="generarPdfDatosPersonal()" class="p-button-success p-mr-2"></p-button>
+
 
                                                                 </div>
                                                                 <!-- /.card-body -->

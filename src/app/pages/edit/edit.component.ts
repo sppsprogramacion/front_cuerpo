@@ -33,7 +33,7 @@ import { PdfpersonalPipe } from 'src/app/pipes/pdfpersonal.pipe';
 import { PdfService } from 'src/app/services/pdf.service';
 import {environment} from 'src/environments/environment';
 import { CiudadModel } from '../../models/ciudad.model';
-import { Img, PdfMakeWrapper, Txt } from 'pdfmake-wrapper';
+import { Cell, Columns, Img, PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
 
 @Component({
   selector: 'app-edit',
@@ -981,27 +981,136 @@ export class EditComponent implements OnInit {
   //FIN DESHABILITAR CAMPOS
 
   async generarPdfDatosPersonal() {
+    let meses_texto=["Enero", "Febrero","Marzo","Abril","Mayo","Junio", "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+    //fecha completa
+    let fecha_hoy: Date = new Date();
+    let fecha_completa: string;
+    let anio:number= fecha_hoy.getFullYear(); 
+    let mes: number= fecha_hoy.getMonth() + 1;
+    let dia: number= fecha_hoy.getDate();
+    fecha_completa = "Salta, " + dia + " de " + meses_texto[mes] + " de " +  anio;
+
+    //fin fecha completa
     const pdf = new PdfMakeWrapper();
-    pdf.add( await new Img('../../../../assets/img/logo_spps.png').fit([30,30]).alignment('left').build());
+    pdf.add(
+      new Table([
+        [ 
+          new Cell (await new Img('../../../../assets/img/logo-spps-transp-text.png').fit([130,130]).alignment('left').build()).end
+        ],
+        [ 
+          new Txt(globalConstants.destino_corto).fontSize(9).alignment('center').end
+          
+        ]
+      ]).widths([130])
+      .layout('noBorders').end
+    );
+    
+    pdf.add(
+      new Txt(fecha_completa).fontSize(11).alignment('right').end
+    );
+    pdf.add(' ');
  
     pdf.add(
       new Txt('Datos del personal').bold().fontSize(13).alignment('center').end
     );
 
+    pdf.add(' ');  
+
+    pdf.add(
+      new Table([
+        [ 
+          await new Img(this.foto_nombre).fit([100,100]).alignment('center').build(), 
+          [
+            " Grado, apellido y nombre: "+ this.nombreCompleto,
+            " Legajo Personal: "+ this.dataEdit.legajo,
+            " D.N.I. Nº: "+ this.dataEdit.dni,
+            " Escala Jerarquica: "+ ((this.dataEdit.escala_jerarquica)?(JSON.parse(JSON.stringify(this.dataEdit.escala_jerarquica))).escala_jerarquica:''),
+            " Escalafón: "+ ((this.dataEdit.escalafon)?(JSON.parse(JSON.stringify(this.dataEdit.escalafon))).escalafon:''),
+                        
+          ]
+        ]
+      ]).layout("noBorders").fontSize(11).end
+    );
+
     pdf.add(' ');
 
-    pdf.add( await new Img(this.foto_nombre).fit([100,100]).alignment('center').build());
     pdf.add(
-      new Txt(this.nombreCompleto).bold().fontSize(12).alignment('center').end
+      new Table([
+        [ 
+          new Cell (new Txt('Destino').bold().fontSize(11).alignment('center').end).fillColor('#CCCCCC').end,
+          new Cell (new Txt('Departamento').bold().fontSize(11).alignment('center').end).fillColor('#CCCCCC').end,
+          new Cell (new Txt('División').bold().fontSize(11).alignment('center').end).fillColor('#CCCCCC').end
+        ],
+        [ 
+          new Txt((this.dataEdit.destino)?(JSON.parse(JSON.stringify(this.dataEdit.destino))).destino:"sin destino").bold().fontSize(10).alignment('center').end,
+          new Txt((this.dataEdit.departamento)?(JSON.parse(JSON.stringify(this.dataEdit.departamento))).departamento:"sin departamento").bold().fontSize(10).alignment('center').end,
+          new Txt((this.dataEdit.division)?(JSON.parse(JSON.stringify(this.dataEdit.division))).division:"sin división").bold().fontSize(10).alignment('center').end,
+          
+        ]
+      ]).widths([170,170,160])
+      .layout('noBorders').end
     );
-   
+
     pdf.add(' ');
- 
+
     pdf.add(
-      new Txt('Personal: '+this.dataEdit.apellido_1).fontSize(11).end
-     
-      );
-   
+      new Table([
+        [ 
+          new Cell (new Txt('Sector').bold().fontSize(11).alignment('center').end).fillColor('#CCCCCC').end,
+          new Cell (new Txt('Función').bold().fontSize(11).alignment('center').end).fillColor('#CCCCCC').end,
+          new Cell (new Txt('Sección guardia').bold().fontSize(11).alignment('center').end).fillColor('#CCCCCC').end
+        ],
+        [ 
+          new Txt((this.dataEdit.sector)?(JSON.parse(JSON.stringify(this.dataEdit.sector))).sector:"sin sector").bold().fontSize(10).alignment('center').end,
+          new Txt((this.dataEdit.funcion)?this.dataEdit.funcion:"sin función").bold().fontSize(10).alignment('center').end,
+          new Txt((this.dataEdit.seccion_guardia)?(JSON.parse(JSON.stringify(this.dataEdit.seccion_guardia))).seccion:"sin sección guardia").bold().fontSize(10).alignment('center').end,
+          
+        ]
+      ]).widths([150,150,200])
+      .layout('noBorders').end
+    );
+
+    pdf.add(' ');
+
+    pdf.add(
+      new Table([
+        [ 
+          new Cell (new Txt('Fecha ingreso').bold().fontSize(11).alignment('center').end).fillColor('#CCCCCC').end,          
+          new Cell (new Txt('Ultimo ascenso').bold().fontSize(11).alignment('center').end).fillColor('#CCCCCC').end,
+          new Cell (new Txt('Situación').bold().fontSize(11).alignment('center').end).fillColor('#CCCCCC').end
+        ],
+        [ 
+          new Txt(((this.dataEdit.fecha_ingreso!=null)?this.datePipe.transform(this.dataEdit.fecha_ingreso, "dd/MM/yyyy"):'')|| "").fontSize(10).alignment('center').end,
+          new Txt(((this.dataEdit.ultimo_ascenso!=null)?this.datePipe.transform(this.dataEdit.ultimo_ascenso, "dd/MM/yyyy"):'')|| "").fontSize(10).alignment('center').end,
+          new Txt((this.dataEdit.situacion)?(JSON.parse(JSON.stringify(this.dataEdit.situacion))).situacion:"sin situación").bold().fontSize(10).alignment('center').end,
+          
+        ]
+      ]).widths([150,150,200])
+      .layout('noBorders').end
+    );
+
+    pdf.add(' ');
+
+    pdf.add(
+      new Table([
+        [ 
+          new Cell (new Txt('Sexo').bold().fontSize(11).alignment('center').end).fillColor('#CCCCCC').end,          
+          new Cell (new Txt('Estado Civil').bold().fontSize(11).alignment('center').end).fillColor('#CCCCCC').end,
+          new Cell (new Txt('Fecha Nacimiento').bold().fontSize(11).alignment('center').end).fillColor('#CCCCCC').end,
+          new Cell (new Txt('Nacionalidad').bold().fontSize(11).alignment('center').end).fillColor('#CCCCCC').end
+        ],
+        [ 
+          new Txt((this.dataEdit.sexo)?(JSON.parse(JSON.stringify(this.dataEdit.sexo))).sexo:"sin sexo").bold().fontSize(10).alignment('center').end,
+          new Txt((this.dataEdit.estado_civil)?(JSON.parse(JSON.stringify(this.dataEdit.estado_civil))).estado_civil:"sin estado civil").fontSize(10).alignment('center').end,
+          new Txt(((this.dataEdit.fecha_nacimiento!=null)?this.datePipe.transform(this.dataEdit.fecha_nacimiento, "dd/MM/yyyy"):'')|| "").fontSize(10).alignment('center').end,
+          new Txt((this.dataEdit.nacionalidad)?this.dataEdit.nacionalidad:"sin nacionalidad").bold().fontSize(10).alignment('center').end,          
+        ]
+      ]).widths([100,125,125,150])
+      .layout('noBorders').end
+    );
+
+    
+    
     pdf.create().open();
                              
   }

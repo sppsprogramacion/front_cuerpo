@@ -35,8 +35,9 @@ export class LoginComponent {
        globalConstants.inicialesUsuario= user.nombre?.charAt(0).toUpperCase() + "" + user.apellido?.charAt(0).toUpperCase();
        globalConstants.emailUsuario = correoAux;
        globalConstants.destino_usuario = user.destino_id!;
+       //globalConstants.destino_largo = (data.destino)?(JSON.parse(JSON.stringify(data.destino))).destino:''
+       
        this.nombreCortoDestino(user.destino_id!);
-      console.log("data", data);
        globalConstants.rol_usuario = user.role!;
        globalConstants.id_usuario = user.id_usuario!;
   }
@@ -58,7 +59,7 @@ export class LoginComponent {
     return this.loginService.login(this.loginForm.value)
                                     .subscribe((respuesta) => {
                                       this.extraerData(respuesta);
-                                     
+                                      console.log("respuesta", respuesta);
                                       Swal.fire({
                                         title: "Logeo Exitoso",
                                         text: "Ha ingresado a la Aplicación",

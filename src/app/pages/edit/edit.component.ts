@@ -250,28 +250,8 @@ export class EditComponent implements OnInit {
   //   console.log('LA URL ES: ', url);
   //   await  this.pdfService.getPdf(url).then();   
   // }
-
-  descargarPdf(key: string){
-    this.pdfService.getPDF(key)
-    .subscribe(
-      (data: Blob) => {
-        var file = new Blob([data], { type: 'application/pdf' })
-        var fileURL = URL.createObjectURL(file);
-
-    // if you want to open PDF in new tab
-        window.open(fileURL); 
-        var a         = document.createElement('a');
-        a.href        = fileURL; 
-        a.target      = '_blank';
-        //a.download    = 'bill.pdf';
-        document.body.appendChild(a);
-        a.click();
-      },
-      (error) => {
-        console.log('getPDF error: ',error);
-      }
-    );
-  }
+  
+  
 
   //VALIDACIONES FORMULARIOS
   //mensajes de validaciones
@@ -870,6 +850,31 @@ export class EditComponent implements OnInit {
     this.newFileDialog = true;
   }
 
+  //DESCARGAR PDF
+  descargarPdf(key: string){
+    console.log("key", key);
+    this.pdfService.getPDF(key)    
+    .subscribe(
+      (data: Blob) => {
+        var file = new Blob([data], { type: 'application/pdf' })
+        var fileURL = URL.createObjectURL(file);
+
+    // if you want to open PDF in new tab
+        window.open(fileURL); 
+        var a         = document.createElement('a');
+        //a.href        = fileURL; 
+        a.target      = '_blank';
+        //a.download    = 'bill.pdf';
+        //document.body.appendChild(a);
+        a.click();
+      },
+      (error) => {
+        console.log('getPDF error: ',error);
+      }
+    );
+  }
+  //DESCARGAR PDF..................................................................
+
 
   onEditPdf(){
     this.submitted = true;
@@ -1000,7 +1005,7 @@ export class EditComponent implements OnInit {
   
   }
 
-  //DESABHILITAR CAMPOS
+  //DESHABILITAR CAMPOS
   private deshabilitarCampos(valor: boolean){
     if(valor==false){
       this.forma.controls['apellido_1'].disable();
@@ -1020,6 +1025,7 @@ export class EditComponent implements OnInit {
   
   //FIN DESHABILITAR CAMPOS
 
+  //GENERAL PDF  CON DATOS PERSONALES
   async generarPdfDatosPersonal() {
     let meses_texto=["Enero", "Febrero","Marzo","Abril","Mayo","Junio", "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
     //fecha completa
@@ -1060,16 +1066,29 @@ export class EditComponent implements OnInit {
       new Table([
         [ 
           await new Img(this.foto_nombre).fit([100,100]).alignment('center').build(), 
-          [
-            " Grado, apellido y nombre: "+ this.nombreCompleto,
-            " Legajo Personal: "+ this.dataEdit.legajo,
-            " D.N.I. Nº: "+ this.dataEdit.dni,
-            " Escala Jerarquica: "+ ((this.dataEdit.escala_jerarquica)?(JSON.parse(JSON.stringify(this.dataEdit.escala_jerarquica))).escala_jerarquica:''),
-            " Escalafón: "+ ((this.dataEdit.escalafon)?(JSON.parse(JSON.stringify(this.dataEdit.escalafon))).escalafon:''),
-                        
-          ]
+          
+          new Table([            
+            [ 
+              " Grado, apellido y nombre: "+ this.nombreCompleto
+            ],
+            
+            [ 
+              " Legajo Personal: "+ this.dataEdit.legajo
+            ],
+            [ 
+              " D.N.I. Nº: "+ this.dataEdit.dni
+            ],
+            [ 
+              " Escala Jerarquica: "+ ((this.dataEdit.escala_jerarquica)?(JSON.parse(JSON.stringify(this.dataEdit.escala_jerarquica))).escala_jerarquica:'')
+            ],
+            [ 
+              " Escalafón: "+ ((this.dataEdit.escalafon)?(JSON.parse(JSON.stringify(this.dataEdit.escalafon))).escalafon:'')
+            ],
+            [" "]
+
+          ]).layout("lightHorizontalLines").end
         ]
-      ]).layout("noBorders").fontSize(11).end
+      ]).widths([110,390]).layout("noBorders").fontSize(11).end
     );
 
     pdf.add(' ');
@@ -1154,5 +1173,6 @@ export class EditComponent implements OnInit {
     pdf.create().open();
                              
   }
+  //FIN GENERAL PDF  CON DATOS PERSONALES..............................................................................................
 
 }

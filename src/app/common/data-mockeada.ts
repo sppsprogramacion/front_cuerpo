@@ -49490,6 +49490,18 @@ export const sexos = [
 
 export const destinos = [
     {
+        "id_destino": 16,
+        "destino": "Departamento Asesoria Letrada"
+    },
+    {
+        "id_destino": 17,
+        "destino": "Departamento Sanidad"
+    },
+    {
+        "id_destino": 15,
+        "destino": "Departamento Secretaria General"
+    },
+    {
         "id_destino": 13,
         "destino": "Direccion Correccional"
     },
@@ -49643,6 +49655,31 @@ export const departamentos = [
         "id_departamento": 28,
         "departamento": "Vigilancia y Tratamiento - UC7",
         "destino_id": 7
+    },
+    {
+        "id_departamento": 29,
+        "departamento": "Inteligencia",
+        "destino_id": 9
+    },
+    {
+        "id_departamento": 30,
+        "departamento": "Contable",
+        "destino_id": 11
+    },
+    {
+        "id_departamento": 31,
+        "departamento": "Capacitación y Producción",
+        "destino_id": 12
+    },
+    {
+        "id_departamento": 32,
+        "departamento": "Personal",
+        "destino_id": 10
+    },
+    {
+        "id_departamento": 33,
+        "departamento": "Instrucción",
+        "destino_id": 10
     }
 ];
 
@@ -49674,18 +49711,18 @@ export const divisiones = [
     },
     {
         "id_division": 6,
-        "division": "Procesamiento de Datos",
-        "departamento_id": 6
+        "division": "Procesamiento de datos",
+        "departamento_id": 3
     },
     {
         "id_division": 7,
-        "division": "Ceremonial y Prensa",
-        "departamento_id": 6
+        "division": "Ceremonial, prensa y relaciones públicas",
+        "departamento_id": 3
     },
     {
         "id_division": 8,
-        "division": "Comunicaciones",
-        "departamento_id": 6
+        "division": "Despacho",
+        "departamento_id": 3
     },
     {
         "id_division": 9,
@@ -49701,25 +49738,190 @@ export const divisiones = [
         "id_division": 11,
         "division": "Judiciales",
         "departamento_id": 3
+    },
+    {
+        "id_division": 12,
+        "division": "Geops",
+        "departamento_id": 3
+    },
+    {
+        "id_division": 13,
+        "division": "Compras",
+        "departamento_id": 30
+    },
+    {
+        "id_division": 14,
+        "division": "Teneduría de Libros",
+        "departamento_id": 30
+    },
+    {
+        "id_division": 15,
+        "division": "Tesorería",
+        "departamento_id": 30
+    },
+    {
+        "id_division": 16,
+        "division": "Economato",
+        "departamento_id": 30
+    },
+    {
+        "id_division": 17,
+        "division": "Exposición y Ventas",
+        "departamento_id": 3
+    },
+    {
+        "id_division": 18,
+        "division": "Transporte",
+        "departamento_id": 3
+    },
+    {
+        "id_division": 19,
+        "division": "Registro y Control",
+        "departamento_id": 32
+    },
+    {
+        "id_division": 20,
+        "division": "Reconocimiento Médico",
+        "departamento_id": 32
+    },
+    {
+        "id_division": 21,
+        "division": "Liquidación de Haberes",
+        "departamento_id": 32
     }
 ];
 
 export const sectores = [
-        {
-            "id_sector": 1,
-            "sector": "sin sector",
-            "division_id": 0
-        },
-        {
-            "id_sector": 2,
-            "sector": "Programación",
-            "division_id": 6
-        },
-        {
-            "id_sector": 3,
-            "sector": "Técnica",
-            "division_id": 6
-        }
+    {
+        "id_sector": 1,
+        "sector": "sin sector",
+        "division_id": 0
+    },
+    {
+        "id_sector": 2,
+        "sector": "Programación",
+        "division_id": 6
+    },
+    {
+        "id_sector": 3,
+        "sector": "Técnica",
+        "division_id": 6
+    },
+    {
+        "id_sector": 4,
+        "sector": "Seccion comunicaciones",
+        "division_id": 5
+    },
+    {
+        "id_sector": 5,
+        "sector": "Seccion Mesa de Entrada y Archivo General",
+        "division_id": 5
+    },
+    {
+        "id_sector": 6,
+        "sector": "Seccion Banda de Música",
+        "division_id": 5
+    },
+    {
+        "id_sector": 7,
+        "sector": "Sección Rendiciones General",
+        "division_id": 5
+    },
+    {
+        "id_sector": 8,
+        "sector": "Sección Peculio",
+        "division_id": 5
+    },
+    {
+        "id_sector": 9,
+        "sector": "Sección Patrimonio General",
+        "division_id": 5
+    },
+    {
+        "id_sector": 10,
+        "sector": "Asesoria Contable",
+        "division_id": 5
+    },
+    {
+        "id_sector": 11,
+        "sector": "Control Interno",
+        "division_id": 5
+    },
+    {
+        "id_sector": 12,
+        "sector": "Secretaría de Dirección",
+        "division_id": 5
+    },
+    {
+        "id_sector": 13,
+        "sector": "Pabadería",
+        "division_id": 17
+    },
+    {
+        "id_sector": 14,
+        "sector": "Salón Exposición y Ventas",
+        "division_id": 17
+    },
+    {
+        "id_sector": 15,
+        "sector": "Panadería",
+        "division_id": 17
+    },
+    {
+        "id_sector": 16,
+        "sector": "Delegación Contable",
+        "division_id": 5
+    },
+    {
+        "id_sector": 17,
+        "sector": "Sección Armería Central",
+        "division_id": 5
+    },
+    {
+        "id_sector": 18,
+        "sector": "Sección Canes",
+        "division_id": 5
+    },
+    {
+        "id_sector": 19,
+        "sector": "Despacho de Inspección General",
+        "division_id": 5
+    },
+    {
+        "id_sector": 20,
+        "sector": "Sector Asistencia",
+        "division_id": 19
+    },
+    {
+        "id_sector": 21,
+        "sector": "Sector Licencia",
+        "division_id": 19
+    },
+    {
+        "id_sector": 22,
+        "sector": "Sector Sanciones",
+        "division_id": 19
+    },
+    {
+        "id_sector": 23,
+        "sector": "Sección Legajos",
+        "division_id": 19
+    },
+    {
+        "id_sector": 24,
+        "sector": "Sector Retiro",
+        "division_id": 5
+    },
+    {
+        "id_sector": 25,
+        "sector": "Sector Gimnasio",
+        "division_id": 5
+    },
+    {
+        "id_sector": 26,
+        "sector": "Curso de Formación Aspirantes a Agentes",
+        "division_id": 5
+    }
     
 ];
 

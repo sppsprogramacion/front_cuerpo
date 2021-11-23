@@ -86,6 +86,7 @@ export class DashboardComponent implements OnInit {
 
   
   //GRAFICO CIRCULOS
+  //ancho y alto del grafico, es una tupla de number
   view: [number,number] = [500, 400];
 
   // options
@@ -98,9 +99,7 @@ export class DashboardComponent implements OnInit {
 
   onSelect(data: any): void {
     console.log(data);
-  }
-
-  
+  }  
   
   //FIN GRAFICO CIRCULOS..................................
 
@@ -149,6 +148,7 @@ export class DashboardComponent implements OnInit {
     }
   ]
   //FIN DATOS PARA GRAFICOS..................................................
+  
   ngOnInit(): void {
   }
 

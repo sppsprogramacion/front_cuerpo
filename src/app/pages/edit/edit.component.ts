@@ -1032,7 +1032,7 @@ export class EditComponent implements OnInit {
     let fecha_hoy: Date = new Date();
     let fecha_completa: string;
     let anio:number= fecha_hoy.getFullYear(); 
-    let mes: number= fecha_hoy.getMonth() + 1;
+    let mes: number= fecha_hoy.getMonth();
     let dia: number= fecha_hoy.getDate();
     fecha_completa = "Salta, " + dia + " de " + meses_texto[mes] + " de " +  anio;
 

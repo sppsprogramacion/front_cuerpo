@@ -24,8 +24,6 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 // If any issue using previous fonts import. you can try this:
 // import pdfFonts from "pdfmake/build/vfs_fonts";
-//import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-//import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 // registrar las fuentes

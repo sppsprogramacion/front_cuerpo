@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
   
   newFileDialog: boolean = false;
 
+  //CALENDARIO
   bsDatePickerConfig!: Partial<BsDatepickerConfig>;
   regEvento: Partial<EventoModel> = new EventoModel();
   listaEventos: any[] = [
@@ -66,6 +67,8 @@ export class DashboardComponent implements OnInit {
     this.newFileDialog = true;
   }
 
+  //FIN CALENDARIO
+
   constructor(
     public readonly datePipe: DatePipe,
   ) 
@@ -82,6 +85,7 @@ export class DashboardComponent implements OnInit {
   }
 
   
+  //GRAFICO CIRCULOS
   view: [number,number] = [500, 400];
 
   // options
@@ -90,42 +94,61 @@ export class DashboardComponent implements OnInit {
 
   colorScheme = {
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
-  };
-
-  
+  };  
 
   onSelect(data: any): void {
-    console.log(event);
+    console.log(data);
   }
 
+  
+  
+  //FIN GRAFICO CIRCULOS..................................
 
-  single = [
+  //GRAFICO BARRA VERTICAL
+  // options
+  showXAxis = true;
+  showYAxis = true;
+  gradient = false;
+  //showLegend = true;
+  showXAxisLabel = true;
+  xAxisLabel = 'Unidades';
+  showYAxisLabel = true;
+  yAxisLabel = 'Canidad Personal';
+
+  colorScheme2 = {
+    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+  };
+
+  //FIN GRAFICO BARRA VERTICAL.................................................
+
+  //DATOS PARA GRAFICOS
+  unidades = [
     {
-      "name": "Germany",
-      "value": 20000
+      "name": "U.C. N° 1",
+      "value": 300
     },
     {
-      "name": "USA",
-      "value": 10000
+      "name": "U.C. N° 2",
+      "value": 130
     },
     {
-      "name": "France",
-      "value": 25000
+      "name": "U.C. N° 3",
+      "value": 145
     },
     {
-      "name": "UK",
-      "value": 10000
+      "name": "U.C. N° 4",
+      "value": 100
     },
     {
-      "name": "Italy",
-      "value": 25000
+      "name": "U.C. N° 5",
+      "value": 150
     },
     {
-      "name": "Spain",
-      "value": 10000
+      "name": "U.C. N° 6",
+      "value": 80
     }
   ]
-
+  //FIN DATOS PARA GRAFICOS..................................................
   ngOnInit(): void {
   }
 

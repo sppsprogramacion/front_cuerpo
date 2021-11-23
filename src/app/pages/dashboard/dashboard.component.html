@@ -1,18 +1,42 @@
-<div class="content-wrapper">
-    <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row align-items-start">
-                <DIV class="COL-6">
-                    <ngx-charts-pie-grid [view]="view" scheme="cool" [results]="single" (select)="onSelect($event)">
-                    </ngx-charts-pie-grid>
-                </DIV>
-                <div class="col-md-6">
-                    <full-calendar #calendar [options]="calendarOptions"> </full-calendar>
+<!-- Main content -->
+
+
+<div class="card">
+    <div class="card-header">
+        Fuerza Efectiva de Unidades Carcelarias
+    </div>
+    <div class="card-body">
+        <div class="row align-items-start">
+
+            <div class="col-12 col-md-6">
+                <!-- <full-calendar #calendar [options]="calendarOptions"> </full-calendar> -->
+                <div class="card">
+                    <div class="card-header">
+                        Cantidades
+                    </div>
+                    <div #containerRef class="card-body" style="margin-right: 30px; fill: #e0e0e0;">
+                        <ngx-charts-bar-vertical [view]="[containerRef.offsetWidth, 400]" scheme="cool" [results]="unidades" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="false" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+                            [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+                        </ngx-charts-bar-vertical>
+                    </div>
+
                 </div>
                 <!-- /.col -->
 
             </div>
+            <div class="col-12 col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Porcentajes
+                    </div>
+                    <div #containerRef1 class="card-body" style="margin-right: 30px; fill: #e0e0e0;">
+                        <ngx-charts-pie-grid [view]="[containerRef1.offsetWidth, 400]" scheme="cool" [results]="unidades" (select)="onSelect($event)">
+                        </ngx-charts-pie-grid>
+                    </div>
+                </div>
+
+            </div>
+
             <!-- /.row -->
 
             <div class="row">
@@ -74,9 +98,9 @@
                 </div>
             </div>
         </div>
-
-    </section>
-    <!-- /.content -->
-
-
+    </div>
 </div>
+
+
+
+<!-- /.content -->

@@ -19,9 +19,14 @@ import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
 // Import pdfmake-wrapper and the fonts to use
 import { PdfMakeWrapper } from 'pdfmake-wrapper';
 import * as pdfFonts from "pdfmake/build/vfs_fonts"; // fonts provided for pdfmake
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
 
 // If any issue using previous fonts import. you can try this:
 // import pdfFonts from "pdfmake/build/vfs_fonts";
+//import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//import { NgxChartsModule } from '@swimlane/ngx-charts';
+
 
 // registrar las fuentes
 PdfMakeWrapper.setFonts(pdfFonts);
@@ -55,7 +60,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
      HttpClientModule,
      ngPrimeModule,
      PipesModule,
-     FullCalendarModule
+     FullCalendarModule,
+     NgxChartsModule
    ]
  })
 export class PagesModule { }

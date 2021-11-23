@@ -3,7 +3,11 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row align-items-start">
-                <div class="col-md-12">
+                <DIV class="COL-6">
+                    <ngx-charts-pie-grid [view]="view" scheme="cool" [results]="single" (select)="onSelect($event)">
+                    </ngx-charts-pie-grid>
+                </DIV>
+                <div class="col-md-6">
                     <full-calendar #calendar [options]="calendarOptions"> </full-calendar>
                 </div>
                 <!-- /.col -->
@@ -24,20 +28,6 @@
 
                                     <!-- inicio de formulario -->
                                     <div class="p-fluid p-flex-column">
-                                        <!-- <div class="p-field p-grid">
-                                            <label class="p-col-12 p-mb-2 p-md-2 p-mb-md-0" for="legajo">Personal</label>
-                                            <div class="p-col-12 p-md-10">
-                                                <input type="number" id="legajo" [(ngModel)]="regPdf.legajo_personal" required autofocus/>
-                                                <small class="p-error" *ngIf="submitted && !regPdf.legajo_personal">El Personal es requerido!</small>
-                                            </div>
-                                        </div> -->
-                                        <!-- <div class="p-field p-grid">
-                                            <label class="p-col-2 p-mb-2 p-mb-md-0" for="nombre">Nombre del Archivo</label>
-                                            <div class="p-col-12 p-md-10">
-                                                <input type="text" pInputText id="nombre" [(ngModel)]="regPdf.nombre_archivo" required/>
-                                                <small class="p-error" *ngIf="submitted && !regPdf.nombre_archivo">El Nombre del Archivos es requerido!</small>
-                                            </div>
-                                        </div> -->
 
 
                                         <div class="p-field p-grid">

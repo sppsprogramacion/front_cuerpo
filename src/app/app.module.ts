@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FileSaverModule } from 'ngx-filesaver';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { FileSaverModule } from 'ngx-filesaver';
     BsDatepickerModule.forRoot(),
     BrowserAnimationsModule,
     FileSaverModule
+     
 
   ],
   providers: [],

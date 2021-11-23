@@ -81,6 +81,51 @@ export class DashboardComponent implements OnInit {
       });
   }
 
+  
+  view: [number,number] = [500, 400];
+
+  // options
+  showLegend: boolean = true;
+  showLabels: boolean = true;
+
+  colorScheme = {
+    domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
+  };
+
+  
+
+  onSelect(data: any): void {
+    console.log(event);
+  }
+
+
+  single = [
+    {
+      "name": "Germany",
+      "value": 20000
+    },
+    {
+      "name": "USA",
+      "value": 10000
+    },
+    {
+      "name": "France",
+      "value": 25000
+    },
+    {
+      "name": "UK",
+      "value": 10000
+    },
+    {
+      "name": "Italy",
+      "value": 25000
+    },
+    {
+      "name": "Spain",
+      "value": 10000
+    }
+  ]
+
   ngOnInit(): void {
   }
 

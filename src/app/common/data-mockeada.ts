@@ -49712,7 +49712,7 @@ export const divisiones = [
     {
         "id_division": 6,
         "division": "Procesamiento de datos",
-        "departamento_id": 3
+        "departamento_id": 6
     },
     {
         "id_division": 7,

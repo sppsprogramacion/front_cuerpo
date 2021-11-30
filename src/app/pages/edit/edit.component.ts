@@ -556,7 +556,7 @@ export class EditComponent implements OnInit {
         if(id != null){
           this.cargarDepartamentos(parseInt(id.toString()));
           this.cargarDivisiones(3);
-          this.cargarSectores(0);
+          this.cargarSectores(5);
           this.cargarSeccionesGuardia(0);
           this.forma.get('departamento_id')?.setValue(3);
           this.forma.get('division_id')?.setValue(5);
@@ -586,7 +586,7 @@ export class EditComponent implements OnInit {
     const id = this.forma.get('departamento_id')?.value;
     if(id != null){
       this.cargarDivisiones(parseInt(id.toString()));
-      this.cargarSectores(0);
+      this.cargarSectores(5);
       this.cargarSeccionesGuardia(parseInt(id.toString()));
       this.forma.get('division_id')?.setValue(5);
       this.forma.get('sector_id')?.setValue(1);

@@ -135,7 +135,7 @@ export class UploadComponent implements OnInit {
     //cargar desplegables
     this.cargarDepartamentos(parseInt(this.forma.get('destino_id')?.value));
     this.cargarDivisiones(parseInt(this.forma.get('departamento_id')?.value));
-    this.cargarSectores(0);
+    this.cargarSectores(parseInt(this.forma.get('division_id')?.value));
     this.cargarSeccionesGuardia(0);
     this.cargarDepartamentosProvinciales(parseInt(this.forma.get('provincia_id')?.value));
     this.cargarMunicipios(parseInt(this.forma.get('departamento_provincial_id')?.value));
@@ -462,7 +462,7 @@ export class UploadComponent implements OnInit {
     if(id != null){      
       this.cargarDepartamentos(parseInt(id.toString()));
       this.cargarDivisiones(3);
-      this.cargarSectores(0);
+      this.cargarSectores(5);
       this.cargarSeccionesGuardia(0);
       this.forma.get('departamento_id')?.setValue(3);
       this.forma.get('division_id')?.setValue(5);
@@ -484,7 +484,7 @@ export class UploadComponent implements OnInit {
     const id = this.forma.get('departamento_id')?.value;
     if(id != null){
       this.cargarDivisiones(parseInt(id.toString()));
-      this.cargarSectores(0);
+      this.cargarSectores(5);
       this.cargarSeccionesGuardia(parseInt(id.toString()));
       this.forma.get('division_id')?.setValue(5);
       this.forma.get('sector_id')?.setValue(1);

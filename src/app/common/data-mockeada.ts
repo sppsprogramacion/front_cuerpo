@@ -49970,6 +49970,246 @@ export const secciones_guardia = [
         "id_seccion": 9,
         "seccion": "Cuarta Sección - Externa",
         "departamento_id": 2
+    },
+    {
+        "id_seccion": 11,
+        "seccion": "Primera Sección - Externa U.C. N° 2",
+        "departamento_id": 17
+    },
+    {
+        "id_seccion": 12,
+        "seccion": "Segunda Sección - Externa U.C. N° 2",
+        "departamento_id": 17
+    },
+    {
+        "id_seccion": 13,
+        "seccion": "Tercera Sección - Externa U.C. N° 2",
+        "departamento_id": 17
+    },
+    {
+        "id_seccion": 14,
+        "seccion": "Cuarta Sección - Externa U.C. N° 2",
+        "departamento_id": 17
+    },
+    {
+        "id_seccion": 15,
+        "seccion": "Primera Sección - Interna U.C. N° 2",
+        "departamento_id": 18
+    },
+    {
+        "id_seccion": 16,
+        "seccion": "Segunda Sección - Interna U.C. N° 2",
+        "departamento_id": 18
+    },
+    {
+        "id_seccion": 17,
+        "seccion": "Tercera Sección - Interna U.C. N° 2",
+        "departamento_id": 18
+    },
+    {
+        "id_seccion": 18,
+        "seccion": "Cuarta Sección - Interna U.C. N° 2",
+        "departamento_id": 18
+    },
+    {
+        "id_seccion": 19,
+        "seccion": "Primera Sección - Externa U.C. N° 3",
+        "departamento_id": 21
+    },
+    {
+        "id_seccion": 20,
+        "seccion": "Segunda Sección - Externa U.C. N° 3",
+        "departamento_id": 21
+    },
+    {
+        "id_seccion": 21,
+        "seccion": "Tercera Sección - Externa U.C. N° 3",
+        "departamento_id": 21
+    },
+    {
+        "id_seccion": 22,
+        "seccion": "Cuarta Sección - Externa U.C. N° 3",
+        "departamento_id": 21
+    },
+    {
+        "id_seccion": 23,
+        "seccion": "Primera Sección - Interna U.C. N° 3",
+        "departamento_id": 20
+    },
+    {
+        "id_seccion": 24,
+        "seccion": "Segunda Sección - Interna U.C. N° 3",
+        "departamento_id": 20
+    },
+    {
+        "id_seccion": 25,
+        "seccion": "Tercera Sección - Interna U.C. N° 3",
+        "departamento_id": 20
+    },
+    {
+        "id_seccion": 26,
+        "seccion": "Cuarta Sección - Interna U.C. N° 3",
+        "departamento_id": 20
+    },
+    {
+        "id_seccion": 27,
+        "seccion": "Primera Sección - Externa U.C. N° 4",
+        "departamento_id": 22
+    },
+    {
+        "id_seccion": 28,
+        "seccion": "Segunda Sección - Externa U.C. N° 4",
+        "departamento_id": 22
+    },
+    {
+        "id_seccion": 29,
+        "seccion": "Tercera Sección - Externa U.C. N° 4",
+        "departamento_id": 22
+    },
+    {
+        "id_seccion": 30,
+        "seccion": "Cuarta Sección - Externa U.C. N° 4",
+        "departamento_id": 22
+    },
+    {
+        "id_seccion": 31,
+        "seccion": "Primera Sección - Interna U.C. N° 4",
+        "departamento_id": 23
+    },
+    {
+        "id_seccion": 32,
+        "seccion": "Segunda Sección - Interna U.C. N° 4",
+        "departamento_id": 23
+    },
+    {
+        "id_seccion": 33,
+        "seccion": "Tercera Sección - Interna U.C. N° 4",
+        "departamento_id": 23
+    },
+    {
+        "id_seccion": 34,
+        "seccion": "Cuarta Sección - Interna U.C. N° 4",
+        "departamento_id": 23
+    },
+    {
+        "id_seccion": 35,
+        "seccion": "Primera Sección - Externa U.C. N° 5",
+        "departamento_id": 4
+    },
+    {
+        "id_seccion": 36,
+        "seccion": "Segunda Sección - Externa U.C. N° 5",
+        "departamento_id": 4
+    },
+    {
+        "id_seccion": 37,
+        "seccion": "Tercera Sección - Externa U.C. N° 5",
+        "departamento_id": 4
+    },
+    {
+        "id_seccion": 38,
+        "seccion": "Cuarta Sección - Externa U.C. N° 5",
+        "departamento_id": 4
+    },
+    {
+        "id_seccion": 39,
+        "seccion": "Primera Sección - Interna U.C. N° 5",
+        "departamento_id": 5
+    },
+    {
+        "id_seccion": 40,
+        "seccion": "Segunda Sección - Interna U.C. N° 5",
+        "departamento_id": 5
+    },
+    {
+        "id_seccion": 41,
+        "seccion": "Tercera Sección - Interna U.C. N° 5",
+        "departamento_id": 5
+    },
+    {
+        "id_seccion": 42,
+        "seccion": "Cuarta Sección - Interna U.C. N° 5",
+        "departamento_id": 5
+    },
+    {
+        "id_seccion": 43,
+        "seccion": "Primera Sección - Externa U.C. N° 6",
+        "departamento_id": 26
+    },
+    {
+        "id_seccion": 44,
+        "seccion": "Segunda Sección - Externa U.C. N° 6",
+        "departamento_id": 26
+    },
+    {
+        "id_seccion": 45,
+        "seccion": "Tercera Sección - Externa U.C. N° 6",
+        "departamento_id": 26
+    },
+    {
+        "id_seccion": 46,
+        "seccion": "Cuarta Sección - Externa U.C. N° 6",
+        "departamento_id": 26
+    },
+    {
+        "id_seccion": 47,
+        "seccion": "Primera Sección - Interna U.C. N° 6",
+        "departamento_id": 25
+    },
+    {
+        "id_seccion": 48,
+        "seccion": "Segunda Sección - Interna U.C. N° 6",
+        "departamento_id": 25
+    },
+    {
+        "id_seccion": 49,
+        "seccion": "Tercera Sección - Interna U.C. N° 6",
+        "departamento_id": 25
+    },
+    {
+        "id_seccion": 50,
+        "seccion": "Cuarta Sección - Interna U.C. N° 6",
+        "departamento_id": 25
+    },
+    {
+        "id_seccion": 51,
+        "seccion": "Primera Sección - Externa U.C. N° 7",
+        "departamento_id": 27
+    },
+    {
+        "id_seccion": 52,
+        "seccion": "Segunda Sección - Externa U.C. N° 7",
+        "departamento_id": 27
+    },
+    {
+        "id_seccion": 53,
+        "seccion": "Tercera Sección - Externa U.C. N° 7",
+        "departamento_id": 27
+    },
+    {
+        "id_seccion": 54,
+        "seccion": "Cuarta Sección - Externa U.C. N° 7",
+        "departamento_id": 27
+    },
+    {
+        "id_seccion": 55,
+        "seccion": "Primera Sección - Interna U.C. N° 7",
+        "departamento_id": 28
+    },
+    {
+        "id_seccion": 56,
+        "seccion": "Segunda Sección - Interna U.C. N° 7",
+        "departamento_id": 28
+    },
+    {
+        "id_seccion": 57,
+        "seccion": "Tercera Sección - Interna U.C. N° 7",
+        "departamento_id": 28
+    },
+    {
+        "id_seccion": 58,
+        "seccion": "Cuarta Sección - Interna U.C. N° 7",
+        "departamento_id": 28
     }
 ];
 

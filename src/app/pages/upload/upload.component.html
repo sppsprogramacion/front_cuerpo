@@ -279,6 +279,18 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
+                                                    <label>Fecha Ingreso</label>
+                                                    <!-- <input formControlName="fecha_ingreso" type="text" class="form-control" placeholder="fecha ingreso" [class.is-invalid]="nombre1NoValido"> -->
+                                                    <input type="text" bsDatepicker [bsConfig]=bsDatePickerConfig id="fechaingreso" class="form-control" formControlName="fecha_ingreso">
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
                                                     <label for="datebirth">Ultimo Ascenso:</label>
                                                     <input type="text" bsDatepicker [bsConfig]=bsDatePickerConfig (bsValueChange)="onDateChange($event)" id="datebirth" class="form-control" formControlName="ultimo_ascenso">
                                                 </div>
@@ -335,15 +347,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label>Fecha Ingreso</label>
-                                                    <!-- <input formControlName="fecha_ingreso" type="text" class="form-control" placeholder="fecha ingreso" [class.is-invalid]="nombre1NoValido"> -->
-                                                    <input type="text" bsDatepicker [bsConfig]=bsDatePickerConfig id="fechaingreso" class="form-control" formControlName="fecha_ingreso">
 
-                                                </div>
-
-                                            </div>
 
                                         </div>
                                         <div class="row">

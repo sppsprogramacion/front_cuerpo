@@ -101,25 +101,9 @@ export class EditComponent implements OnInit {
   ) {
     this.dataEdit= dataService.personalData;
     this.regPdf.legajo_personal = this.dataEdit.legajo!;  
-    if(this.dataEdit.ultimo_ascenso != null){
-      //debe ser MM-dd-yyyy porque el tipo Date recibe ese formato... con dd-MM-yyyy intercambia mes con dia
-      let auxiliar = this.datePipe.transform(this.dataEdit.ultimo_ascenso, "MM-dd-yyyy");
-      this.dataEdit.ultimo_ascenso = new Date(auxiliar!);
-           
-    }
-    if(this.dataEdit.fecha_nacimiento != null){
-      //debe ser MM-dd-yyyy porque el tipo Date recibe ese formato... con dd-MM-yyyy intercambia mes con dia
-      let auxiliar2 = this.datePipe.transform(this.dataEdit.fecha_nacimiento, "MM-dd-yyyy");
-      this.dataEdit.fecha_nacimiento = new Date(auxiliar2!);
-           
-    }
 
-    if(this.dataEdit.fecha_ingreso != null){
-      //debe ser MM-dd-yyyy porque el tipo Date recibe ese formato... con dd-MM-yyyy intercambia mes con dia
-      let auxiliar3 = this.datePipe.transform(this.dataEdit.fecha_ingreso, "MM-dd-yyyy");
-      this.dataEdit.fecha_ingreso = new Date(auxiliar3!);
-           
-    }
+    //cambiar formato de fechas para mostrarlas en datepicker
+    this.formatoFechasMostrar();
 
     //configuracion de datepicker
     this.bsDatePickerConfig = Object.assign({}, 
@@ -163,6 +147,7 @@ export class EditComponent implements OnInit {
        escala_jerarquica_id: [this.dataEdit.escala_jerarquica_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        grado_id: [this.dataEdit.grado_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        foto: [this.dataEdit.foto],
+       fecha_ingreso: [this.dataEdit.fecha_ingreso, ],
        ultimo_ascenso: [this.dataEdit.ultimo_ascenso],
       //  fecha_nacimiento:[this.dataEdit.fecha_nacimiento],
     });
@@ -173,7 +158,7 @@ export class EditComponent implements OnInit {
     this.formaFiliatorios = this.fb.group({   
       dni: [this.dataEdit.dni,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1000000), Validators.max(99000000)]],
       fecha_nacimiento: [this.dataEdit.fecha_nacimiento,[Validators.required]],
-      fecha_ingreso: [this.dataEdit.fecha_ingreso, ],
+      
       cuil: [this.dataEdit.cuil,[Validators.required, Validators.pattern(/\b(20|23|24|27)(\D)?[0-9]{8}(\D)?[0-9]/)]],
       sexo_id: [this.dataEdit.sexo_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       estado_civil_id: [this.dataEdit.estado_civil_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
@@ -196,9 +181,9 @@ export class EditComponent implements OnInit {
     //this.submitForm();
    
     let auxiliar: any;
-    auxiliar = this.dataEdit.grado;
-    this.nombreCompleto = (auxiliar.grado! || "") + " " + (this.dataEdit.apellido_1! || "") + " " + (this.dataEdit.apellido_2! || "") +" " + (this.dataEdit.nombre_1! || "") +" " + (this.dataEdit.nombre_2! || "") +" " + (this.dataEdit.nombre_3! || "");
-    this.nombreCompleto = this.nombreCompleto.toUpperCase();
+    
+    //establecer nombre completo del personal
+    this.nombreCompletoPersonal();
     
     //analizar si es administrador o no
     this.administrador = (globalConstants.rol_usuario == "0")? true: false;
@@ -718,21 +703,7 @@ export class EditComponent implements OnInit {
   }
   //Fin guardar imagen..................................
 
-  onDateChange(nuevaFecha: Date){
-    if(nuevaFecha != null){
-      this.auxiliarDate = this.datePipe.transform(nuevaFecha,"yyyy-MM-dd")!;
-        
-    }
-  }
-
-  changeFormatoFechaGuardar(nuevaFecha: Date){
-    let fechaAuxiliar:any = null;
-    if(nuevaFecha != null){
-      fechaAuxiliar = this.datePipe.transform(nuevaFecha,"yyyy-MM-dd")!;
-      
-    }
-    return fechaAuxiliar;
-  }
+  
   
   //enviar formulario
   submitForm(formEnviado:string){
@@ -748,11 +719,11 @@ export class EditComponent implements OnInit {
 
       data = {        
         legajo: parseInt(this.forma.get('legajo')?.value),
-        apellido_1: this.forma.get('apellido_1')?.value,
-        apellido_2: this.forma.get('apellido_2')?.value,
-        nombre_1: this.forma.get('nombre_1')?.value,
-        nombre_2: this.forma.get('nombre_2')?.value,
-        nombre_3: this.forma.get('nombre_3')?.value,
+        apellido_1: this.primeraMayuscula(this.forma.get('apellido_1')?.value),
+        apellido_2: this.primeraMayuscula(this.forma.get('apellido_2')?.value),
+        nombre_1: this.primeraMayuscula(this.forma.get('nombre_1')?.value),
+        nombre_2: this.primeraMayuscula(this.forma.get('nombre_2')?.value),
+        nombre_3: this.primeraMayuscula(this.forma.get('nombre_3')?.value),
         destino_id: parseInt(this.forma.get('destino_id')?.value),
         departamento_id: parseInt(this.forma.get('departamento_id')?.value),
         division_id: parseInt(this.forma.get('division_id')?.value),
@@ -763,7 +734,7 @@ export class EditComponent implements OnInit {
         escala_jerarquica_id: parseInt(this.forma.get('escala_jerarquica_id')?.value),
         grado_id: parseInt(this.forma.get('grado_id')?.value),
         ultimo_ascenso: this.auxiliarDate,
-        
+        fecha_ingreso: this.changeFormatoFechaGuardar(this.forma.get('fecha_ingreso')?.value),
       }
     }else{
 
@@ -775,7 +746,7 @@ export class EditComponent implements OnInit {
       data = {
         dni: parseInt(this.formaFiliatorios.get('dni')?.value),
         fecha_nacimiento: this.changeFormatoFechaGuardar(this.formaFiliatorios.get('fecha_nacimiento')?.value), 
-        fecha_ingreso: this.changeFormatoFechaGuardar(this.formaFiliatorios.get('fecha_ingreso')?.value), 
+         
         cuil: this.formaFiliatorios.get('cuil')?.value,
         sexo_id: parseInt(this.formaFiliatorios.get('sexo_id')?.value),
         estado_civil_id: parseInt(this.formaFiliatorios.get('estado_civil_id')?.value),
@@ -800,6 +771,9 @@ export class EditComponent implements OnInit {
       .subscribe(
         resultado => {                                                                
           Swal.fire('Exito',`El Registro ha sido editado con Exito`,"success");
+          this.buscarPersonal(this.dataEdit.legajo!);         
+          
+          
         },
         error => {                                                                
           Swal.fire('Error',`Error al Editar el Usuario ${error.error.message}`,"error")                          
@@ -814,7 +788,13 @@ export class EditComponent implements OnInit {
     this.personalService.buscarPersonal(legajo)
       .subscribe(
         personal => {
+          this.dataEdit = personal;
           this.foto_nombre = personal.foto!;
+          //cambiar formato de fechas para mostrar
+          this.formatoFechasMostrar();
+          this.nombreCompletoPersonal();
+          this.actualizarCamposFormulario();
+          
         }
       )
   }
@@ -1005,6 +985,35 @@ export class EditComponent implements OnInit {
   
   }
 
+  //ESTABLECER NOMBRE COMPLETO DEL PERSONAL
+  private nombreCompletoPersonal(){
+    let auxiliar: any;
+    auxiliar = this.dataEdit.grado;
+    this.nombreCompleto = (auxiliar.grado! || "") + " " + (this.dataEdit.apellido_1! || "") + " " + (this.dataEdit.apellido_2! || "") +" " + (this.dataEdit.nombre_1! || "") +" " + (this.dataEdit.nombre_2! || "") +" " + (this.dataEdit.nombre_3! || "");
+    this.nombreCompleto = this.nombreCompleto.toUpperCase();
+  }
+  //FIN ESTABLECER NOMBRE COMPLETO DEL PERSONAL...........................................................
+  
+  //CAMBIAR NOMBRES Y APELLIDOS PRIMERA LETRA A MAYUSCULA
+  private primeraMayuscula(palabra: string){
+    if (!palabra) return palabra;
+    return palabra[0].toUpperCase() + palabra.substr(1).toLowerCase();
+
+  }
+  //FIN CAMBIAR NOMBRES Y APELLIDOS PRIMERA LETRA A MAYUSCULA.............................
+
+  //ACTUALIZAR DATOS EN FORMULARIO
+  private actualizarCamposFormulario(){
+    this.forma.controls['apellido_1'].setValue(this.dataEdit.apellido_1);
+    this.forma.controls['apellido_2'].setValue(this.dataEdit.apellido_2);
+    this.forma.controls['nombre_1'].setValue(this.dataEdit.nombre_1);
+    this.forma.controls['nombre_2'].setValue(this.dataEdit.nombre_2);
+    this.forma.controls['nombre_3'].setValue(this.dataEdit.nombre_3);
+    
+  }
+
+  //FIN ACTUALIZAR DATOS EN FORMULARIO
+
   //DESHABILITAR CAMPOS
   private deshabilitarCampos(valor: boolean){
     if(valor==false){
@@ -1023,7 +1032,50 @@ export class EditComponent implements OnInit {
     }
   }
   
-  //FIN DESHABILITAR CAMPOS
+  //FIN DESHABILITAR CAMPOS....................................
+
+  //FORMATO FECHAS PARA NOSTRAR DATEPICKER
+  private formatoFechasMostrar(){
+    if(this.dataEdit.ultimo_ascenso != null){
+      //debe ser MM-dd-yyyy porque el tipo Date recibe ese formato... con dd-MM-yyyy intercambia mes con dia
+      let auxiliar = this.datePipe.transform(this.dataEdit.ultimo_ascenso, "MM-dd-yyyy");
+      this.dataEdit.ultimo_ascenso = new Date(auxiliar!);
+           
+    }
+    if(this.dataEdit.fecha_nacimiento != null){
+      //debe ser MM-dd-yyyy porque el tipo Date recibe ese formato... con dd-MM-yyyy intercambia mes con dia
+      let auxiliar2 = this.datePipe.transform(this.dataEdit.fecha_nacimiento, "MM-dd-yyyy");
+      this.dataEdit.fecha_nacimiento = new Date(auxiliar2!);
+           
+    }
+
+    if(this.dataEdit.fecha_ingreso != null){
+      //debe ser MM-dd-yyyy porque el tipo Date recibe ese formato... con dd-MM-yyyy intercambia mes con dia
+      let auxiliar3 = this.datePipe.transform(this.dataEdit.fecha_ingreso, "MM-dd-yyyy");
+      this.dataEdit.fecha_ingreso = new Date(auxiliar3!);
+           
+    }
+  }
+   //FIN FORMATO FECHAS PARA NOSTRAR DATEPICKER.................................................................
+
+  onDateChange(nuevaFecha: Date){
+    if(nuevaFecha != null){
+      this.auxiliarDate = this.datePipe.transform(nuevaFecha,"yyyy-MM-dd")!;
+        
+    }
+  }
+
+  //FORMATO FECHAS PARA GUARDAR
+  changeFormatoFechaGuardar(nuevaFecha: Date){
+    let fechaAuxiliar:any = null;
+    if(nuevaFecha != null){
+      fechaAuxiliar = this.datePipe.transform(nuevaFecha,"yyyy-MM-dd")!;
+      
+    }
+    return fechaAuxiliar;
+  }
+  //FIN FORMATO FECHAS PARA GUARDAR.........................................................................
+
 
   //GENERAL PDF  CON DATOS PERSONALES
   async generarPdfDatosPersonal() {

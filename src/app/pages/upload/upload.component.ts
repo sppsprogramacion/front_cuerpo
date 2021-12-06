@@ -624,11 +624,11 @@ export class UploadComponent implements OnInit {
      
       data = {
           legajo: parseInt(this.forma.get('legajo')?.value),
-          apellido_1: this.forma.get('apellido_1')?.value,
-          apellido_2: this.forma.get('apellido_2')?.value,
-          nombre_1: this.forma.get('nombre_1')?.value,
-          nombre_2: this.forma.get('nombre_2')?.value,
-          nombre_3: this.forma.get('nombre_3')?.value,
+          apellido_1: this.primeraMayuscula(this.forma.get('apellido_1')?.value),
+          apellido_2: this.primeraMayuscula(this.forma.get('apellido_2')?.value),
+          nombre_1: this.primeraMayuscula(this.forma.get('nombre_1')?.value),
+          nombre_2: this.primeraMayuscula(this.forma.get('nombre_2')?.value),
+          nombre_3: this.primeraMayuscula(this.forma.get('nombre_3')?.value),
           destino_id: parseInt(this.forma.get('destino_id')?.value),
           departamento_id: parseInt(this.forma.get('departamento_id')?.value),
           division_id: parseInt(this.forma.get('division_id')?.value),
@@ -675,7 +675,17 @@ export class UploadComponent implements OnInit {
   
   }
 
-  //fin guardar personal
+  //fin guardar personal..............................................................................
+
+
+  //CAMBIAR NOMBRES Y APELLIDOS PRIMERA LETRA A MAYUSCULA
+  private primeraMayuscula(palabra: string){
+    if (!palabra) return palabra;
+    return palabra[0].toUpperCase() + palabra.substr(1).toLowerCase();
+
+  }
+  //FIN CAMBIAR NOMBRES Y APELLIDOS PRIMERA LETRA A MAYUSCULA.............................
+
 
   //limpiar formulario
   limpiarFormulario() {

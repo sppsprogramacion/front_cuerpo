@@ -9,6 +9,7 @@ import { EditModule } from './edit/edit.module';
 import { ListModule } from './list/list.module';
 import { UploadModule } from './upload/upload.module';
 import { UsuariosModule } from './mantenimiento/usuarios.module';
+import { SancionesModule } from './sanciones/sanciones.module';
 import { ngPrimeModule } from '../ngprime.module';
 import { FotopersonalPipe } from '../pipes/fotopersonal.pipe';
 import { PipesModule } from '../pipes/pipes.module';
@@ -22,8 +23,12 @@ import * as pdfFonts from "pdfmake/build/vfs_fonts"; // fonts provided for pdfma
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
+
 // If any issue using previous fonts import. you can try this:
 // import pdfFonts from "pdfmake/build/vfs_fonts";
+import { LicenciasModule } from './licencias/licencias.module';
+import { ReconocimientoMedicoModule } from './reconocimiento-medico/reconocimiento-medico.module';
+
 
 
 // registrar las fuentes
@@ -39,7 +44,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
  @NgModule({
   declarations: [
      DashboardComponent,
-     PagesComponent    
+     PagesComponent,
    ],
    exports: [
      DashboardComponent,
@@ -55,6 +60,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
      ListModule,
      UploadModule,
      UsuariosModule,
+     SancionesModule,
+     LicenciasModule,
+     ReconocimientoMedicoModule,     
      HttpClientModule,
      ngPrimeModule,
      PipesModule,

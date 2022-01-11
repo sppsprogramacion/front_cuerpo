@@ -8,7 +8,7 @@ export class SidebarService {
   menuAdmin: any [] = [
     {
       titulo: 'Personal',
-      icono: 'fas fa-tachometer-alt',
+      icono: 'fas fa-user-friends',
       submenu:[
         {titulo: 'Cargar', url: 'upload'},
         // {titulo: 'Editar', url: 'edit'},
@@ -17,31 +17,31 @@ export class SidebarService {
     },
     {
       titulo: 'Sanciones',
-      icono: 'fas fa-tachometer-alt',
+      icono: 'fas fa-id-badge',
       submenu:[
-        {titulo: 'Agregar', url: 'agregar-sanciones'},
+        {titulo: 'Cargar', url: 'agregar-sanciones'},
         {titulo: 'Listar', url: 'listar-sanciones'},
       ]
     },
     {
       titulo: 'Licencias',
-      icono: 'fas fa-tachometer-alt',
+      icono: 'fas fa-file-contract',
       submenu:[
-        {titulo: 'Agregar', url: 'agregar-licencias'},
+        {titulo: 'Cargar', url: 'agregar-licencias'},
         {titulo: 'Listar', url: 'listar-licencias'},
       ]
     },
     {
       titulo: 'Carpetas',
-      icono: 'fas fa-tachometer-alt',
+      icono: 'fas fa-notes-medical',
       submenu:[
-        {titulo: 'Agregar', url: 'agregar-carpetas'},
+        {titulo: 'Cargar', url: 'agregar-carpetas'},
         {titulo: 'Listar', url: 'listar-carpetas'},
       ]
     },
     {
       titulo: 'Usuarios',
-      icono: 'fa-solid fa-user',
+      icono: 'fas fa-users',
       submenu:[
         {titulo: 'Mantenimiento', url: 'usuarios'}
             ]

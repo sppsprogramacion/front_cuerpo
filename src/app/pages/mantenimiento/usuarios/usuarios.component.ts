@@ -50,6 +50,9 @@ export class UsuariosComponent implements OnInit {
             {code: 0, role_name: "admin"},
             {code: 1, role_name: "super"},
             {code: 2, role_name: "normal"},
+            {code: 3, role_name: "sanciones"},
+            {code: 4, role_name: "licencias"},
+            {code: 5, role_name: "carpetas"}
         ]
          }
 
@@ -70,155 +73,163 @@ export class UsuariosComponent implements OnInit {
                                         });
                                         this.destinos =  destinosLista;
                                         });
-      }
-      
-    public actualizarUsuarios(){
+  }
+  
+  //ACTUALIZAR USUARIOS
+  public actualizarUsuarios(){
         this.usuariosService.getUsuarios().subscribe(resultado => {
             this.total = resultado[1];
             this.usuarios = resultado[0];
             this.cargando = false;
                });
-    }
+  }
+  //FIN ACTUALIZAR USUARIOS...............................................
 
-      public getRole(code: number): string {
-          let valor: string = " ";
-            this.roles.forEach(r => {
-              if(r.code === code){
-                  valor =  r.role_name
-              }
-          });
-          return valor;
-          
+  //DEVOLVER ROLES
+  public getRole(code: number): string {
+    let valor: string = " ";
+      this.roles.forEach(r => {
+        if(r.code === code){
+            valor =  r.role_name
         }
+    });
+    return valor;
+    
+  }
+  //FIN DEVOLVER ROLES...........................................................
       
-   userDialog: boolean = false;
+  userDialog: boolean = false;
+    
+  //   products: Product[];
+  products = [];
+    
+  //   product: Product;
+    
+  //   selectedProducts: Product[];
+  selectedUsuarios: Usuario[] = [];
+    
+       submitted: boolean = false;
   
-//   products: Product[];
-products = [];
-  
-//   product: Product;
-  
-//   selectedProducts: Product[];
-selectedUsuarios: Usuario[] = [];
-  
-     submitted: boolean = false;
-
-//     statuses: any[];
+  //     statuses: any[];
 
 
-    openNew() {
-         this.usuario = new Usuario();
-         this.editando = false;
-         this.submitted = false;
-         this.userDialog = true;
-    }
+  openNew() {
+        this.usuario = new Usuario();
+        this.editando = false;
+        this.submitted = false;
+        this.userDialog = true;
+  }
 
-    deleteSelectedUsuarios() {
+  //BORRAR USUARIOS SELECCIONADOS
+  deleteSelectedUsuarios() {
+    const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+          },
+          buttonsStyling: false
+        })
+
+    swalWithBootstrapButtons.fire({
+          title: 'Confirma el borrado de los Usuarios ',
+          text: "Esta Acción no podrá revertirse!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Si, borrar los Usuarios Seleccionados',
+          cancelButtonText: 'No, cancelar!',
+          reverseButtons: true
+        }).then((result) => {
+          if (result.isConfirmed) {
+                    this.cargando = true;
+                    this.selectedUsuarios.forEach(usuario => {
+                    const id: number = parseInt(usuario.id_usuario!.toString());
+                    this.usuariosService.deleteUsuario(id)
+                                  .subscribe(resultado => {},
+                                  error => {
+                                      Swal.fire("Error al Elimnar el Usuario", error.error.message, "error");
+                                  });
+            });
+            this.actualizarUsuarios();
+            this.selectedUsuarios = [];
+
+              
+            swalWithBootstrapButtons.fire(
+              'Eliminados!',
+              'Los Registros Seleccionados han sido borrados.',
+              'success'
+            )
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            swalWithBootstrapButtons.fire(
+              'Cancelled',
+              'Se ha cancelado la eliminación de Usuarios :)',
+              'error'
+            )
+          }
+        })
+
+      
+      
+  }
+  //FIN BORRAR USUARIOS SELECCIONADOS.......................................
+
+  editProduct(usuarioEdit: Usuario) {
+      this.editando = true;
+      this.usuario = {...usuarioEdit, fotoUrl: ""};
+        this.userDialog = true;
+  }
+
+  //BORRAR USUARIO
+  deleteUsuario(usuario: Usuario) {
+      const id: number = parseInt(usuario.id_usuario!.toString());
+
       const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-              confirmButton: 'btn btn-success',
-              cancelButton: 'btn btn-danger'
-            },
-            buttonsStyling: false
-          })
-
-      swalWithBootstrapButtons.fire({
-            title: 'Confirma el borrado de los Usuarios ',
-            text: "Esta Acción no podrá revertirse!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Si, borrar los Usuarios Seleccionados',
-            cancelButtonText: 'No, cancelar!',
-            reverseButtons: true
-          }).then((result) => {
-            if (result.isConfirmed) {
-                      this.cargando = true;
-                      this.selectedUsuarios.forEach(usuario => {
-                      const id: number = parseInt(usuario.id_usuario!.toString());
-                      this.usuariosService.deleteUsuario(id)
-                                    .subscribe(resultado => {},
-                                    error => {
-                                        Swal.fire("Error al Elimnar el Usuario", error.error.message, "error");
-                                    });
-             });
-             this.actualizarUsuarios();
-             this.selectedUsuarios = [];
- 
-               
-              swalWithBootstrapButtons.fire(
-                'Eliminados!',
-                'Los Registros Seleccionados han sido borrados.',
-                'success'
-              )
-            } else if (
-              /* Read more about handling dismissals below */
-              result.dismiss === Swal.DismissReason.cancel
-            ) {
-              swalWithBootstrapButtons.fire(
-                'Cancelled',
-                'Se ha cancelado la eliminación de Usuarios :)',
-                'error'
-              )
-            }
-          })
-
+          customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+          },
+          buttonsStyling: false
+        })
         
-        
-    }
-
-    editProduct(usuarioEdit: Usuario) {
-        this.editando = true;
-        this.usuario = {...usuarioEdit, fotoUrl: ""};
-         this.userDialog = true;
-           }
-
-    deleteUsuario(usuario: Usuario) {
-        const id: number = parseInt(usuario.id_usuario!.toString());
-
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-              confirmButton: 'btn btn-success',
-              cancelButton: 'btn btn-danger'
-            },
-            buttonsStyling: false
-          })
-          
-          swalWithBootstrapButtons.fire({
-            title: 'Confirma el borrado del Usuario: ',
-            text: "Esta Acción no podrá revertirse!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Si, borrar Usuario',
-            cancelButtonText: 'No, cancelar!',
-            reverseButtons: true
-          }).then((result) => {
-            if (result.isConfirmed) {
-              this.cargando = true;
-                this.usuariosService.deleteUsuario(id)
-                                    .subscribe(resultado => {
-                                        this.actualizarUsuarios();
-                                    },
-                                    error => {
-                                        Swal.fire("Error al Elimnar el Usuario", error.error.message, "error");
-                                    });
-              swalWithBootstrapButtons.fire(
-                'Eliminado!',
-                'El registro de Usuario ha sido borrado.',
-                'success'
-              )
-            } else if (
-              /* Read more about handling dismissals below */
-              result.dismiss === Swal.DismissReason.cancel
-            ) {
-              swalWithBootstrapButtons.fire(
-                'Cancelled',
-                'Se ha cancelado la eliminación del Usuario :)',
-                'error'
-              )
-            }
-          })
+        swalWithBootstrapButtons.fire({
+          title: 'Confirma el borrado del Usuario: ',
+          text: "Esta Acción no podrá revertirse!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Si, borrar Usuario',
+          cancelButtonText: 'No, cancelar!',
+          reverseButtons: true
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.cargando = true;
+              this.usuariosService.deleteUsuario(id)
+                                  .subscribe(resultado => {
+                                      this.actualizarUsuarios();
+                                  },
+                                  error => {
+                                      Swal.fire("Error al Elimnar el Usuario", error.error.message, "error");
+                                  });
+            swalWithBootstrapButtons.fire(
+              'Eliminado!',
+              'El registro de Usuario ha sido borrado.',
+              'success'
+            )
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            swalWithBootstrapButtons.fire(
+              'Cancelled',
+              'Se ha cancelado la eliminación del Usuario :)',
+              'error'
+            )
+          }
+        })
 
     }
+    //FIN BORRAR USUARIO.................................................
 
     hideDialog() {
          this.userDialog = false;

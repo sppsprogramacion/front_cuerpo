@@ -32,7 +32,7 @@ export class SidebarService {
       ]
     },
     {
-      titulo: 'Carpetas',
+      titulo: 'Reconocimiento',
       icono: 'fas fa-notes-medical',
       submenu:[
         {titulo: 'Cargar', url: 'agregar-carpetas'},
@@ -67,6 +67,28 @@ export class SidebarService {
       submenu:[
         {titulo: 'Agregar', url: 'agregar-sanciones'},
         {titulo: 'Listar', url: 'listar-sanciones'},
+      ]
+    }   
+  ];
+
+  menuLicencias: any [] = [
+    {
+      titulo: 'Licencias',
+      icono: 'fas fa-file-contract',
+      submenu:[
+        {titulo: 'Cargar', url: 'agregar-licencias'},
+        {titulo: 'Listar', url: 'listar-licencias'},
+      ]
+    }   
+  ];
+
+  menuReconocimiento: any [] = [
+    {
+      titulo: 'Reconocimiento',
+      icono: 'fas fa-notes-medical',
+      submenu:[
+        {titulo: 'Cargar', url: 'agregar-carpetas'},
+        {titulo: 'Listar', url: 'listar-carpetas'},
       ]
     }   
   ];

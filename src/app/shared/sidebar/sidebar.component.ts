@@ -21,20 +21,46 @@ export class SidebarComponent implements OnInit {
     private sidebarService: SidebarService
   ) { 
    
-    if(globalConstants.rol_usuario =='0'){
-      this.menu = this.sidebarService.menuAdmin;
-    }else{
-      this.menu = this.sidebarService.menuUser;
-    }
-
+   
     
-    this.imgUrl = globalConstants.urlImagen;
+    
+    switch(parseInt(globalConstants.rol_usuario)) { 
+      case 0: {
+      
+        this.menu = this.sidebarService.menuAdmin;
+         break; 
+      }
+      case 2: 
+        this.menu = this.sidebarService.menuUser;
+         break; 
+      
+      case 3: 
+        this.menu = this.sidebarService.menuSanciones;
+         break;      
+      case 4: 
+        this.menu = this.sidebarService.menuLicencias;
+        break;    
+      case 5: 
+        this.menu = this.sidebarService.menuReconocimiento;
+         break;      
+             
+    } 
+
+    if(globalConstants.urlImagen== 'no-image.jpg'){
+      this.imgUrl='./assets/img/no-image.jpg';
+    }
+    else{
+      this.imgUrl = globalConstants.urlImagen;
+    }
+    
     this.nombreUsuario = globalConstants.nombreUsuario;
     this.inicialesUsuario = globalConstants.inicialesUsuario;
     this.emailUsuario = globalConstants.emailUsuario;
     
     
   }
+  //FIN CONSTRUCTOR..............................................
+
   ngOnInit(): void {
     $('[data-widget="treeview"]').Treeview('init');
 

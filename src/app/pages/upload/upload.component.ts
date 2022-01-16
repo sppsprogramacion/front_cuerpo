@@ -96,7 +96,7 @@ export class UploadComponent implements OnInit {
        legajo: [,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
        destino_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        departamento_id: [3,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-       division_id: [5,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       division_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        sector_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        funcion: ["", [Validators.minLength(1), Validators.maxLength(200)]],
        seccion_guardia_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
@@ -134,8 +134,8 @@ export class UploadComponent implements OnInit {
 
     //cargar desplegables
     this.cargarDepartamentos(parseInt(this.forma.get('destino_id')?.value));
-    this.cargarDivisiones(parseInt(this.forma.get('departamento_id')?.value));
-    this.cargarSectores(parseInt(this.forma.get('division_id')?.value));
+    this.cargarDivisiones(parseInt(this.forma.get('destino_id')?.value), parseInt(this.forma.get('departamento_id')?.value));
+    this.cargarSectores(parseInt(this.forma.get('destino_id')?.value), parseInt(this.forma.get('departamento_id')?.value),parseInt(this.forma.get('division_id')?.value));
     this.cargarSeccionesGuardia(0);
     this.cargarDepartamentosProvinciales(parseInt(this.forma.get('provincia_id')?.value));
     this.cargarMunicipios(parseInt(this.forma.get('departamento_provincial_id')?.value));
@@ -461,11 +461,11 @@ export class UploadComponent implements OnInit {
     const id = this.forma.get('destino_id')?.value;
     if(id != null){      
       this.cargarDepartamentos(parseInt(id.toString()));
-      this.cargarDivisiones(3);
-      this.cargarSectores(5);
+      this.cargarDivisiones(parseInt(id.toString()),3);
+      this.cargarSectores(id,3,1);
       this.cargarSeccionesGuardia(0);
       this.forma.get('departamento_id')?.setValue(3);
-      this.forma.get('division_id')?.setValue(5);
+      this.forma.get('division_id')?.setValue(1);
       this.forma.get('sector_id')?.setValue(1);
       this.forma.get('seccion_guardia_id')?.setValue(1);
     }else{
@@ -481,36 +481,57 @@ export class UploadComponent implements OnInit {
   }
 
   onChangeDepartamento(){
-    const id = this.forma.get('departamento_id')?.value;
-    if(id != null){
-      this.cargarDivisiones(parseInt(id.toString()));
-      this.cargarSectores(5);
-      this.cargarSeccionesGuardia(parseInt(id.toString()));
-      this.forma.get('division_id')?.setValue(5);
+    const id_destino_aux = this.forma.get('destino_id')?.value;
+    const id_departamento_aux = this.forma.get('departamento_id')?.value;
+    
+    if(id_departamento_aux != null && id_destino_aux!= null){
+      this.cargarDivisiones(parseInt(id_destino_aux.toString()), parseInt(id_departamento_aux.toString()));
+      this.cargarSectores(parseInt(id_destino_aux.toString()), parseInt(id_departamento_aux.toString()),1);
+      this.cargarSeccionesGuardia(parseInt(id_departamento_aux.toString()));
+      this.forma.get('division_id')?.setValue(1);
       this.forma.get('sector_id')?.setValue(1);
       this.forma.get('seccion_guardia_id')?.setValue(1);   
     }
   }
   
-  cargarDivisiones(departamento_id: number){
+  cargarDivisiones(destino_id: number,departamento_id: number){
     this.divisiones = divisiones.filter(division => {
       
-      return division.departamento_id == departamento_id || division.departamento_id == 0;
+      if(departamento_id == 3){
+        return (division.destino_id == destino_id || division.destino_id == 0) && (division.departamento_id == 3 || division.departamento_id == 0);
+      }
+      else{
+        return division.departamento_id == departamento_id || division.departamento_id == 0;
+      }
+      
     });
   } 
 
   onChangeDivision(){
+    const id_destino_aux = this.forma.get('destino_id')?.value;
+    const id_departamento_aux = this.forma.get('departamento_id')?.value;
     const id = this.forma.get('division_id')?.value;
     if(id != null){
-      this.cargarSectores(parseInt(id.toString()));
+      this.cargarSectores(parseInt(id_destino_aux.toString()),parseInt(id_departamento_aux.toString()),parseInt(id.toString()));
       this.forma.get('sector_id')?.setValue(1);
     }
   }
   
-  cargarSectores(division_id: number){
+  cargarSectores(destino_id: number,departamento_id: number,division_id: number){
     this.sectores = sectores.filter(sector => {
+      if(division_id == 1){
+        if(departamento_id == 3){
+          return (sector.destino_id == destino_id || sector.destino_id == 0 )&& (sector.departamento_id ==3 || sector.departamento_id== 0) && (sector.division_id == 1 || sector.division_id == 0);
+        }
+        else{
+          return (sector.departamento_id == departamento_id || sector.departamento_id == 0) && (sector.division_id == 1 || sector.division_id == 0);
+        }
+        
+      }
+      else{
+        return sector.division_id == division_id || sector.division_id == 0;
+      }
       
-      return sector.division_id == division_id || sector.division_id == 0;
     });
   } 
   

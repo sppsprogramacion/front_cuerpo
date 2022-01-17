@@ -49572,9 +49572,19 @@ export const situacion = [
 
 export const departamentos = [
     {
-        "id_departamento": 3,
-        "departamento": "sin departamento",
-        "destino_id": 0
+        "id_departamento": 12,
+        "departamento": "Capacitación y Producción",
+        "destino_id": 12
+    },
+    {
+        "id_departamento": 10,
+        "departamento": "Contable de Administración",
+        "destino_id": 11
+    },
+    {
+        "id_departamento": 9,
+        "departamento": "Instrucción",
+        "destino_id": 10
     },
     {
         "id_departamento": 5,
@@ -49587,44 +49597,28 @@ export const departamentos = [
         "destino_id": 10
     },
     {
-        "id_departamento": 9,
-        "departamento": "Instrucción",
-        "destino_id": 10
+        "id_departamento": 14,
+        "departamento": "Seguridad Externa - UC1",
+        "destino_id": 1
     },
     {
-        "id_departamento": 10,
-        "departamento": "Contable de Administración",
-        "destino_id": 11
-    },
-    {
-        "id_departamento": 12,
-        "departamento": "Capacitación y Producción",
-        "destino_id": 12
+        "id_departamento": 3,
+        "departamento": "sin departamento",
+        "destino_id": 0
     },
     {
         "id_departamento": 13,
         "departamento": "Vigilancia y Tratamiento - UC1",
-        "destino_id": 1
-    },
-    {
-        "id_departamento": 14,
-        "departamento": "Seguridad Externa - UC1",
         "destino_id": 1
     }
 ];
 
 export const divisiones = [
     {
-        "id_division": 1,
-        "division": "sin división",
-        "departamento_id": 0,
-        "destino_id": 0
-    },
-    {
-        "id_division": 2,
-        "division": "G.E.O.P.S.",
+        "id_division": 20,
+        "division": "Bienestar de Internos UC1",
         "departamento_id": 3,
-        "destino_id": 9
+        "destino_id": 1
     },
     {
         "id_division": 3,
@@ -49633,40 +49627,22 @@ export const divisiones = [
         "destino_id": 9
     },
     {
-        "id_division": 7,
-        "division": "Registro y Control",
-        "departamento_id": 8,
-        "destino_id": 10
-    },
-    {
-        "id_division": 8,
-        "division": "Reconocimiento Médico",
-        "departamento_id": 8,
-        "destino_id": 10
-    },
-    {
-        "id_division": 9,
-        "division": "Liquidación de Haberes",
-        "departamento_id": 8,
-        "destino_id": 10
-    },
-    {
         "id_division": 10,
         "division": "Compras",
         "departamento_id": 10,
         "destino_id": 11
     },
     {
-        "id_division": 11,
-        "division": "Teneduría de Libros",
-        "departamento_id": 10,
-        "destino_id": 11
+        "id_division": 17,
+        "division": "Custodia y Traslado UC1",
+        "departamento_id": 3,
+        "destino_id": 1
     },
     {
-        "id_division": 12,
-        "division": "Tesorería",
-        "departamento_id": 10,
-        "destino_id": 11
+        "id_division": 21,
+        "division": "Despacho",
+        "departamento_id": 3,
+        "destino_id": 15
     },
     {
         "id_division": 13,
@@ -49681,28 +49657,16 @@ export const divisiones = [
         "destino_id": 12
     },
     {
+        "id_division": 2,
+        "division": "G.E.O.P.S.",
+        "departamento_id": 3,
+        "destino_id": 9
+    },
+    {
         "id_division": 15,
         "division": "Intendencia",
         "departamento_id": 3,
         "destino_id": 14
-    },
-    {
-        "id_division": 16,
-        "division": "Transporte",
-        "departamento_id": 3,
-        "destino_id": 14
-    },
-    {
-        "id_division": 17,
-        "division": "Custodia y Traslado UC1",
-        "departamento_id": 3,
-        "destino_id": 1
-    },
-    {
-        "id_division": 18,
-        "division": "Registro y Requisa UC1",
-        "departamento_id": 3,
-        "destino_id": 1
     },
     {
         "id_division": 19,
@@ -49711,41 +49675,82 @@ export const divisiones = [
         "destino_id": 1
     },
     {
-        "id_division": 20,
-        "division": "Bienestar de Internos UC1",
+        "id_division": 9,
+        "division": "Liquidación de Haberes",
+        "departamento_id": 8,
+        "destino_id": 10
+    },
+    {
+        "id_division": 22,
+        "division": "Procesamiento de Datos",
+        "departamento_id": 3,
+        "destino_id": 15
+    },
+    {
+        "id_division": 8,
+        "division": "Reconocimiento Médico",
+        "departamento_id": 8,
+        "destino_id": 10
+    },
+    {
+        "id_division": 7,
+        "division": "Registro y Control",
+        "departamento_id": 8,
+        "destino_id": 10
+    },
+    {
+        "id_division": 18,
+        "division": "Registro y Requisa UC1",
         "departamento_id": 3,
         "destino_id": 1
-    }
-];
-
-export const sectores = [
+    },
     {
-        "id_sector": 1,
-        "sector": "sin sector",
-        "division_id": 0,
+        "id_division": 1,
+        "division": "sin división",
         "departamento_id": 0,
         "destino_id": 0
     },
     {
-        "id_sector": 2,
-        "sector": "Secretaría de Dirección de Cuerpo",
-        "division_id": 1,
-        "departamento_id": 3,
-        "destino_id": 10
+        "id_division": 11,
+        "division": "Teneduría de Libros",
+        "departamento_id": 10,
+        "destino_id": 11
     },
     {
-        "id_sector": 3,
-        "sector": "Mesa de Entrada",
-        "division_id": 1,
-        "departamento_id": 3,
-        "destino_id": 10
+        "id_division": 12,
+        "division": "Tesorería",
+        "departamento_id": 10,
+        "destino_id": 11
     },
+    {
+        "id_division": 16,
+        "division": "Transporte",
+        "departamento_id": 3,
+        "destino_id": 14
+    }
+];
+
+export const sectores = [
     {
         "id_sector": 4,
         "sector": "Agente Notificador",
         "division_id": 1,
         "departamento_id": 3,
         "destino_id": 10
+    },
+    {
+        "id_sector": 28,
+        "sector": "Área Administrativa",
+        "division_id": 15,
+        "departamento_id": 3,
+        "destino_id": 14
+    },
+    {
+        "id_sector": 15,
+        "sector": "Asesoría Contable",
+        "division_id": 1,
+        "departamento_id": 10,
+        "destino_id": 11
     },
     {
         "id_sector": 5,
@@ -49755,60 +49760,18 @@ export const sectores = [
         "destino_id": 10
     },
     {
-        "id_sector": 6,
-        "sector": "Sector Asistencia",
-        "division_id": 7,
-        "departamento_id": 8,
-        "destino_id": 10
-    },
-    {
-        "id_sector": 7,
-        "sector": "Sector Licencia",
-        "division_id": 7,
-        "departamento_id": 8,
-        "destino_id": 10
-    },
-    {
-        "id_sector": 8,
-        "sector": "Sector Sanciones",
-        "division_id": 7,
-        "departamento_id": 8,
-        "destino_id": 10
-    },
-    {
-        "id_sector": 9,
-        "sector": "Sección Legajos",
-        "division_id": 7,
-        "departamento_id": 8,
-        "destino_id": 10
-    },
-    {
-        "id_sector": 10,
-        "sector": "Sector Retiro",
-        "division_id": 1,
-        "departamento_id": 8,
-        "destino_id": 10
-    },
-    {
-        "id_sector": 11,
-        "sector": "Sector Gimnasio",
-        "division_id": 1,
-        "departamento_id": 9,
-        "destino_id": 10
-    },
-    {
-        "id_sector": 12,
-        "sector": "Curso de Formación de Aspirantes y Agentes",
-        "division_id": 1,
-        "departamento_id": 9,
-        "destino_id": 10
-    },
-    {
-        "id_sector": 13,
-        "sector": "Secretaría de Dirección de Administración",
+        "id_sector": 61,
+        "sector": "Capellanía UC1",
         "division_id": 1,
         "departamento_id": 3,
-        "destino_id": 11
+        "destino_id": 1
+    },
+    {
+        "id_sector": 46,
+        "sector": "Centro de Tratamiento para Personas con Medidas de Seguridad",
+        "division_id": 1,
+        "departamento_id": 14,
+        "destino_id": 1
     },
     {
         "id_sector": 14,
@@ -49818,11 +49781,200 @@ export const sectores = [
         "destino_id": 11
     },
     {
-        "id_sector": 15,
-        "sector": "Asesoría Contable",
+        "id_sector": 12,
+        "sector": "Curso de Formación de Aspirantes y Agentes",
         "division_id": 1,
-        "departamento_id": 10,
-        "destino_id": 11
+        "departamento_id": 9,
+        "destino_id": 10
+    },
+    {
+        "id_sector": 21,
+        "sector": "Delegación Contable",
+        "division_id": 1,
+        "departamento_id": 3,
+        "destino_id": 12
+    },
+    {
+        "id_sector": 37,
+        "sector": "Depósito de Materiales",
+        "division_id": 15,
+        "departamento_id": 3,
+        "destino_id": 14
+    },
+    {
+        "id_sector": 25,
+        "sector": "Despacho de Inspección General",
+        "division_id": 1,
+        "departamento_id": 3,
+        "destino_id": 14
+    },
+    {
+        "id_sector": 41,
+        "sector": "Mantenimiento VyT UC1",
+        "division_id": 1,
+        "departamento_id": 13,
+        "destino_id": 1
+    },
+    {
+        "id_sector": 3,
+        "sector": "Mesa de Entrada",
+        "division_id": 1,
+        "departamento_id": 3,
+        "destino_id": 10
+    },
+    {
+        "id_sector": 54,
+        "sector": "Of. de Furriel Requisa UC1",
+        "division_id": 18,
+        "departamento_id": 3,
+        "destino_id": 1
+    },
+    {
+        "id_sector": 49,
+        "sector": "Of. de Furrieles Ext. UC1",
+        "division_id": 1,
+        "departamento_id": 14,
+        "destino_id": 1
+    },
+    {
+        "id_sector": 40,
+        "sector": "Of. de Furrieles VyT UC1",
+        "division_id": 1,
+        "departamento_id": 13,
+        "destino_id": 1
+    },
+    {
+        "id_sector": 39,
+        "sector": "Of. de Sumario VyT UC1",
+        "division_id": 1,
+        "departamento_id": 13,
+        "destino_id": 1
+    },
+    {
+        "id_sector": 60,
+        "sector": "Oficina de Asesoría Letrada",
+        "division_id": 1,
+        "departamento_id": 3,
+        "destino_id": 1
+    },
+    {
+        "id_sector": 59,
+        "sector": "Oficina de Atención al Ciudadano UC1",
+        "division_id": 1,
+        "departamento_id": 3,
+        "destino_id": 1
+    },
+    {
+        "id_sector": 45,
+        "sector": "Pabellón de Mayores Adultos Ext. UC1",
+        "division_id": 1,
+        "departamento_id": 14,
+        "destino_id": 1
+    },
+    {
+        "id_sector": 44,
+        "sector": "Pabellón VyT UC1",
+        "division_id": 1,
+        "departamento_id": 13,
+        "destino_id": 1
+    },
+    {
+        "id_sector": 22,
+        "sector": "Panadería",
+        "division_id": 14,
+        "departamento_id": 3,
+        "destino_id": 12
+    },
+    {
+        "id_sector": 63,
+        "sector": "Programación",
+        "division_id": 22,
+        "departamento_id": 3,
+        "destino_id": 15
+    },
+    {
+        "id_sector": 62,
+        "sector": "Registro y Restricción de Visitas",
+        "division_id": 1,
+        "departamento_id": 3,
+        "destino_id": 1
+    },
+    {
+        "id_sector": 23,
+        "sector": "Salón de Exposición y Ventas",
+        "division_id": 14,
+        "departamento_id": 3,
+        "destino_id": 12
+    },
+    {
+        "id_sector": 26,
+        "sector": "Sección Armería Central",
+        "division_id": 1,
+        "departamento_id": 3,
+        "destino_id": 14
+    },
+    {
+        "id_sector": 67,
+        "sector": "Sección Banda de Música",
+        "division_id": 1,
+        "departamento_id": 3,
+        "destino_id": 15
+    },
+    {
+        "id_sector": 27,
+        "sector": "Sección Canes",
+        "division_id": 1,
+        "departamento_id": 3,
+        "destino_id": 14
+    },
+    {
+        "id_sector": 65,
+        "sector": "Sección Comunicaciones",
+        "division_id": 1,
+        "departamento_id": 3,
+        "destino_id": 15
+    },
+    {
+        "id_sector": 53,
+        "sector": "Sección Guardia Custodia UC1",
+        "division_id": 17,
+        "departamento_id": 3,
+        "destino_id": 1
+    },
+    {
+        "id_sector": 51,
+        "sector": "Sección Guardia Ext. UC1",
+        "division_id": 1,
+        "departamento_id": 14,
+        "destino_id": 1
+    },
+    {
+        "id_sector": 55,
+        "sector": "Sección Guardia Requisa UC1",
+        "division_id": 18,
+        "departamento_id": 3,
+        "destino_id": 1
+    },
+    {
+        "id_sector": 50,
+        "sector": "Sección Guardia VyT UC1",
+        "division_id": 1,
+        "departamento_id": 13,
+        "destino_id": 1
+    },
+    {
+        "id_sector": 9,
+        "sector": "Sección Legajos",
+        "division_id": 7,
+        "departamento_id": 8,
+        "destino_id": 10
+    },
+    {
+        "id_sector": 66,
+        "sector": "Sección Mesa de Entrada y Archivo General",
+        "division_id": 1,
+        "departamento_id": 3,
+        "destino_id": 15
     },
     {
         "id_sector": 16,
@@ -49853,6 +50005,20 @@ export const sectores = [
         "destino_id": 11
     },
     {
+        "id_sector": 13,
+        "sector": "Secretaría de Dirección de Administración",
+        "division_id": 1,
+        "departamento_id": 3,
+        "destino_id": 11
+    },
+    {
+        "id_sector": 2,
+        "sector": "Secretaría de Dirección de Cuerpo",
+        "division_id": 1,
+        "departamento_id": 3,
+        "destino_id": 10
+    },
+    {
         "id_sector": 20,
         "sector": "Secretaría de Dirección de Industrial",
         "division_id": 1,
@@ -49860,85 +50026,113 @@ export const sectores = [
         "destino_id": 12
     },
     {
-        "id_sector": 21,
-        "sector": "Delegación Contable",
+        "id_sector": 38,
+        "sector": "Secretaría de Personal",
+        "division_id": 1,
+        "departamento_id": 8,
+        "destino_id": 10
+    },
+    {
+        "id_sector": 52,
+        "sector": "Sector Armería Custodia UC1",
+        "division_id": 17,
+        "departamento_id": 3,
+        "destino_id": 1
+    },
+    {
+        "id_sector": 47,
+        "sector": "Sector Armería Ext. UC1",
+        "division_id": 1,
+        "departamento_id": 14,
+        "destino_id": 1
+    },
+    {
+        "id_sector": 6,
+        "sector": "Sector Asistencia",
+        "division_id": 7,
+        "departamento_id": 8,
+        "destino_id": 10
+    },
+    {
+        "id_sector": 57,
+        "sector": "Sector Consejo Correccional UC1",
         "division_id": 1,
         "departamento_id": 3,
-        "destino_id": 12
+        "destino_id": 1
     },
     {
-        "id_sector": 22,
-        "sector": "Panadería",
-        "division_id": 14,
-        "departamento_id": 3,
-        "destino_id": 12
-    },
-    {
-        "id_sector": 23,
-        "sector": "Salón de Exposición y Ventas",
-        "division_id": 14,
-        "departamento_id": 3,
-        "destino_id": 12
-    },
-    {
-        "id_sector": 24,
-        "sector": "Taller de Panadería",
+        "id_sector": 11,
+        "sector": "Sector Gimnasio",
         "division_id": 1,
-        "departamento_id": 12,
-        "destino_id": 12
+        "departamento_id": 9,
+        "destino_id": 10
     },
     {
-        "id_sector": 25,
-        "sector": "Despacho de Inspección General",
+        "id_sector": 43,
+        "sector": "Sector Lavandería VyT UC1",
         "division_id": 1,
-        "departamento_id": 3,
-        "destino_id": 14
+        "departamento_id": 13,
+        "destino_id": 1
     },
     {
-        "id_sector": 26,
-        "sector": "Sección Armería Central",
+        "id_sector": 7,
+        "sector": "Sector Licencia",
+        "division_id": 7,
+        "departamento_id": 8,
+        "destino_id": 10
+    },
+    {
+        "id_sector": 48,
+        "sector": "Sector Mantenimiento Ext. UC1",
         "division_id": 1,
-        "departamento_id": 3,
-        "destino_id": 14
+        "departamento_id": 14,
+        "destino_id": 1
     },
     {
-        "id_sector": 27,
-        "sector": "Sección Canes",
+        "id_sector": 56,
+        "sector": "Sector Monitoreo UC1",
         "division_id": 1,
         "departamento_id": 3,
-        "destino_id": 14
+        "destino_id": 1
     },
     {
-        "id_sector": 28,
-        "sector": "Área Administrativa",
-        "division_id": 15,
+        "id_sector": 10,
+        "sector": "Sector Retiro",
+        "division_id": 1,
+        "departamento_id": 8,
+        "destino_id": 10
+    },
+    {
+        "id_sector": 8,
+        "sector": "Sector Sanciones",
+        "division_id": 7,
+        "departamento_id": 8,
+        "destino_id": 10
+    },
+    {
+        "id_sector": 58,
+        "sector": "Sector Servicio de Alimentación Penal UC1",
+        "division_id": 1,
         "departamento_id": 3,
-        "destino_id": 14
+        "destino_id": 1
+    },
+    {
+        "id_sector": 42,
+        "sector": "Sector Video Conferencia VyT UC1",
+        "division_id": 1,
+        "departamento_id": 13,
+        "destino_id": 1
+    },
+    {
+        "id_sector": 1,
+        "sector": "sin sector",
+        "division_id": 0,
+        "departamento_id": 0,
+        "destino_id": 0
     },
     {
         "id_sector": 29,
         "sector": "Taller Albañiles",
-        "division_id": 15,
-        "departamento_id": 3,
-        "destino_id": 14
-    },
-    {
-        "id_sector": 30,
-        "sector": "Taller Electricistas",
-        "division_id": 15,
-        "departamento_id": 3,
-        "destino_id": 14
-    },
-    {
-        "id_sector": 31,
-        "sector": "Taller Plomería-Gasista",
-        "division_id": 15,
-        "departamento_id": 3,
-        "destino_id": 14
-    },
-    {
-        "id_sector": 32,
-        "sector": "Taller Pintores",
         "division_id": 15,
         "departamento_id": 3,
         "destino_id": 14
@@ -49951,8 +50145,15 @@ export const sectores = [
         "destino_id": 14
     },
     {
-        "id_sector": 34,
-        "sector": "Taller Refrigeracón",
+        "id_sector": 24,
+        "sector": "Taller de Panadería",
+        "division_id": 1,
+        "departamento_id": 12,
+        "destino_id": 12
+    },
+    {
+        "id_sector": 30,
+        "sector": "Taller Electricistas",
         "division_id": 15,
         "departamento_id": 3,
         "destino_id": 14
@@ -49972,186 +50173,32 @@ export const sectores = [
         "destino_id": 14
     },
     {
-        "id_sector": 37,
-        "sector": "Depósito de Materiales",
+        "id_sector": 32,
+        "sector": "Taller Pintores",
         "division_id": 15,
         "departamento_id": 3,
         "destino_id": 14
     },
     {
-        "id_sector": 38,
-        "sector": "Secretaría de Personal",
-        "division_id": 1,
-        "departamento_id": 8,
-        "destino_id": 10
-    },
-    {
-        "id_sector": 39,
-        "sector": "Of. de Sumario VyT UC1",
-        "division_id": 1,
-        "departamento_id": 13,
-        "destino_id": 1
-    },
-    {
-        "id_sector": 40,
-        "sector": "Of. de Furrieles VyT UC1 ",
-        "division_id": 1,
-        "departamento_id": 13,
-        "destino_id": 1
-    },
-    {
-        "id_sector": 41,
-        "sector": "Mantenimiento VyT UC1",
-        "division_id": 1,
-        "departamento_id": 13,
-        "destino_id": 1
-    },
-    {
-        "id_sector": 42,
-        "sector": "Sector Video Conferencia VyT UC1",
-        "division_id": 1,
-        "departamento_id": 13,
-        "destino_id": 1
-    },
-    {
-        "id_sector": 43,
-        "sector": "Sector Lavandería VyT UC1",
-        "division_id": 1,
-        "departamento_id": 13,
-        "destino_id": 1
-    },
-    {
-        "id_sector": 44,
-        "sector": "Pabellón VyT UC1",
-        "division_id": 1,
-        "departamento_id": 13,
-        "destino_id": 1
-    },
-    {
-        "id_sector": 45,
-        "sector": "Pabellón de Mayores Adultos Ext. UC1",
-        "division_id": 1,
-        "departamento_id": 14,
-        "destino_id": 1
-    },
-    {
-        "id_sector": 46,
-        "sector": "Centro de Tratamiento para Personas con Medidas de Seguridad",
-        "division_id": 1,
-        "departamento_id": 14,
-        "destino_id": 1
-    },
-    {
-        "id_sector": 47,
-        "sector": "Sector Armería Ext. UC1",
-        "division_id": 1,
-        "departamento_id": 14,
-        "destino_id": 1
-    },
-    {
-        "id_sector": 48,
-        "sector": "Sector Mantenimiento Ext. UC1",
-        "division_id": 1,
-        "departamento_id": 14,
-        "destino_id": 1
-    },
-    {
-        "id_sector": 49,
-        "sector": "Of. de Furrieles Ext. UC1",
-        "division_id": 1,
-        "departamento_id": 14,
-        "destino_id": 1
-    },
-    {
-        "id_sector": 50,
-        "sector": "Sección Guardia VyT UC1",
-        "division_id": 1,
-        "departamento_id": 13,
-        "destino_id": 1
-    },
-    {
-        "id_sector": 51,
-        "sector": "Sección Guardia Ext. UC1",
-        "division_id": 1,
-        "departamento_id": 14,
-        "destino_id": 1
-    },
-    {
-        "id_sector": 52,
-        "sector": "Sector Armería Custodia UC1",
-        "division_id": 17,
+        "id_sector": 31,
+        "sector": "Taller Plomería-Gasista",
+        "division_id": 15,
         "departamento_id": 3,
-        "destino_id": 1
+        "destino_id": 14
     },
     {
-        "id_sector": 53,
-        "sector": "Sección Guardia Custodia UC1",
-        "division_id": 17,
+        "id_sector": 34,
+        "sector": "Taller Refrigeracón",
+        "division_id": 15,
         "departamento_id": 3,
-        "destino_id": 1
+        "destino_id": 14
     },
     {
-        "id_sector": 54,
-        "sector": "Of. de Furriel Requisa UC1",
-        "division_id": 18,
+        "id_sector": 64,
+        "sector": "Técnico Proc. Datos",
+        "division_id": 22,
         "departamento_id": 3,
-        "destino_id": 1
-    },
-    {
-        "id_sector": 55,
-        "sector": "Sección Guardia Requisa UC1",
-        "division_id": 18,
-        "departamento_id": 3,
-        "destino_id": 1
-    },
-    {
-        "id_sector": 56,
-        "sector": "Sector Monitoreo UC1",
-        "division_id": 1,
-        "departamento_id": 3,
-        "destino_id": 1
-    },
-    {
-        "id_sector": 57,
-        "sector": "Sector Consejo Correccional UC1",
-        "division_id": 1,
-        "departamento_id": 3,
-        "destino_id": 1
-    },
-    {
-        "id_sector": 58,
-        "sector": "Sector Servicio de Alimentación Penal UC1",
-        "division_id": 1,
-        "departamento_id": 3,
-        "destino_id": 1
-    },
-    {
-        "id_sector": 59,
-        "sector": "Oficina de Atención al Ciudadano UC1",
-        "division_id": 1,
-        "departamento_id": 3,
-        "destino_id": 1
-    },
-    {
-        "id_sector": 60,
-        "sector": "Oficina de Asesoría Letrada",
-        "division_id": 1,
-        "departamento_id": 3,
-        "destino_id": 1
-    },
-    {
-        "id_sector": 61,
-        "sector": "Capellanía UC1",
-        "division_id": 1,
-        "departamento_id": 3,
-        "destino_id": 1
-    },
-    {
-        "id_sector": 62,
-        "sector": "Registro y Restricción de Visitas",
-        "division_id": 1,
-        "departamento_id": 3,
-        "destino_id": 1
+        "destino_id": 15
     }
     
 ];
@@ -50159,291 +50206,125 @@ export const sectores = [
 export const secciones_guardia = [
     {
         "id_seccion": 1,
-        "seccion": "sin seccion de guardia",
-        "departamento_id": 0
+        "seccion": "sin sección de guardia",
+        "sector_id": 0
     },
     {
         "id_seccion": 2,
-        "seccion": "Primera Sección - Interna",
-        "departamento_id": 1
+        "seccion": "Primera Sección - Vyt UC1",
+        "sector_id": 50
     },
     {
         "id_seccion": 3,
-        "seccion": "Segunda Sección - Interna",
-        "departamento_id": 1
+        "seccion": "Segunda Sección - Vyt UC1",
+        "sector_id": 50
     },
     {
         "id_seccion": 4,
-        "seccion": "Tercera Sección - Interna",
-        "departamento_id": 1
+        "seccion": "Tercera Sección - Vyt UC1",
+        "sector_id": 50
     },
     {
         "id_seccion": 5,
-        "seccion": "Cuarta Sección - Interna",
-        "departamento_id": 1
+        "seccion": "Cuarta Sección - Vyt UC1",
+        "sector_id": 50
     },
     {
         "id_seccion": 6,
-        "seccion": "Primera Sección - Externa",
-        "departamento_id": 2
+        "seccion": "Primera Sección Ext. UC1",
+        "sector_id": 51
     },
     {
         "id_seccion": 7,
-        "seccion": "Segunda Sección - Externa",
-        "departamento_id": 2
+        "seccion": "Segunda Sección Ext. UC1",
+        "sector_id": 51
     },
     {
         "id_seccion": 8,
-        "seccion": "Tercera Sección - Externa",
-        "departamento_id": 2
+        "seccion": "Tercera Sección Ext. UC1",
+        "sector_id": 51
     },
     {
         "id_seccion": 9,
-        "seccion": "Cuarta Sección - Externa",
-        "departamento_id": 2
+        "seccion": "Cuarta Sección Ext. UC1",
+        "sector_id": 51
+    },
+    {
+        "id_seccion": 10,
+        "seccion": "Primera Sección Custodia UC1",
+        "sector_id": 53
     },
     {
         "id_seccion": 11,
-        "seccion": "Primera Sección - Externa U.C. N° 2",
-        "departamento_id": 17
+        "seccion": "Segunda Sección Custodia UC1",
+        "sector_id": 53
     },
     {
         "id_seccion": 12,
-        "seccion": "Segunda Sección - Externa U.C. N° 2",
-        "departamento_id": 17
+        "seccion": "Tercera Sección Custodia UC1",
+        "sector_id": 53
     },
     {
         "id_seccion": 13,
-        "seccion": "Tercera Sección - Externa U.C. N° 2",
-        "departamento_id": 17
+        "seccion": "Cuarta Sección Custodia UC1",
+        "sector_id": 53
     },
     {
         "id_seccion": 14,
-        "seccion": "Cuarta Sección - Externa U.C. N° 2",
-        "departamento_id": 17
+        "seccion": "Primera Sección Requisa UC1",
+        "sector_id": 55
     },
     {
         "id_seccion": 15,
-        "seccion": "Primera Sección - Interna U.C. N° 2",
-        "departamento_id": 18
+        "seccion": "Segunda Sección Requisa UC1",
+        "sector_id": 55
     },
     {
         "id_seccion": 16,
-        "seccion": "Segunda Sección - Interna U.C. N° 2",
-        "departamento_id": 18
+        "seccion": "Tercera Sección Requisa UC1",
+        "sector_id": 55
     },
     {
         "id_seccion": 17,
-        "seccion": "Tercera Sección - Interna U.C. N° 2",
-        "departamento_id": 18
-    },
-    {
-        "id_seccion": 18,
-        "seccion": "Cuarta Sección - Interna U.C. N° 2",
-        "departamento_id": 18
-    },
-    {
-        "id_seccion": 19,
-        "seccion": "Primera Sección - Externa U.C. N° 3",
-        "departamento_id": 21
-    },
-    {
-        "id_seccion": 20,
-        "seccion": "Segunda Sección - Externa U.C. N° 3",
-        "departamento_id": 21
-    },
-    {
-        "id_seccion": 21,
-        "seccion": "Tercera Sección - Externa U.C. N° 3",
-        "departamento_id": 21
-    },
-    {
-        "id_seccion": 22,
-        "seccion": "Cuarta Sección - Externa U.C. N° 3",
-        "departamento_id": 21
-    },
-    {
-        "id_seccion": 23,
-        "seccion": "Primera Sección - Interna U.C. N° 3",
-        "departamento_id": 20
-    },
-    {
-        "id_seccion": 24,
-        "seccion": "Segunda Sección - Interna U.C. N° 3",
-        "departamento_id": 20
-    },
-    {
-        "id_seccion": 25,
-        "seccion": "Tercera Sección - Interna U.C. N° 3",
-        "departamento_id": 20
-    },
-    {
-        "id_seccion": 26,
-        "seccion": "Cuarta Sección - Interna U.C. N° 3",
-        "departamento_id": 20
-    },
-    {
-        "id_seccion": 27,
-        "seccion": "Primera Sección - Externa U.C. N° 4",
-        "departamento_id": 22
-    },
-    {
-        "id_seccion": 28,
-        "seccion": "Segunda Sección - Externa U.C. N° 4",
-        "departamento_id": 22
-    },
-    {
-        "id_seccion": 29,
-        "seccion": "Tercera Sección - Externa U.C. N° 4",
-        "departamento_id": 22
-    },
-    {
-        "id_seccion": 30,
-        "seccion": "Cuarta Sección - Externa U.C. N° 4",
-        "departamento_id": 22
-    },
-    {
-        "id_seccion": 31,
-        "seccion": "Primera Sección - Interna U.C. N° 4",
-        "departamento_id": 23
-    },
-    {
-        "id_seccion": 32,
-        "seccion": "Segunda Sección - Interna U.C. N° 4",
-        "departamento_id": 23
-    },
-    {
-        "id_seccion": 33,
-        "seccion": "Tercera Sección - Interna U.C. N° 4",
-        "departamento_id": 23
-    },
-    {
-        "id_seccion": 34,
-        "seccion": "Cuarta Sección - Interna U.C. N° 4",
-        "departamento_id": 23
-    },
-    {
-        "id_seccion": 35,
-        "seccion": "Primera Sección - Externa U.C. N° 5",
-        "departamento_id": 4
-    },
-    {
-        "id_seccion": 36,
-        "seccion": "Segunda Sección - Externa U.C. N° 5",
-        "departamento_id": 4
-    },
-    {
-        "id_seccion": 37,
-        "seccion": "Tercera Sección - Externa U.C. N° 5",
-        "departamento_id": 4
-    },
-    {
-        "id_seccion": 38,
-        "seccion": "Cuarta Sección - Externa U.C. N° 5",
-        "departamento_id": 4
-    },
-    {
-        "id_seccion": 39,
-        "seccion": "Primera Sección - Interna U.C. N° 5",
-        "departamento_id": 5
-    },
-    {
-        "id_seccion": 40,
-        "seccion": "Segunda Sección - Interna U.C. N° 5",
-        "departamento_id": 5
-    },
-    {
-        "id_seccion": 41,
-        "seccion": "Tercera Sección - Interna U.C. N° 5",
-        "departamento_id": 5
-    },
-    {
-        "id_seccion": 42,
-        "seccion": "Cuarta Sección - Interna U.C. N° 5",
-        "departamento_id": 5
-    },
-    {
-        "id_seccion": 43,
-        "seccion": "Primera Sección - Externa U.C. N° 6",
-        "departamento_id": 26
-    },
-    {
-        "id_seccion": 44,
-        "seccion": "Segunda Sección - Externa U.C. N° 6",
-        "departamento_id": 26
-    },
-    {
-        "id_seccion": 45,
-        "seccion": "Tercera Sección - Externa U.C. N° 6",
-        "departamento_id": 26
-    },
-    {
-        "id_seccion": 46,
-        "seccion": "Cuarta Sección - Externa U.C. N° 6",
-        "departamento_id": 26
-    },
-    {
-        "id_seccion": 47,
-        "seccion": "Primera Sección - Interna U.C. N° 6",
-        "departamento_id": 25
-    },
-    {
-        "id_seccion": 48,
-        "seccion": "Segunda Sección - Interna U.C. N° 6",
-        "departamento_id": 25
-    },
-    {
-        "id_seccion": 49,
-        "seccion": "Tercera Sección - Interna U.C. N° 6",
-        "departamento_id": 25
-    },
-    {
-        "id_seccion": 50,
-        "seccion": "Cuarta Sección - Interna U.C. N° 6",
-        "departamento_id": 25
-    },
-    {
-        "id_seccion": 51,
-        "seccion": "Primera Sección - Externa U.C. N° 7",
-        "departamento_id": 27
-    },
-    {
-        "id_seccion": 52,
-        "seccion": "Segunda Sección - Externa U.C. N° 7",
-        "departamento_id": 27
-    },
-    {
-        "id_seccion": 53,
-        "seccion": "Tercera Sección - Externa U.C. N° 7",
-        "departamento_id": 27
-    },
-    {
-        "id_seccion": 54,
-        "seccion": "Cuarta Sección - Externa U.C. N° 7",
-        "departamento_id": 27
-    },
-    {
-        "id_seccion": 55,
-        "seccion": "Primera Sección - Interna U.C. N° 7",
-        "departamento_id": 28
-    },
-    {
-        "id_seccion": 56,
-        "seccion": "Segunda Sección - Interna U.C. N° 7",
-        "departamento_id": 28
-    },
-    {
-        "id_seccion": 57,
-        "seccion": "Tercera Sección - Interna U.C. N° 7",
-        "departamento_id": 28
-    },
-    {
-        "id_seccion": 58,
-        "seccion": "Cuarta Sección - Interna U.C. N° 7",
-        "departamento_id": 28
+        "seccion": "Cuarta Sección Requisa UC1",
+        "sector_id": 55
     }
 ];
 
+export const funciones = [
+    {
+        "id_funcion": 2,
+        "funcion": "Aux. Administrativo"
+    },
+    {
+        "id_funcion": 3,
+        "funcion": "Celador"
+    },
+    {
+        "id_funcion": 4,
+        "funcion": "Centinela"
+    },
+    {
+        "id_funcion": 6,
+        "funcion": "Inspector de Servicio"
+    },
+    {
+        "id_funcion": 5,
+        "funcion": "Of. de Servicio"
+    },
+    {
+        "id_funcion": 7,
+        "funcion": "Programador"
+    },
+    {
+        "id_funcion": 1,
+        "funcion": "sin función"
+    },
+    {
+        "id_funcion": 8,
+        "funcion": "Técnico"
+    }
+];
 
 export const estados_civil = [
     {

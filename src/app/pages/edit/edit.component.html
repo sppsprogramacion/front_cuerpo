@@ -317,7 +317,7 @@
                                                                                     <!-- select -->
                                                                                     <div class="form-group">
                                                                                         <label>Funciones</label>
-                                                                                        <input type="text" class="form-control" formControlName="funcion" [ngModel]="dataEdit.funcion" placeholder="funciones asignadas" [class.is-invalid]="funcionNoValido">
+                                                                                        <input type="text" class="form-control" formControlName="funcion" [ngModel]="dataEdit.funcion_id" placeholder="funciones asignadas" [class.is-invalid]="funcionNoValido">
                                                                                         <small *ngIf="funcionNoValido" class="form-text text-danger">
                                                                                             <div *ngFor="let validation of user_validation_messages.funcion" >
                                                                                                 <div  *ngIf="forma.get('funcion')?.hasError(validation.type)">

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { departamentos, departamentos_provinciales, destinos, divisiones, escalafon, escalaJerarquica, estados_civil, grados, municipios, nivelEducativo, 
-         provincias, secciones_guardia, sectores, sexos, situacion, ciudades } from 'src/app/common/data-mockeada';
+         provincias, secciones_guardia, sectores, sexos, situacion, ciudades, funciones } from 'src/app/common/data-mockeada';
 import { globalConstants } from 'src/app/common/global-constants';
 import { DepartamentoModel } from 'src/app/models/departamento.model';
 import { DepartamentoProvincialModel } from 'src/app/models/departamento_provincial.model';
@@ -24,6 +24,7 @@ import { SituacionModel } from 'src/app/models/situacion.model';
 import { PersonalService } from 'src/app/services/personal.service';
 import Swal from 'sweetalert2';
 import { CiudadModel } from '../../models/ciudad.model';
+import { FuncionModel } from '../../models/funcion.model';
 
 @Component({
   selector: 'app-upload',
@@ -46,6 +47,7 @@ export class UploadComponent implements OnInit {
   escalas: EscalaJerarquicaModel[]=[];
   escalafones: EscalafonModel[]=[];
   estados_civil: EstadoCivilModel[]=[];
+  funciones: FuncionModel[]=[];
   grados: GradoModel[]=[];
   municipios: MunicipioModel[]=[];
   niveles_educativo: NivelEducativoModel[]=[];
@@ -98,7 +100,7 @@ export class UploadComponent implements OnInit {
        departamento_id: [3,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        division_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        sector_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-       funcion: ["", [Validators.minLength(1), Validators.maxLength(200)]],
+       funcion_id: [1, [Validators.required, Validators.pattern(/^[0-9]*$/)]],
        seccion_guardia_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        escalafon_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        escala_jerarquica_id: [1,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
@@ -150,6 +152,7 @@ export class UploadComponent implements OnInit {
     this.estados_civil = estados_civil;    
     this.escalafones = escalafon;
     this.escalas = escalaJerarquica;
+    this.funciones = funciones;
     this.niveles_educativo = nivelEducativo;
     this.provincias = provincias;
     this.sexos = sexos;
@@ -203,9 +206,9 @@ export class UploadComponent implements OnInit {
       { type: 'min', message: 'El número ingresado es bajo.(minimo: 1)' },
       { type: 'max', message: 'El número ingresado es alto (maximo: 500000).'} 
     ],
-    'funcion': [
-      { type: 'minlength', message: 'La cantidad mínima de caracteres es 1' },
-      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 200'}
+    'funcion_id': [
+      { type: 'required', message: 'El destino es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
     ],
     'destino_id': [
       { type: 'required', message: 'El destino es requerido.'},
@@ -344,7 +347,7 @@ export class UploadComponent implements OnInit {
   }
 
   get funcionNoValido(){    
-    return this.forma.get('funcion')?.invalid && this.forma.get('funcion')?.touched;
+    return this.forma.get('funcion_id')?.invalid && this.forma.get('funcion_id')?.touched;
   }
 
   get destinoNoValido(){
@@ -483,14 +486,14 @@ export class UploadComponent implements OnInit {
   onChangeDepartamento(){
     const id_destino_aux = this.forma.get('destino_id')?.value;
     const id_departamento_aux = this.forma.get('departamento_id')?.value;
-    
+    const id_sector_aux = this.forma.get('sector_id')?.value;
     if(id_departamento_aux != null && id_destino_aux!= null){
       this.cargarDivisiones(parseInt(id_destino_aux.toString()), parseInt(id_departamento_aux.toString()));
-      this.cargarSectores(parseInt(id_destino_aux.toString()), parseInt(id_departamento_aux.toString()),1);
-      this.cargarSeccionesGuardia(parseInt(id_departamento_aux.toString()));
+      this.cargarSectores(parseInt(id_destino_aux.toString()), parseInt(id_departamento_aux.toString()),1);      
+      this.cargarSeccionesGuardia(1);
       this.forma.get('division_id')?.setValue(1);
       this.forma.get('sector_id')?.setValue(1);
-      this.forma.get('seccion_guardia_id')?.setValue(1);   
+      this.forma.get('seccion_guardia_id')?.setValue(1);  
     }
   }
   
@@ -513,7 +516,9 @@ export class UploadComponent implements OnInit {
     const id = this.forma.get('division_id')?.value;
     if(id != null){
       this.cargarSectores(parseInt(id_destino_aux.toString()),parseInt(id_departamento_aux.toString()),parseInt(id.toString()));
+      this.cargarSeccionesGuardia(1);
       this.forma.get('sector_id')?.setValue(1);
+      this.forma.get('seccion_guardia_id')?.setValue(1);  
     }
   }
   
@@ -534,11 +539,21 @@ export class UploadComponent implements OnInit {
       
     });
   } 
+
+  onChangeSector(){
+    const id_destino_aux = this.forma.get('destino_id')?.value;
+    const id_departamento_aux = this.forma.get('departamento_id')?.value;
+    const id_sector_aux = this.forma.get('sector_id')?.value;
+    if(id_sector_aux != null){
+      this.cargarSeccionesGuardia(parseInt(id_sector_aux.toString()));
+      this.forma.get('seccion_guardia_id')?.setValue(1);  
+    }
+  }
   
-  cargarSeccionesGuardia(departamento_id: number){
+  cargarSeccionesGuardia(sector_id: number){
     this.secciones_guardia = secciones_guardia.filter(seccion_gdia => {
       
-      return seccion_gdia.departamento_id == departamento_id || seccion_gdia.departamento_id == 0;
+      return seccion_gdia.sector_id == sector_id || seccion_gdia.sector_id == 0;
     });
   }  
 
@@ -655,6 +670,7 @@ export class UploadComponent implements OnInit {
           division_id: parseInt(this.forma.get('division_id')?.value),
           sector_id: parseInt(this.forma.get('sector_id')?.value),
           seccion_guardia_id: parseInt(this.forma.get('seccion_guardia_id')?.value),
+          funcion_id: parseInt(this.forma.get('funcion_id')?.value),
           escalafon_id: parseInt(this.forma.get('escalafon_id')?.value),
           escala_jerarquica_id: parseInt(this.forma.get('escala_jerarquica_id')?.value),
           grado_id: parseInt(this.forma.get('grado_id')?.value),

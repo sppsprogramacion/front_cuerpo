@@ -212,7 +212,7 @@ export class ListComponent implements OnInit {
         division: (item.division)?(JSON.parse(JSON.stringify(item.division))).division:'',
         sector: (item.sector)?(JSON.parse(JSON.stringify(item.sector))).sector:'',
         seccion_guardia: (item.seccion_guardia)?(JSON.parse(JSON.stringify(item.seccion_guardia))).seccion: '',
-        funcion: item.funcion,
+        funcion: item.funcion_id,
         escalafon: (item.escalafon)?(JSON.parse(JSON.stringify(item.escalafon))).escalafon:'',
         escala_jerarquica: (item.escala_jerarquica)?(JSON.parse(JSON.stringify(item.escala_jerarquica))).escala_jerarquica:'',
         grado: (item.grado)?(JSON.parse(JSON.stringify(item.grado))).grado:'',

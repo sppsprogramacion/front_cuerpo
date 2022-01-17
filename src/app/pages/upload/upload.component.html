@@ -179,7 +179,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Sectores</label>
-                                                    <select formControlName="sector_id" class="form-control" [class.is-invalid]="sectorNoValido"> 
+                                                    <select formControlName="sector_id" class="form-control" (change)=" onChangeSector()" [class.is-invalid]="sectorNoValido"> 
                                                         <option *ngFor="let sector of sectores" [value]="sector.id_sector" >{{sector.sector}}</option>
                                                     </select>
                                                     <small *ngIf="sectorNoValido" class="form-text text-danger">
@@ -195,20 +195,6 @@
 
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                <!-- select -->
-                                                <div class="form-group">
-                                                    <label>Funciones</label>
-                                                    <input type="text" class="form-control" formControlName="funcion" placeholder="funciones asignadas" [class.is-invalid]="funcionNoValido">
-                                                    <small *ngIf="funcionNoValido" class="form-text text-danger">
-                                                        <div *ngFor="let validation of user_validation_messages.funcion" >
-                                                            <div  *ngIf="forma.get('funcion')?.hasError(validation.type)">
-                                                                {{validation.message}}
-                                                            </div>
-                                                        </div>
-                                                    </small>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Sección de Guardia</label>
                                                     <select formControlName="seccion_guardia_id" class="form-control" [class.is-invalid]="seccionGuardiaNoValido"> 
@@ -223,6 +209,25 @@
                                                     </small>
                                                 </div>
                                             </div>
+
+                                            <div class="col-sm-6">
+                                                <!-- select -->
+                                                <div class="form-group">
+                                                    <label>Funciones</label>
+                                                    <select formControlName="funcion_id" class="form-control" [class.is-invalid]="funcionNoValido"> 
+                                                        <option *ngFor="let funcion of funciones" [value]="funcion.id_funcion" >{{funcion.funcion}}</option>
+                                                    </select>
+                                                    <small *ngIf="funcionNoValido" class="form-text text-danger">
+                                                        <div *ngFor="let validation of user_validation_messages.funcion_id" >
+                                                            <div  *ngIf="forma.get('funcion_id')?.hasError(validation.type)">
+                                                                {{validation.message}}
+                                                            </div>
+                                                        </div>
+                                                    </small>
+
+                                                </div>
+                                            </div>
+
                                         </div>
 
                                         <div class="row">

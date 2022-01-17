@@ -141,7 +141,7 @@ export class EditComponent implements OnInit {
        departamento_id: [this.dataEdit.departamento_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        division_id: [this.dataEdit.division_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        sector_id: [this.dataEdit.sector_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-       funcion: [this.dataEdit.funcion,[Validators.minLength(1), Validators.maxLength(200)]],
+       funcion: [this.dataEdit.funcion_id,[Validators.minLength(1), Validators.maxLength(200)]],
        seccion_guardia_id: [this.dataEdit.seccion_guardia_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        escalafon_id: [this.dataEdit.escalafon_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        escala_jerarquica_id: [this.dataEdit.escala_jerarquica_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
@@ -607,7 +607,7 @@ export class EditComponent implements OnInit {
 
   cargarSeccionesGuardia(departamento_id: number){
     this.secciones_guardia = secciones_guardia.filter(seccion_gdia => {       
-      return seccion_gdia.departamento_id == departamento_id || seccion_gdia.departamento_id == 0;
+      return seccion_gdia.sector_id == departamento_id || seccion_gdia.sector_id == 0;
     });
   }
   
@@ -728,7 +728,7 @@ export class EditComponent implements OnInit {
         departamento_id: parseInt(this.forma.get('departamento_id')?.value),
         division_id: parseInt(this.forma.get('division_id')?.value),
         sector_id: parseInt(this.forma.get('sector_id')?.value),
-        funcion: this.forma.get('funcion')?.value,
+        funcion_id: this.forma.get('funcion')?.value,
         seccion_guardia_id: parseInt(this.forma.get('seccion_guardia_id')?.value),
         escalafon_id: parseInt(this.forma.get('escalafon_id')?.value),
         escala_jerarquica_id: parseInt(this.forma.get('escala_jerarquica_id')?.value),
@@ -1173,7 +1173,7 @@ export class EditComponent implements OnInit {
         ],
         [ 
           new Txt((this.dataEdit.sector)?(JSON.parse(JSON.stringify(this.dataEdit.sector))).sector:"sin sector").bold().fontSize(10).alignment('center').end,
-          new Txt((this.dataEdit.funcion)?this.dataEdit.funcion:"sin función").bold().fontSize(10).alignment('center').end,
+          //new Txt((this.dataEdit.funcion)?this.dataEdit.funcion:"sin función").bold().fontSize(10).alignment('center').end,
           new Txt((this.dataEdit.seccion_guardia)?(JSON.parse(JSON.stringify(this.dataEdit.seccion_guardia))).seccion:"sin sección guardia").bold().fontSize(10).alignment('center').end,
           
         ]

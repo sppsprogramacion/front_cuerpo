@@ -34,6 +34,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" id="tab-legajo-digital-tab" data-toggle="pill" href="#tab-legajo-digital" role="tab" aria-controls="tabs-legajo-digital" aria-selected="false">Legajo Digital</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="tabs-destino-tab" data-toggle="pill" href="#tab-destino" role="tab" aria-controls="tabs-destino" aria-selected="false">Destino</a>
+                            </li>
                         </ul>
                     </div>
                     <div class="card-body">
@@ -298,7 +301,7 @@
                                                                                 <div class="col-sm-6">
                                                                                     <div class="form-group">
                                                                                         <label>Sectores</label>
-                                                                                        <select formControlName="sector_id" class="form-control" [ngModel]="dataEdit.sector_id" [class.is-invalid]="sectorNoValido"> 
+                                                                                        <select formControlName="sector_id" class="form-control" [ngModel]="dataEdit.sector_id" (change)=" onChangeSector()" [class.is-invalid]="sectorNoValido"> 
                                                                                             <option *ngFor="let sector of sectores" [value]="sector.id_sector" >{{sector.sector}}</option>
                                                                                       </select>
                                                                                         <small *ngIf="sectorNoValido" class="form-text text-danger">
@@ -313,24 +316,11 @@
                                                                             </div>
 
                                                                             <div class="row">
-                                                                                <div class="col-sm-6">
-                                                                                    <!-- select -->
-                                                                                    <div class="form-group">
-                                                                                        <label>Funciones</label>
-                                                                                        <input type="text" class="form-control" formControlName="funcion" [ngModel]="dataEdit.funcion_id" placeholder="funciones asignadas" [class.is-invalid]="funcionNoValido">
-                                                                                        <small *ngIf="funcionNoValido" class="form-text text-danger">
-                                                                                            <div *ngFor="let validation of user_validation_messages.funcion" >
-                                                                                                <div  *ngIf="forma.get('funcion')?.hasError(validation.type)">
-                                                                                                    {{validation.message}}
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </small>
-                                                                                    </div>
-                                                                                </div>
+
                                                                                 <div class="col-sm-6">
                                                                                     <div class="form-group">
                                                                                         <label>Sección de Guardia</label>
-                                                                                        <select formControlName="seccion_guardia_id" class="form-control" [ngModel]="dataEdit.seccion_guardia_id" [class.is-invalid]="seccionGuardiaNoValido"> 
+                                                                                        <select formControlName="seccion_guardia_id" class="form-control" [ngModel]="dataEdit.seccion_guardia_id" (change)="onChangeSeccionesGuardia()" [class.is-invalid]="seccionGuardiaNoValido"> 
                                                                                             <option *ngFor="let guardia of secciones_guardia" [value]="guardia.id_seccion" >{{guardia.seccion}}</option>
                                                                                         </select>
                                                                                         <small *ngIf="seccionGuardiaNoValido" class="form-text text-danger">
@@ -340,6 +330,24 @@
                                                                                                 </div>
                                                                                             </div>
                                                                                         </small>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-sm-6">
+                                                                                    <!-- select -->
+                                                                                    <div class="form-group">
+                                                                                        <label>Funciones</label>
+                                                                                        <select formControlName="funcion_id" class="form-control" [class.is-invalid]="funcionNoValido"> 
+                                                                                            <option *ngFor="let funcion of funciones" [value]="funcion.id_funcion" >{{funcion.funcion}}</option>
+                                                                                        </select>
+                                                                                        <small *ngIf="funcionNoValido" class="form-text text-danger">
+                                                                                            <div *ngFor="let validation of user_validation_messages.funcion_id" >
+                                                                                                <div  *ngIf="forma.get('funcion_id')?.hasError(validation.type)">
+                                                                                                    {{validation.message}}
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </small>
+
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -740,6 +748,7 @@
 
                             </div>
                             <!-- FIN PANEL 4 CREDENCIAL -->
+
                             <!-- PANEL 5 LEGAJO DIGITAL-->
                             <!-- <div class="tab-pane fade show active" id="tab-legajo-digital" role="tabpanel" aria-labelledby="tabs-legajo-digital-tab"> -->
                             <div class="tab-pane fade" id="tab-legajo-digital" role="tabpanel" aria-labelledby="tabs-legajo-digital-tab">
@@ -931,19 +940,166 @@
                                 </div>
                             </div>
                             <!-- FIN LEGAJO DIGITAL-->
+
+                            <!-- PANEL 6 DESTINO -->
+                            <div class="tab-pane fade" id="tab-destino" role="tabpanel" aria-labelledby="tabs-destino-tab">
+
+
+                                <!-- <form [formGroup]="forma"> -->
+                                <div class="card card-warning">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Cambio de Destino</h3>
+
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                        <form [formGroup]="forma" (ngSubmit)="submitForm('laboral')">
+                                            <div id="edicion-form-print">
+
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <!-- select -->
+                                                        <div class="form-group">
+                                                            <label>Destino</label>
+                                                            <!-- <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChangeDestino()">  -->
+                                                            <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChangeDestino()" [class.is-invalid]="destinoNoValido"> 
+                                                                              <option *ngFor="let destino of destinos" [value]="destino.id_destino" >{{destino.destino}}</option>
+                                                                        </select>
+                                                            <input *ngIf="!administrador" type="text" class="form-control" [placeholder]="destino_txt" disabled>
+                                                            <small *ngIf="destinoNoValido" class="form-text text-danger">
+                                                                            <div *ngFor="let validation of user_validation_messages.destino_id" >
+                                                                                <div  *ngIf="forma.get('destino_id')?.hasError(validation.type)">
+                                                                                    {{validation.message}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </small>
+
+                                                            <!-- <p-dropdown class="form-control" [options]="destinos" formControlName="destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown> -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label>Departamento</label>
+                                                            <select formControlName="departamento_id" class="form-control" [ngModel]="dataEdit.departamento_id" (change)=" onChangeDepartamento()" [class.is-invalid]="departamentoNoValido"> 
+                                                                            <option *ngFor="let departamento of departamentos" [value]="departamento.id_departamento" >{{departamento.departamento}}</option>
+                                                                        </select>
+                                                            <small *ngIf="departamentoNoValido" class="form-text text-danger">
+                                                                            <div *ngFor="let validation of user_validation_messages.departamento_id" >
+                                                                                <div  *ngIf="forma.get('departamento_id')?.hasError(validation.type)">
+                                                                                    {{validation.message}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <!-- select -->
+                                                        <div class="form-group">
+                                                            <label>Divisiones</label>
+                                                            <!-- <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id">  -->
+                                                            <select formControlName="division_id" class="form-control" [ngModel]="dataEdit.division_id" (change)=" onChangeDivision()" [class.is-invalid]="divisionNoValido"> 
+                                                                              <option *ngFor="let division of divisiones" [value]="division.id_division" >{{division.division}}</option>
+                                                                        </select>
+                                                            <small *ngIf="divisionNoValido" class="form-text text-danger">
+                                                                            <div *ngFor="let validation of user_validation_messages.division_id" >
+                                                                                <div  *ngIf="forma.get('division_id')?.hasError(validation.type)">
+                                                                                    {{validation.message}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label>Sectores</label>
+                                                            <select formControlName="sector_id" class="form-control" [ngModel]="dataEdit.sector_id" (change)=" onChangeSector()" [class.is-invalid]="sectorNoValido"> 
+                                                                            <option *ngFor="let sector of sectores" [value]="sector.id_sector" >{{sector.sector}}</option>
+                                                                      </select>
+                                                            <small *ngIf="sectorNoValido" class="form-text text-danger">
+                                                                        <div *ngFor="let validation of user_validation_messages.sector_id" >
+                                                                            <div  *ngIf="forma.get('sector_id')?.hasError(validation.type)">
+                                                                                {{validation.message}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label>Sección de Guardia</label>
+                                                            <select formControlName="seccion_guardia_id" class="form-control" [ngModel]="dataEdit.seccion_guardia_id" (change)="onChangeSeccionesGuardia()" [class.is-invalid]="seccionGuardiaNoValido"> 
+                                                                            <option *ngFor="let guardia of secciones_guardia" [value]="guardia.id_seccion" >{{guardia.seccion}}</option>
+                                                                        </select>
+                                                            <small *ngIf="seccionGuardiaNoValido" class="form-text text-danger">
+                                                                            <div *ngFor="let validation of user_validation_messages.seccion_guardia_id" >
+                                                                                <div  *ngIf="forma.get('seccion_guardia_id')?.hasError(validation.type)">
+                                                                                    {{validation.message}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </small>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-6">
+                                                        <!-- select -->
+                                                        <div class="form-group">
+                                                            <label>Funciones</label>
+                                                            <select formControlName="funcion_id" class="form-control" [class.is-invalid]="funcionNoValido"> 
+                                                                            <option *ngFor="let funcion of funciones" [value]="funcion.id_funcion" >{{funcion.funcion}}</option>
+                                                                        </select>
+                                                            <small *ngIf="funcionNoValido" class="form-text text-danger">
+                                                                            <div *ngFor="let validation of user_validation_messages.funcion_id" >
+                                                                                <div  *ngIf="forma.get('funcion_id')?.hasError(validation.type)">
+                                                                                    {{validation.message}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </small>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </form>
+                                        <!-- <button type="button" pButton pRipple icon="pi pi-print" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom" onclick="printJS({ printable: 'edicion-form-print', type: 'html', header: 'Datos Laborales' })">
+
+                                                    </button> -->
+
+
+                                    </div>
+                                    <!-- /.card-body -->
+                                    <div class="card-footer">
+                                        <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitForm('laboral')">Guardar</button>
+                                    </div>
+                                </div>
+                                <!-- </form> -->
+
+                            </div>
+
                         </div>
+                        <!-- FIN PANEL 6 DESTINO -->
                     </div>
-                    <!-- /.card -->
                 </div>
+                <!-- /.card -->
             </div>
-            <!-- </div> -->
-
-
-
         </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-            Footer
-        </div>
-        <!-- /.card-footer-->
+        <!-- </div> -->
+
+
+
     </div>
+    <!-- /.card-body -->
+    <div class="card-footer">
+        Footer
+    </div>
+    <!-- /.card-footer-->
+</div>

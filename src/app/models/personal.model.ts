@@ -29,6 +29,7 @@ export class Personal{
     public seccion_guardia_id? : number,
     public seccion_guardia? : string,
     public funcion_id? : number,
+    public funcion?: string,
     public escalafon_id? : number,
     public escalafon?: string,
     public escala_jerarquica_id? : number,

@@ -50305,6 +50305,10 @@ export const funciones = [
         "funcion": "Centinela"
     },
     {
+        "id_funcion": 9,
+        "funcion": "Custodia"
+    },
+    {
         "id_funcion": 6,
         "funcion": "Inspector de Servicio"
     },
@@ -50315,6 +50319,10 @@ export const funciones = [
     {
         "id_funcion": 7,
         "funcion": "Programador"
+    },
+    {
+        "id_funcion": 10,
+        "funcion": "Requisador"
     },
     {
         "id_funcion": 1,

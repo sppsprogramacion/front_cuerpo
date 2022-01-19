@@ -197,7 +197,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Sección de Guardia</label>
-                                                    <select formControlName="seccion_guardia_id" class="form-control" [class.is-invalid]="seccionGuardiaNoValido"> 
+                                                    <select formControlName="seccion_guardia_id" class="form-control" (change)="onChangeSeccionesGuardia()" [class.is-invalid]="seccionGuardiaNoValido"> 
                                                         <option *ngFor="let guardia of secciones_guardia" [value]="guardia.id_seccion" >{{guardia.seccion}}</option>
                                                     </select>
                                                     <small *ngIf="seccionGuardiaNoValido" class="form-text text-danger">

@@ -3,7 +3,7 @@ import { Personal } from 'src/app/models/personal.model';
 import { DataService } from 'src/app/services/data.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DestinoModel } from '../../models/destino.model';
-import { destinos, departamentos, departamentos_provinciales, divisiones, estados_civil, municipios, nivelEducativo, sectores, secciones_guardia, situacion, escalaJerarquica, escalafon, grados, sexos, provincias, ciudades} from 'src/app/common/data-mockeada';
+import { destinos, departamentos, departamentos_provinciales, divisiones, estados_civil, municipios, nivelEducativo, sectores, secciones_guardia, situacion, escalaJerarquica, escalafon, grados, sexos, provincias, ciudades, funciones} from 'src/app/common/data-mockeada';
 import { globalConstants } from '../../common/global-constants';
 import { DepartamentoModel } from '../../models/departamento.model';
 import { DivisionModel } from '../../models/division.model';
@@ -34,6 +34,7 @@ import { PdfService } from 'src/app/services/pdf.service';
 import {environment} from 'src/environments/environment';
 import { CiudadModel } from '../../models/ciudad.model';
 import { Cell, Columns, Img, PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
+import { FuncionModel } from 'src/app/models/funcion.model';
 
 @Component({
   selector: 'app-edit',
@@ -71,6 +72,7 @@ export class EditComponent implements OnInit {
   escalas: EscalaJerarquicaModel[]=[];
   escalafones: EscalafonModel[]=[];
   estados_civil: EstadoCivilModel[]=[];
+  funciones: FuncionModel[]=[];
   grados: GradoModel[]=[];
   municipios: MunicipioModel[]=[];
   niveles_educativo: NivelEducativoModel[]=[];
@@ -141,7 +143,7 @@ export class EditComponent implements OnInit {
        departamento_id: [this.dataEdit.departamento_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        division_id: [this.dataEdit.division_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        sector_id: [this.dataEdit.sector_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-       funcion: [this.dataEdit.funcion_id,[Validators.minLength(1), Validators.maxLength(200)]],
+       funcion_id: [this.dataEdit.funcion_id, [Validators.required, Validators.pattern(/^[0-9]*$/)]],
        seccion_guardia_id: [this.dataEdit.seccion_guardia_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        escalafon_id: [this.dataEdit.escalafon_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        escala_jerarquica_id: [this.dataEdit.escala_jerarquica_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
@@ -191,9 +193,9 @@ export class EditComponent implements OnInit {
     auxiliar = this.dataEdit.destino;    
 
     this.cargarDepartamentos(this.dataEdit.destino_id!);
-    this.cargarDivisiones(this.dataEdit.departamento_id!);
-    this.cargarSectores(this.dataEdit.division_id!);
-    this.cargarSeccionesGuardia(this.dataEdit.departamento_id!);    
+    this.cargarDivisiones(this.dataEdit.destino_id!,this.dataEdit.departamento_id!);
+    this.cargarSectores(this.dataEdit.destino_id!,this.dataEdit.departamento_id!,this.dataEdit.division_id!);
+    this.cargarSeccionesGuardia(this.dataEdit.sector_id!);    
     this.cargarDepartamentosProvinciales(this.dataEdit.provincia_id!)    
     this.cargarMunicipios(this.dataEdit.departamento_provincial_id!);
     this.cargarCiudades(this.dataEdit.municipio_id!);
@@ -207,6 +209,7 @@ export class EditComponent implements OnInit {
     this.estados_civil = estados_civil;    
     this.escalafones = escalafon;
     this.escalas = escalaJerarquica;
+    this.funciones = funciones;
     this.niveles_educativo = nivelEducativo;
     this.provincias = provincias;
     this.sexos = sexos;
@@ -275,7 +278,7 @@ export class EditComponent implements OnInit {
       { type: 'min', message: 'El número ingresado es bajo.(minimo: 1)' },
       { type: 'max', message: 'El número ingresado es alto (maximo: 500000).'} 
     ],
-    'funcion': [
+    'funcion_id': [
       { type: 'minlength', message: 'La cantidad mínima de caracteres es 1' },
       { type: 'maxlength', message: 'La cantidad máxima de caracteres es 200'}
     ],
@@ -415,7 +418,7 @@ export class EditComponent implements OnInit {
   }
 
   get funcionNoValido(){    
-    return this.forma.get('funcion')?.invalid && this.forma.get('funcion')?.touched;
+    return this.forma.get('funcion_id')?.invalid && this.forma.get('funcion_id')?.touched;
   }
 
   get destinoNoValido(){
@@ -540,16 +543,15 @@ export class EditComponent implements OnInit {
         const id = this.forma.get('destino_id')?.value;
         if(id != null){
           this.cargarDepartamentos(parseInt(id.toString()));
-          this.cargarDivisiones(3);
-          this.cargarSectores(5);
+          this.cargarDivisiones(parseInt(id.toString()),3);
+          this.cargarSectores(id,3,1);
           this.cargarSeccionesGuardia(0);
           this.forma.get('departamento_id')?.setValue(3);
-          this.forma.get('division_id')?.setValue(5);
+          this.forma.get('division_id')?.setValue(1);
           this.forma.get('sector_id')?.setValue(1);
           this.forma.get('seccion_guardia_id')?.setValue(1);
-          // this.divisiones = [];
-          // this.sectores = [];
-          // this.secciones_guardia= [];      
+          this.forma.get('funcion_id')?.setValue(1);
+              
         }else{
           Swal.fire('Error: repita la operación por favor', '', 'info')
         }
@@ -568,47 +570,83 @@ export class EditComponent implements OnInit {
   }
 
   onChangeDepartamento(){
-    const id = this.forma.get('departamento_id')?.value;
-    if(id != null){
-      this.cargarDivisiones(parseInt(id.toString()));
-      this.cargarSectores(5);
-      this.cargarSeccionesGuardia(parseInt(id.toString()));
-      this.forma.get('division_id')?.setValue(5);
+    const id_destino_aux = this.forma.get('destino_id')?.value;
+    const id_departamento_aux = this.forma.get('departamento_id')?.value;
+    if(id_departamento_aux != null && id_destino_aux!= null){
+      this.cargarDivisiones(parseInt(id_destino_aux.toString()), parseInt(id_departamento_aux.toString()));
+      this.cargarSectores(parseInt(id_destino_aux.toString()), parseInt(id_departamento_aux.toString()),1);      
+      this.cargarSeccionesGuardia(1);
+      this.forma.get('division_id')?.setValue(1);
       this.forma.get('sector_id')?.setValue(1);
       this.forma.get('seccion_guardia_id')?.setValue(1);
-      // this.cargarDivisiones(parseInt(id.toString()));
-      // this.cargarSeccionesGuardia(parseInt(id.toString()));
-      
+      this.forma.get('funcion_id')?.setValue(1);  
     }
   }
 
-  cargarDivisiones(departamento_id: number){
+  cargarDivisiones(destino_id: number,departamento_id: number){
     this.divisiones = divisiones.filter(division => {
-      return division.departamento_id == departamento_id || division.departamento_id == 0;
+      
+      if(departamento_id == 3){
+        return (division.destino_id == destino_id || division.destino_id == 0) && (division.departamento_id == 3 || division.departamento_id == 0);
+      }
+      else{
+        return division.departamento_id == departamento_id || division.departamento_id == 0;
+      }
+      
     });
   }
 
   onChangeDivision(){
-    const id = this.forma.get('division_id')?.value;
-    if(id != null){
-      this.cargarSectores(parseInt(id.toString()));
+    const id_destino_aux = this.forma.get('destino_id')?.value;
+    const id_departamento_aux = this.forma.get('departamento_id')?.value;
+    const id_division_aux = this.forma.get('division_id')?.value;
+    if(id_division_aux != null){
+      this.cargarSectores(parseInt(id_destino_aux.toString()),parseInt(id_departamento_aux.toString()),parseInt(id_division_aux.toString()));
+      this.cargarSeccionesGuardia(1);
       this.forma.get('sector_id')?.setValue(1);
-      // this.cargarSectores(parseInt(id.toString()));
-      
+      this.forma.get('seccion_guardia_id')?.setValue(1);  
+      this.forma.get('funcion_id')?.setValue(1);
     }
   }
 
-  cargarSectores(division_id: number){
+  cargarSectores(destino_id: number,departamento_id: number,division_id: number){
     this.sectores = sectores.filter(sector => {
-       
-      return sector.division_id == division_id || sector.division_id == 0;
+      if(division_id == 1){
+        if(departamento_id == 3){
+          return (sector.destino_id == destino_id || sector.destino_id == 0 )&& (sector.departamento_id ==3 || sector.departamento_id== 0) && (sector.division_id == 1 || sector.division_id == 0);
+        }
+        else{
+          return (sector.departamento_id == departamento_id || sector.departamento_id == 0) && (sector.division_id == 1 || sector.division_id == 0);
+        }
+        
+      }
+      else{
+        return sector.division_id == division_id || sector.division_id == 0;
+      }
+      
     });
   }  
 
-  cargarSeccionesGuardia(departamento_id: number){
-    this.secciones_guardia = secciones_guardia.filter(seccion_gdia => {       
-      return seccion_gdia.sector_id == departamento_id || seccion_gdia.sector_id == 0;
+  onChangeSector(){
+    
+    const id_sector_aux = this.forma.get('sector_id')?.value;
+    if(id_sector_aux != null){
+      this.cargarSeccionesGuardia(parseInt(id_sector_aux.toString()));
+      this.forma.get('seccion_guardia_id')?.setValue(1);  
+      this.forma.get('funcion_id')?.setValue(1);
+    }
+  }
+
+  cargarSeccionesGuardia(sector_id: number){
+    this.secciones_guardia = secciones_guardia.filter(seccion_gdia => {
+      
+      return seccion_gdia.sector_id == sector_id || seccion_gdia.sector_id == 0;
     });
+  }  
+
+  onChangeSeccionesGuardia(){
+    this.forma.get('funcion_id')?.setValue(1);
+    
   }
   
   
@@ -728,7 +766,7 @@ export class EditComponent implements OnInit {
         departamento_id: parseInt(this.forma.get('departamento_id')?.value),
         division_id: parseInt(this.forma.get('division_id')?.value),
         sector_id: parseInt(this.forma.get('sector_id')?.value),
-        funcion_id: this.forma.get('funcion')?.value,
+        funcion_id:parseInt(this.forma.get('funcion_id')?.value),
         seccion_guardia_id: parseInt(this.forma.get('seccion_guardia_id')?.value),
         escalafon_id: parseInt(this.forma.get('escalafon_id')?.value),
         escala_jerarquica_id: parseInt(this.forma.get('escala_jerarquica_id')?.value),
@@ -789,11 +827,23 @@ export class EditComponent implements OnInit {
       .subscribe(
         personal => {
           this.dataEdit = personal;
-          this.foto_nombre = personal.foto!;
+
+          //actualizacion de foto
+          if(this.dataEdit.foto){
+            if(this.dataEdit.foto?.toString() != "no-image.png"){
+              this.foto_nombre = this.dataEdit.foto?.toString();
+            }
+            else{
+              this.foto_nombre = "./assets/img/no-image.jpg";
+            }     
+      
+          }
+          
           //cambiar formato de fechas para mostrar
           this.formatoFechasMostrar();
           this.nombreCompletoPersonal();
           this.actualizarCamposFormulario();
+          Swal.fire('Exito',`Datos actualizados en el formulario`,"success");
           
         }
       )
@@ -1173,6 +1223,7 @@ export class EditComponent implements OnInit {
         ],
         [ 
           new Txt((this.dataEdit.sector)?(JSON.parse(JSON.stringify(this.dataEdit.sector))).sector:"sin sector").bold().fontSize(10).alignment('center').end,
+          new Txt((this.dataEdit.funcion)?(JSON.parse(JSON.stringify(this.dataEdit.funcion))).funcion:"sin sector").bold().fontSize(10).alignment('center').end,
           //new Txt((this.dataEdit.funcion)?this.dataEdit.funcion:"sin función").bold().fontSize(10).alignment('center').end,
           new Txt((this.dataEdit.seccion_guardia)?(JSON.parse(JSON.stringify(this.dataEdit.seccion_guardia))).seccion:"sin sección guardia").bold().fontSize(10).alignment('center').end,
           

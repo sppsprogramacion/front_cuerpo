@@ -471,6 +471,7 @@ export class UploadComponent implements OnInit {
       this.forma.get('division_id')?.setValue(1);
       this.forma.get('sector_id')?.setValue(1);
       this.forma.get('seccion_guardia_id')?.setValue(1);
+      this.forma.get('funcion_id')?.setValue(1);
     }else{
       Swal.fire('Error: repita la operación por favor', '', 'info')
     }   
@@ -494,6 +495,7 @@ export class UploadComponent implements OnInit {
       this.forma.get('division_id')?.setValue(1);
       this.forma.get('sector_id')?.setValue(1);
       this.forma.get('seccion_guardia_id')?.setValue(1);  
+      this.forma.get('funcion_id')?.setValue(1);
     }
   }
   
@@ -519,6 +521,7 @@ export class UploadComponent implements OnInit {
       this.cargarSeccionesGuardia(1);
       this.forma.get('sector_id')?.setValue(1);
       this.forma.get('seccion_guardia_id')?.setValue(1);  
+      this.forma.get('funcion_id')?.setValue(1);
     }
   }
   
@@ -541,12 +544,12 @@ export class UploadComponent implements OnInit {
   } 
 
   onChangeSector(){
-    const id_destino_aux = this.forma.get('destino_id')?.value;
-    const id_departamento_aux = this.forma.get('departamento_id')?.value;
+    
     const id_sector_aux = this.forma.get('sector_id')?.value;
     if(id_sector_aux != null){
       this.cargarSeccionesGuardia(parseInt(id_sector_aux.toString()));
       this.forma.get('seccion_guardia_id')?.setValue(1);  
+      this.forma.get('funcion_id')?.setValue(1);
     }
   }
   
@@ -556,6 +559,11 @@ export class UploadComponent implements OnInit {
       return seccion_gdia.sector_id == sector_id || seccion_gdia.sector_id == 0;
     });
   }  
+
+  onChangeSeccionesGuardia(){
+    this.forma.get('funcion_id')?.setValue(1);
+    
+  }
 
   onChangeProvincia(){
     const id = this.forma.get('provincia_id')?.value;

@@ -35,6 +35,7 @@ import {environment} from 'src/environments/environment';
 import { CiudadModel } from '../../models/ciudad.model';
 import { Cell, Columns, Img, PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
 import { FuncionModel } from 'src/app/models/funcion.model';
+import { Traslado } from '../../models/traslado';
 
 @Component({
   selector: 'app-edit',
@@ -49,7 +50,9 @@ export class EditComponent implements OnInit {
   editandoPdf: boolean=false;
   forma: FormGroup;
   formaFiliatorios: FormGroup;
+  formaTraslados: FormGroup;
   dataEdit: Personal={};
+  dataTraslado: Traslado={};
   pdfsList: PdfModel[] = [];
   loadingTablaPdfs: boolean = false;
   nombreCompleto: string="";
@@ -179,6 +182,21 @@ export class EditComponent implements OnInit {
       situacion_id: [this.dataEdit.situacion_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]]
     });
     //FIN FORMULARIO DATOS FILIATORIOS
+
+    //FORMULARIO TRASLADO    
+    this.formaTraslados = this.fb.group({
+      id_traslado: [this.dataTraslado.id_traslado,Validators.required],
+      dni_personal: [this.dataTraslado.dni_personal,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1000000), Validators.max(99000000)]],
+      legajo: [this.dataTraslado.legajo,[Validators.required,,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
+      destino_id: [this.dataTraslado.destino_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      fecha: [this.dataTraslado.fecha,[Validators.required]],
+      instrumento: [this.dataTraslado.instrumento,[Validators.required,Validators.pattern(/^[A-Za-z\s]+$/), Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      fojas: [this.dataTraslado.fojas,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      vigente: [this.dataTraslado.vigente, [Validators.required, Validators.pattern(/^[0-9]*$/)]]
+    });
+    //FIN FORMULARIO TRASLADO
+
+    
   
     //this.submitForm();
    
@@ -242,7 +260,7 @@ export class EditComponent implements OnInit {
   
 
   //VALIDACIONES FORMULARIOS
-  //mensajes de validaciones
+  //mensajes de validaciones LABORALES Y FILIATORIOS
   user_validation_messages = {
     //Formulario datos laborales
     'apellido_1': [
@@ -279,8 +297,8 @@ export class EditComponent implements OnInit {
       { type: 'max', message: 'El número ingresado es alto (maximo: 500000).'} 
     ],
     'funcion_id': [
-      { type: 'minlength', message: 'La cantidad mínima de caracteres es 1' },
-      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 200'}
+      { type: 'required', message: 'El destino es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
     ],
     'destino_id': [
       { type: 'required', message: 'El destino es requerido.'},
@@ -392,9 +410,56 @@ export class EditComponent implements OnInit {
 
     //fin Formulario datos personales
   }
-  //FIN mensajes de validaciones
+  //FIN /mensajes de validaciones LABORALES Y FILIATORIOS
 
-  //fin validaciones formulario laborales
+  //validaciones traslados
+  traslado_validation_messages = {
+    //Formulario datos laborales
+
+    'dni_personal': [
+      { type: 'required', message: 'El dni es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' },
+      { type: 'min', message: 'El número ingresado es bajo.(minimo: 1000000)' },
+      { type: 'max', message: 'El número ingresado es alto (maximo: 99000000).'} 
+    ],
+    'legajo': [
+      { type: 'required', message: 'El legajo es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' },
+      { type: 'min', message: 'El número ingresado es bajo.(minimo: 1)' },
+      { type: 'max', message: 'El número ingresado es alto (maximo: 500000).'} 
+    ],
+    'destino_id': [
+      { type: 'required', message: 'El destino es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'fecha': [
+      { type: 'required', message: 'El primer apellio es requerido' },
+      { type: 'pattern', message: 'Solo se pueden ingresar letras y espacios.' },
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.' }
+    ],
+    'instrumento': [
+      { type: 'required', message: 'El instrumento es requerido' },
+      { type: 'pattern', message: 'Solo se pueden ingresar letras y espacios.' },
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 100.' }
+    ],
+    'fojas': [
+      { type: 'required', message: 'El destino es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    
+    ],
+    'vigente': [
+      { type: 'required', message: 'El vigente es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es valido.' }
+    ]
+  }
+  //fin validaciones traslados
+
+  
+  //FIN VALIDACIONES FORMULARIOS................................................................................
+
+  //VALIDACION 2 DATOS LABORALES
   get apellido1NoValido(){
     return this.forma.get('apellido_1')?.invalid && this.forma.get('apellido_1')?.touched;
   }
@@ -453,9 +518,9 @@ export class EditComponent implements OnInit {
     return this.forma.get('grado_id')?.invalid && this.forma.get('grado_id')?.touched;
   }
 
-  //fin validaciones formulario laborales
+  //FIN VALIDACION 2 DATOS LABORALES
 
-  //validaciones formulario filatorios
+  //VALIDACION 2 FORMULARIOS FLIATORIOS
   get dniNoValido(){
     return this.formaFiliatorios.get('dni')?.invalid && this.formaFiliatorios.get('dni')?.touched;
   }
@@ -522,11 +587,41 @@ export class EditComponent implements OnInit {
 
   get pesoNoValido(){
     return this.formaFiliatorios.get('peso')?.invalid && this.formaFiliatorios.get('peso')?.touched;
+  }  
+  //FIN VALIDACION 2 FORMULARIOS FILIATORIOS
+
+  //VALIDACIONES 2 FORMULARIO TRASLADO
+  get dniTrasNoValido(){
+    return this.formaTraslados.get('dni_personal')?.invalid && this.formaTraslados.get('dni_personal')?.touched;
+  }
+    
+  get legajoTrasNoValido(){
+    return this.formaTraslados.get('legajo')?.invalid && this.formaTraslados.get('legajo')?.touched;
   }
 
+  get destinoTrasNoValido(){
+    return this.formaTraslados.get('destino_id')?.invalid && this.formaTraslados.get('destino_id')?.touched;
+  }
+
+  get fechaTrasNoValido(){
+    return this.formaTraslados.get('fecha')?.invalid && this.formaTraslados.get('fecha')?.touched;
+  }
+
+  get instrumentoTrasNoValido(){
+    return this.formaTraslados.get('instrumento')?.invalid && this.formaTraslados.get('instrumento')?.touched;
+  }
+
+  get fojasTrasNoValido(){
+    return this.formaTraslados.get('fojas')?.invalid && this.formaTraslados.get('fojas')?.touched;
+  }
+
+  get vigenteTrasNoValido(){
+    return this.formaTraslados.get('vigente')?.invalid && this.formaTraslados.get('vigente')?.touched;
+  }
+  //FIN VALIDACIONES 2 FORMULARIO TRASLADO
+
+
   
-  //fin validaciones formulario filatorios
-  //FIN VALIDACIONES FORMULARIOS
 
   
   //metodos para cargar listas desplegables  

@@ -35,7 +35,8 @@ import {environment} from 'src/environments/environment';
 import { CiudadModel } from '../../models/ciudad.model';
 import { Cell, Columns, Img, PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
 import { FuncionModel } from 'src/app/models/funcion.model';
-import { Traslado } from '../../models/traslado';
+import { Traslado } from '../../models/traslado.model';
+import { TrasladosService } from '../../services/traslados.service';
 
 @Component({
   selector: 'app-edit',
@@ -100,6 +101,7 @@ export class EditComponent implements OnInit {
     private fb: FormBuilder,
     private readonly fileUploadService: FileUploadService,
     private readonly personalService: PersonalService,
+    private readonly trasladoService: TrasladosService,
     public readonly datePipe: DatePipe,
     private localeService: BsLocaleService,
     private pdfService: PdfService
@@ -185,14 +187,14 @@ export class EditComponent implements OnInit {
 
     //FORMULARIO TRASLADO    
     this.formaTraslados = this.fb.group({
-      id_traslado: [this.dataTraslado.id_traslado,Validators.required],
-      dni_personal: [this.dataTraslado.dni_personal,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1000000), Validators.max(99000000)]],
-      legajo: [this.dataTraslado.legajo,[Validators.required,,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
-      destino_id: [this.dataTraslado.destino_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      fecha: [this.dataTraslado.fecha,[Validators.required]],
-      instrumento: [this.dataTraslado.instrumento,[Validators.required,Validators.pattern(/^[A-Za-z\s]+$/), Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-      fojas: [this.dataTraslado.fojas,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      vigente: [this.dataTraslado.vigente, [Validators.required, Validators.pattern(/^[0-9]*$/)]]
+      //id_traslado: [this.dataTraslado.id_traslado,Validators.required],
+      dni_personal: [this.dataEdit.dni,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1000000), Validators.max(99000000)]],
+      legajo: [this.dataEdit.legajo,[Validators.required,,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
+      destino_id: [this.dataEdit.destino_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      fecha: [,[Validators.required]],
+      instrumento: [,[Validators.required,Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+      fojas: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      vigente: [true, [Validators.required]]
     });
     //FIN FORMULARIO TRASLADO
 
@@ -433,10 +435,8 @@ export class EditComponent implements OnInit {
       { type: 'pattern', message: 'El valor ingresado no es un número.' }
     ],
     'fecha': [
-      { type: 'required', message: 'El primer apellio es requerido' },
-      { type: 'pattern', message: 'Solo se pueden ingresar letras y espacios.' },
-      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2.' },
-      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 50.' }
+      { type: 'required', message: 'La Fecha es requerida' }
+      
     ],
     'instrumento': [
       { type: 'required', message: 'El instrumento es requerido' },
@@ -445,13 +445,12 @@ export class EditComponent implements OnInit {
       { type: 'maxlength', message: 'La cantidad máxima de caracteres es 100.' }
     ],
     'fojas': [
-      { type: 'required', message: 'El destino es requerido.'},
+      { type: 'required', message: 'La cantidad de foja es requerida.'},
       { type: 'pattern', message: 'El valor ingresado no es un número.' }
     
     ],
     'vigente': [
-      { type: 'required', message: 'El vigente es requerido.'},
-      { type: 'pattern', message: 'El valor ingresado no es valido.' }
+      { type: 'required', message: 'El vigente es requerido.'}
     ]
   }
   //fin validaciones traslados
@@ -841,7 +840,7 @@ export class EditComponent implements OnInit {
   //enviar formulario
   submitForm(formEnviado:string){
     
-    let data: Partial<Personal>;
+    let data: Partial<Personal>= new Personal;
     //crear la data
     if(formEnviado == 'laboral'){
 
@@ -869,7 +868,8 @@ export class EditComponent implements OnInit {
         ultimo_ascenso: this.auxiliarDate,
         fecha_ingreso: this.changeFormatoFechaGuardar(this.forma.get('fecha_ingreso')?.value),
       }
-    }else{
+    }
+    if(formEnviado == 'filiatorios'){
 
       if(this.formaFiliatorios.invalid){
         Swal.fire('Formulario con errores','Complete correctamente todos los campos del formulario',"warning");
@@ -899,6 +899,16 @@ export class EditComponent implements OnInit {
   
       }        
     }
+    if(formEnviado == 'cambioDestino'){
+      data = {
+        destino_id: parseInt(this.formaTraslados.get('destino_id')?.value),
+        departamento_id: 3,
+        division_id: 1,
+        sector_id: 1,
+        funcion_id: 1,
+        seccion_guardia_id: 1
+      }
+    }
                 
     this.personalService.editPersonal(data,parseInt(this.dataEdit.id_personal?.toString()!))
       .subscribe(
@@ -915,6 +925,42 @@ export class EditComponent implements OnInit {
     
   }
   //fin enviar formulario
+
+  //GUARDAR TRASLADO
+  
+  submitFormTraslado(){
+    if(this.formaTraslados.invalid){
+      Swal.fire('Formulario Traslado con errores','Complete correctamente todos los campos del formulario',"warning");
+      return Object.values(this.formaTraslados.controls).forEach(control => control.markAsTouched());
+    }
+
+    let data: Traslado;
+     //crear la data
+      this.submitForm('cambioDestino');
+
+      data = {
+
+        legajo: parseInt(this.formaTraslados.get('legajo')?.value),
+        dni_personal: parseInt(this.formaTraslados.get('dni')?.value),
+        destino_id: parseInt(this.formaTraslados.get('destino_id')?.value),
+        instrumento: this.formaTraslados.get('instrumento')?.value,
+        fecha: this.changeFormatoFechaGuardar(this.forma.get('fecha')?.value),
+        fojas: parseInt(this.formaTraslados.get('fojas')?.value),
+        vigente: this.formaTraslados.get('vigente')?.value
+      }
+      this.trasladoService.guardarTraslado(data)
+            .subscribe(resultado => {
+              
+                Swal.fire('Exito',`El Traslado ha sido guardado con Exito`,"success");
+                //this.limpiarFormulario();
+                
+            },
+            error => {
+                
+                Swal.fire('Error',`Error al cargar el Traslado: ${error.error.message}`,"error")                          
+            });
+  }
+  //FIN GUARDAR TRASLADO
 
   //buscar personal
   buscarPersonal(legajo: number){

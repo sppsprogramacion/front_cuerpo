@@ -671,17 +671,7 @@
                                                     <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary">Guardar</button>
                                                 </div>
                                             </form>
-                                            <!-- datos pre-->
-                                            <hr>
-                                            <pre>
-                                                Estado del Formulario: {{formaFiliatorios.valid}}
-                                                <br>
-                                                Status: {{formaFiliatorios.status}}
-                                            </pre>
-                                            <pre>
-                                                {{formaFiliatorios.value | json}}
-                                            </pre>
-                                            <!-- FIN datos pre-->
+
 
 
 
@@ -953,10 +943,10 @@
                                     </div>
                                     <!-- /.card-header -->
                                     <div class="card-body">
-                                        <form [formGroup]="formaTraslados" (ngSubmit)="submitForm('cambio-destino')">
+                                        <form [formGroup]="formaTraslados" (ngSubmit)="submitFormTraslado()">
                                             <div id="edicion-form-print">
                                                 <div class="row">
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-3">
                                                         <div class="form-group">
                                                             <label>Dni</label>
                                                             <input formControlName="dni_personal" type="text" class="form-control" placeholder="dni personal">
@@ -969,7 +959,7 @@
                                                             </small>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-3">
                                                         <div class="form-group">
                                                             <label>Legajo</label>
                                                             <input formControlName="legajo" type="text" class="form-control" placeholder="legajo">
@@ -982,16 +972,13 @@
                                                             </small>
                                                         </div>
                                                     </div>
-                                                </div>
 
-
-                                                <div class="row">
                                                     <div class="col-sm-6">
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Destino</label>
                                                             <!-- <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChangeDestino()">  -->
-                                                            <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChangeDestino()" [class.is-invalid]="destinoNoValido"> 
+                                                            <select *ngIf="administrador" formControlName="destino_id" class="form-control" [class.is-invalid]="destinoTrasNoValido"> 
                                                                     <option *ngFor="let destino of destinos" [value]="destino.id_destino" >{{destino.destino}}</option>
                                                             </select>
                                                             <input *ngIf="!administrador" type="text" class="form-control" [placeholder]="destino_txt" disabled>
@@ -1006,25 +993,10 @@
                                                             <!-- <p-dropdown class="form-control" [options]="destinos" formControlName="destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown> -->
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Fecha</label>
-                                                            <input formControlName="fecha" type="text" class="form-control" placeholder="fecha">
-                                                            <small *ngIf="fechaTrasNoValido" class="form-text text-danger">
-                                                                <div *ngFor="let validation of traslado_validation_messages.fecha" >
-                                                                    <div  *ngIf="formaTraslados.get('fecha')?.hasError(validation.type)">
-                                                                        {{validation.message}}
-                                                                    </div>
-                                                                </div>
-                                                            </small>
-                                                        </div>
-                                                    </div>
                                                 </div>
 
 
-
                                                 <div class="row">
-
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label>Instrumento</label>
@@ -1039,7 +1011,22 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-sm-6">
+
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group">
+                                                            <label>Fecha</label>
+                                                            <input formControlName="fecha" type="text" class="form-control" placeholder="fecha">
+                                                            <small *ngIf="fechaTrasNoValido" class="form-text text-danger">
+                                                                <div *ngFor="let validation of traslado_validation_messages.fecha" >
+                                                                    <div  *ngIf="formaTraslados.get('fecha')?.hasError(validation.type)">
+                                                                        {{validation.message}}
+                                                                    </div>
+                                                                </div>
+                                                            </small>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-3">
                                                         <div class="form-group">
                                                             <label>Fojas</label>
                                                             <input formControlName="fojas" type="text" class="form-control" placeholder="fojas">
@@ -1052,17 +1039,19 @@
                                                             </small>
                                                         </div>
                                                     </div>
+                                                </div>
+
+
+
+                                                <div class="row">
+
                                                     <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Vigente</label>
-                                                            <input formControlName="vigente" type="text" class="form-control" placeholder="vigente">
-                                                            <small *ngIf="vigenteTrasNoValido" class="form-text text-danger">
-                                                                <div *ngFor="let validation of traslado_validation_messages.vigente" >
-                                                                    <div  *ngIf="formaTraslados.get('vigente')?.hasError(validation.type)">
-                                                                        {{validation.message}}
-                                                                    </div>
-                                                                </div>
-                                                            </small>
+                                                        <div class="icheck-primary">
+                                                            <input type="checkbox" id="remember" formControlName="vigente" class="form-control">
+                                                            <label for="remember">
+                                                                Vigente
+                                                            </label>
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1070,6 +1059,18 @@
                                             </div>
 
                                         </form>
+
+                                        <!-- datos pre-->
+                                        <hr>
+                                        <pre>
+                                            Estado del Formulario: {{formaTraslados.valid}}
+                                            <br>
+                                            Status: {{formaTraslados.status}}
+                                        </pre>
+                                        <pre>
+                                            {{formaTraslados.value | json}}
+                                        </pre>
+                                        <!-- FIN datos pre-->
                                         <!-- <button type="button" pButton pRipple icon="pi pi-print" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom" onclick="printJS({ printable: 'edicion-form-print', type: 'html', header: 'Datos Laborales' })">
 
                                                     </button> -->
@@ -1078,7 +1079,7 @@
                                     </div>
                                     <!-- /.card-body -->
                                     <div class="card-footer">
-                                        <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitForm('laboral')">Guardar</button>
+                                        <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormTraslado()">Guardar</button>
                                     </div>
                                 </div>
                                 <!-- </form> -->

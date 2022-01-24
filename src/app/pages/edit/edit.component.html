@@ -1059,18 +1059,37 @@
                                             </div>
 
                                         </form>
+                                        <div class="card-footer">
+                                            <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormTraslado()">Guardar</button>
+                                        </div>
 
-                                        <!-- datos pre-->
                                         <hr>
-                                        <pre>
-                                            Estado del Formulario: {{formaTraslados.valid}}
-                                            <br>
-                                            Status: {{formaTraslados.status}}
-                                        </pre>
-                                        <pre>
-                                            {{formaTraslados.value | json}}
-                                        </pre>
-                                        <!-- FIN datos pre-->
+                                        <div class="">
+                                            <button style="width: 100%; text-align: center;" class="btn btn-success" (click)="listarTraslados()">Ver Traslados</button>
+                                        </div>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Legajo</th>
+                                                    <th>Destino</th>
+                                                    <th>Instrumento</th>
+                                                    <th>Fecha</th>
+                                                    <th>Vigente</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let traslado of listaTraslado">
+                                                    <th>{{traslado.legajo}}</th>
+                                                    <th>{{(traslado.destino != null)?traslado.destino.destino:"sin destino"}}</th>
+                                                    <th>{{traslado.instrumento}}</th>
+                                                    <th>{{traslado.fecha}}</th>
+                                                    <th>{{traslado.vigente}}</th>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+
                                         <!-- <button type="button" pButton pRipple icon="pi pi-print" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom" onclick="printJS({ printable: 'edicion-form-print', type: 'html', header: 'Datos Laborales' })">
 
                                                     </button> -->
@@ -1078,9 +1097,19 @@
 
                                     </div>
                                     <!-- /.card-body -->
-                                    <div class="card-footer">
-                                        <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormTraslado()">Guardar</button>
-                                    </div>
+
+
+                                    <!-- datos pre-->
+                                    <hr>
+                                    <pre>
+                                         Estado del Formulario: {{formaTraslados.valid}}
+                                         <br>
+                                         Status: {{formaTraslados.status}}
+                                     </pre>
+                                    <pre>
+                                         {{formaTraslados.value | json}}
+                                     </pre>
+                                    <!-- FIN datos pre-->
                                 </div>
                                 <!-- </form> -->
 

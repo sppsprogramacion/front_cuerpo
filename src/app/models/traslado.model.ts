@@ -1,12 +1,13 @@
+import { DestinoModel } from './destino.model';
 
 
-export class Traslado{
+export class TrasladoModel{
     constructor(
         public id_traslado?: number,
         public dni_personal?: number,
         public legajo?: number,
         public destino_id?: number,
-        public destino?: string,
+        public destino?: DestinoModel,
         public fecha?: Date,
         public instrumento?: string,
         public fojas? : number,

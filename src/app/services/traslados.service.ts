@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Traslado } from '../models/traslado.model';
+import { TrasladoModel } from '../models/traslado.model';
 import { environment } from 'src/environments/environment';
+import { map } from 'rxjs/operators';
 
 const base_url = environment.URL_BASE
 
@@ -9,7 +10,9 @@ const base_url = environment.URL_BASE
   providedIn: 'root'
 })
 export class TrasladosService {
-
+  base_url: string = environment.URL_BASE;  
+  listadoTraslados: TrasladoModel []= []; 
+  traslado: TrasladoModel= new TrasladoModel();
 
   constructor(
     private http: HttpClient
@@ -17,9 +20,24 @@ export class TrasladosService {
   //FIN CONSTRUCTOR
 
   guardarTraslado(data: any){
-    let traslado: Traslado= new Traslado();
-    traslado={...data};
-    console.log("traslado en servicio", traslado);
-    return this.http.post(`${base_url}/traslado`, traslado);
-}
+    
+    this.traslado={...data};
+    console.log("traslado en servicio", this.traslado);
+    return this.http.post(`${base_url}/traslado`, this.traslado);
+  }
+
+  //LISTA DE TRASLADOS X LEGAJO
+  getxlegajo(legajo: number) {
+    let total: number = 0;
+    try {
+      const url = `${this.base_url}/traslado/legajo/${legajo}`;
+      //return await this.http.get(url);
+      return this.http.get<[traslados: any[],total:number]>(`${base_url}/traslado/legajo/${legajo}`)
+         
+    } catch (error:any) {
+      throw new Error(error.message)
+    }
+  }
+  //FIN LISTA DE TRASLADOS X LEGAJO
+
 }

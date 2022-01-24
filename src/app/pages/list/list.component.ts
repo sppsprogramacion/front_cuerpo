@@ -94,22 +94,22 @@ export class ListComponent implements OnInit {
         
         const destino: number = globalConstants.destino_usuario;
         this.personalService.listarPersonal(destino).
-                        subscribe(respuesta => {
-            this.totalRecords = respuesta[1];
-            this.personalList = respuesta[0];
-            // console.log("personal retornado", this.personalList);
-            const lista = respuesta[0];
-            this.cargando = false;
+              subscribe(respuesta => {
+                this.totalRecords = respuesta[1];
+                this.personalList = respuesta[0];
+                // console.log("personal retornado", this.personalList);
+                const lista = respuesta[0];
+                this.cargando = false;
             
               });
 
-              this.grados = grados.map(respuesta => {
-                    return {
-                      label: respuesta.grado.toLowerCase(),
-                      value: respuesta.grado,
-                      img_name: respuesta.grado.replace(' ','_')
-                      }
-              });
+        this.grados = grados.map(respuesta => {
+              return {
+                label: respuesta.grado.toLowerCase(),
+                value: respuesta.grado,
+                img_name: respuesta.grado.replace(' ','_')
+                }
+        });
               
               this.sexos = sexos.map(respuesta => {
                 return {

@@ -35,7 +35,7 @@ import {environment} from 'src/environments/environment';
 import { CiudadModel } from '../../models/ciudad.model';
 import { Cell, Columns, Img, PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
 import { FuncionModel } from 'src/app/models/funcion.model';
-import { Traslado } from '../../models/traslado.model';
+import { TrasladoModel } from '../../models/traslado.model';
 import { TrasladosService } from '../../services/traslados.service';
 
 @Component({
@@ -53,7 +53,9 @@ export class EditComponent implements OnInit {
   formaFiliatorios: FormGroup;
   formaTraslados: FormGroup;
   dataEdit: Personal={};
-  dataTraslado: Traslado={};
+  dataTraslado: TrasladoModel= new TrasladoModel;
+  listaTraslado: TrasladoModel[]=[];
+  totalRecords: number = 0;
   pdfsList: PdfModel[] = [];
   loadingTablaPdfs: boolean = false;
   nombreCompleto: string="";
@@ -416,8 +418,7 @@ export class EditComponent implements OnInit {
 
   //validaciones traslados
   traslado_validation_messages = {
-    //Formulario datos laborales
-
+    
     'dni_personal': [
       { type: 'required', message: 'El dni es requerido.'},
       { type: 'pattern', message: 'El valor ingresado no es un número.' },
@@ -454,7 +455,6 @@ export class EditComponent implements OnInit {
     ]
   }
   //fin validaciones traslados
-
   
   //FIN VALIDACIONES FORMULARIOS................................................................................
 
@@ -936,7 +936,7 @@ export class EditComponent implements OnInit {
       return Object.values(this.formaTraslados.controls).forEach(control => control.markAsTouched());
     }
 
-    let data: Traslado;
+    let data: TrasladoModel;
      //crear la data
       this.submitForm('cambioDestino');
 
@@ -955,6 +955,8 @@ export class EditComponent implements OnInit {
               
                 Swal.fire('Exito',`El Traslado ha sido guardado con Exito`,"success");
                 //this.limpiarFormulario();
+                this.listarTraslados();
+                
                 
             },
             error => {
@@ -963,6 +965,20 @@ export class EditComponent implements OnInit {
             });
   }
   //FIN GUARDAR TRASLADO
+
+  listarTraslados(){
+    let legajo: number = parseInt(this.formaTraslados.get('legajo')?.value);
+    this.trasladoService.getxlegajo(legajo).
+              subscribe(respuesta => {
+                this.totalRecords = respuesta[1];
+                this.listaTraslado = respuesta[0];
+                console.log("traslados 0", this.listaTraslado);
+                // console.log("personal retornado", this.personalList);
+                //const lista = respuesta[0];
+                //this.cargando = false;
+            
+              });
+  }
 
   //buscar personal
   buscarPersonal(legajo: number){

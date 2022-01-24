@@ -19,6 +19,7 @@ export class TrasladosService {
   guardarTraslado(data: any){
     let traslado: Traslado= new Traslado();
     traslado={...data};
+    console.log("traslado en servicio", traslado);
     return this.http.post(`${base_url}/traslado`, traslado);
 }
 }

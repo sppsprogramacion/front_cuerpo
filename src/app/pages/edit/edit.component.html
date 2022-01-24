@@ -949,7 +949,7 @@
                                                     <div class="col-sm-3">
                                                         <div class="form-group">
                                                             <label>Dni</label>
-                                                            <input formControlName="dni_personal" type="text" class="form-control" placeholder="dni personal">
+                                                            <input formControlName="dni_personal" type="text" class="form-control" placeholder="dni personal" Disabled>
                                                             <small *ngIf="dniTrasNoValido" class="form-text text-danger">
                                                                 <div *ngFor="let validation of traslado_validation_messages.dni_personal" >
                                                                     <div  *ngIf="formaTraslados.get('dni_personal')?.hasError(validation.type)">
@@ -962,7 +962,7 @@
                                                     <div class="col-sm-3">
                                                         <div class="form-group">
                                                             <label>Legajo</label>
-                                                            <input formControlName="legajo" type="text" class="form-control" placeholder="legajo">
+                                                            <input formControlName="legajo" type="text" class="form-control" placeholder="legajo" Disabled>
                                                             <small *ngIf="legajoTrasNoValido" class="form-text text-danger">
                                                                 <div *ngFor="let validation of traslado_validation_messages.legajo" >
                                                                     <div  *ngIf="formaTraslados.get('legajo')?.hasError(validation.type)">
@@ -1047,7 +1047,7 @@
 
                                                     <div class="col-sm-6">
                                                         <div class="icheck-primary">
-                                                            <input type="checkbox" id="remember" formControlName="vigente" class="form-control">
+                                                            <input type="checkbox" id="remember" formControlName="vigente" class="form-control" Disabled>
                                                             <label for="remember">
                                                                 Vigente
                                                             </label>

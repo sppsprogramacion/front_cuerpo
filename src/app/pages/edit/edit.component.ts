@@ -192,7 +192,7 @@ export class EditComponent implements OnInit {
       legajo: [this.dataEdit.legajo,[Validators.required,,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
       destino_id: [this.dataEdit.destino_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       fecha: [,[Validators.required]],
-      instrumento: [,[Validators.required,Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+      instrumento: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
       fojas: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       vigente: [true, [Validators.required]]
     });
@@ -440,7 +440,7 @@ export class EditComponent implements OnInit {
     ],
     'instrumento': [
       { type: 'required', message: 'El instrumento es requerido' },
-      { type: 'pattern', message: 'Solo se pueden ingresar letras y espacios.' },
+      { type: 'pattern', message: 'Solo se pueden ingresar letras, nùmeros, espacios, puntos y barra diagonal(/).' },
       { type: 'minlength', message: 'La cantidad mínima de caracteres es 2.' },
       { type: 'maxlength', message: 'La cantidad máxima de caracteres es 100.' }
     ],
@@ -869,6 +869,7 @@ export class EditComponent implements OnInit {
         fecha_ingreso: this.changeFormatoFechaGuardar(this.forma.get('fecha_ingreso')?.value),
       }
     }
+
     if(formEnviado == 'filiatorios'){
 
       if(this.formaFiliatorios.invalid){
@@ -899,6 +900,7 @@ export class EditComponent implements OnInit {
   
       }        
     }
+
     if(formEnviado == 'cambioDestino'){
       data = {
         destino_id: parseInt(this.formaTraslados.get('destino_id')?.value),
@@ -919,7 +921,7 @@ export class EditComponent implements OnInit {
           
         },
         error => {                                                                
-          Swal.fire('Error',`Error al Editar el Usuario ${error.error.message}`,"error")                          
+          Swal.fire('Error error',`Error al Editar el Usuario ${error.error.message}`,"error")                          
         }
       );  
     
@@ -941,10 +943,10 @@ export class EditComponent implements OnInit {
       data = {
 
         legajo: parseInt(this.formaTraslados.get('legajo')?.value),
-        dni_personal: parseInt(this.formaTraslados.get('dni')?.value),
+        dni_personal: parseInt(this.formaTraslados.get('dni_personal')?.value),
         destino_id: parseInt(this.formaTraslados.get('destino_id')?.value),
         instrumento: this.formaTraslados.get('instrumento')?.value,
-        fecha: this.changeFormatoFechaGuardar(this.forma.get('fecha')?.value),
+        fecha: this.changeFormatoFechaGuardar(this.formaTraslados.get('fecha')?.value),
         fojas: parseInt(this.formaTraslados.get('fojas')?.value),
         vigente: this.formaTraslados.get('vigente')?.value
       }
@@ -957,7 +959,7 @@ export class EditComponent implements OnInit {
             },
             error => {
                 
-                Swal.fire('Error',`Error al cargar el Traslado: ${error.error.message}`,"error")                          
+                Swal.fire('Error Traslado',`Error al cargar el Traslado: ${error.error.message}`,"error")                          
             });
   }
   //FIN GUARDAR TRASLADO

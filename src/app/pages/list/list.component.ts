@@ -163,29 +163,29 @@ export class ListComponent implements OnInit {
     this.dataService.personalData = data;
   }
 
-     MostrarSelected(){
-       
-       const selectedNewFormato = this.selectedPersonal.map(item =>{
-        
-         return {
-           nombre: item.nombre_1,
-           apellido: item.apellido_1,
-           departamento:  item.departamento
-         }
-       });
-       
-     }
+  MostrarSelected(){
+    
+    const selectedNewFormato = this.selectedPersonal.map(item =>{
+    
+      return {
+        nombre: item.nombre_1,
+        apellido: item.apellido_1,
+        departamento:  item.departamento
+      }
+    });
+    
+  }
 
-     printTabla() {
+  printTabla() {
+    
+    printJS({
       
-      printJS({
-        
-        printable: document.getElementById('personal-table'), 
-        type: 'html', 
-        header: 'PrintJS - Form Element Selection'
+      printable: document.getElementById('personal-table'), 
+      type: 'html', 
+      header: 'PrintJS - Form Element Selection'
 
-      })
-    }
+    })
+  }
 
 
     

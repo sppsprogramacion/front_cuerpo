@@ -980,6 +980,15 @@ export class EditComponent implements OnInit {
               });
   }
 
+  //EDITAR TRASLADO
+  EditarTraslado(data: TrasladoModel){
+    this.formaTraslados.get('destino_id')?.setValue(data.destino_id); 
+    this.formaTraslados.get('instrumento')?.setValue(data.instrumento); 
+    this.formaTraslados.get('fecha')?.setValue(data.fecha); 
+    this.formaTraslados.get('fojas')?.setValue(data.fojas); 
+  }
+  //FIN EDITAR TRASLADO
+
   //buscar personal
   buscarPersonal(legajo: number){
     this.personalService.buscarPersonal(legajo)

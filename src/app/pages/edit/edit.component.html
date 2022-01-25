@@ -1070,6 +1070,7 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
+                                                    <th>Edicion</th>
                                                     <th>Legajo</th>
                                                     <th>Destino</th>
                                                     <th>Instrumento</th>
@@ -1079,6 +1080,11 @@
                                             </thead>
                                             <tbody>
                                                 <tr *ngFor="let traslado of listaTraslado">
+                                                    <th>
+                                                        <a type="button" pButton pRipple icon="pi pi-cog" class="p-button-rounded p-button-info p-mr-2" (click)="EditarTraslado(traslado)">
+                                                        </a>
+
+                                                    </th>
                                                     <th>{{traslado.legajo}}</th>
                                                     <th>{{(traslado.destino != null)?traslado.destino.destino:"sin destino"}}</th>
                                                     <th>{{traslado.instrumento}}</th>

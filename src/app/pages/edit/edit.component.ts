@@ -47,14 +47,14 @@ import { TrasladosService } from '../../services/traslados.service';
 })
 export class EditComponent implements OnInit {
   base_url:string = environment.URL_BASE;
-  tituloFormPdf:string="";
-  editandoPdf: boolean=false;
+  
+  
   forma: FormGroup;
   formaFiliatorios: FormGroup;
   formaTraslados: FormGroup;
   dataEdit: Personal={};
-  dataTraslado: TrasladoModel= new TrasladoModel;
-  listaTraslado: TrasladoModel[]=[];
+  
+  
   totalRecords: number = 0;
   pdfsList: PdfModel[] = [];
   loadingTablaPdfs: boolean = false;
@@ -64,11 +64,21 @@ export class EditComponent implements OnInit {
   destino_txt: string="";
   
   //variables de manejo de pdf
+  tituloFormPdf:string="";
   newFileDialog: boolean = false;
+  editandoPdf: boolean=false;
   url_pdf: string = "";
   regPdf: Partial<PdfModel> = new PdfModel();
   submitted: boolean = false;
   baseUrlPdf: string = `${this.base_url}/archivo/pdf`;
+
+  //variables de manejo de traslado
+  dataTraslado: TrasladoModel= new TrasladoModel;
+  listaTraslado: TrasladoModel[]=[];
+  tituloFormTraslado:string = "";
+  newTrasladoDialog: boolean= false;
+  submitedTraslado:boolean=false;
+  editandoTraslado: boolean=false;
 
   //manejo de forumulario de personal
   departamentos: DepartamentoModel[]=[];
@@ -189,10 +199,11 @@ export class EditComponent implements OnInit {
 
     //FORMULARIO TRASLADO    
     this.formaTraslados = this.fb.group({
+      id_traslado: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       //id_traslado: [this.dataTraslado.id_traslado,Validators.required],
       dni_personal: [this.dataEdit.dni,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1000000), Validators.max(99000000)]],
       legajo: [this.dataEdit.legajo,[Validators.required,,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
-      destino_id: [this.dataEdit.destino_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      destino_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       fecha: [,[Validators.required]],
       instrumento: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
       fojas: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
@@ -950,22 +961,41 @@ export class EditComponent implements OnInit {
         fojas: parseInt(this.formaTraslados.get('fojas')?.value),
         vigente: this.formaTraslados.get('vigente')?.value
       }
-      this.trasladoService.guardarTraslado(data)
-            .subscribe(resultado => {
-              
-                Swal.fire('Exito',`El Traslado ha sido guardado con Exito`,"success");
-                //this.limpiarFormulario();
-                this.listarTraslados();
-                
+
+      if(!this.editandoTraslado){
+        this.trasladoService.guardarTraslado(data)
+          .subscribe(resultado => {
+            
+              Swal.fire('Exito Nuevo Traslado',`El Traslado ha sido guardado con Exito`,"success");
+              //this.limpiarFormulario();
+              this.listarTraslados();              
                 
             },
             error => {
                 
-                Swal.fire('Error Traslado',`Error al cargar el Traslado: ${error.error.message}`,"error")                          
+                Swal.fire('Error Nuevo Traslado',`Error al guardar el Traslado: ${error.error.message}`,"error")                          
             });
+      }
+      else{
+        this.trasladoService.editarTraslado(data,parseInt(this.formaTraslados.get('id_traslado')?.value))
+        .subscribe(resultado => {
+          
+            Swal.fire('Exito Actualizar Traslado',`El Traslado ha sido actualizado con Exito`,"success");
+            //this.limpiarFormulario();
+            this.listarTraslados();
+            
+            
+        },
+        error => {
+            
+            Swal.fire('Error Actualizar Traslado',`Error al actualizar el Traslado: ${error.error.message}`,"error")                          
+        });
+      }
+      
   }
   //FIN GUARDAR TRASLADO
 
+  //LISTADO DE TRASLADOS
   listarTraslados(){
     let legajo: number = parseInt(this.formaTraslados.get('legajo')?.value);
     this.trasladoService.getxlegajo(legajo).
@@ -979,15 +1009,50 @@ export class EditComponent implements OnInit {
             
               });
   }
+  //FIN LISTADO DE TRASLADOS
 
-  //EDITAR TRASLADO
-  EditarTraslado(data: TrasladoModel){
-    this.formaTraslados.get('destino_id')?.setValue(data.destino_id); 
-    this.formaTraslados.get('instrumento')?.setValue(data.instrumento); 
-    this.formaTraslados.get('fecha')?.setValue(data.fecha); 
-    this.formaTraslados.get('fojas')?.setValue(data.fojas); 
+  //ABRIR FORMULARIO TRASLADO
+  crearTraslado(){
+    this.tituloFormTraslado="Nuevo Registro de Traslado"
+    this.newTrasladoDialog = true;
   }
-  //FIN EDITAR TRASLADO
+
+  //FIN ABRIR FORMULARIO TRASLADO
+
+  //ABRIR FORMULARIO TRASLADO
+  editarTraslado(traslado: TrasladoModel){
+    this.tituloFormTraslado="Editar Registro Pdf"
+    this.editandoTraslado = true;
+    this.formaTraslados.get('id_traslado')?.setValue(traslado.id_traslado); 
+    this.formaTraslados.get('destino_id')?.setValue(traslado.destino_id); 
+    this.formaTraslados.get('instrumento')?.setValue(traslado.instrumento); 
+    this.formaTraslados.get('fecha')?.setValue(traslado.fecha); 
+    this.formaTraslados.get('fojas')?.setValue(traslado.fojas); 
+    this.formaTraslados.get('vigente')?.setValue(traslado.vigente);
+    //this.regPdf = {...pdf};
+    this.newTrasladoDialog = true;
+  }
+
+  //FIN ABRIR FORMULARIO TRASLADO
+
+  //OCULTAR FORMULARIO TRASLADO
+  ocultarDialogoTraslado(){
+    this.editandoTraslado = false;
+    this.limpiarFormularioTraslado();
+    this.newTrasladoDialog = false
+  }  
+  //FIN OCULTAR FORMULARIO TRASLADO
+
+  //LIMPIAR FORMULARIO TRASLADO
+  limpiarFormularioTraslado(){
+    this.formaTraslados.get('id_traslado')?.setValue(0);
+    this.formaTraslados.get('destino_id')?.setValue(8); 
+    this.formaTraslados.get('instrumento')?.setValue(""); 
+    this.formaTraslados.get('fecha')?.setValue(""); 
+    this.formaTraslados.get('fojas')?.setValue(0);
+    this.formaTraslados.get('vigente')?.setValue(true);
+  }
+  //FIN LIMPIAR FORMULARIO TRASLADO
 
   //buscar personal
   buscarPersonal(legajo: number){

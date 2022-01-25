@@ -943,157 +943,205 @@
                                     </div>
                                     <!-- /.card-header -->
                                     <div class="card-body">
-                                        <form [formGroup]="formaTraslados" (ngSubmit)="submitFormTraslado()">
-                                            <div id="edicion-form-print">
-                                                <div class="row">
-                                                    <div class="col-sm-3">
-                                                        <div class="form-group">
-                                                            <label>Dni</label>
-                                                            <input formControlName="dni_personal" type="text" class="form-control" placeholder="dni personal" Disabled>
-                                                            <small *ngIf="dniTrasNoValido" class="form-text text-danger">
-                                                                <div *ngFor="let validation of traslado_validation_messages.dni_personal" >
-                                                                    <div  *ngIf="formaTraslados.get('dni_personal')?.hasError(validation.type)">
-                                                                        {{validation.message}}
-                                                                    </div>
-                                                                </div>
-                                                            </small>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <div class="form-group">
-                                                            <label>Legajo</label>
-                                                            <input formControlName="legajo" type="text" class="form-control" placeholder="legajo" Disabled>
-                                                            <small *ngIf="legajoTrasNoValido" class="form-text text-danger">
-                                                                <div *ngFor="let validation of traslado_validation_messages.legajo" >
-                                                                    <div  *ngIf="formaTraslados.get('legajo')?.hasError(validation.type)">
-                                                                        {{validation.message}}
-                                                                    </div>
-                                                                </div>
-                                                            </small>
-                                                        </div>
-                                                    </div>
 
-                                                    <div class="col-sm-6">
-                                                        <!-- select -->
-                                                        <div class="form-group">
-                                                            <label>Destino</label>
-                                                            <!-- <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChangeDestino()">  -->
-                                                            <select *ngIf="administrador" formControlName="destino_id" class="form-control" [class.is-invalid]="destinoTrasNoValido"> 
-                                                                    <option *ngFor="let destino of destinos" [value]="destino.id_destino" >{{destino.destino}}</option>
-                                                            </select>
-                                                            <input *ngIf="!administrador" type="text" class="form-control" [placeholder]="destino_txt" disabled>
-                                                            <small *ngIf="destinoTrasNoValido" class="form-text text-danger">
-                                                                <div *ngFor="let validation of traslado_validation_messages.destino_id" >
-                                                                    <div  *ngIf="formaTraslados.get('destino_id')?.hasError(validation.type)">
-                                                                        {{validation.message}}
-                                                                    </div>
-                                                                </div>
-                                                            </small>
-
-                                                            <!-- <p-dropdown class="form-control" [options]="destinos" formControlName="destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown> -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Instrumento</label>
-                                                            <input formControlName="instrumento" type="text" class="form-control" placeholder="instrumento">
-                                                            <small *ngIf="instrumentoTrasNoValido" class="form-text text-danger">
-                                                                <div *ngFor="let validation of traslado_validation_messages.instrumento" >
-                                                                    <div  *ngIf="formaTraslados.get('instrumento')?.hasError(validation.type)">
-                                                                        {{validation.message}}
-                                                                    </div>
-                                                                </div>
-                                                            </small>
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="col-sm-3">
-                                                        <div class="form-group">
-                                                            <label>Fecha</label>
-                                                            <input formControlName="fecha" type="text" class="form-control" placeholder="fecha">
-                                                            <small *ngIf="fechaTrasNoValido" class="form-text text-danger">
-                                                                <div *ngFor="let validation of traslado_validation_messages.fecha" >
-                                                                    <div  *ngIf="formaTraslados.get('fecha')?.hasError(validation.type)">
-                                                                        {{validation.message}}
-                                                                    </div>
-                                                                </div>
-                                                            </small>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-sm-3">
-                                                        <div class="form-group">
-                                                            <label>Fojas</label>
-                                                            <input formControlName="fojas" type="text" class="form-control" placeholder="fojas">
-                                                            <small *ngIf="fojasTrasNoValido" class="form-text text-danger">
-                                                                <div *ngFor="let validation of traslado_validation_messages.fojas" >
-                                                                    <div  *ngIf="formaTraslados.get('fojas')?.hasError(validation.type)">
-                                                                        {{validation.message}}
-                                                                    </div>
-                                                                </div>
-                                                            </small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-
-                                                <div class="row">
-
-                                                    <div class="col-sm-6">
-                                                        <div class="icheck-primary">
-                                                            <input type="checkbox" id="remember" formControlName="vigente" class="form-control" Disabled>
-                                                            <label for="remember">
-                                                                Vigente
-                                                            </label>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                        </form>
-                                        <div class="card-footer">
-                                            <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormTraslado()">Guardar</button>
-                                        </div>
+                                        <button pButton pRipple label="Nuevo Traslado" icon="fas fa-plus" class="p-button-success p-mr-2" (click)="crearTraslado()"></button>
 
                                         <hr>
                                         <div class="">
-                                            <button style="width: 100%; text-align: center;" class="btn btn-success" (click)="listarTraslados()">Ver Traslados</button>
+                                            <button style="width: 30%; " class="btn btn-info" (click)="listarTraslados()"><i class="fas fa-eye"></i> Ver Traslados</button>
                                         </div>
-                                        <table class="table">
+
+                                        <!-- TABLA HISTORIAL DE TRASLADOS -->
+                                        <table class="table table-responsive table-striped" style="width:'100%'">
                                             <thead>
                                                 <tr>
-                                                    <th>Edicion</th>
-                                                    <th>Legajo</th>
-                                                    <th>Destino</th>
-                                                    <th>Instrumento</th>
-                                                    <th>Fecha</th>
-                                                    <th>Vigente</th>
+                                                    <th style="width: 50px;">Edicion</th>
+                                                    <th style="width: 100px;">Vigente</th>
+                                                    <th style="width: 100px;">Id</th>
+                                                    <th style="width: 100px;">Legajo</th>
+                                                    <th style="width: 350px;">Destino</th>
+                                                    <th style="width: 250px;">Instrumento</th>
+                                                    <th style="width: 200px;">Fecha</th>
+                                                    <th style="width: 100px;">Fojas</th>
+
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr *ngFor="let traslado of listaTraslado">
                                                     <th>
-                                                        <a type="button" pButton pRipple icon="pi pi-cog" class="p-button-rounded p-button-info p-mr-2" (click)="EditarTraslado(traslado)">
+                                                        <a type="button" pButton pRipple icon="fas fa-edit" class="p-button-rounded p-button-info p-mr-2" (click)="editarTraslado(traslado)">
                                                         </a>
 
                                                     </th>
+                                                    <th>{{(traslado.vigente==true)?'SI':'NO'}}</th>
+                                                    <th>{{traslado.id_traslado}}</th>
                                                     <th>{{traslado.legajo}}</th>
                                                     <th>{{(traslado.destino != null)?traslado.destino.destino:"sin destino"}}</th>
                                                     <th>{{traslado.instrumento}}</th>
                                                     <th>{{traslado.fecha}}</th>
-                                                    <th>{{traslado.vigente}}</th>
+                                                    <th>{{traslado.fojas}}</th>
+
 
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <!-- FIN TABLA HISTORIAL DE TRASLADOS -->
+
+                                        <!-- DIALOG FORMULARIO TRASLADO -->
+                                        <p-dialog [(visible)]="newTrasladoDialog" [style]="{width: '450px'}" header={{this.tituloFormTraslado}} [closable]="false" [modal]="true" styleClass="p-fluid">
+                                            <ng-template pTemplate="content">
+                                                <form [formGroup]="formaTraslados" (ngSubmit)="submitFormTraslado()">
+                                                    <div id="edicion-form-print">
+
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label>Id Traslado</label>
+                                                                    <input formControlName="id_traslado" type="text" class="form-control" placeholder="id traslado" Disabled>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label>Dni</label>
+                                                                    <input formControlName="dni_personal" type="text" class="form-control" placeholder="dni personal" Disabled>
+                                                                    <small *ngIf="dniTrasNoValido" class="form-text text-danger">
+                                                                        <div *ngFor="let validation of traslado_validation_messages.dni_personal" >
+                                                                            <div  *ngIf="formaTraslados.get('dni_personal')?.hasError(validation.type)">
+                                                                                {{validation.message}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label>Legajo</label>
+                                                                    <input formControlName="legajo" type="text" class="form-control" placeholder="legajo" Disabled>
+                                                                    <small *ngIf="legajoTrasNoValido" class="form-text text-danger">
+                                                                        <div *ngFor="let validation of traslado_validation_messages.legajo" >
+                                                                            <div  *ngIf="formaTraslados.get('legajo')?.hasError(validation.type)">
+                                                                                {{validation.message}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="row">
+
+                                                            <div class="col-sm-12">
+                                                                <!-- select -->
+                                                                <div class="form-group">
+                                                                    <label>Destino</label>
+                                                                    <!-- <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChangeDestino()">  -->
+                                                                    <select *ngIf="administrador" formControlName="destino_id" class="form-control" [class.is-invalid]="destinoTrasNoValido"> 
+                                                                            <option *ngFor="let destino of destinos" [value]="destino.id_destino" >{{destino.destino}}</option>
+                                                                    </select>
+                                                                    <input *ngIf="!administrador" type="text" class="form-control" [placeholder]="destino_txt" disabled>
+                                                                    <small *ngIf="destinoTrasNoValido" class="form-text text-danger">
+                                                                        <div *ngFor="let validation of traslado_validation_messages.destino_id" >
+                                                                            <div  *ngIf="formaTraslados.get('destino_id')?.hasError(validation.type)">
+                                                                                {{validation.message}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </small>
+
+                                                                    <!-- <p-dropdown class="form-control" [options]="destinos" formControlName="destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown> -->
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group">
+                                                                    <label>Instrumento</label>
+                                                                    <input formControlName="instrumento" type="text" class="form-control" placeholder="instrumento">
+                                                                    <small *ngIf="instrumentoTrasNoValido" class="form-text text-danger">
+                                                                        <div *ngFor="let validation of traslado_validation_messages.instrumento" >
+                                                                            <div  *ngIf="formaTraslados.get('instrumento')?.hasError(validation.type)">
+                                                                                {{validation.message}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                        <div class="row">
+
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label>Fecha</label>
+                                                                    <input formControlName="fecha" type="text" class="form-control" placeholder="fecha">
+                                                                    <small *ngIf="fechaTrasNoValido" class="form-text text-danger">
+                                                                        <div *ngFor="let validation of traslado_validation_messages.fecha" >
+                                                                            <div  *ngIf="formaTraslados.get('fecha')?.hasError(validation.type)">
+                                                                                {{validation.message}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label>Fojas</label>
+                                                                    <input formControlName="fojas" type="text" class="form-control" placeholder="fojas">
+                                                                    <small *ngIf="fojasTrasNoValido" class="form-text text-danger">
+                                                                        <div *ngFor="let validation of traslado_validation_messages.fojas" >
+                                                                            <div  *ngIf="formaTraslados.get('fojas')?.hasError(validation.type)">
+                                                                                {{validation.message}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                        <div class="row">
+
+                                                            <div class="col-sm-6">
+                                                                <div class="icheck-primary">
+                                                                    <input type="checkbox" id="remember" formControlName="vigente" class="form-control" Disabled>
+                                                                    <label for="remember">
+                                                                        Vigente
+                                                                    </label>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </form>
+                                            </ng-template>
+                                            <ng-template pTemplate="footer">
+                                                <div class="row">
+                                                    <div class="col-8" *ngIf="!editandoTraslado">
+                                                        <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormTraslado()">Guardar Traslado</button>
+                                                    </div>
+                                                    <div class="col-8" *ngIf="editandoTraslado">
+                                                        <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormTraslado()">Actualizar Traslado</button>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="ocultarDialogoTraslado()"></button>
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+
+                                        </p-dialog>
+                                        <!-- FIN DIALOG FORMULARIO TRASLADO -->
 
 
                                         <!-- <button type="button" pButton pRipple icon="pi pi-print" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom" onclick="printJS({ printable: 'edicion-form-print', type: 'html', header: 'Datos Laborales' })">

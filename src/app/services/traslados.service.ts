@@ -26,6 +26,12 @@ export class TrasladosService {
     return this.http.post(`${base_url}/traslado`, this.traslado);
   }
 
+  editarTraslado(traslado: Partial<TrasladoModel>,id: number){
+    
+    
+    return this.http.put(`${base_url}/traslado/${id}`, traslado);
+  }
+
   //LISTA DE TRASLADOS X LEGAJO
   getxlegajo(legajo: number) {
     let total: number = 0;

@@ -939,8 +939,7 @@ export class EditComponent implements OnInit {
   }
   //fin enviar formulario
 
-  //GUARDAR TRASLADO
-  
+  //GUARDAR TRASLADO  
   submitFormTraslado(){
     if(this.formaTraslados.invalid){
       Swal.fire('Formulario Traslado con errores','Complete correctamente todos los campos del formulario',"warning");
@@ -963,6 +962,27 @@ export class EditComponent implements OnInit {
       }
 
       if(!this.editandoTraslado){
+        //EDICION DE CAMPO VIGENTE COMO FALSO EN TODOS LOS REGISTROS DE TRASLADO DE PERSONAL
+        let dataVigente: TrasladoModel;
+        dataVigente={
+          vigente: false
+        }
+        this.trasladoService.quitarTrasladoVigente(parseInt(this.formaTraslados.get('legajo')?.value))
+        .subscribe(resultado => {
+          
+            Swal.fire('Exito Traslado Vigente quitado',`El Traslado ha sido actualizado con Exito`,"success");
+            //this.limpiarFormulario();
+            this.listarTraslados();
+            
+            
+        },
+        error => {
+            
+            Swal.fire('Quitar Traslado vigente',`Error al actualizar el Traslado: ${error.error.message}`,"error");                          
+        });
+
+        
+        //GUARDAR NUEVO TRASLADO
         this.trasladoService.guardarTraslado(data)
           .subscribe(resultado => {
             
@@ -975,8 +995,10 @@ export class EditComponent implements OnInit {
                 
                 Swal.fire('Error Nuevo Traslado',`Error al guardar el Traslado: ${error.error.message}`,"error")                          
             });
+        //FIN GUARDAR NUEVO TRASLADO
       }
       else{
+        //ACTUALIZAR TRASLADO
         this.trasladoService.editarTraslado(data,parseInt(this.formaTraslados.get('id_traslado')?.value))
         .subscribe(resultado => {
           
@@ -990,6 +1012,7 @@ export class EditComponent implements OnInit {
             
             Swal.fire('Error Actualizar Traslado',`Error al actualizar el Traslado: ${error.error.message}`,"error")                          
         });
+        //FIN ACTUALIZAR TRASLADO
       }
       
   }
@@ -1011,15 +1034,15 @@ export class EditComponent implements OnInit {
   }
   //FIN LISTADO DE TRASLADOS
 
-  //ABRIR FORMULARIO TRASLADO
+  //ABRIR FORMULARIO NUEVO TRASLADO
   crearTraslado(){
     this.tituloFormTraslado="Nuevo Registro de Traslado"
     this.newTrasladoDialog = true;
   }
 
-  //FIN ABRIR FORMULARIO TRASLADO
+  //FIN ABRIR FORMULARIO NUEVO TRASLADO
 
-  //ABRIR FORMULARIO TRASLADO
+  //ABRIR FORMULARIO EDITAR TRASLADO
   editarTraslado(traslado: TrasladoModel){
     this.tituloFormTraslado="Editar Registro Pdf"
     this.editandoTraslado = true;
@@ -1032,8 +1055,7 @@ export class EditComponent implements OnInit {
     //this.regPdf = {...pdf};
     this.newTrasladoDialog = true;
   }
-
-  //FIN ABRIR FORMULARIO TRASLADO
+  //FIN ABRIR FORMULARIO EDITAR TRASLADO
 
   //OCULTAR FORMULARIO TRASLADO
   ocultarDialogoTraslado(){
@@ -1053,6 +1075,7 @@ export class EditComponent implements OnInit {
     this.formaTraslados.get('vigente')?.setValue(true);
   }
   //FIN LIMPIAR FORMULARIO TRASLADO
+  
 
   //buscar personal
   buscarPersonal(legajo: number){

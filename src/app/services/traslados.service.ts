@@ -32,6 +32,12 @@ export class TrasladosService {
     return this.http.put(`${base_url}/traslado/${id}`, traslado);
   }
 
+  quitarTrasladoVigente(legajox:number){    
+    let traslado: TrasladoModel= new TrasladoModel();
+    traslado.vigente= false;
+    return this.http.put(`${base_url}/traslado/quitar/${legajox}`,traslado);
+  }
+
   //LISTA DE TRASLADOS X LEGAJO
   getxlegajo(legajo: number) {
     let total: number = 0;

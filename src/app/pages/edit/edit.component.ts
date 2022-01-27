@@ -37,6 +37,8 @@ import { Cell, Columns, Img, PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper'
 import { FuncionModel } from 'src/app/models/funcion.model';
 import { TrasladoModel } from '../../models/traslado.model';
 import { TrasladosService } from '../../services/traslados.service';
+import { PersonalFuncionModel } from '../../models/personal_funcion.model';
+import { PersonalFuncionService } from '../../services/personal-funcion.service';
 
 @Component({
   selector: 'app-edit',
@@ -52,6 +54,7 @@ export class EditComponent implements OnInit {
   forma: FormGroup;
   formaFiliatorios: FormGroup;
   formaTraslados: FormGroup;
+  formaFuncion: FormGroup;
   dataEdit: Personal={};
   
   
@@ -79,6 +82,14 @@ export class EditComponent implements OnInit {
   newTrasladoDialog: boolean= false;
   submitedTraslado:boolean=false;
   editandoTraslado: boolean=false;
+
+  //variables de manejo de funcion
+  dataFuncion: PersonalFuncionModel= new TrasladoModel;
+  listaFunciones: PersonalFuncionModel[]=[];
+  tituloFormFuncion:string = "";
+  newFuncionDialog: boolean= false;
+  submitedFuncion:boolean=false;
+  editandoFuncion: boolean=false;
 
   //manejo de forumulario de personal
   departamentos: DepartamentoModel[]=[];
@@ -114,6 +125,7 @@ export class EditComponent implements OnInit {
     private readonly fileUploadService: FileUploadService,
     private readonly personalService: PersonalService,
     private readonly trasladoService: TrasladosService,
+    private readonly personalFuncionService: PersonalFuncionService,
     public readonly datePipe: DatePipe,
     private localeService: BsLocaleService,
     private pdfService: PdfService
@@ -211,9 +223,23 @@ export class EditComponent implements OnInit {
     });
     //FIN FORMULARIO TRASLADO
 
-    
-  
-    //this.submitForm();
+    //FORMULARIO TRASLADO    
+    this.formaFuncion = this.fb.group({
+      id_personal_funcion: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      legajo: [this.dataEdit.legajo,[Validators.required,,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
+      destino_id: [this.dataEdit.destino_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      departamento_id: [3,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      division_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      sector_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      funcion_id: [1, [Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      seccion_guardia_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      fecha: [,[Validators.required]],
+      instrumento: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+      fojas: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      vigente: [true, [Validators.required]]
+    });
+    //FIN FORMULARIO TRASLADO
+
    
     let auxiliar: any;
     
@@ -310,11 +336,7 @@ export class EditComponent implements OnInit {
       { type: 'pattern', message: 'El valor ingresado no es un número.' },
       { type: 'min', message: 'El número ingresado es bajo.(minimo: 1)' },
       { type: 'max', message: 'El número ingresado es alto (maximo: 500000).'} 
-    ],
-    'funcion_id': [
-      { type: 'required', message: 'El destino es requerido.'},
-      { type: 'pattern', message: 'El valor ingresado no es un número.' }
-    ],
+    ],    
     'destino_id': [
       { type: 'required', message: 'El destino es requerido.'},
       { type: 'pattern', message: 'El valor ingresado no es un número.' }
@@ -333,6 +355,10 @@ export class EditComponent implements OnInit {
     ],
     'seccion_guardia_id': [
       { type: 'required', message: 'La seccion guardia es requerida.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'funcion_id': [
+      { type: 'required', message: 'El destino es requerido.'},
       { type: 'pattern', message: 'El valor ingresado no es un número.' }
     ],
     'escalafon_id': [
@@ -467,6 +493,60 @@ export class EditComponent implements OnInit {
   }
   //fin validaciones traslados
   
+  //validaciones traslados
+  funcion_validation_messages = {
+    
+    'legajo': [
+      { type: 'required', message: 'El legajo es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' },
+      { type: 'min', message: 'El número ingresado es bajo.(minimo: 1)' },
+      { type: 'max', message: 'El número ingresado es alto (maximo: 500000).'} 
+    ],
+    'destino_id': [
+      { type: 'required', message: 'El destino es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'departamento_id': [
+      { type: 'required', message: 'El departamento es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'division_id': [
+      { type: 'required', message: 'La division es requerida.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'sector_id': [
+      { type: 'required', message: 'El sector es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'seccion_guardia_id': [
+      { type: 'required', message: 'La seccion guardia es requerida.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'funcion_id': [
+      { type: 'required', message: 'El destino es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'fecha': [
+      { type: 'required', message: 'La Fecha es requerida' }
+      
+    ],
+    'instrumento': [
+      { type: 'required', message: 'El instrumento es requerido' },
+      { type: 'pattern', message: 'Solo se pueden ingresar letras, nùmeros, espacios, puntos y barra diagonal(/).' },
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 100.' }
+    ],
+    'fojas': [
+      { type: 'required', message: 'La cantidad de foja es requerida.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    
+    ],
+    'vigente': [
+      { type: 'required', message: 'El vigente es requerido.'}
+    ]
+  }
+  //fin validaciones traslados
+  
   //FIN VALIDACIONES FORMULARIOS................................................................................
 
   //VALIDACION 2 DATOS LABORALES
@@ -490,11 +570,7 @@ export class EditComponent implements OnInit {
 
   get legajoNoValido(){    
     return this.forma.get('legajo')?.invalid && this.forma.get('legajo')?.touched;
-  }
-
-  get funcionNoValido(){    
-    return this.forma.get('funcion_id')?.invalid && this.forma.get('funcion_id')?.touched;
-  }
+  }  
 
   get destinoNoValido(){
     return this.forma.get('destino_id')?.invalid && this.forma.get('destino_1')?.touched;
@@ -514,6 +590,10 @@ export class EditComponent implements OnInit {
 
   get seccionGuardiaNoValido(){
     return this.forma.get('seccion_guardia_id')?.invalid && this.forma.get('seccion_guardia_id')?.touched;
+  }
+
+  get funcionNoValido(){    
+    return this.forma.get('funcion_id')?.invalid && this.forma.get('funcion_id')?.touched;
   }
 
   get escalafonNoValido(){
@@ -600,6 +680,7 @@ export class EditComponent implements OnInit {
   }  
   //FIN VALIDACION 2 FORMULARIOS FILIATORIOS
 
+  
   //VALIDACIONES 2 FORMULARIO TRASLADO
   get dniTrasNoValido(){
     return this.formaTraslados.get('dni_personal')?.invalid && this.formaTraslados.get('dni_personal')?.touched;
@@ -630,8 +711,52 @@ export class EditComponent implements OnInit {
   }
   //FIN VALIDACIONES 2 FORMULARIO TRASLADO
 
+  //VALIDACIONES 2 FORMULARIO FUNCION     
+  get legajoFuncionNoValido(){
+    return this.formaFuncion.get('legajo')?.invalid && this.formaFuncion.get('legajo')?.touched;
+  }
 
-  
+  get destinoFuncionNoValido(){
+    return this.formaFuncion.get('destino_id')?.invalid && this.formaFuncion.get('destino_id')?.touched;
+  }
+
+  get depatamentoFuncionNoValido(){
+    return this.formaFuncion.get('departamento_id')?.invalid && this.formaFuncion.get('departamento_id')?.touched;
+  }
+
+  get divisionFuncionNoValido(){
+    return this.formaFuncion.get('division_id')?.invalid && this.formaFuncion.get('division_id')?.touched;
+  }
+
+  get sectorFuncionNoValido(){
+    return this.formaFuncion.get('sector_id')?.invalid && this.formaFuncion.get('sector_id')?.touched;
+  }
+
+  get funcionFuncionNoValido(){
+    return this.formaFuncion.get('funcion_id')?.invalid && this.formaFuncion.get('funcion_id')?.touched;
+  }
+
+  get seccionGuardiaFuncionNoValido(){
+    return this.formaFuncion.get('seccion_guardia_id')?.invalid && this.formaFuncion.get('seccion_guardia_id')?.touched;
+  }
+
+  get fechaFuncionNoValido(){
+    return this.formaFuncion.get('fecha')?.invalid && this.formaFuncion.get('fecha')?.touched;
+  }
+
+  get instrumentoFuncionNoValido(){
+    return this.formaFuncion.get('instrumento')?.invalid && this.formaFuncion.get('instrumento')?.touched;
+  }
+
+  get fojasFuncionNoValido(){
+    return this.formaFuncion.get('fojas')?.invalid && this.formaFuncion.get('fojas')?.touched;
+  }
+
+  get vigenteFuncionNoValido(){
+    return this.formaFuncion.get('vigente')?.invalid && this.formaFuncion.get('vigente')?.touched;
+  }
+  //FIN VALIDACIONES 2 FORMULARIO FUNCION
+
 
   
   //metodos para cargar listas desplegables  
@@ -645,24 +770,24 @@ export class EditComponent implements OnInit {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        const id = this.forma.get('destino_id')?.value;
+        const id = this.formaFuncion.get('destino_id')?.value;
         if(id != null){
           this.cargarDepartamentos(parseInt(id.toString()));
           this.cargarDivisiones(parseInt(id.toString()),3);
           this.cargarSectores(id,3,1);
           this.cargarSeccionesGuardia(0);
-          this.forma.get('departamento_id')?.setValue(3);
-          this.forma.get('division_id')?.setValue(1);
-          this.forma.get('sector_id')?.setValue(1);
-          this.forma.get('seccion_guardia_id')?.setValue(1);
-          this.forma.get('funcion_id')?.setValue(1);
+          this.formaFuncion.get('departamento_id')?.setValue(3);
+          this.formaFuncion.get('division_id')?.setValue(1);
+          this.formaFuncion.get('sector_id')?.setValue(1);
+          this.formaFuncion.get('seccion_guardia_id')?.setValue(1);
+          this.formaFuncion.get('funcion_id')?.setValue(1);
               
         }else{
           Swal.fire('Error: repita la operación por favor', '', 'info')
         }
         Swal.fire('Exito!', '', 'success')
       } else if (result.isDenied) {
-        this.forma.get('destino_id')?.setValue(this.dataEdit.destino_id);
+        this.formaFuncion.get('destino_id')?.setValue(this.dataEdit.destino_id);
         Swal.fire('Usted ha cancelado el cambio de destino', '', 'info')
       }
     })    
@@ -675,16 +800,16 @@ export class EditComponent implements OnInit {
   }
 
   onChangeDepartamento(){
-    const id_destino_aux = this.forma.get('destino_id')?.value;
-    const id_departamento_aux = this.forma.get('departamento_id')?.value;
+    const id_destino_aux = this.formaFuncion.get('destino_id')?.value;
+    const id_departamento_aux = this.formaFuncion.get('departamento_id')?.value;
     if(id_departamento_aux != null && id_destino_aux!= null){
       this.cargarDivisiones(parseInt(id_destino_aux.toString()), parseInt(id_departamento_aux.toString()));
       this.cargarSectores(parseInt(id_destino_aux.toString()), parseInt(id_departamento_aux.toString()),1);      
       this.cargarSeccionesGuardia(1);
-      this.forma.get('division_id')?.setValue(1);
-      this.forma.get('sector_id')?.setValue(1);
-      this.forma.get('seccion_guardia_id')?.setValue(1);
-      this.forma.get('funcion_id')?.setValue(1);  
+      this.formaFuncion.get('division_id')?.setValue(1);
+      this.formaFuncion.get('sector_id')?.setValue(1);
+      this.formaFuncion.get('seccion_guardia_id')?.setValue(1);
+      this.formaFuncion.get('funcion_id')?.setValue(1);  
     }
   }
 
@@ -702,15 +827,15 @@ export class EditComponent implements OnInit {
   }
 
   onChangeDivision(){
-    const id_destino_aux = this.forma.get('destino_id')?.value;
-    const id_departamento_aux = this.forma.get('departamento_id')?.value;
-    const id_division_aux = this.forma.get('division_id')?.value;
+    const id_destino_aux = this.formaFuncion.get('destino_id')?.value;
+    const id_departamento_aux = this.formaFuncion.get('departamento_id')?.value;
+    const id_division_aux = this.formaFuncion.get('division_id')?.value;
     if(id_division_aux != null){
       this.cargarSectores(parseInt(id_destino_aux.toString()),parseInt(id_departamento_aux.toString()),parseInt(id_division_aux.toString()));
       this.cargarSeccionesGuardia(1);
-      this.forma.get('sector_id')?.setValue(1);
-      this.forma.get('seccion_guardia_id')?.setValue(1);  
-      this.forma.get('funcion_id')?.setValue(1);
+      this.formaFuncion.get('sector_id')?.setValue(1);
+      this.formaFuncion.get('seccion_guardia_id')?.setValue(1);  
+      this.formaFuncion.get('funcion_id')?.setValue(1);
     }
   }
 
@@ -734,11 +859,11 @@ export class EditComponent implements OnInit {
 
   onChangeSector(){
     
-    const id_sector_aux = this.forma.get('sector_id')?.value;
+    const id_sector_aux = this.formaFuncion.get('sector_id')?.value;
     if(id_sector_aux != null){
       this.cargarSeccionesGuardia(parseInt(id_sector_aux.toString()));
-      this.forma.get('seccion_guardia_id')?.setValue(1);  
-      this.forma.get('funcion_id')?.setValue(1);
+      this.formaFuncion.get('seccion_guardia_id')?.setValue(1);  
+      this.formaFuncion.get('funcion_id')?.setValue(1);
     }
   }
 
@@ -750,7 +875,7 @@ export class EditComponent implements OnInit {
   }  
 
   onChangeSeccionesGuardia(){
-    this.forma.get('funcion_id')?.setValue(1);
+    this.formaFuncion.get('funcion_id')?.setValue(1);
     
   }
   
@@ -922,6 +1047,17 @@ export class EditComponent implements OnInit {
         seccion_guardia_id: 1
       }
     }
+
+    if(formEnviado == 'cambioFuncion'){
+      data = {
+        destino_id: parseInt(this.formaFuncion.get('destino_id')?.value),
+        departamento_id: parseInt(this.formaFuncion.get('departamento_id')?.value),
+        division_id: parseInt(this.formaFuncion.get('division_id')?.value),
+        sector_id: parseInt(this.formaFuncion.get('sector_id')?.value),
+        funcion_id:parseInt(this.formaFuncion.get('funcion_id')?.value),
+        seccion_guardia_id: parseInt(this.formaFuncion.get('seccion_guardia_id')?.value),
+      }
+    }
                 
     this.personalService.editPersonal(data,parseInt(this.dataEdit.id_personal?.toString()!))
       .subscribe(
@@ -1044,7 +1180,7 @@ export class EditComponent implements OnInit {
 
   //ABRIR FORMULARIO EDITAR TRASLADO
   editarTraslado(traslado: TrasladoModel){
-    this.tituloFormTraslado="Editar Registro Pdf"
+    this.tituloFormTraslado="Editar Registro Traslado"
     this.editandoTraslado = true;
     this.formaTraslados.get('id_traslado')?.setValue(traslado.id_traslado); 
     this.formaTraslados.get('destino_id')?.setValue(traslado.destino_id); 
@@ -1075,6 +1211,153 @@ export class EditComponent implements OnInit {
     this.formaTraslados.get('vigente')?.setValue(true);
   }
   //FIN LIMPIAR FORMULARIO TRASLADO
+  //.............................................................
+
+
+  //GUARDAR FUNCION  
+  submitFormFuncion(){
+    if(this.formaFuncion.invalid){
+      Swal.fire('Formulario Traslado con errores','Complete correctamente todos los campos del formulario',"warning");
+      return Object.values(this.formaFuncion.controls).forEach(control => control.markAsTouched());
+    }
+
+    let data: PersonalFuncionModel;
+      //crear la data
+      this.submitForm('cambioFuncion');
+
+      data = {
+
+        legajo: parseInt(this.formaFuncion.get('legajo')?.value),
+        destino_id: parseInt(this.formaFuncion.get('destino_id')?.value),
+        departamento_id: parseInt(this.formaFuncion.get('departamento_id')?.value),
+        division_id: parseInt(this.forma.get('division_id')?.value),
+        sector_id: parseInt(this.forma.get('sector_id')?.value),
+        funcion_id:parseInt(this.forma.get('funcion_id')?.value),
+        seccion_guardia_id: parseInt(this.forma.get('seccion_guardia_id')?.value),
+        instrumento: this.formaFuncion.get('instrumento')?.value,
+        fecha: this.changeFormatoFechaGuardar(this.formaTraslados.get('fecha')?.value),
+        fojas: parseInt(this.formaFuncion.get('fojas')?.value),
+        vigente: this.formaFuncion.get('vigente')?.value
+      }
+
+      if(!this.editandoFuncion){
+        //EDICION DE CAMPO VIGENTE COMO FALSO EN TODOS LOS REGISTROS DE TRASLADO DE PERSONAL
+        let dataVigente: PersonalFuncionModel;
+        dataVigente={
+          vigente: false
+        }
+        this.personalFuncionService.quitarFuncionVigente(parseInt(this.formaFuncion.get('legajo')?.value))
+        .subscribe(resultado => {
+          
+            Swal.fire('Exito funcion vigente quitado',`La función ha sido actualizado con Exito`,"success");
+            //this.limpiarFormulario();
+            this.listarFunciones();
+            
+            
+        },
+        error => {
+            
+            Swal.fire('Quitar funcion vigente',`Error al quitar la funcion: ${error.error.message}`,"error");                          
+        });
+
+        
+        //GUARDAR NUEVO TRASLADO
+        this.personalFuncionService.guardarFuncion(data)
+          .subscribe(resultado => {
+            
+              Swal.fire('Exito nueva función',`La función ha sido guardada con Exito`,"success");
+              //this.limpiarFormulario();
+              this.listarFunciones();              
+                
+            },
+            error => {
+                
+                Swal.fire('Error nueva función',`Error al guardar la funcion: ${error.error.message}`,"error")                          
+            });
+        //FIN GUARDAR NUEVO TRASLADO
+      }
+      else{
+        //ACTUALIZAR TRASLADO
+        this.personalFuncionService.editarFuncion(data,parseInt(this.formaFuncion.get('id_personal_funcion')?.value))
+        .subscribe(resultado => {
+          
+            Swal.fire('Exito al actualizar funcion',`La función ha sido actualizada con exito`,"success");
+            //this.limpiarFormulario();
+            this.listarFunciones();
+            
+            
+        },
+        error => {
+            
+            Swal.fire('Error al actualizar función',`Error al actualizar la función: ${error.error.message}`,"error")                          
+        });
+        //FIN ACTUALIZAR TRASLADO
+      }
+      
+  }
+  //FIN GUARDAR FUNCION
+
+  //LISTADO DE FUNCION
+  listarFunciones(){
+    let legajo: number = parseInt(this.formaFuncion.get('legajo')?.value);
+    this.personalFuncionService.getxlegajo(legajo).
+              subscribe(respuesta => {
+                this.totalRecords = respuesta[1];
+                this.listaFunciones = respuesta[0];
+            
+              });
+  }
+  //FIN LISTADO DE FUNCION
+
+  //ABRIR FORMULARIO NUEVO FUNCION
+  crearFuncion(){
+    this.tituloFormFuncion="Nuevo Registro de Función"
+    this.newFuncionDialog = true;
+  }
+
+  //FIN ABRIR FORMULARIO NUEVO FUNCION
+
+  //ABRIR FORMULARIO EDITAR FUNCION
+  editarFuncion(funcion: PersonalFuncionModel){
+    this.tituloFormFuncion="Editar Registro Función"
+    this.editandoFuncion = true;
+    this.formaFuncion.get('id_personal_funcion')?.setValue(funcion.id_personal_funcion); 
+    this.formaFuncion.get('destino_id')?.setValue(funcion.destino_id); 
+    this.formaFuncion.get('instrumento')?.setValue(funcion.instrumento); 
+    this.formaFuncion.get('fecha')?.setValue(funcion.fecha); 
+    this.formaFuncion.get('fojas')?.setValue(funcion.fojas); 
+    this.formaFuncion.get('vigente')?.setValue(funcion.vigente);
+    //this.regPdf = {...pdf};
+    this.newFuncionDialog = true;
+  }
+  //FIN ABRIR FORMULARIO EDITAR FUNCION
+
+  //OCULTAR FORMULARIO FUNCION
+  ocultarDialogoFuncion(){
+    this.editandoFuncion = false;
+    this.limpiarFormularioFuncion();
+    this.newFuncionDialog = false
+  }  
+  //FIN OCULTAR FORMULARIO FUNCION
+
+  //LIMPIAR FORMULARIO FUNCION
+  limpiarFormularioFuncion(){
+    this.formaFuncion.get('id_traslado')?.setValue(0);
+    this.formaFuncion.get('destino_id')?.setValue(8); 
+    this.formaFuncion.get('departamento_id')?.setValue(3); 
+    this.formaFuncion.get('division_id')?.setValue(1); 
+    this.formaFuncion.get('sector_id')?.setValue(1); 
+    this.formaFuncion.get('destino_id')?.setValue(1); 
+    this.formaFuncion.get('funcion_id')?.setValue(1); 
+    this.formaFuncion.get('instrumento')?.setValue(""); 
+    this.formaFuncion.get('fecha')?.setValue(""); 
+    this.formaFuncion.get('fojas')?.setValue(0);
+    this.formaFuncion.get('vigente')?.setValue(true);
+    
+    return Object.values(this.formaFuncion.controls).forEach(control => control.markAsUntouched());
+  }
+  //FIN LIMPIAR FORMULARIO FUNCION
+  //...............................................
   
 
   //buscar personal

@@ -370,17 +370,9 @@
                                                                 </div>
                                                             </div>
                                                             <!-- </form> -->
-
-
-
-
                                                         </div>
-                                                        <!-- <button type="button" pButton pRipple icon="pi pi-print" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom" onclick="printJS({ printable: 'datos-personal-print', type: 'html', header: 'Datos Laborales' })">
-
-                                                        </button> -->
 
                                                     </div>
-
                                                 </div>
                                                 <!-- /.card-body -->
                                             </div>
@@ -1175,9 +1167,6 @@
 
                             <!-- PANEL 7 FUNCION -->
                             <div class="tab-pane fade" id="tab-funcion" role="tabpanel" aria-labelledby="tabs-funcion-tab">
-
-
-                                <!-- <form [formGroup]="forma"> -->
                                 <div class="card card-warning">
                                     <div class="card-header">
                                         <h3 class="card-title">Cambio de Función</h3>
@@ -1186,14 +1175,14 @@
                                     <!-- /.card-header -->
                                     <div class="card-body">
 
-                                        <button pButton pRipple label="Nuevo Traslado" icon="fas fa-plus" class="p-button-success p-mr-2" (click)="crearTraslado()"></button>
+                                        <button pButton pRipple label="Nueva Funcion" icon="fas fa-plus" class="p-button-success p-mr-2" (click)="crearFuncion()"></button>
 
                                         <hr>
                                         <div class="">
-                                            <button style="width: 30%; " class="btn btn-info" (click)="listarTraslados()"><i class="fas fa-eye"></i> Ver Traslados</button>
+                                            <button style="width: 30%; " class="btn btn-info" (click)="listarFunciones()"><i class="fas fa-eye"></i> Ver Traslados</button>
                                         </div>
 
-                                        <!-- TABLA HISTORIAL DE TRASLADOS -->
+                                        <!-- TABLA HISTORIAL DE FUNCIONES -->
                                         <table class="table table-responsive table-striped" style="width:'100%'">
                                             <thead>
                                                 <tr>
@@ -1209,70 +1198,58 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr *ngFor="let traslado of listaTraslado">
+                                                <tr *ngFor="let funcion of listaFunciones">
                                                     <th>
-                                                        <a type="button" pButton pRipple icon="fas fa-edit" class="p-button-rounded p-button-info p-mr-2" (click)="editarTraslado(traslado)">
+                                                        <a type="button" pButton pRipple icon="fas fa-edit" class="p-button-rounded p-button-info p-mr-2" (click)="editarFuncion(funcion)">
                                                         </a>
 
                                                     </th>
-                                                    <th>{{(traslado.vigente==true)?'SI':'NO'}}</th>
-                                                    <th>{{traslado.id_traslado}}</th>
-                                                    <th>{{traslado.legajo}}</th>
-                                                    <th>{{(traslado.destino != null)?traslado.destino.destino:"sin destino"}}</th>
-                                                    <th>{{traslado.instrumento}}</th>
-                                                    <th>{{traslado.fecha}}</th>
-                                                    <th>{{traslado.fojas}}</th>
+                                                    <th>{{(funcion.vigente==true)?'SI':'NO'}}</th>
+                                                    <th>{{funcion.id_personal_funcion}}</th>
+                                                    <th>{{funcion.legajo}}</th>
+                                                    <th>{{(funcion.destino != null)?funcion.destino.destino:"sin destino"}}</th>
+                                                    <th>{{(funcion.departamento != null)?funcion.departamento.departamento:"sin destino"}}</th>
+                                                    <th>{{(funcion.division != null)?funcion.division.division:"sin destino"}}</th>
+                                                    <th>{{(funcion.sector != null)?funcion.sector.sector:"sin destino"}}</th>
+                                                    <th>{{(funcion.seccion_guardia != null)?funcion.seccion_guardia.seccion:"sin destino"}}</th>
+                                                    <th>{{(funcion.funcion != null)?funcion.funcion.funcion:"sin destino"}}</th>
+                                                    <th>{{funcion.instrumento}}</th>
+                                                    <th>{{funcion.fecha}}</th>
+                                                    <th>{{funcion.fojas}}</th>
 
 
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <!-- FIN TABLA HISTORIAL DE TRASLADOS -->
+                                        <!-- FIN TABLA HISTORIAL DE FUNCIONES -->
 
-                                        <!-- DIALOG FORMULARIO TRASLADO -->
-                                        <p-dialog [(visible)]="newTrasladoDialog" [style]="{width: '450px'}" header={{this.tituloFormTraslado}} [closable]="false" [modal]="true" styleClass="p-fluid">
+                                        <!-- DIALOG FORMULARIO FUNCION -->
+                                        <p-dialog [(visible)]="newFuncionDialog" [style]="{width: '450px'}" header={{this.tituloFormFuncion}} [closable]="false" [modal]="true" styleClass="p-fluid">
                                             <ng-template pTemplate="content">
-                                                <form [formGroup]="formaTraslados" (ngSubmit)="submitFormTraslado()">
+                                                <form [formGroup]="formaFuncion" (ngSubmit)="submitFormTraslado()">
                                                     <div id="edicion-form-print">
 
                                                         <div class="row">
                                                             <div class="col-sm-6">
                                                                 <div class="form-group">
-                                                                    <label>Id Traslado</label>
-                                                                    <input formControlName="id_traslado" type="text" class="form-control" placeholder="id traslado" Disabled>
+                                                                    <label>Id funcion</label>
+                                                                    <input formControlName="id_personal_funcion" type="text" class="form-control" placeholder="id funcion" Disabled>
 
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row">
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group">
-                                                                    <label>Dni</label>
-                                                                    <input formControlName="dni_personal" type="text" class="form-control" placeholder="dni personal" Disabled>
-                                                                    <small *ngIf="dniTrasNoValido" class="form-text text-danger">
-                                                                        <div *ngFor="let validation of traslado_validation_messages.dni_personal" >
-                                                                            <div  *ngIf="formaTraslados.get('dni_personal')?.hasError(validation.type)">
-                                                                                {{validation.message}}
-                                                                            </div>
-                                                                        </div>
-                                                                    </small>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-6">
                                                                 <div class="form-group">
                                                                     <label>Legajo</label>
                                                                     <input formControlName="legajo" type="text" class="form-control" placeholder="legajo" Disabled>
-                                                                    <small *ngIf="legajoTrasNoValido" class="form-text text-danger">
-                                                                        <div *ngFor="let validation of traslado_validation_messages.legajo" >
-                                                                            <div  *ngIf="formaTraslados.get('legajo')?.hasError(validation.type)">
+                                                                    <small *ngIf="legajoFuncionNoValido" class="form-text text-danger">
+                                                                        <div *ngFor="let validation of funcion_validation_messages.legajo" >
+                                                                            <div  *ngIf="formaFuncion.get('legajo')?.hasError(validation.type)">
                                                                                 {{validation.message}}
                                                                             </div>
                                                                         </div>
                                                                     </small>
                                                                 </div>
                                                             </div>
-
                                                         </div>
 
                                                         <div class="row">
@@ -1282,13 +1259,13 @@
                                                                 <div class="form-group">
                                                                     <label>Destino</label>
                                                                     <!-- <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChangeDestino()">  -->
-                                                                    <select *ngIf="administrador" formControlName="destino_id" class="form-control" [class.is-invalid]="destinoTrasNoValido"> 
+                                                                    <select *ngIf="administrador" formControlName="destino_id" class="form-control" [class.is-invalid]="destinoFuncionNoValido" Disabled> 
                                                                             <option *ngFor="let destino of destinos" [value]="destino.id_destino" >{{destino.destino}}</option>
                                                                     </select>
                                                                     <input *ngIf="!administrador" type="text" class="form-control" [placeholder]="destino_txt" disabled>
-                                                                    <small *ngIf="destinoTrasNoValido" class="form-text text-danger">
-                                                                        <div *ngFor="let validation of traslado_validation_messages.destino_id" >
-                                                                            <div  *ngIf="formaTraslados.get('destino_id')?.hasError(validation.type)">
+                                                                    <small *ngIf="destinoFuncionNoValido" class="form-text text-danger">
+                                                                        <div *ngFor="let validation of funcion_validation_messages.destino_id" >
+                                                                            <div  *ngIf="formaFuncion.get('destino_id')?.hasError(validation.type)">
                                                                                 {{validation.message}}
                                                                             </div>
                                                                         </div>
@@ -1297,17 +1274,108 @@
                                                                     <!-- <p-dropdown class="form-control" [options]="destinos" formControlName="destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown> -->
                                                                 </div>
                                                             </div>
-
                                                         </div>
+
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label>Departamento</label>
+                                                                    <select formControlName="departamento_id" class="form-control" [ngModel]="dataEdit.departamento_id" (change)=" onChangeDepartamento()" [class.is-invalid]="depatamentoFuncionNoValido"> 
+                                                                        <option *ngFor="let departamento of departamentos" [value]="departamento.id_departamento" >{{departamento.departamento}}</option>
+                                                                    </select>
+                                                                    <small *ngIf="depatamentoFuncionNoValido" class="form-text text-danger">
+                                                                        <div *ngFor="let validation of funcion_validation_messages.departamento_id" >
+                                                                            <div  *ngIf="formaFuncion.get('departamento_id')?.hasError(validation.type)">
+                                                                                {{validation.message}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <!-- select -->
+                                                                <div class="form-group">
+                                                                    <label>Divisiones</label>
+                                                                    <!-- <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id">  -->
+                                                                    <select formControlName="division_id" class="form-control" [ngModel]="dataEdit.division_id" (change)=" onChangeDivision()" [class.is-invalid]="divisionFuncionNoValido"> 
+                                                                          <option *ngFor="let division of divisiones" [value]="division.id_division" >{{division.division}}</option>
+                                                                    </select>
+                                                                    <small *ngIf="divisionFuncionNoValido" class="form-text text-danger">
+                                                                        <div *ngFor="let validation of funcion_validation_messages.division_id" >
+                                                                            <div  *ngIf="formaFuncion.get('division_id')?.hasError(validation.type)">
+                                                                                {{validation.message}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label>Sectores</label>
+                                                                    <select formControlName="sector_id" class="form-control" [ngModel]="dataEdit.sector_id" (change)=" onChangeSector()" [class.is-invalid]="sectorFuncionNoValido"> 
+                                                                        <option *ngFor="let sector of sectores" [value]="sector.id_sector" >{{sector.sector}}</option>
+                                                                  </select>
+                                                                    <small *ngIf="sectorFuncionNoValido" class="form-text text-danger">
+                                                                    <div *ngFor="let validation of funcion_validation_messages.sector_id" >
+                                                                        <div  *ngIf="formaFuncion.get('sector_id')?.hasError(validation.type)">
+                                                                            {{validation.message}}
+                                                                        </div>
+                                                                    </div>
+                                                                </small>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label>Sección de Guardia</label>
+                                                                    <select formControlName="seccion_guardia_id" class="form-control" [ngModel]="dataEdit.seccion_guardia_id" (change)="onChangeSeccionesGuardia()" [class.is-invalid]="seccionGuardiaFuncionNoValido"> 
+                                                                        <option *ngFor="let guardia of secciones_guardia" [value]="guardia.id_seccion" >{{guardia.seccion}}</option>
+                                                                    </select>
+                                                                    <small *ngIf="seccionGuardiaFuncionNoValido" class="form-text text-danger">
+                                                                        <div *ngFor="let validation of funcion_validation_messages.seccion_guardia_id" >
+                                                                            <div  *ngIf="formaFuncion.get('seccion_guardia_id')?.hasError(validation.type)">
+                                                                                {{validation.message}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="row">
+                                                            <div class="col-sm-8">
+                                                                <!-- select -->
+                                                                <div class="form-group">
+                                                                    <label>Funciones</label>
+                                                                    <select formControlName="funcion_id" class="form-control" [class.is-invalid]="funcionFuncionNoValido"> 
+                                                                        <option *ngFor="let funcion of funciones" [value]="funcion.id_funcion" >{{funcion.funcion}}</option>
+                                                                    </select>
+                                                                    <small *ngIf="funcionFuncionNoValido" class="form-text text-danger">
+                                                                        <div *ngFor="let validation of funcion_validation_messages.funcion_id" >
+                                                                            <div  *ngIf="formaFuncion.get('funcion_id')?.hasError(validation.type)">
+                                                                                {{validation.message}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </small>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
 
                                                         <div class="row">
                                                             <div class="col-sm-12">
                                                                 <div class="form-group">
                                                                     <label>Instrumento</label>
-                                                                    <input formControlName="instrumento" type="text" class="form-control" placeholder="instrumento">
-                                                                    <small *ngIf="instrumentoTrasNoValido" class="form-text text-danger">
-                                                                        <div *ngFor="let validation of traslado_validation_messages.instrumento" >
-                                                                            <div  *ngIf="formaTraslados.get('instrumento')?.hasError(validation.type)">
+                                                                    <input formControlName="instrumento" type="text" class="form-control" placeholder="instrumento" [class.is-invalid]="instrumentoFuncionNoValido">
+                                                                    <small *ngIf="instrumentoFuncionNoValido" class="form-text text-danger">
+                                                                        <div *ngFor="let validation of funcion_validation_messages.instrumento" >
+                                                                            <div  *ngIf="formaFuncion.get('instrumento')?.hasError(validation.type)">
                                                                                 {{validation.message}}
                                                                             </div>
                                                                         </div>
@@ -1323,10 +1391,10 @@
                                                             <div class="col-sm-6">
                                                                 <div class="form-group">
                                                                     <label>Fecha</label>
-                                                                    <input formControlName="fecha" type="text" class="form-control" placeholder="fecha">
-                                                                    <small *ngIf="fechaTrasNoValido" class="form-text text-danger">
-                                                                        <div *ngFor="let validation of traslado_validation_messages.fecha" >
-                                                                            <div  *ngIf="formaTraslados.get('fecha')?.hasError(validation.type)">
+                                                                    <input formControlName="fecha" type="text" class="form-control" placeholder="fecha" [class.is-invalid]="instrumentoFuncionNoValido">
+                                                                    <small *ngIf="fechaFuncionNoValido" class="form-text text-danger">
+                                                                        <div *ngFor="let validation of funcion_validation_messages.fecha" >
+                                                                            <div  *ngIf="formaFuncion.get('fecha')?.hasError(validation.type)">
                                                                                 {{validation.message}}
                                                                             </div>
                                                                         </div>
@@ -1337,10 +1405,10 @@
                                                             <div class="col-sm-6">
                                                                 <div class="form-group">
                                                                     <label>Fojas</label>
-                                                                    <input formControlName="fojas" type="text" class="form-control" placeholder="fojas">
-                                                                    <small *ngIf="fojasTrasNoValido" class="form-text text-danger">
-                                                                        <div *ngFor="let validation of traslado_validation_messages.fojas" >
-                                                                            <div  *ngIf="formaTraslados.get('fojas')?.hasError(validation.type)">
+                                                                    <input formControlName="fojas" type="text" class="form-control" placeholder="fojas" [class.is-invalid]="fojasFuncionNoValido">
+                                                                    <small *ngIf="fojasFuncionNoValido" class="form-text text-danger">
+                                                                        <div *ngFor="let validation of funcion_validation_messages.fojas" >
+                                                                            <div  *ngIf="formaFuncion.get('fojas')?.hasError(validation.type)">
                                                                                 {{validation.message}}
                                                                             </div>
                                                                         </div>
@@ -1370,14 +1438,14 @@
                                             </ng-template>
                                             <ng-template pTemplate="footer">
                                                 <div class="row">
-                                                    <div class="col-8" *ngIf="!editandoTraslado">
-                                                        <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormTraslado()">Guardar Traslado</button>
+                                                    <div class="col-8" *ngIf="!editandoFuncion">
+                                                        <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormFuncion()">Guardar Traslado</button>
                                                     </div>
-                                                    <div class="col-8" *ngIf="editandoTraslado">
-                                                        <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormTraslado()">Actualizar Traslado</button>
+                                                    <div class="col-8" *ngIf="editandoFuncion">
+                                                        <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormFuncion()">Actualizar Traslado</button>
                                                     </div>
                                                     <div class="col-4">
-                                                        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="ocultarDialogoTraslado()"></button>
+                                                        <button pButton pRipple label="CERRAR" icon="pi pi-times" class="p-button-text" (click)="ocultarDialogoFuncion()"></button>
                                                     </div>
                                                 </div>
                                             </ng-template>

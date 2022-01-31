@@ -1230,12 +1230,12 @@ export class EditComponent implements OnInit {
         legajo: parseInt(this.formaFuncion.get('legajo')?.value),
         destino_id: parseInt(this.formaFuncion.get('destino_id')?.value),
         departamento_id: parseInt(this.formaFuncion.get('departamento_id')?.value),
-        division_id: parseInt(this.forma.get('division_id')?.value),
-        sector_id: parseInt(this.forma.get('sector_id')?.value),
-        funcion_id:parseInt(this.forma.get('funcion_id')?.value),
-        seccion_guardia_id: parseInt(this.forma.get('seccion_guardia_id')?.value),
+        division_id: parseInt(this.formaFuncion.get('division_id')?.value),
+        sector_id: parseInt(this.formaFuncion.get('sector_id')?.value),
+        funcion_id:parseInt(this.formaFuncion.get('funcion_id')?.value),
+        seccion_guardia_id: parseInt(this.formaFuncion.get('seccion_guardia_id')?.value),
         instrumento: this.formaFuncion.get('instrumento')?.value,
-        fecha: this.changeFormatoFechaGuardar(this.formaTraslados.get('fecha')?.value),
+        fecha: this.changeFormatoFechaGuardar(this.formaFuncion.get('fecha')?.value),
         fojas: parseInt(this.formaFuncion.get('fojas')?.value),
         vigente: this.formaFuncion.get('vigente')?.value
       }
@@ -1261,7 +1261,7 @@ export class EditComponent implements OnInit {
         });
 
         
-        //GUARDAR NUEVO TRASLADO
+        //GUARDAR NUEVA FUNCION
         this.personalFuncionService.guardarFuncion(data)
           .subscribe(resultado => {
             
@@ -1279,15 +1279,15 @@ export class EditComponent implements OnInit {
       else{
         //ACTUALIZAR TRASLADO
         this.personalFuncionService.editarFuncion(data,parseInt(this.formaFuncion.get('id_personal_funcion')?.value))
-        .subscribe(resultado => {
-          
-            Swal.fire('Exito al actualizar funcion',`La función ha sido actualizada con exito`,"success");
-            //this.limpiarFormulario();
-            this.listarFunciones();
+          .subscribe(resultado => {
             
-            
-        },
-        error => {
+              Swal.fire('Exito al actualizar funcion',`La función ha sido actualizada con exito`,"success");
+              //this.limpiarFormulario();
+              this.listarFunciones();
+              
+              
+          },
+          error => {
             
             Swal.fire('Error al actualizar función',`Error al actualizar la función: ${error.error.message}`,"error")                          
         });
@@ -1312,6 +1312,7 @@ export class EditComponent implements OnInit {
   //ABRIR FORMULARIO NUEVO FUNCION
   crearFuncion(){
     this.tituloFormFuncion="Nuevo Registro de Función"
+    this.limpiarFormularioFuncion();
     this.newFuncionDialog = true;
   }
 
@@ -1343,7 +1344,7 @@ export class EditComponent implements OnInit {
   //LIMPIAR FORMULARIO FUNCION
   limpiarFormularioFuncion(){
     this.formaFuncion.get('id_traslado')?.setValue(0);
-    this.formaFuncion.get('destino_id')?.setValue(8); 
+    this.formaFuncion.get('destino_id')?.setValue(this.dataEdit.destino_id); 
     this.formaFuncion.get('departamento_id')?.setValue(3); 
     this.formaFuncion.get('division_id')?.setValue(1); 
     this.formaFuncion.get('sector_id')?.setValue(1); 

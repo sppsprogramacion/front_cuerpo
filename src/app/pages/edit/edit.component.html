@@ -1179,7 +1179,7 @@
 
                                         <hr>
                                         <div class="">
-                                            <button style="width: 30%; " class="btn btn-info" (click)="listarFunciones()"><i class="fas fa-eye"></i> Ver Traslados</button>
+                                            <button class="btn btn-info" (click)="listarFunciones()"><i class="fas fa-eye"></i> Ver Historial</button>
                                         </div>
 
                                         <!-- TABLA HISTORIAL DE FUNCIONES -->
@@ -1191,7 +1191,12 @@
                                                     <th style="width: 100px;">Id</th>
                                                     <th style="width: 100px;">Legajo</th>
                                                     <th style="width: 350px;">Destino</th>
-                                                    <th style="width: 250px;">Instrumento</th>
+                                                    <th style="width: 250px;">Departamento</th>
+                                                    <th style="width: 200px;">Division</th>
+                                                    <th style="width: 200px;">Sector</th>
+                                                    <th style="width: 200px;">Sección Guardia</th>
+                                                    <th style="width: 200px;">Función</th>
+                                                    <th style="width: 200px;">Instrumento</th>
                                                     <th style="width: 200px;">Fecha</th>
                                                     <th style="width: 100px;">Fojas</th>
 
@@ -1226,7 +1231,7 @@
                                         <!-- DIALOG FORMULARIO FUNCION -->
                                         <p-dialog [(visible)]="newFuncionDialog" [style]="{width: '450px'}" header={{this.tituloFormFuncion}} [closable]="false" [modal]="true" styleClass="p-fluid">
                                             <ng-template pTemplate="content">
-                                                <form [formGroup]="formaFuncion" (ngSubmit)="submitFormTraslado()">
+                                                <form [formGroup]="formaFuncion" (ngSubmit)="submitFormFuncion()">
                                                     <div id="edicion-form-print">
 
                                                         <div class="row">
@@ -1439,10 +1444,10 @@
                                             <ng-template pTemplate="footer">
                                                 <div class="row">
                                                     <div class="col-8" *ngIf="!editandoFuncion">
-                                                        <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormFuncion()">Guardar Traslado</button>
+                                                        <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormFuncion()">Guardar Función</button>
                                                     </div>
                                                     <div class="col-8" *ngIf="editandoFuncion">
-                                                        <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormFuncion()">Actualizar Traslado</button>
+                                                        <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormFuncion()">Actualizar Función</button>
                                                     </div>
                                                     <div class="col-4">
                                                         <button pButton pRipple label="CERRAR" icon="pi pi-times" class="p-button-text" (click)="ocultarDialogoFuncion()"></button>
@@ -1466,12 +1471,12 @@
                                     <!-- datos pre-->
                                     <hr>
                                     <pre>
-                                         Estado del Formulario: {{formaTraslados.valid}}
+                                         Estado del Formulario: {{formaFuncion.valid}}
                                          <br>
-                                         Status: {{formaTraslados.status}}
+                                         Status: {{formaFuncion.status}}
                                      </pre>
                                     <pre>
-                                         {{formaTraslados.value | json}}
+                                         {{formaFuncion.value | json}}
                                      </pre>
                                     <!-- FIN datos pre-->
                                 </div>

@@ -250,11 +250,7 @@ export class EditComponent implements OnInit {
     this.administrador = (globalConstants.rol_usuario == "0")? true: false;
     this.deshabilitarCampos(this.administrador);
     auxiliar = this.dataEdit.destino;    
-
-    this.cargarDepartamentos(this.dataEdit.destino_id!);
-    this.cargarDivisiones(this.dataEdit.destino_id!,this.dataEdit.departamento_id!);
-    this.cargarSectores(this.dataEdit.destino_id!,this.dataEdit.departamento_id!,this.dataEdit.division_id!);
-    this.cargarSeccionesGuardia(this.dataEdit.sector_id!);    
+    
     this.cargarDepartamentosProvinciales(this.dataEdit.provincia_id!)    
     this.cargarMunicipios(this.dataEdit.departamento_provincial_id!);
     this.cargarCiudades(this.dataEdit.municipio_id!);
@@ -1062,7 +1058,7 @@ export class EditComponent implements OnInit {
     this.personalService.editPersonal(data,parseInt(this.dataEdit.id_personal?.toString()!))
       .subscribe(
         resultado => {                                                                
-          Swal.fire('Exito',`El Registro ha sido editado con Exito`,"success");
+          Swal.fire('Exito',`El Registro ha sido editado.`,"success");
           this.buscarPersonal(this.dataEdit.legajo!);         
           
           
@@ -1106,9 +1102,22 @@ export class EditComponent implements OnInit {
         this.trasladoService.quitarTrasladoVigente(parseInt(this.formaTraslados.get('legajo')?.value))
         .subscribe(resultado => {
           
-            Swal.fire('Exito Traslado Vigente quitado',`El Traslado ha sido actualizado con Exito`,"success");
-            //this.limpiarFormulario();
-            this.listarTraslados();
+            Swal.fire('Traslado vigente quitado',`El traslado vigente ha sido actualizado con Exito`,"success");
+            //GUARDAR NUEVO TRASLADO
+            this.trasladoService.guardarTraslado(data)
+              .subscribe(resultado => {
+                
+                  Swal.fire('Nuevo traslado',`El Traslado ha sido guardado con exito`,"success");
+                  //this.limpiarFormulario();
+                  this.listarTraslados();
+                  this.ocultarDialogoTraslado();
+                    
+                },
+                error => {
+                    
+                    Swal.fire('Error nuevo traslado',`Error al guardar el Traslado: ${error.error.message}`,"error")                          
+                });
+            //FIN GUARDAR NUEVO TRASLADO
             
             
         },
@@ -1118,30 +1127,16 @@ export class EditComponent implements OnInit {
         });
 
         
-        //GUARDAR NUEVO TRASLADO
-        this.trasladoService.guardarTraslado(data)
-          .subscribe(resultado => {
-            
-              Swal.fire('Exito Nuevo Traslado',`El Traslado ha sido guardado con Exito`,"success");
-              //this.limpiarFormulario();
-              this.listarTraslados();              
-                
-            },
-            error => {
-                
-                Swal.fire('Error Nuevo Traslado',`Error al guardar el Traslado: ${error.error.message}`,"error")                          
-            });
-        //FIN GUARDAR NUEVO TRASLADO
+        
       }
       else{
         //ACTUALIZAR TRASLADO
         this.trasladoService.editarTraslado(data,parseInt(this.formaTraslados.get('id_traslado')?.value))
         .subscribe(resultado => {
           
-            Swal.fire('Exito Actualizar Traslado',`El Traslado ha sido actualizado con Exito`,"success");
-            //this.limpiarFormulario();
+            Swal.fire('Actualizar traslado',`El Traslado ha sido actualizado con Exito`,"success");
             this.listarTraslados();
-            
+            this.ocultarDialogoTraslado();
             
         },
         error => {
@@ -1161,10 +1156,6 @@ export class EditComponent implements OnInit {
               subscribe(respuesta => {
                 this.totalRecords = respuesta[1];
                 this.listaTraslado = respuesta[0];
-                console.log("traslados 0", this.listaTraslado);
-                // console.log("personal retornado", this.personalList);
-                //const lista = respuesta[0];
-                //this.cargando = false;
             
               });
   }
@@ -1209,6 +1200,8 @@ export class EditComponent implements OnInit {
     this.formaTraslados.get('fecha')?.setValue(""); 
     this.formaTraslados.get('fojas')?.setValue(0);
     this.formaTraslados.get('vigente')?.setValue(true);
+
+    return Object.values(this.formaTraslados.controls).forEach(control => control.markAsUntouched());
   }
   //FIN LIMPIAR FORMULARIO TRASLADO
   //.............................................................
@@ -1267,7 +1260,8 @@ export class EditComponent implements OnInit {
             
               Swal.fire('Exito nueva función',`La función ha sido guardada con Exito`,"success");
               //this.limpiarFormulario();
-              this.listarFunciones();              
+              this.listarFunciones();
+              this.ocultarDialogoFuncion();              
                 
             },
             error => {
@@ -1284,6 +1278,7 @@ export class EditComponent implements OnInit {
               Swal.fire('Exito al actualizar funcion',`La función ha sido actualizada con exito`,"success");
               //this.limpiarFormulario();
               this.listarFunciones();
+              this.ocultarDialogoFuncion();   
               
               
           },
@@ -1311,8 +1306,7 @@ export class EditComponent implements OnInit {
 
   //ABRIR FORMULARIO NUEVO FUNCION
   crearFuncion(){
-    this.tituloFormFuncion="Nuevo Registro de Función"
-    this.limpiarFormularioFuncion();
+    this.tituloFormFuncion="Nuevo Registro de Función";
     this.newFuncionDialog = true;
   }
 
@@ -1322,8 +1316,27 @@ export class EditComponent implements OnInit {
   editarFuncion(funcion: PersonalFuncionModel){
     this.tituloFormFuncion="Editar Registro Función"
     this.editandoFuncion = true;
+    
+
     this.formaFuncion.get('id_personal_funcion')?.setValue(funcion.id_personal_funcion); 
     this.formaFuncion.get('destino_id')?.setValue(funcion.destino_id); 
+    this.cargarDepartamentos(funcion.destino_id!);
+    console.log("departamento", funcion.departamento_id); 
+    this.formaFuncion.get('departamento_id')?.setValue(5); 
+       
+    // this.cargarDivisiones(funcion.destino_id!,funcion.departamento_id!);
+    // this.formaFuncion.get('division_id')?.setValue(funcion.division_id);
+    // this.cargarSectores(funcion.destino_id!,funcion.departamento_id!,funcion.division_id!);    
+    // this.formaFuncion.get('sector_id')?.setValue(funcion.sector_id);  
+    // this.cargarSeccionesGuardia(funcion.sector_id!);
+    
+    console.log("funcion", funcion);
+    
+    
+    
+     
+       
+    this.formaFuncion.get('funcion_id')?.setValue(funcion.funcion_id);
     this.formaFuncion.get('instrumento')?.setValue(funcion.instrumento); 
     this.formaFuncion.get('fecha')?.setValue(funcion.fecha); 
     this.formaFuncion.get('fojas')?.setValue(funcion.fojas); 
@@ -1347,8 +1360,7 @@ export class EditComponent implements OnInit {
     this.formaFuncion.get('destino_id')?.setValue(this.dataEdit.destino_id); 
     this.formaFuncion.get('departamento_id')?.setValue(3); 
     this.formaFuncion.get('division_id')?.setValue(1); 
-    this.formaFuncion.get('sector_id')?.setValue(1); 
-    this.formaFuncion.get('destino_id')?.setValue(1); 
+    this.formaFuncion.get('sector_id')?.setValue(1);     
     this.formaFuncion.get('funcion_id')?.setValue(1); 
     this.formaFuncion.get('instrumento')?.setValue(""); 
     this.formaFuncion.get('fecha')?.setValue(""); 

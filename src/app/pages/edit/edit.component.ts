@@ -223,7 +223,7 @@ export class EditComponent implements OnInit {
     });
     //FIN FORMULARIO TRASLADO
 
-    //FORMULARIO TRASLADO    
+    //FORMULARIO FUNCION    
     this.formaFuncion = this.fb.group({
       id_personal_funcion: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       legajo: [this.dataEdit.legajo,[Validators.required,,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
@@ -238,7 +238,7 @@ export class EditComponent implements OnInit {
       fojas: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       vigente: [true, [Validators.required]]
     });
-    //FIN FORMULARIO TRASLADO
+    //FIN FORMULARIO FUNCION
 
    
     let auxiliar: any;
@@ -250,6 +250,11 @@ export class EditComponent implements OnInit {
     this.administrador = (globalConstants.rol_usuario == "0")? true: false;
     this.deshabilitarCampos(this.administrador);
     auxiliar = this.dataEdit.destino;    
+
+    this.cargarDepartamentos(this.dataEdit.destino_id!);       
+    this.cargarDivisiones(this.dataEdit.destino_id!,3);
+    this.cargarSectores(this.dataEdit.destino_id!,3,1);      
+    this.cargarSeccionesGuardia(this.dataEdit.sector_id!);
     
     this.cargarDepartamentosProvinciales(this.dataEdit.provincia_id!)    
     this.cargarMunicipios(this.dataEdit.departamento_provincial_id!);
@@ -1307,6 +1312,7 @@ export class EditComponent implements OnInit {
   //ABRIR FORMULARIO NUEVO FUNCION
   crearFuncion(){
     this.tituloFormFuncion="Nuevo Registro de Función";
+    //this.inicializarFormularioFuncion();
     this.newFuncionDialog = true;
   }
 
@@ -1322,25 +1328,36 @@ export class EditComponent implements OnInit {
     this.formaFuncion.get('destino_id')?.setValue(funcion.destino_id); 
     this.cargarDepartamentos(funcion.destino_id!);
     console.log("departamento", funcion.departamento_id); 
-    this.formaFuncion.get('departamento_id')?.setValue(5); 
+    //this.formaFuncion.get('departamento_id')?.setValue(funcion.departamento_id); 
        
-    // this.cargarDivisiones(funcion.destino_id!,funcion.departamento_id!);
+    this.cargarDivisiones(funcion.destino_id!,funcion.departamento_id!);
     // this.formaFuncion.get('division_id')?.setValue(funcion.division_id);
-    // this.cargarSectores(funcion.destino_id!,funcion.departamento_id!,funcion.division_id!);    
+    this.cargarSectores(funcion.destino_id!,funcion.departamento_id!,funcion.division_id!);    
     // this.formaFuncion.get('sector_id')?.setValue(funcion.sector_id);  
-    // this.cargarSeccionesGuardia(funcion.sector_id!);
+    this.cargarSeccionesGuardia(funcion.sector_id!);
     
-    console.log("funcion", funcion);
-    
-    
-    
-     
+    console.log("funcion", funcion);  
+
+    this.formaFuncion = this.fb.group({
+      id_personal_funcion: [funcion.funcion_id],
+      legajo: [this.dataEdit.legajo],
+      destino_id: [this.dataEdit.destino_id],
+      departamento_id: [funcion.departamento_id],
+      division_id: [funcion.division_id],
+      sector_id: [funcion.sector_id],
+      funcion_id: [funcion.funcion_id],
+      seccion_guardia_id: [funcion.seccion_guardia_id],
+      fecha: [funcion.fecha],
+      instrumento: [funcion.instrumento],
+      fojas: [funcion.fojas],
+      vigente: [funcion.vigente]
+    });
        
-    this.formaFuncion.get('funcion_id')?.setValue(funcion.funcion_id);
-    this.formaFuncion.get('instrumento')?.setValue(funcion.instrumento); 
-    this.formaFuncion.get('fecha')?.setValue(funcion.fecha); 
-    this.formaFuncion.get('fojas')?.setValue(funcion.fojas); 
-    this.formaFuncion.get('vigente')?.setValue(funcion.vigente);
+    // this.formaFuncion.get('funcion_id')?.setValue(funcion.funcion_id);
+    // this.formaFuncion.get('instrumento')?.setValue(funcion.instrumento); 
+    // this.formaFuncion.get('fecha')?.setValue(funcion.fecha); 
+    // this.formaFuncion.get('fojas')?.setValue(funcion.fojas); 
+    // this.formaFuncion.get('vigente')?.setValue(funcion.vigente);
     //this.regPdf = {...pdf};
     this.newFuncionDialog = true;
   }
@@ -1349,19 +1366,25 @@ export class EditComponent implements OnInit {
   //OCULTAR FORMULARIO FUNCION
   ocultarDialogoFuncion(){
     this.editandoFuncion = false;
-    this.limpiarFormularioFuncion();
+    this.inicializarFormularioFuncion();
     this.newFuncionDialog = false
   }  
   //FIN OCULTAR FORMULARIO FUNCION
 
   //LIMPIAR FORMULARIO FUNCION
-  limpiarFormularioFuncion(){
-    this.formaFuncion.get('id_traslado')?.setValue(0);
-    this.formaFuncion.get('destino_id')?.setValue(this.dataEdit.destino_id); 
-    this.formaFuncion.get('departamento_id')?.setValue(3); 
-    this.formaFuncion.get('division_id')?.setValue(1); 
-    this.formaFuncion.get('sector_id')?.setValue(1);     
-    this.formaFuncion.get('funcion_id')?.setValue(1); 
+  inicializarFormularioFuncion(){
+    this.cargarDepartamentos(this.dataEdit.destino_id!);       
+    this.cargarDivisiones(this.dataEdit.destino_id!,3);
+    this.cargarSectores(this.dataEdit.destino_id!,3,1);      
+    this.cargarSeccionesGuardia(this.dataEdit.sector_id!);
+    
+
+    this.formaFuncion.get('id_personal_funcion')?.setValue(0);
+    // this.formaFuncion.get('destino_id')?.setValue(this.dataEdit.destino_id); 
+    // this.formaFuncion.get('departamento_id')?.setValue(3); 
+    // this.formaFuncion.get('division_id')?.setValue(1); 
+    // this.formaFuncion.get('sector_id')?.setValue(1);     
+    // this.formaFuncion.get('funcion_id')?.setValue(1); 
     this.formaFuncion.get('instrumento')?.setValue(""); 
     this.formaFuncion.get('fecha')?.setValue(""); 
     this.formaFuncion.get('fojas')?.setValue(0);

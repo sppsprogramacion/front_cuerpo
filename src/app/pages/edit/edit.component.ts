@@ -227,7 +227,7 @@ export class EditComponent implements OnInit {
     this.formaFuncion = this.fb.group({
       id_personal_funcion: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       legajo: [this.dataEdit.legajo,[Validators.required,,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
-      destino_id: [this.dataEdit.destino_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      destino_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       departamento_id: [3,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       division_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       sector_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
@@ -1312,7 +1312,8 @@ export class EditComponent implements OnInit {
   //ABRIR FORMULARIO NUEVO FUNCION
   crearFuncion(){
     this.tituloFormFuncion="Nuevo Registro de Función";
-    //this.inicializarFormularioFuncion();
+    //this.formaFuncion.get('destino_id')?.setValue(this.dataEdit.destino_id); 
+    this.inicializarFormularioFuncion();
     this.newFuncionDialog = true;
   }
 
@@ -1325,9 +1326,10 @@ export class EditComponent implements OnInit {
     
 
     this.formaFuncion.get('id_personal_funcion')?.setValue(funcion.id_personal_funcion); 
+    console.log("id_funcion", funcion.id_personal_funcion); 
     this.formaFuncion.get('destino_id')?.setValue(funcion.destino_id); 
     this.cargarDepartamentos(funcion.destino_id!);
-    console.log("departamento", funcion.departamento_id); 
+    
     //this.formaFuncion.get('departamento_id')?.setValue(funcion.departamento_id); 
        
     this.cargarDivisiones(funcion.destino_id!,funcion.departamento_id!);
@@ -1338,26 +1340,26 @@ export class EditComponent implements OnInit {
     
     console.log("funcion", funcion);  
 
-    this.formaFuncion = this.fb.group({
-      id_personal_funcion: [funcion.funcion_id],
-      legajo: [this.dataEdit.legajo],
-      destino_id: [this.dataEdit.destino_id],
-      departamento_id: [funcion.departamento_id],
-      division_id: [funcion.division_id],
-      sector_id: [funcion.sector_id],
-      funcion_id: [funcion.funcion_id],
-      seccion_guardia_id: [funcion.seccion_guardia_id],
-      fecha: [funcion.fecha],
-      instrumento: [funcion.instrumento],
-      fojas: [funcion.fojas],
-      vigente: [funcion.vigente]
-    });
+    // this.formaFuncion = this.fb.group({
+    //   id_personal_funcion: [funcion.id_personal_funcion],
+    //   legajo: [this.dataEdit.legajo],
+    //   destino_id: [this.dataEdit.destino_id],
+    //   departamento_id: [funcion.departamento_id],
+    //   division_id: [funcion.division_id],
+    //   sector_id: [funcion.sector_id],
+    //   funcion_id: [funcion.funcion_id],
+    //   seccion_guardia_id: [funcion.seccion_guardia_id],
+    //   fecha: [funcion.fecha],
+    //   instrumento: [funcion.instrumento],
+    //   fojas: [funcion.fojas],
+    //   vigente: [funcion.vigente]
+    // });
        
-    // this.formaFuncion.get('funcion_id')?.setValue(funcion.funcion_id);
-    // this.formaFuncion.get('instrumento')?.setValue(funcion.instrumento); 
-    // this.formaFuncion.get('fecha')?.setValue(funcion.fecha); 
-    // this.formaFuncion.get('fojas')?.setValue(funcion.fojas); 
-    // this.formaFuncion.get('vigente')?.setValue(funcion.vigente);
+    this.formaFuncion.get('funcion_id')?.setValue(funcion.funcion_id);
+    this.formaFuncion.get('instrumento')?.setValue(funcion.instrumento); 
+    this.formaFuncion.get('fecha')?.setValue(funcion.fecha); 
+    this.formaFuncion.get('fojas')?.setValue(funcion.fojas); 
+    this.formaFuncion.get('vigente')?.setValue(funcion.vigente);
     //this.regPdf = {...pdf};
     this.newFuncionDialog = true;
   }
@@ -1380,11 +1382,11 @@ export class EditComponent implements OnInit {
     
 
     this.formaFuncion.get('id_personal_funcion')?.setValue(0);
-    // this.formaFuncion.get('destino_id')?.setValue(this.dataEdit.destino_id); 
-    // this.formaFuncion.get('departamento_id')?.setValue(3); 
-    // this.formaFuncion.get('division_id')?.setValue(1); 
-    // this.formaFuncion.get('sector_id')?.setValue(1);     
-    // this.formaFuncion.get('funcion_id')?.setValue(1); 
+    this.formaFuncion.get('destino_id')?.setValue(this.dataEdit.destino_id); 
+    this.formaFuncion.get('departamento_id')?.setValue(3); 
+    this.formaFuncion.get('division_id')?.setValue(1); 
+    this.formaFuncion.get('sector_id')?.setValue(1);     
+    this.formaFuncion.get('funcion_id')?.setValue(1); 
     this.formaFuncion.get('instrumento')?.setValue(""); 
     this.formaFuncion.get('fecha')?.setValue(""); 
     this.formaFuncion.get('fojas')?.setValue(0);

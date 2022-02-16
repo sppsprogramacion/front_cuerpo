@@ -65,6 +65,12 @@ export class EditComponent implements OnInit {
 
   administrador: boolean = false;
   destino_txt: string="";
+  departamento_txt: string="";
+  division_txt: string="";
+  sector_txt: string="";
+  seccion_guardia_txt: string="";
+  funcion_txt: string="";  
+  
   
   //variables de manejo de pdf
   tituloFormPdf:string="";
@@ -174,6 +180,14 @@ export class EditComponent implements OnInit {
        sector_id: [this.dataEdit.sector_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        funcion_id: [this.dataEdit.funcion_id, [Validators.required, Validators.pattern(/^[0-9]*$/)]],
        seccion_guardia_id: [this.dataEdit.seccion_guardia_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       
+       destino: [(this.dataEdit.destino)?(JSON.parse(JSON.stringify(this.dataEdit.destino))).destino:"sin destino",[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       departamento: [this.dataEdit.departamento_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       division: [this.dataEdit.division_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       sector: [this.dataEdit.sector_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       funcion: [this.dataEdit.funcion_id, [Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       seccion_guardia: [this.dataEdit.seccion_guardia_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       
        escalafon_id: [this.dataEdit.escalafon_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        escala_jerarquica_id: [this.dataEdit.escala_jerarquica_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        grado_id: [this.dataEdit.grado_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
@@ -263,8 +277,17 @@ export class EditComponent implements OnInit {
     
     
     
-    this.destino_txt = auxiliar.destino;
-    //cargar el array de destinos
+    //Datos de destino
+    this.destino_txt= (this.dataEdit.destino)?(JSON.parse(JSON.stringify(this.dataEdit.destino))).destino:"sin destino";
+    this.departamento_txt= (this.dataEdit.departamento)?(JSON.parse(JSON.stringify(this.dataEdit.departamento))).departamento:"sin departamento",
+    this.division_txt= (this.dataEdit.division)?(JSON.parse(JSON.stringify(this.dataEdit.division))).division:"sin división";
+    this.sector_txt= (this.dataEdit.sector)?(JSON.parse(JSON.stringify(this.dataEdit.sector))).sector:"sin sector";
+    this.seccion_guardia_txt= (this.dataEdit.seccion_guardia)?(JSON.parse(JSON.stringify(this.dataEdit.seccion_guardia))).seccion:"sin sección guardia";
+    this.funcion_txt= (this.dataEdit.funcion)?(JSON.parse(JSON.stringify(this.dataEdit.funcion))).funcion:"sin sector"; 
+    
+      
+
+    //cargar los arrays
     this.destinos = destinos;      
     this.estados_civil = estados_civil;    
     this.escalafones = escalafon;
@@ -993,11 +1016,11 @@ export class EditComponent implements OnInit {
         nombre_1: this.primeraMayuscula(this.forma.get('nombre_1')?.value),
         nombre_2: this.primeraMayuscula(this.forma.get('nombre_2')?.value),
         nombre_3: this.primeraMayuscula(this.forma.get('nombre_3')?.value),
-        destino_id: parseInt(this.forma.get('destino_id')?.value),
-        departamento_id: parseInt(this.forma.get('departamento_id')?.value),
-        division_id: parseInt(this.forma.get('division_id')?.value),
-        sector_id: parseInt(this.forma.get('sector_id')?.value),
-        funcion_id:parseInt(this.forma.get('funcion_id')?.value),
+        // destino_id: parseInt(this.forma.get('destino_id')?.value),
+        // departamento_id: parseInt(this.forma.get('departamento_id')?.value),
+        // division_id: parseInt(this.forma.get('division_id')?.value),
+        // sector_id: parseInt(this.forma.get('sector_id')?.value),
+        // funcion_id:parseInt(this.forma.get('funcion_id')?.value),
         seccion_guardia_id: parseInt(this.forma.get('seccion_guardia_id')?.value),
         escalafon_id: parseInt(this.forma.get('escalafon_id')?.value),
         escala_jerarquica_id: parseInt(this.forma.get('escala_jerarquica_id')?.value),
@@ -1266,6 +1289,7 @@ export class EditComponent implements OnInit {
               Swal.fire('Exito nueva función',`La función ha sido guardada con Exito`,"success");
               //this.limpiarFormulario();
               this.listarFunciones();
+              this.actualizarCamposFormulario();
               this.ocultarDialogoFuncion();              
                 
             },
@@ -1283,6 +1307,7 @@ export class EditComponent implements OnInit {
               Swal.fire('Exito al actualizar funcion',`La función ha sido actualizada con exito`,"success");
               //this.limpiarFormulario();
               this.listarFunciones();
+              this.actualizarCamposFormulario();
               this.ocultarDialogoFuncion();   
               
               
@@ -1617,6 +1642,15 @@ export class EditComponent implements OnInit {
     this.forma.controls['nombre_1'].setValue(this.dataEdit.nombre_1);
     this.forma.controls['nombre_2'].setValue(this.dataEdit.nombre_2);
     this.forma.controls['nombre_3'].setValue(this.dataEdit.nombre_3);
+
+    //Datos de destino
+    this.destino_txt= (this.dataEdit.destino)?(JSON.parse(JSON.stringify(this.dataEdit.destino))).destino:"sin destino";
+    this.departamento_txt= (this.dataEdit.departamento)?(JSON.parse(JSON.stringify(this.dataEdit.departamento))).departamento:"sin departamento",
+    this.division_txt= (this.dataEdit.division)?(JSON.parse(JSON.stringify(this.dataEdit.division))).division:"sin división";
+    this.sector_txt= (this.dataEdit.sector)?(JSON.parse(JSON.stringify(this.dataEdit.sector))).sector:"sin sector";
+    this.seccion_guardia_txt= (this.dataEdit.seccion_guardia)?(JSON.parse(JSON.stringify(this.dataEdit.seccion_guardia))).seccion:"sin sección guardia";
+    this.funcion_txt= (this.dataEdit.funcion)?(JSON.parse(JSON.stringify(this.dataEdit.funcion))).funcion:"sin sector"; 
+    
     
   }
 

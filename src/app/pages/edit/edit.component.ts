@@ -1171,7 +1171,6 @@ export class EditComponent implements OnInit {
     this.tituloFormTraslado="Nuevo Registro de Traslado"
     this.newTrasladoDialog = true;
   }
-
   //FIN ABRIR FORMULARIO NUEVO TRASLADO
 
   //ABRIR FORMULARIO EDITAR TRASLADO
@@ -1209,7 +1208,8 @@ export class EditComponent implements OnInit {
     return Object.values(this.formaTraslados.controls).forEach(control => control.markAsUntouched());
   }
   //FIN LIMPIAR FORMULARIO TRASLADO
-  //.............................................................
+  //..................................................................................................
+  //...................................................................................................
 
 
   //GUARDAR FUNCION  
@@ -1324,37 +1324,18 @@ export class EditComponent implements OnInit {
     this.tituloFormFuncion="Editar Registro Función"
     this.editandoFuncion = true;
     
-
     this.formaFuncion.get('id_personal_funcion')?.setValue(funcion.id_personal_funcion); 
-    console.log("id_funcion", funcion.id_personal_funcion); 
     this.formaFuncion.get('destino_id')?.setValue(funcion.destino_id); 
-    this.cargarDepartamentos(funcion.destino_id!);
-    
-    //this.formaFuncion.get('departamento_id')?.setValue(funcion.departamento_id); 
-       
-    this.cargarDivisiones(funcion.destino_id!,funcion.departamento_id!);
-    // this.formaFuncion.get('division_id')?.setValue(funcion.division_id);
-    this.cargarSectores(funcion.destino_id!,funcion.departamento_id!,funcion.division_id!);    
-    // this.formaFuncion.get('sector_id')?.setValue(funcion.sector_id);  
-    this.cargarSeccionesGuardia(funcion.sector_id!);
-    
-    console.log("funcion", funcion);  
 
-    // this.formaFuncion = this.fb.group({
-    //   id_personal_funcion: [funcion.id_personal_funcion],
-    //   legajo: [this.dataEdit.legajo],
-    //   destino_id: [this.dataEdit.destino_id],
-    //   departamento_id: [funcion.departamento_id],
-    //   division_id: [funcion.division_id],
-    //   sector_id: [funcion.sector_id],
-    //   funcion_id: [funcion.funcion_id],
-    //   seccion_guardia_id: [funcion.seccion_guardia_id],
-    //   fecha: [funcion.fecha],
-    //   instrumento: [funcion.instrumento],
-    //   fojas: [funcion.fojas],
-    //   vigente: [funcion.vigente]
-    // });
-       
+    this.cargarDepartamentos(funcion.destino_id!);              
+    this.cargarDivisiones(funcion.destino_id!,funcion.departamento_id!);    
+    this.cargarSectores(funcion.destino_id!,funcion.departamento_id!,funcion.division_id!); 
+    this.cargarSeccionesGuardia(funcion.sector_id!);
+
+    this.formaFuncion.get('departamento_id')?.setValue(funcion.departamento_id);  
+    this.formaFuncion.get('division_id')?.setValue(funcion.division_id);
+    this.formaFuncion.get('sector_id')?.setValue(funcion.sector_id); 
+    this.formaFuncion.get('seccion_guardia_id')?.setValue(funcion.seccion_guardia_id);
     this.formaFuncion.get('funcion_id')?.setValue(funcion.funcion_id);
     this.formaFuncion.get('instrumento')?.setValue(funcion.instrumento); 
     this.formaFuncion.get('fecha')?.setValue(funcion.fecha); 

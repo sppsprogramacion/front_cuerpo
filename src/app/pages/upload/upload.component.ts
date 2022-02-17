@@ -25,6 +25,7 @@ import { PersonalService } from 'src/app/services/personal.service';
 import Swal from 'sweetalert2';
 import { CiudadModel } from '../../models/ciudad.model';
 import { FuncionModel } from '../../models/funcion.model';
+import { TrasladoModel } from '../../models/traslado.model';
 
 @Component({
   selector: 'app-upload',
@@ -96,7 +97,7 @@ export class UploadComponent implements OnInit {
        nombre_2: ["",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
        nombre_3: ["",[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
        legajo: [,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
-       destino_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       destino_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        departamento_id: [3,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        division_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        sector_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
@@ -664,6 +665,7 @@ export class UploadComponent implements OnInit {
     }
      
      let data: Personal;
+     let data_destino: TrasladoModel;
      //crear la data
      
       data = {
@@ -709,9 +711,9 @@ export class UploadComponent implements OnInit {
               .subscribe(resultado => {
                 
                   Swal.fire('Exito',`El Registro ha sido guardado con Exito`,"success");
+                  
+
                   this.limpiarFormulario();
-                  //this.actualizarUsuarios();
-                  //this.hideDialog();
               },
               error => {
                   

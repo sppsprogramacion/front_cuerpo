@@ -174,19 +174,19 @@ export class EditComponent implements OnInit {
        nombre_3: [this.dataEdit.nombre_3,[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
       //  dni: [this.dataEdit.dni,[Validators.required,Validators.min(1111111),Validators.max(99999999)]],
        legajo: [this.dataEdit.legajo,[Validators.required,,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
-       destino_id: [this.dataEdit.destino_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-       departamento_id: [this.dataEdit.departamento_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-       division_id: [this.dataEdit.division_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-       sector_id: [this.dataEdit.sector_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-       funcion_id: [this.dataEdit.funcion_id, [Validators.required, Validators.pattern(/^[0-9]*$/)]],
-       seccion_guardia_id: [this.dataEdit.seccion_guardia_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      //  destino_id: [this.dataEdit.destino_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      //  departamento_id: [this.dataEdit.departamento_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      //  division_id: [this.dataEdit.division_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      //  sector_id: [this.dataEdit.sector_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      //  funcion_id: [this.dataEdit.funcion_id, [Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      //  seccion_guardia_id: [this.dataEdit.seccion_guardia_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        
-       destino: [(this.dataEdit.destino)?(JSON.parse(JSON.stringify(this.dataEdit.destino))).destino:"sin destino",[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-       departamento: [this.dataEdit.departamento_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-       division: [this.dataEdit.division_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-       sector: [this.dataEdit.sector_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-       funcion: [this.dataEdit.funcion_id, [Validators.required, Validators.pattern(/^[0-9]*$/)]],
-       seccion_guardia: [this.dataEdit.seccion_guardia_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      //  destino: [(this.dataEdit.destino)?(JSON.parse(JSON.stringify(this.dataEdit.destino))).destino:"sin destino",[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      //  departamento: [this.dataEdit.departamento_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      //  division: [this.dataEdit.division_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      //  sector: [this.dataEdit.sector_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      //  funcion: [this.dataEdit.funcion_id, [Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      //  seccion_guardia: [this.dataEdit.seccion_guardia_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        
        escalafon_id: [this.dataEdit.escalafon_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        escala_jerarquica_id: [this.dataEdit.escala_jerarquica_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
@@ -1005,7 +1005,7 @@ export class EditComponent implements OnInit {
     if(formEnviado == 'laboral'){
 
       if(this.forma.invalid){
-        Swal.fire('Formulario con errores','Complete correctamente todos los campos del formulario',"warning");
+        Swal.fire('Formulario con errores222','Complete correctamente todos los campos del formulario',"warning");
         return Object.values(this.forma.controls).forEach(control => control.markAsTouched());
       }
 
@@ -1021,7 +1021,7 @@ export class EditComponent implements OnInit {
         // division_id: parseInt(this.forma.get('division_id')?.value),
         // sector_id: parseInt(this.forma.get('sector_id')?.value),
         // funcion_id:parseInt(this.forma.get('funcion_id')?.value),
-        seccion_guardia_id: parseInt(this.forma.get('seccion_guardia_id')?.value),
+        //seccion_guardia_id: parseInt(this.forma.get('seccion_guardia_id')?.value),
         escalafon_id: parseInt(this.forma.get('escalafon_id')?.value),
         escala_jerarquica_id: parseInt(this.forma.get('escala_jerarquica_id')?.value),
         grado_id: parseInt(this.forma.get('grado_id')?.value),

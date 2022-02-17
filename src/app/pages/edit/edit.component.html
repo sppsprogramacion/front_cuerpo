@@ -311,6 +311,8 @@
 
                                                                 </div>
                                                                 <!-- /.card-body -->
+
+
                                                                 <div class="card-footer">
                                                                     <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitForm('laboral')">Guardar</button>
                                                                 </div>
@@ -323,6 +325,18 @@
                                                 <!-- /.card-body -->
                                             </div>
                                             <!-- /.card -->
+
+                                            <!-- datos pre-->
+                                            <hr>
+                                            <pre>
+                                                Estado del Formulario: {{forma.valid}}
+                                                <br>
+                                                Status: {{forma.status}}
+                                            </pre>
+                                            <pre>
+                                                {{forma.value | json}}
+                                            </pre>
+                                            <!-- FIN datos pre-->
 
                                         </section>
                                         <!-- /.content -->

@@ -33,9 +33,9 @@ export class PersonalFuncionService {
   }
 
   quitarFuncionVigente(legajox:number){    
-    let traslado: TrasladoModel= new TrasladoModel();
-    traslado.vigente= false;
-    return this.http.put(`${base_url}/personal-funcion/quitar/${legajox}`,traslado);
+    let funcion: PersonalFuncionModel= new PersonalFuncionModel();
+    funcion.vigente= false;
+    return this.http.put(`${base_url}/personal-funcion/quitar/${legajox}`,funcion);
   }
 
   //LISTA DE TRASLADOS X LEGAJO

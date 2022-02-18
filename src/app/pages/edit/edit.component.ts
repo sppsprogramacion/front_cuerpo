@@ -172,22 +172,7 @@ export class EditComponent implements OnInit {
        nombre_1: [this.dataEdit.nombre_1,[Validators.required,Validators.pattern(/^[A-Za-z\s]+$/), Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
        nombre_2: [this.dataEdit.nombre_2,[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
        nombre_3: [this.dataEdit.nombre_3,[Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
-      //  dni: [this.dataEdit.dni,[Validators.required,Validators.min(1111111),Validators.max(99999999)]],
        legajo: [this.dataEdit.legajo,[Validators.required,,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
-      //  destino_id: [this.dataEdit.destino_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      //  departamento_id: [this.dataEdit.departamento_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      //  division_id: [this.dataEdit.division_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      //  sector_id: [this.dataEdit.sector_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      //  funcion_id: [this.dataEdit.funcion_id, [Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      //  seccion_guardia_id: [this.dataEdit.seccion_guardia_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-       
-      //  destino: [(this.dataEdit.destino)?(JSON.parse(JSON.stringify(this.dataEdit.destino))).destino:"sin destino",[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      //  departamento: [this.dataEdit.departamento_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      //  division: [this.dataEdit.division_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      //  sector: [this.dataEdit.sector_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      //  funcion: [this.dataEdit.funcion_id, [Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      //  seccion_guardia: [this.dataEdit.seccion_guardia_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-       
        escalafon_id: [this.dataEdit.escalafon_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        escala_jerarquica_id: [this.dataEdit.escala_jerarquica_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        grado_id: [this.dataEdit.grado_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
@@ -311,7 +296,8 @@ export class EditComponent implements OnInit {
     
 
   }
-  //fin constructor
+  //fin constructor...............................................................
+
 
   ngOnInit(): void {
        
@@ -1005,7 +991,7 @@ export class EditComponent implements OnInit {
     if(formEnviado == 'laboral'){
 
       if(this.forma.invalid){
-        Swal.fire('Formulario con errores222','Complete correctamente todos los campos del formulario',"warning");
+        Swal.fire('Formulario con errores','Complete correctamente todos los campos del formulario',"warning");
         return Object.values(this.forma.controls).forEach(control => control.markAsTouched());
       }
 
@@ -1016,12 +1002,6 @@ export class EditComponent implements OnInit {
         nombre_1: this.primeraMayuscula(this.forma.get('nombre_1')?.value),
         nombre_2: this.primeraMayuscula(this.forma.get('nombre_2')?.value),
         nombre_3: this.primeraMayuscula(this.forma.get('nombre_3')?.value),
-        // destino_id: parseInt(this.forma.get('destino_id')?.value),
-        // departamento_id: parseInt(this.forma.get('departamento_id')?.value),
-        // division_id: parseInt(this.forma.get('division_id')?.value),
-        // sector_id: parseInt(this.forma.get('sector_id')?.value),
-        // funcion_id:parseInt(this.forma.get('funcion_id')?.value),
-        //seccion_guardia_id: parseInt(this.forma.get('seccion_guardia_id')?.value),
         escalafon_id: parseInt(this.forma.get('escalafon_id')?.value),
         escala_jerarquica_id: parseInt(this.forma.get('escala_jerarquica_id')?.value),
         grado_id: parseInt(this.forma.get('grado_id')?.value),
@@ -1086,7 +1066,7 @@ export class EditComponent implements OnInit {
     this.personalService.editPersonal(data,parseInt(this.dataEdit.id_personal?.toString()!))
       .subscribe(
         resultado => {                                                                
-          Swal.fire('Exito',`El Registro ha sido editado.`,"success");
+          Swal.fire('Exito',`El Personal ha sido editado.`,"success");
           this.buscarPersonal(this.dataEdit.legajo!);         
           
           
@@ -1122,36 +1102,35 @@ export class EditComponent implements OnInit {
       }
 
       if(!this.editandoTraslado){
+        //CREANDO NUEVO TRASLADO
+
         //EDICION DE CAMPO VIGENTE COMO FALSO EN TODOS LOS REGISTROS DE TRASLADO DE PERSONAL
         let dataVigente: TrasladoModel;
         dataVigente={
           vigente: false
         }
         this.trasladoService.quitarTrasladoVigente(parseInt(this.formaTraslados.get('legajo')?.value))
-        .subscribe(resultado => {
-          
-            Swal.fire('Traslado vigente quitado',`El traslado vigente ha sido actualizado con Exito`,"success");
+        .subscribe(resultado => {          
+            
             //GUARDAR NUEVO TRASLADO
             this.trasladoService.guardarTraslado(data)
               .subscribe(resultado => {
                 
-                  Swal.fire('Nuevo traslado',`El Traslado ha sido guardado con exito`,"success");
-                  //this.limpiarFormulario();
-                  this.listarTraslados();
-                  this.ocultarDialogoTraslado();
-                    
-                },
-                error => {
-                    
-                    Swal.fire('Error nuevo traslado',`Error al guardar el Traslado: ${error.error.message}`,"error")                          
-                });
-            //FIN GUARDAR NUEVO TRASLADO
-            
+                Swal.fire('Nuevo traslado',`El Traslado ha sido guardado con exito`,"success");
+                this.listarTraslados();
+                this.ocultarDialogoTraslado();
+                  
+              },
+              error => {
+                  
+                  Swal.fire('Nuevo traslado',`Error al guardar el Traslado: ${error.error.message}`,"error")                          
+              });
+            //FIN GUARDAR NUEVO TRASLADO           
             
         },
         error => {
             
-            Swal.fire('Quitar Traslado vigente',`Error al actualizar el Traslado: ${error.error.message}`,"error");                          
+            Swal.fire('Quitar Traslado',`Error al quitar el ultimo traslado: ${error.error.message}`,"error");                          
         });
 
         
@@ -1169,7 +1148,7 @@ export class EditComponent implements OnInit {
         },
         error => {
             
-            Swal.fire('Error Actualizar Traslado',`Error al actualizar el Traslado: ${error.error.message}`,"error")                          
+            Swal.fire('Actualizar Traslado',`Error al actualizar el Traslado: ${error.error.message}`,"error")                          
         });
         //FIN ACTUALIZAR TRASLADO
       }
@@ -1238,86 +1217,93 @@ export class EditComponent implements OnInit {
   //GUARDAR FUNCION  
   submitFormFuncion(){
     if(this.formaFuncion.invalid){
-      Swal.fire('Formulario Traslado con errores','Complete correctamente todos los campos del formulario',"warning");
+      Swal.fire('Formulario Funcion con errores','Complete correctamente todos los campos del formulario',"warning");
       return Object.values(this.formaFuncion.controls).forEach(control => control.markAsTouched());
     }
 
+    if(parseInt(this.formaFuncion.get('destino_id')?.value)==8){
+      Swal.fire('Guardar funcion','No tiene un destino asignado',"warning");
+      return ;
+    }
+
     let data: PersonalFuncionModel;
-      //crear la data
+      //cambiar funcion el la tabla personal
       this.submitForm('cambioFuncion');
 
-      data = {
+    data = {
 
-        legajo: parseInt(this.formaFuncion.get('legajo')?.value),
-        destino_id: parseInt(this.formaFuncion.get('destino_id')?.value),
-        departamento_id: parseInt(this.formaFuncion.get('departamento_id')?.value),
-        division_id: parseInt(this.formaFuncion.get('division_id')?.value),
-        sector_id: parseInt(this.formaFuncion.get('sector_id')?.value),
-        funcion_id:parseInt(this.formaFuncion.get('funcion_id')?.value),
-        seccion_guardia_id: parseInt(this.formaFuncion.get('seccion_guardia_id')?.value),
-        instrumento: this.formaFuncion.get('instrumento')?.value,
-        fecha: this.changeFormatoFechaGuardar(this.formaFuncion.get('fecha')?.value),
-        fojas: parseInt(this.formaFuncion.get('fojas')?.value),
-        vigente: this.formaFuncion.get('vigente')?.value
+      legajo: parseInt(this.formaFuncion.get('legajo')?.value),
+      destino_id: parseInt(this.formaFuncion.get('destino_id')?.value),
+      departamento_id: parseInt(this.formaFuncion.get('departamento_id')?.value),
+      division_id: parseInt(this.formaFuncion.get('division_id')?.value),
+      sector_id: parseInt(this.formaFuncion.get('sector_id')?.value),
+      funcion_id:parseInt(this.formaFuncion.get('funcion_id')?.value),
+      seccion_guardia_id: parseInt(this.formaFuncion.get('seccion_guardia_id')?.value),
+      instrumento: this.formaFuncion.get('instrumento')?.value,
+      fecha: this.changeFormatoFechaGuardar(this.formaFuncion.get('fecha')?.value),
+      fojas: parseInt(this.formaFuncion.get('fojas')?.value),
+      vigente: this.formaFuncion.get('vigente')?.value
+    }
+
+    if(!this.editandoFuncion){
+      //CREANDO NUEVA FUNCION
+
+      //EDICION DE CAMPO VIGENTE COMO FALSO EN TODOS LOS REGISTROS DE TRASLADO DE PERSONAL
+      let dataVigente: PersonalFuncionModel;
+      dataVigente={
+        vigente: false
       }
 
-      if(!this.editandoFuncion){
-        //EDICION DE CAMPO VIGENTE COMO FALSO EN TODOS LOS REGISTROS DE TRASLADO DE PERSONAL
-        let dataVigente: PersonalFuncionModel;
-        dataVigente={
-          vigente: false
-        }
-        this.personalFuncionService.quitarFuncionVigente(parseInt(this.formaFuncion.get('legajo')?.value))
+      
+      this.personalFuncionService.quitarFuncionVigente(parseInt(this.formaFuncion.get('legajo')?.value))
+      .subscribe(resultado => {
+        
+        //GUARDAR NUEVA FUNCION
+        this.personalFuncionService.guardarFuncion(data)
         .subscribe(resultado => {
           
-            Swal.fire('Exito funcion vigente quitado',`La función ha sido actualizado con Exito`,"success");
+            Swal.fire('Exito nueva función',`La función ha sido guardada con Exito`,"success");
             //this.limpiarFormulario();
             this.listarFunciones();
+            this.actualizarCamposFormulario();
+            this.ocultarDialogoFuncion();              
+              
+        },
+        error => {
+            
+            Swal.fire('Error nueva función',`Error al guardar la funcion: ${error.error.message}`,"error")                          
+        });
+        //FIN GUARDAR NUEVO TRASLADO
+          this.listarFunciones();
+          
+          
+      },
+      error => {
+          
+          Swal.fire('Quitar funcion vigente',`Error al quitar la ultima funcion: ${error.error.message}`,"error");                          
+      });
+      
+      
+    }
+    else{
+      //ACTUALIZANDO FUNCION
+      this.personalFuncionService.editarFuncion(data,parseInt(this.formaFuncion.get('id_personal_funcion')?.value))
+        .subscribe(resultado => {
+          
+            Swal.fire('Exito al actualizar funcion',`La función ha sido actualizada con exito`,"success");
+            //this.limpiarFormulario();
+            this.listarFunciones();
+            this.actualizarCamposFormulario();
+            this.ocultarDialogoFuncion();   
             
             
         },
         error => {
-            
-            Swal.fire('Quitar funcion vigente',`Error al quitar la funcion: ${error.error.message}`,"error");                          
-        });
-
-        
-        //GUARDAR NUEVA FUNCION
-        this.personalFuncionService.guardarFuncion(data)
-          .subscribe(resultado => {
-            
-              Swal.fire('Exito nueva función',`La función ha sido guardada con Exito`,"success");
-              //this.limpiarFormulario();
-              this.listarFunciones();
-              this.actualizarCamposFormulario();
-              this.ocultarDialogoFuncion();              
-                
-            },
-            error => {
-                
-                Swal.fire('Error nueva función',`Error al guardar la funcion: ${error.error.message}`,"error")                          
-            });
-        //FIN GUARDAR NUEVO TRASLADO
-      }
-      else{
-        //ACTUALIZAR TRASLADO
-        this.personalFuncionService.editarFuncion(data,parseInt(this.formaFuncion.get('id_personal_funcion')?.value))
-          .subscribe(resultado => {
-            
-              Swal.fire('Exito al actualizar funcion',`La función ha sido actualizada con exito`,"success");
-              //this.limpiarFormulario();
-              this.listarFunciones();
-              this.actualizarCamposFormulario();
-              this.ocultarDialogoFuncion();   
-              
-              
-          },
-          error => {
-            
-            Swal.fire('Error al actualizar función',`Error al actualizar la función: ${error.error.message}`,"error")                          
-        });
-        //FIN ACTUALIZAR TRASLADO
-      }
+          
+          Swal.fire('Error al actualizar función',`Error al actualizar la función: ${error.error.message}`,"error")                          
+      });
+      //FIN ACTUALIZAR TRASLADO
+    }
       
   }
   //FIN GUARDAR FUNCION
@@ -1326,18 +1312,17 @@ export class EditComponent implements OnInit {
   listarFunciones(){
     let legajo: number = parseInt(this.formaFuncion.get('legajo')?.value);
     this.personalFuncionService.getxlegajo(legajo).
-              subscribe(respuesta => {
-                this.totalRecords = respuesta[1];
-                this.listaFunciones = respuesta[0];
-            
-              });
+      subscribe(respuesta => {
+        this.totalRecords = respuesta[1];
+        this.listaFunciones = respuesta[0];
+    
+      });
   }
   //FIN LISTADO DE FUNCION
 
   //ABRIR FORMULARIO NUEVO FUNCION
   crearFuncion(){
     this.tituloFormFuncion="Nuevo Registro de Función";
-    //this.formaFuncion.get('destino_id')?.setValue(this.dataEdit.destino_id); 
     this.inicializarFormularioFuncion();
     this.newFuncionDialog = true;
   }
@@ -1401,7 +1386,8 @@ export class EditComponent implements OnInit {
     return Object.values(this.formaFuncion.controls).forEach(control => control.markAsUntouched());
   }
   //FIN LIMPIAR FORMULARIO FUNCION
-  //...............................................
+  //...................................................................
+  //...................................................................
   
 
   //buscar personal
@@ -1650,8 +1636,7 @@ export class EditComponent implements OnInit {
     this.sector_txt= (this.dataEdit.sector)?(JSON.parse(JSON.stringify(this.dataEdit.sector))).sector:"sin sector";
     this.seccion_guardia_txt= (this.dataEdit.seccion_guardia)?(JSON.parse(JSON.stringify(this.dataEdit.seccion_guardia))).seccion:"sin sección guardia";
     this.funcion_txt= (this.dataEdit.funcion)?(JSON.parse(JSON.stringify(this.dataEdit.funcion))).funcion:"sin sector"; 
-    
-    
+        
   }
 
   //FIN ACTUALIZAR DATOS EN FORMULARIO

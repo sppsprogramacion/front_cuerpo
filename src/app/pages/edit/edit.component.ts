@@ -218,7 +218,8 @@ export class EditComponent implements OnInit {
       fecha: [,[Validators.required]],
       instrumento: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
       fojas: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      vigente: [true, [Validators.required]]
+      vigente: [true, [Validators.required]],
+      confirmado: [false, [Validators.required]]
     });
     //FIN FORMULARIO TRASLADO
 
@@ -1098,7 +1099,8 @@ export class EditComponent implements OnInit {
         instrumento: this.formaTraslados.get('instrumento')?.value,
         fecha: this.changeFormatoFechaGuardar(this.formaTraslados.get('fecha')?.value),
         fojas: parseInt(this.formaTraslados.get('fojas')?.value),
-        vigente: this.formaTraslados.get('vigente')?.value
+        vigente: this.formaTraslados.get('vigente')?.value,
+        confirmado: this.formaTraslados.get('confirmado')?.value,
       }
 
       if(!this.editandoTraslado){
@@ -1171,6 +1173,7 @@ export class EditComponent implements OnInit {
   //ABRIR FORMULARIO NUEVO TRASLADO
   crearTraslado(){
     this.tituloFormTraslado="Nuevo Registro de Traslado"
+    this.formaTraslados.controls['confirmado'].disable();
     this.newTrasladoDialog = true;
   }
   //FIN ABRIR FORMULARIO NUEVO TRASLADO
@@ -1185,6 +1188,9 @@ export class EditComponent implements OnInit {
     this.formaTraslados.get('fecha')?.setValue(traslado.fecha); 
     this.formaTraslados.get('fojas')?.setValue(traslado.fojas); 
     this.formaTraslados.get('vigente')?.setValue(traslado.vigente);
+    this.formaTraslados.get('confirmado')?.setValue(traslado.confirmado);
+
+    this.formaTraslados.controls['confirmado'].enable();
     //this.regPdf = {...pdf};
     this.newTrasladoDialog = true;
   }

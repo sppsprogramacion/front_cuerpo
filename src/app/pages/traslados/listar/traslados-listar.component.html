@@ -1,0 +1,42 @@
+<p>traslados-listar works!</p>
+
+<!-- TABLA HISTORIAL DE TRASLADOS -->
+<table class="table table-responsive table-striped" style="width:'100%'">
+    <thead>
+        <tr>
+            <th style="width: 50px;">Edicion</th>
+            <th style="width: 100px;">Vigente</th>
+            <th style="width: 100px;">Confirmado</th>
+            <th style="width: 100px;">Id</th>
+            <th style="width: 100px;">Legajo</th>
+            <th style="width: 350px;">Destino</th>
+            <th style="width: 250px;">Instrumento</th>
+            <th style="width: 200px;">Fecha</th>
+            <th style="width: 100px;">Fojas</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let traslado of listaTraslado">
+            <th>
+                <!-- <a type="button" pButton pRipple icon="fas fa-edit" class="p-button-rounded p-button-info p-mr-2" (click)="editarTraslado(traslado)">
+                </a> -->
+
+                <a type="button" pButton pRipple icon="fas fa-edit" class="p-button-rounded p-button-info p-mr-2">
+                </a>
+
+            </th>
+            <th>{{(traslado.vigente==true)?'SI':'NO'}}</th>
+            <th>{{(traslado.confirmado==true)?'SI':'NO'}}</th>
+            <th>{{traslado.id_traslado}}</th>
+            <th>{{traslado.legajo}}</th>
+            <th>{{(traslado.destino != null)?traslado.destino.destino:"sin destino"}}</th>
+            <th>{{traslado.instrumento}}</th>
+            <th>{{traslado.fecha}}</th>
+            <th>{{traslado.fojas}}</th>
+
+
+        </tr>
+    </tbody>
+</table>
+<!-- FIN TABLA HISTORIAL DE TRASLADOS -->

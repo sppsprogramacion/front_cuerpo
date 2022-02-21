@@ -15,6 +15,8 @@ import { CarpetaListarComponent } from './reconocimiento-medico/listar/carpeta-l
 import { LicenciasAgregarComponent } from './licencias/agregar/licencias-agregar.component';
 import { LicenciasListarComponent } from './licencias/listar/licencias-listar.component';
 import { CarpetaAgregarComponent } from './reconocimiento-medico/agregar/carpeta-agregar.component';
+import { TrasladosAgregarComponent } from './traslados/agregar/traslados-agregar.component';
+import { TrasladosListarComponent } from './traslados/listar/traslados-listar.component';
 
 const routes: Routes = [
   {path:'dashboard', 
@@ -29,6 +31,10 @@ const routes: Routes = [
   
       //mantenimiento
       {path: 'usuarios', component: UsuariosComponent},
+
+      //traslados
+      {path: 'agregar-traslados',component: TrasladosAgregarComponent},
+      {path: 'listar-traslados', component: TrasladosListarComponent},
 
       //sanciones
       {path: 'agregar-sanciones',component: SancionesAgregarComponent},

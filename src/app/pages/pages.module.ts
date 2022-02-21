@@ -28,6 +28,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 // import pdfFonts from "pdfmake/build/vfs_fonts";
 import { LicenciasModule } from './licencias/licencias.module';
 import { ReconocimientoMedicoModule } from './reconocimiento-medico/reconocimiento-medico.module';
+import { TrasladoModel } from '../models/traslado.model';
+import { TrasladosModule } from './traslados/traslados.module';
 
 
 
@@ -44,7 +46,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
  @NgModule({
   declarations: [
      DashboardComponent,
-     PagesComponent,
+     PagesComponent
    ],
    exports: [
      DashboardComponent,
@@ -62,6 +64,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
      UsuariosModule,
      SancionesModule,
      LicenciasModule,
+     TrasladosModule,
      ReconocimientoMedicoModule,     
      HttpClientModule,
      ngPrimeModule,

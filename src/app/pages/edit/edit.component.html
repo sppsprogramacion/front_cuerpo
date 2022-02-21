@@ -912,6 +912,7 @@
                                                 <tr>
                                                     <th style="width: 50px;">Edicion</th>
                                                     <th style="width: 100px;">Vigente</th>
+                                                    <th style="width: 100px;">Confirmado</th>
                                                     <th style="width: 100px;">Id</th>
                                                     <th style="width: 100px;">Legajo</th>
                                                     <th style="width: 350px;">Destino</th>
@@ -929,6 +930,7 @@
 
                                                     </th>
                                                     <th>{{(traslado.vigente==true)?'SI':'NO'}}</th>
+                                                    <th>{{(traslado.confirmado==true)?'SI':'NO'}}</th>
                                                     <th>{{traslado.id_traslado}}</th>
                                                     <th>{{traslado.legajo}}</th>
                                                     <th>{{(traslado.destino != null)?traslado.destino.destino:"sin destino"}}</th>
@@ -1066,11 +1068,21 @@
 
                                                         <div class="row">
 
+
                                                             <div class="col-sm-6">
                                                                 <div class="icheck-primary">
-                                                                    <input type="checkbox" id="remember" formControlName="vigente" class="form-control" Disabled>
-                                                                    <label for="remember">
+                                                                    <input type="checkbox" id="vigente" formControlName="vigente" class="form-control" Disabled>
+                                                                    <label for="vigente">
                                                                         Vigente
+                                                                    </label>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="icheck-primary">
+                                                                    <input type="checkbox" id="confirmado" formControlName="confirmado" class="form-control">
+                                                                    <label for="confirmado">
+                                                                        Confirmado
                                                                     </label>
 
                                                                 </div>

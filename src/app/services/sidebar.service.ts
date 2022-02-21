@@ -16,6 +16,14 @@ export class SidebarService {
       ]
     },
     {
+      titulo: 'Traslados',
+      icono: 'fas fa-id-badge',
+      submenu:[
+        {titulo: 'Cargar', url: 'agregar-traslados'},
+        {titulo: 'Listar', url: 'listar-traslados'},
+      ]
+    },
+    {
       titulo: 'Sanciones',
       icono: 'fas fa-id-badge',
       submenu:[

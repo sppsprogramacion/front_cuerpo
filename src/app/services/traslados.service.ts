@@ -52,4 +52,18 @@ export class TrasladosService {
   }
   //FIN LISTA DE TRASLADOS X LEGAJO
 
+  //LISTA DE TRASLADOS X LEGAJO
+  getNuevosTodos() {
+    
+    try {
+      //const url = `${this.base_url}/traslado/legajo/${legajo}`;
+      //return await this.http.get(url);
+      return this.http.get<[traslados: any[],total:number]>(`${base_url}/traslado/nuevos/`)
+         
+    } catch (error:any) {
+      throw new Error(error.message)
+    }
+  }
+  //FIN LISTA DE TRASLADOS X LEGAJO
+
 }

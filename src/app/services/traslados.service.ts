@@ -58,7 +58,9 @@ export class TrasladosService {
     try {
       //const url = `${this.base_url}/traslado/legajo/${legajo}`;
       //return await this.http.get(url);
-      return this.http.get<[traslados: any[],total:number]>(`${base_url}/traslado/nuevos/`)
+      console.log("hola");
+      console.log("Traslados", this.http.get<[traslados: any[],total:number]>(`${base_url}/traslado/nuevos`));
+      return this.http.get<[traslados: any[],total:number]>(`${base_url}/traslado/nuevos`)
          
     } catch (error:any) {
       throw new Error(error.message)

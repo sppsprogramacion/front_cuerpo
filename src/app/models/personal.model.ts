@@ -1,3 +1,4 @@
+import { GradoModel } from './grado.model';
 
 
 export class Personal{

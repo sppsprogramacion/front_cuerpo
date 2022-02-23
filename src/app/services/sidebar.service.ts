@@ -17,7 +17,7 @@ export class SidebarService {
     },
     {
       titulo: 'Traslados',
-      icono: 'fas fa-id-badge',
+      icono: 'fas fa-running',
       submenu:[
         {titulo: 'Cargar', url: 'agregar-traslados'},
         {titulo: 'Listar', url: 'listar-traslados'},

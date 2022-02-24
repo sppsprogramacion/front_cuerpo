@@ -30,7 +30,7 @@ export class TrasladosListarComponent implements OnInit {
   //LISTADO DE TRASLADOS
   listarTraslados(){
     
-    this.trasladoService.getNuevosTodos().
+    this.trasladoService.getNuevosXDestino().
       subscribe(respuesta => {
         this.totalRecords = respuesta[1];
         this.listaTraslado = respuesta[0];

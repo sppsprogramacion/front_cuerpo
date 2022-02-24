@@ -65,7 +65,15 @@ export class SidebarService {
         // {titulo: 'Editar', url: 'edit'},
         {titulo: 'Listar', url: 'list'},
       ]
-    }   
+    },
+    {
+      titulo: 'Traslados',
+      icono: 'fas fa-running',
+      submenu:[
+        {titulo: 'Cargar', url: 'agregar-traslados'},
+        {titulo: 'Listar', url: 'listar-traslados'},
+      ]
+    },   
   ];
 
   menuSanciones: any [] = [

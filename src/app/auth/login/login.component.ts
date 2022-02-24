@@ -57,33 +57,33 @@ export class LoginComponent {
   //INICIO DE SESION
   login(){
     return this.loginService.login(this.loginForm.value)
-                                    .subscribe((respuesta) => {
-                                      this.extraerData(respuesta);
-                                      console.log("respuesta", respuesta);
-                                      Swal.fire({
-                                        title: "Logeo Exitoso",
-                                        text: "Ha ingresado a la Aplicación",
-                                        icon: 'success'                                     
-                                      });
-                                      
-                                      //este codigo modifica una variable global para que el guard permita el acceso
-                                      globalConstants.validado = true;
-                                      console.log('EL USUARIO QUE INGRESA TIENE ESTE ROL', globalConstants.rol_usuario);
-                                      
-                                      this.router.navigateByUrl('dashboard');
-                                      if(this.loginForm.get('recuerdame')?.value){
-                                        localStorage.setItem('email', this.loginForm.get('correo')?.value);
-                                      }else{
-                                        localStorage.removeItem('email');
-                                      }
-                                    }, err => {
-                                      Swal.fire({
-                                        title: 'Error Login!',
-                                        text: err.error.message,
-                                        icon: 'error'                                            
-                                      })
-                                      globalConstants.validado = false;
-                                    });
+      .subscribe((respuesta) => {
+        this.extraerData(respuesta);
+        console.log("respuesta", respuesta);
+        Swal.fire({
+          title: "Logeo Exitoso",
+          text: "Ha ingresado a la Aplicación",
+          icon: 'success'                                     
+        });
+        
+        //este codigo modifica una variable global para que el guard permita el acceso
+        globalConstants.validado = true;
+        console.log('EL USUARIO QUE INGRESA TIENE ESTE ROL', globalConstants.rol_usuario);
+        
+        this.router.navigateByUrl('dashboard');
+        if(this.loginForm.get('recuerdame')?.value){
+          localStorage.setItem('email', this.loginForm.get('correo')?.value);
+        }else{
+          localStorage.removeItem('email');
+        }
+      }, err => {
+        Swal.fire({
+          title: 'Error Login!',
+          text: err.error.message,
+          icon: 'error'                                            
+        })
+        globalConstants.validado = false;
+      }); 
   }
   //FIN INICIO DE SESION...................................................
 

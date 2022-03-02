@@ -1194,7 +1194,7 @@ export class EditComponent implements OnInit {
     //this.regPdf = {...pdf};
     this.newTrasladoDialog = true;
   }
-  //FIN ABRIR FORMULARIO EDITAR TRASLADO
+  //FIN ABRIR FORMULARIO EDITAR TRASLADO......................................
 
   //OCULTAR FORMULARIO TRASLADO
   ocultarDialogoTraslado(){
@@ -1202,7 +1202,7 @@ export class EditComponent implements OnInit {
     this.limpiarFormularioTraslado();
     this.newTrasladoDialog = false
   }  
-  //FIN OCULTAR FORMULARIO TRASLADO
+  //FIN OCULTAR FORMULARIO TRASLADO............................................
 
   //LIMPIAR FORMULARIO TRASLADO
   limpiarFormularioTraslado(){

@@ -22,7 +22,7 @@
             <th>
                 <!-- <a type="button" pButton pRipple icon="fas fa-edit" class="p-button-rounded p-button-info p-mr-2" (click)="confirmarTraslado(traslado.id_traslado)">
                 </a> -->
-                <button class="btn btn-info" (click)="confirmarTraslado(traslado.id_traslado)"><i class="fas fa-check-circle"></i></button>
+                <button class="btn btn-info" (click)="mostrarTraslado(traslado)"><i class="fas fa-check-circle"></i></button>
 
             </th>
             <th>{{(traslado.vigente==true)?'SI':'NO'}}</th>
@@ -41,3 +41,148 @@
     </tbody>
 </table>
 <!-- FIN TABLA HISTORIAL DE TRASLADOS -->
+
+<!-- DIALOG FORMULARIO TRASLADO -->
+<p-dialog [(visible)]="newTrasladoDialog" [style]="{width: '450px'}" header={{this.tituloFormTraslado}} [closable]="false" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <form [formGroup]="formaTraslados">
+            <div id="edicion-form-print">
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Id Traslado</label>
+                            <input formControlName="id_traslado" type="text" class="form-control" placeholder="id traslado" Disabled>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <input formControlName="grado_apellido_nombre" type="text" class="form-control" placeholder="id traslado" Disabled>
+
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+
+                    <div class="col-6" id="foto-personal">
+
+                        <img [src]="foto_nombre" class="product-image" alt="Product Image">
+
+                    </div>
+
+
+
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Legajo</label>
+                                    <input formControlName="legajo" type="text" class="form-control" placeholder="legajo" Disabled>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Dni</label>
+                                    <input formControlName="dni_personal" type="text" class="form-control" placeholder="dni personal" Disabled>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="row">
+
+                    <div class="col-sm-12">
+                        <!-- select -->
+                        <div class="form-group">
+                            <label>Destino</label>
+
+                            <input formControlName="destino" type="text" class="form-control" placeholder="destino" Disabled>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Instrumento</label>
+                            <input formControlName="instrumento" type="text" class="form-control" placeholder="instrumento">
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Fecha</label>
+                            <input formControlName="fecha" type="text" class="form-control" placeholder="fecha">
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Fojas</label>
+                            <input formControlName="fojas" type="text" class="form-control" placeholder="fojas">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="icheck-primary">
+                            <input type="checkbox" id="vigente" formControlName="vigente" class="form-control" Disabled>
+                            <label for="vigente">
+                                Vigente
+                            </label>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="icheck-primary">
+                            <input type="checkbox" id="confirmado" formControlName="confirmado" class="form-control">
+                            <label for="confirmado">
+                                Confirmado
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <div class="row">
+            <div class="col-8">
+                <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="confirmarTraslado()">Confirmar Traslado</button>
+            </div>
+
+            <div class="col-4">
+                <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="ocultarDialogoTraslado()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+</p-dialog>
+<!-- FIN DIALOG FORMULARIO TRASLADO -->

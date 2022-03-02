@@ -30,6 +30,7 @@ import { LicenciasModule } from './licencias/licencias.module';
 import { ReconocimientoMedicoModule } from './reconocimiento-medico/reconocimiento-medico.module';
 import { TrasladoModel } from '../models/traslado.model';
 import { TrasladosModule } from './traslados/traslados.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 

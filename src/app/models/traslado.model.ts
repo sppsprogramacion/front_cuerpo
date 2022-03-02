@@ -7,7 +7,7 @@ export class TrasladoModel{
         public id_traslado?: number,
         public dni_personal?: number,
         public legajo?: number,
-        public personal?: string,
+        public personal?: Personal,
         public destino_id?: number,
         public destino?: DestinoModel,
         public fecha?: Date,

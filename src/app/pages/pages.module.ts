@@ -31,6 +31,7 @@ import { ReconocimientoMedicoModule } from './reconocimiento-medico/reconocimien
 import { TrasladoModel } from '../models/traslado.model';
 import { TrasladosModule } from './traslados/traslados.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 
 
@@ -53,7 +54,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
      DashboardComponent,
      PagesComponent,
      ngPrimeModule,
-     PipesModule
+     PipesModule,
+     ProgressSpinnerModule
       ],
    imports: [
      CommonModule,
@@ -71,7 +73,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
      ngPrimeModule,
      PipesModule,
      FullCalendarModule,
-     NgxChartsModule
+     NgxChartsModule,
+     ProgressSpinnerModule
    ]
  })
 export class PagesModule { }

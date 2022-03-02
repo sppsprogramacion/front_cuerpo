@@ -1,4 +1,180 @@
-<p>traslados-listar works!</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Tabla de Traslados</h3>
+            </div>
+            <div class="card-body">
+                <div class="card">
+
+                    <div *ngIf="cargando" class="card text-center">
+                        <p-progressSpinner [style]="{width: '25%', height: '25%'}" strokeWidth="5"></p-progressSpinner>
+                    </div>
+
+                    <div *ngIf="!cargando" class="card">
+                        <!-- <p-table #dt id="personal-table" [value]="listaTraslado" [style]="{width:'100%'}" [columns]="colsTablaPersonalExport" [exportFilename]="nombre_archivo" selectionMode="multiple" [(selection)]="selectedPersonal" dataKey="id_personal" [rowHover]="true" [rows]="5"
+                            [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50]" [loading]="loading" [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']"
+                            [scrollable]="true" scrollHeight="100%" [responsive]="false"> -->
+                        <p-table #dt id="traslado-table" [value]="listaTraslado" [style]="{width:'100%'}" [columns]="colsTablaPersonalExport" selectionMode="multiple" dataKey="id_personal" [rowHover]="true" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50]"
+                            [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']" [scrollable]="true" scrollHeight="100%"
+                            [responsive]="false">
+
+                            <ng-template pTemplate="caption">
+                                <!-- <div class="p-d-flex">
+
+                                    <button pButton type="button" label="Decargar en Excel" class="p-button-success" icon="pi pi-file-excel" iconPos="left" (click)="exportExcel()"></button>
+
+                                </div> -->
+                                <div class="table-header mt-4">
+                                    Listado de Traslados
+
+                                    <!-- <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
+            </span> -->
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="colgroup" let-columns>
+                                <colgroup>
+                                    <col style="width:70px">
+                                    <col style="width:40px">
+                                    <col style="width:100px">
+                                    <col style="width:100px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+                                    <col style="width:150px">
+
+                                </colgroup>
+                            </ng-template>
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th></th>
+                                    <th style="width: 3rem">
+                                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                    </th>
+
+                                    <th>
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Vigente
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Conf.
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="grado.grado">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Grado
+                                            <!-- <p-sortIcon field="grado.grado"></p-sortIcon> -->
+                                            <p-columnFilter field="personal.grado.grado" matchMode="equals" display="menu" class="p-ml-auto">
+                                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                                    <p-dropdown ngModel="value" [options]="grados" (onChange)="filter($event.value)" placeholder="Any">
+                                                        <ng-template let-option pTemplate="item">
+                                                            <img [alt]="option.label" src="../../../assets/img/grados/{{option.img_name}}.gif" width="32" style="vertical-align: middle" />
+                                                            <span [class]="'customer-badge status-' + option.value"> {{option.label}}</span>
+                                                        </ng-template>
+                                                    </p-dropdown>
+                                                </ng-template>
+                                            </p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="grado_apellido_nombre">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Personal
+                                            <p-sortIcon field="apellido_1"></p-sortIcon>
+                                            <p-columnFilter type="text" field="apellido_1" display="menu" class="p-ml-auto"></p-columnFilter>
+                                        </div>
+                                    </th>
+
+
+
+                                    <th pSortableColumn="legajo">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Legajo
+                                            <p-sortIcon field="legajo"></p-sortIcon>
+                                            <p-columnFilter type="text" field="legajo" display="menu" class="p-ml-auto"></p-columnFilter>
+                                        </div>
+                                    </th>
+
+                                    <th pSortableColumn="destino.destino">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Destino
+                                            <p-sortIcon field="destino.destino"></p-sortIcon>
+                                            <p-columnFilter field="destino.destino" matchMode="equals" display="menu" class="p-ml-auto">
+                                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                                    <p-dropdown ngModel="value" [options]="destinos" (onChange)="filter($event.value)" placeholder="Any">
+                                                        <ng-template let-option pTemplate="item">
+                                                            <span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
+                                                        </ng-template>
+                                                    </p-dropdown>
+                                                </ng-template>
+                                            </p-columnFilter>
+                                        </div>
+                                    </th>
+
+                                    <th pSortableColumn="domicilio">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Instrumento
+                                            <p-sortIcon field="domicilio.domicilio"></p-sortIcon>
+                                            <p-columnFilter type="text" field="domicilio.domicilio" display="menu" class="p-ml-auto"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="provincia.provincia">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Fecha
+                                            <p-sortIcon field="provincia.provincia"></p-sortIcon>
+                                            <p-columnFilter type="text" field="provincia.provincia" display="menu" class="p-ml-auto"></p-columnFilter>
+                                        </div>
+                                    </th>
+
+
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-traslado>
+                                <tr class="p-selectable-row">
+                                    <td>
+                                        <button class="btn btn-info" (click)="mostrarTraslado(traslado)"><i class="fas fa-check-circle"></i></button>
+
+                                    </td>
+                                    <td>
+                                        <p-tableCheckbox [value]="traslado"></p-tableCheckbox>
+                                    </td>
+
+
+                                    <td>{{(traslado.vigente==true)?'SI':'NO'}}</td>
+                                    <td>{{(traslado.confirmado==true)?'SI':'NO'}}</td>
+                                    <td>{{traslado.personal.grado.grado}}</td>
+                                    <td>{{traslado.personal.apellido_1}} {{traslado.personal.nombre_1}}</td>
+
+
+                                    <td>{{traslado.legajo}}</td>
+                                    <td>{{(traslado.destino != null)?traslado.destino.destino:"sin destino"}}</td>
+
+                                    <td>{{traslado.instrumento}}</td>
+                                    <td>{{traslado.fecha}}</td>
+
+
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="8">No customers found.</td>
+                                </tr>
+                            </ng-template>
+
+
+                        </p-table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- TABLA HISTORIAL DE TRASLADOS -->
 <table class="table table-responsive table-striped" style="width:'100%'">

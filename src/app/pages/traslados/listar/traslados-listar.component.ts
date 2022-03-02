@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { destinos, grados } from 'src/app/common/data-mockeada';
 import { TrasladoModel } from 'src/app/models/traslado.model';
 import { PersonalService } from 'src/app/services/personal.service';
 import { TrasladosService } from 'src/app/services/traslados.service';
@@ -13,10 +14,15 @@ import { Personal } from '../../../models/personal.model';
   ]
 })
 export class TrasladosListarComponent implements OnInit {
+  cargando: boolean = true;
+  loading: boolean = true;
+  colsTablaPersonalExport: any[]=[]; //array de columnas de la tabla
 
-  formaTraslados: FormGroup;
+  grados: {label: string, value: string,img_name: string}[]=[];
+  destinos: {label: string, value: string}[]=[];
   nombreCompleto: string="";
   foto_nombre: string = 'no-image.png';
+  formaTraslados: FormGroup;
 
   //variables de manejo de traslado
   dataTraslado: TrasladoModel= new TrasladoModel;
@@ -52,6 +58,35 @@ export class TrasladosListarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //inicializacion de cabeceras de columnas
+    this.colsTablaPersonalExport = [      
+      { field: 'id_traslado', header: 'Id' },
+      { field: 'grado_apellido_nombre', header: 'Personal' },
+      { field: 'apellido_1', header: 'Primer Apellido' },
+      { field: 'nombre_1', header: 'Primer Nombre' },
+      { field: 'nombre_2', header: 'Segundo Nombre' },
+      { field: 'nombre_3', header: 'Tercer Nombre' },
+      { field: 'grado.grado', header: 'Grado' },
+      { field: 'legajo', header: 'Legajo' },      
+      { field: 'destino.destino', header: 'Destino' },      
+      { field: 'vigente', header: 'vigente' },
+      { field: 'confirmado', header: 'Conf.' },
+      { field: 'instrumento', header: 'Instrumento' },
+      { field: 'fecha', header: 'Fecha' }
+    ];
+    //FIN inicializacion de cabeceras de columnas
+    this.grados = grados.map(respuesta => {
+      return {
+        label: respuesta.grado.toLowerCase(),
+        value: respuesta.grado,
+        img_name: respuesta.grado.replace(' ','_')
+        }
+    });
+    this.destinos = destinos.map(respuesta => {
+        return {
+          label: respuesta.destino.toLowerCase(),
+          value: respuesta.destino } 
+        });
   }
 
   //LISTADO DE TRASLADOS
@@ -61,6 +96,8 @@ export class TrasladosListarComponent implements OnInit {
       subscribe(respuesta => {
         this.totalRecords = respuesta[1];
         this.listaTraslado = respuesta[0];
+        this.cargando = false;
+        
     
       });
   }

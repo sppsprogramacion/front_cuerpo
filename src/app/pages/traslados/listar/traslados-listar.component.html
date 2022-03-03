@@ -1,5 +1,76 @@
 <div class="row">
     <div class="col-12">
+        <!-- FORMULARIO BUSQUEDA-->
+        <div class="card card-warning">
+            <div class="card-header">
+                <h3 class="card-title">Buscar Personal</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <form [formGroup]="formaBuscar">
+                    <div id="edicion-form-print">
+
+                        <div class="row">
+
+                            <div class="col-6">
+                                <!-- select -->
+                                <div class="form-group">
+                                    <label>Destino</label>
+
+                                    <input formControlName="destino" type="text" class="form-control" placeholder="destino" Disabled>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label>Instrumento</label>
+                                    <input formControlName="instrumento" type="text" class="form-control" placeholder="instrumento">
+
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label>Fecha</label>
+                                    <input formControlName="fecha" type="text" class="form-control" placeholder="fecha">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label>Fojas</label>
+                                    <input formControlName="fojas" type="text" class="form-control" placeholder="fojas">
+
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label>Dni</label>
+                                    <input formControlName="dni_personal" type="text" class="form-control" placeholder="dni personal" Disabled>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+        <!-- FORMULARIO BUSQUEDA-->
+
+        <!-- TABLA TRASLADOS-->
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Tabla de Traslados</h3>
@@ -82,11 +153,11 @@
                                             </p-columnFilter>
                                         </div>
                                     </th>
-                                    <th pSortableColumn="grado_apellido_nombre">
+                                    <th pSortableColumn="personal.apellido_1">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Personal
-                                            <p-sortIcon field="apellido_1"></p-sortIcon>
-                                            <p-columnFilter type="text" field="apellido_1" display="menu" class="p-ml-auto"></p-columnFilter>
+                                            <p-sortIcon field="personal.apellido_1"></p-sortIcon>
+                                            <p-columnFilter type="text" field="personal.apellido_1" display="menu" class="p-ml-auto"></p-columnFilter>
                                         </div>
                                     </th>
 
@@ -173,50 +244,10 @@
                 </div>
             </div>
         </div>
+        <!-- FIN TABLA TRASLADOS-->
     </div>
 </div>
 
-<!-- TABLA HISTORIAL DE TRASLADOS -->
-<table class="table table-responsive table-striped" style="width:'100%'">
-    <thead>
-        <tr>
-            <th style="width: 50px;">Ver</th>
-            <th style="width: 100px;">Vigente</th>
-            <th style="width: 100px;">Confirmado</th>
-            <th style="width: 100px;">Grado</th>
-            <th style="width: 300px;">Apellido y Nombre</th>
-            <th style="width: 100px;">Legajo</th>
-            <th style="width: 350px;">Destino</th>
-            <th style="width: 250px;">Instrumento</th>
-            <th style="width: 200px;">Fecha</th>
-
-
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let traslado of listaTraslado">
-            <th>
-                <!-- <a type="button" pButton pRipple icon="fas fa-edit" class="p-button-rounded p-button-info p-mr-2" (click)="confirmarTraslado(traslado.id_traslado)">
-                </a> -->
-                <button class="btn btn-info" (click)="mostrarTraslado(traslado)"><i class="fas fa-check-circle"></i></button>
-
-            </th>
-            <th>{{(traslado.vigente==true)?'SI':'NO'}}</th>
-            <th>{{(traslado.confirmado==true)?'SI':'NO'}}</th>
-            <th>{{traslado.personal.grado.grado}}</th>
-            <th>{{traslado.personal.apellido_1}} {{traslado.personal.nombre_1}}</th>
-            <th>{{traslado.legajo}}</th>
-            <th>{{(traslado.destino != null)?traslado.destino.destino:"sin destino"}}</th>
-
-            <th>{{traslado.instrumento}}</th>
-            <th>{{traslado.fecha}}</th>
-
-
-
-        </tr>
-    </tbody>
-</table>
-<!-- FIN TABLA HISTORIAL DE TRASLADOS -->
 
 <!-- DIALOG FORMULARIO TRASLADO -->
 <p-dialog [(visible)]="newTrasladoDialog" [style]="{width: '450px'}" header={{this.tituloFormTraslado}} [closable]="false" [modal]="true" styleClass="p-fluid">
@@ -248,8 +279,6 @@
 
                     </div>
 
-
-
                     <div class="col-sm-6">
                         <div class="row">
                             <div class="col-12">
@@ -271,13 +300,8 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
-
                 </div>
-
-
 
                 <div class="row">
 

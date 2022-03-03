@@ -23,6 +23,7 @@ export class TrasladosListarComponent implements OnInit {
   nombreCompleto: string="";
   foto_nombre: string = 'no-image.png';
   formaTraslados: FormGroup;
+  formaBuscar: FormGroup;
 
   //variables de manejo de traslado
   dataTraslado: TrasladoModel= new TrasladoModel;
@@ -46,11 +47,23 @@ export class TrasladosListarComponent implements OnInit {
       dni_personal: [,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1000000), Validators.max(99000000)]],
       legajo: [,[Validators.required,,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
       destino: [,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      destino_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       fecha: [,[Validators.required]],
       instrumento: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
       fojas: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       vigente: [true, [Validators.required]],
       confirmado: [false, [Validators.required]]
+    });
+    //FIN FORMULARIO TRASLADO
+
+    //FORMULARIO TRASLADO    
+    this.formaBuscar = this.fb.group({      
+      dni_personal: [,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1000000), Validators.max(99000000)]],
+      destino_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      fecha: [,[Validators.required]],
+      instrumento: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+      fojas: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]]
+      
     });
     //FIN FORMULARIO TRASLADO
 
@@ -96,12 +109,19 @@ export class TrasladosListarComponent implements OnInit {
       subscribe(respuesta => {
         this.totalRecords = respuesta[1];
         this.listaTraslado = respuesta[0];
-        this.cargando = false;
-        
+        this.cargando = false;       
     
       });
   }
   //FIN LISTADO DE TRASLADOS
+
+  //ABRIR FORMULARIO NUEVO TRASLADO
+  crearTraslado(){
+    this.tituloFormTraslado="Nuevo Registro de Traslado"
+    this.formaTraslados.controls['confirmado'].disable();
+    this.newTrasladoDialog = true;
+  }
+  //FIN ABRIR FORMULARIO NUEVO TRASLADO
 
   //CONFIRMAR TRASLADO
   confirmarTraslado(){
@@ -124,10 +144,9 @@ export class TrasladosListarComponent implements OnInit {
     //FIN ACTUALIZAR TRASLADO
 
   }
-
   //FIN CONFIRMAR TRASLADO................................................
 
-  //ABRIR FORMULARIO NUEVO TRASLADO
+  //ABRIR FORMULARIO MOSTRAR TRASLADO
   mostrarTraslado(traslado: TrasladoModel){
     this.nombreCompletoPersonal(traslado.personal!);
     this.tituloFormTraslado="Confirmar Traslado"
@@ -155,7 +174,7 @@ export class TrasladosListarComponent implements OnInit {
 
     this.newTrasladoDialog = true;
   }
-  //FIN ABRIR FORMULARIO NUEVO TRASLADO....................................
+  //FIN ABRIR FORMULARIO MOSTRAR TRASLADO....................................
 
   //OCULTAR FORMULARIO TRASLADO
   ocultarDialogoTraslado(){

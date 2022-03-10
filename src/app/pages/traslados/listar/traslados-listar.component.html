@@ -82,7 +82,13 @@
                         <p-progressSpinner [style]="{width: '25%', height: '25%'}" strokeWidth="5"></p-progressSpinner>
                     </div>
 
-                    <div *ngIf="!cargando" class="card">
+                    <div class="p-d-flex">
+
+                        <button pButton type="button" label="Nuevo Traslado" class="p-button-success" icon="" iconPos="left" (click)="crearTraslado()"></button>
+
+                    </div>
+
+                    <div *ngIf="!cargando" class="card mt-2">
                         <!-- <p-table #dt id="personal-table" [value]="listaTraslado" [style]="{width:'100%'}" [columns]="colsTablaPersonalExport" [exportFilename]="nombre_archivo" selectionMode="multiple" [(selection)]="selectedPersonal" dataKey="id_personal" [rowHover]="true" [rows]="5"
                             [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50]" [loading]="loading" [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']"
                             [scrollable]="true" scrollHeight="100%" [responsive]="false"> -->
@@ -90,21 +96,19 @@
                             [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']" [scrollable]="true" scrollHeight="100%"
                             [responsive]="false">
 
-                            <ng-template pTemplate="caption">
-                                <!-- <div class="p-d-flex">
+                            <!-- <ng-template pTemplate="caption">
+                                <div class="p-d-flex">
 
                                     <button pButton type="button" label="Decargar en Excel" class="p-button-success" icon="pi pi-file-excel" iconPos="left" (click)="exportExcel()"></button>
 
                                 </div> -->
-                                <div class="table-header mt-4">
+
+                            <!-- <div class="table-header mt-4">
                                     Listado de Traslados
 
-                                    <!-- <span class="p-input-icon-left">
-                <i class="pi pi-search"></i>
-                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
-            </span> -->
+                                    
                                 </div>
-                            </ng-template>
+                            </ng-template> -->
                             <ng-template pTemplate="colgroup" let-columns>
                                 <colgroup>
                                     <col style="width:70px">
@@ -265,45 +269,6 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12">
-                        <input formControlName="grado_apellido_nombre" type="text" class="form-control" placeholder="id traslado" Disabled>
-
-                    </div>
-                </div>
-
-                <div class="row mt-2">
-
-                    <div class="col-6" id="foto-personal">
-
-                        <img [src]="foto_nombre" class="product-image" alt="Product Image">
-
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label>Legajo</label>
-                                    <input formControlName="legajo" type="text" class="form-control" placeholder="legajo" Disabled>
-
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label>Dni</label>
-                                    <input formControlName="dni_personal" type="text" class="form-control" placeholder="dni personal" Disabled>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
 
                     <div class="col-sm-12">
                         <!-- select -->
@@ -347,6 +312,46 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <input formControlName="grado_apellido_nombre" type="text" class="form-control" placeholder="personal" Disabled>
+
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+
+                    <div class="col-6" id="foto-personal">
+
+                        <img [src]="foto_nombre" class="product-image" alt="Product Image">
+
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Legajo</label>
+                                    <input formControlName="legajo" type="text" class="form-control" placeholder="legajo" Disabled>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Dni</label>
+                                    <input formControlName="dni_personal" type="text" class="form-control" placeholder="dni personal" Disabled>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
                 <div class="row">
                     <div class="col-sm-6">

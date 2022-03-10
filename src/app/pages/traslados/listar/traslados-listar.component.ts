@@ -161,7 +161,8 @@ export class TrasladosListarComponent implements OnInit {
     this.formaTraslados.get('vigente')?.setValue(traslado.vigente);
     this.formaTraslados.get('confirmado')?.setValue(traslado.confirmado);
     this.formaTraslados.controls['confirmado'].disable();
-    console.log("foto", traslado.personal?.foto);   
+    console.log("foto", traslado.personal?.foto);
+       
     if(traslado.personal?.foto){
       if(traslado.personal.foto.toString() != "no-image.png"){
         this.foto_nombre = traslado.personal.foto.toString();

@@ -283,18 +283,13 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-6">
                         <div class="form-group">
                             <label>Instrumento</label>
                             <input formControlName="instrumento" type="text" class="form-control" placeholder="instrumento">
 
                         </div>
                     </div>
-                </div>
-
-
-
-                <div class="row">
 
                     <div class="col-sm-6">
                         <div class="form-group">
@@ -304,6 +299,12 @@
                         </div>
                     </div>
 
+                </div>
+
+
+
+                <div class="row">
+
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Fojas</label>
@@ -311,6 +312,19 @@
 
                         </div>
                     </div>
+
+
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-sm-12">
+
+                        <button style="width: 100%; text-align: center;" class="btn btn-primary" (click)="buscarPersonalXDni()">Buscar personal</button>
+
+                    </div>
+
                 </div>
 
                 <div class="row mt-2">
@@ -344,7 +358,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Dni</label>
-                                    <input formControlName="dni_personal" type="text" class="form-control" placeholder="dni personal" Disabled>
+                                    <input formControlName="dni_personal" type="text" class="form-control" placeholder="dni personal">
 
                                 </div>
                             </div>

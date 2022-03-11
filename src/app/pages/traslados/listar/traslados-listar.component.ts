@@ -25,6 +25,9 @@ export class TrasladosListarComponent implements OnInit {
   formaTraslados: FormGroup;
   formaBuscar: FormGroup;
 
+  //variables manejo personal
+  dataPersonal: Personal= new Personal();
+
   //variables de manejo de traslado
   dataTraslado: TrasladoModel= new TrasladoModel;
   tituloFormTraslado:string = "";
@@ -118,6 +121,7 @@ export class TrasladosListarComponent implements OnInit {
   //ABRIR FORMULARIO NUEVO TRASLADO
   crearTraslado(){
     this.tituloFormTraslado="Nuevo Registro de Traslado"
+    this.limpiarFormularioTraslado();
     this.formaTraslados.controls['confirmado'].disable();
     this.newTrasladoDialog = true;
   }
@@ -194,6 +198,7 @@ export class TrasladosListarComponent implements OnInit {
     this.formaTraslados.get('instrumento')?.setValue(""); 
     this.formaTraslados.get('fecha')?.setValue(""); 
     this.formaTraslados.get('fojas')?.setValue(""); 
+    this.foto_nombre = "./assets/img/no-image.jpg";
     this.formaTraslados.get('vigente')?.setValue("");
     this.formaTraslados.get('confirmado')?.setValue("");
     this.formaTraslados.controls['confirmado'].disable();
@@ -213,5 +218,42 @@ export class TrasladosListarComponent implements OnInit {
     //this.nombreCompleto = this.nombreCompleto.toUpperCase();
   }
   //FIN ESTABLECER NOMBRE COMPLETO DEL PERSONAL...........................................................
+
+  //buscar personal
+  buscarPersonalXDni(){
+    let dni: number = parseInt(this.formaTraslados.get('dni_personal')?.value);
+    this.personalService.buscarPersonalXDni(dni)
+      .subscribe(
+        personal => {
+          this.dataPersonal = personal;
+          console.log("dni", dni);
+
+
+          this.nombreCompletoPersonal(this.dataPersonal!);
+          this.formaTraslados.get('grado_apellido_nombre')?.setValue(this.nombreCompleto);
+          console.log("apellido", personal);
+          //actualizacion de foto
+          if(this.dataPersonal.foto){
+            if(this.dataPersonal.foto?.toString() != "no-image.png"){
+              this.foto_nombre = this.dataPersonal.foto?.toString();
+            }
+            else{
+              this.foto_nombre = "./assets/img/no-image.jpg";
+            }     
+      
+          }
+          
+          //cambiar formato de fechas para mostrar
+          // this.formatoFechasMostrar();
+          // this.nombreCompletoPersonal();
+          // this.actualizarCamposFormulario();
+          // Swal.fire('Exito',`Datos actualizados en el formulario`,"success");
+          
+        }
+      )
+
+      console.log("fallo", "no encontrado");
+  }
+  //fin buscar personal.......................................................
 
 }

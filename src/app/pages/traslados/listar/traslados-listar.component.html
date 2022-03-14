@@ -7,64 +7,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <form [formGroup]="formaBuscar">
-                    <div id="edicion-form-print">
 
-                        <div class="row">
-
-                            <div class="col-6">
-                                <!-- select -->
-                                <div class="form-group">
-                                    <label>Destino</label>
-
-                                    <input formControlName="destino" type="text" class="form-control" placeholder="destino" Disabled>
-
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <label>Instrumento</label>
-                                    <input formControlName="instrumento" type="text" class="form-control" placeholder="instrumento">
-
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <label>Fecha</label>
-                                    <input formControlName="fecha" type="text" class="form-control" placeholder="fecha">
-
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <label>Fojas</label>
-                                    <input formControlName="fojas" type="text" class="form-control" placeholder="fojas">
-
-                                </div>
-                            </div>
-
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <label>Dni</label>
-                                    <input formControlName="dni_personal" type="text" class="form-control" placeholder="dni personal" Disabled>
-
-                                </div>
-                            </div>
-
-                        </div>
-
-
-
-                    </div>
-
-                </form>
 
             </div>
         </div>
@@ -77,16 +20,16 @@
             </div>
             <div class="card-body">
                 <div class="card">
+                    <div class="p-d-flex">
+                        <button pButton type="button" label="Nuevo Traslado" class="p-button-success" icon="" iconPos="left" (click)="crearTraslado()"></button>
+
+                    </div>
 
                     <div *ngIf="cargando" class="card text-center">
                         <p-progressSpinner [style]="{width: '25%', height: '25%'}" strokeWidth="5"></p-progressSpinner>
                     </div>
 
-                    <div class="p-d-flex">
 
-                        <button pButton type="button" label="Nuevo Traslado" class="p-button-success" icon="" iconPos="left" (click)="crearTraslado()"></button>
-
-                    </div>
 
                     <div *ngIf="!cargando" class="card mt-2">
                         <!-- <p-table #dt id="personal-table" [value]="listaTraslado" [style]="{width:'100%'}" [columns]="colsTablaPersonalExport" [exportFilename]="nombre_archivo" selectionMode="multiple" [(selection)]="selectedPersonal" dataKey="id_personal" [rowHover]="true" [rows]="5"
@@ -257,137 +200,155 @@
 <p-dialog [(visible)]="newTrasladoDialog" [style]="{width: '450px'}" header={{this.tituloFormTraslado}} [closable]="false" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <form [formGroup]="formaTraslados">
-            <div id="edicion-form-print">
 
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Id Traslado</label>
-                            <input formControlName="id_traslado" type="text" class="form-control" placeholder="id traslado" Disabled>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-
-                    <div class="col-sm-12">
-                        <!-- select -->
-                        <div class="form-group">
-                            <label>Destino</label>
-
-                            <input formControlName="destino" type="text" class="form-control" placeholder="destino" Disabled>
-
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="row">
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label>Instrumento</label>
-                            <input formControlName="instrumento" type="text" class="form-control" placeholder="instrumento">
-
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Fecha</label>
-                            <input formControlName="fecha" type="text" class="form-control" placeholder="fecha">
-
-                        </div>
-                    </div>
-
-                </div>
-
-
-
-                <div class="row">
-
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Fojas</label>
-                            <input formControlName="fojas" type="text" class="form-control" placeholder="fojas">
-
-                        </div>
-                    </div>
-
-
-
-                </div>
-
-                <div class="row">
-
-                    <div class="col-sm-12">
-
-                        <button style="width: 100%; text-align: center;" class="btn btn-primary" (click)="buscarPersonalXDni()">Buscar personal</button>
-
-                    </div>
-
-                </div>
-
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <input formControlName="grado_apellido_nombre" type="text" class="form-control" placeholder="personal" Disabled>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Id Traslado</label>
+                        <input formControlName="id_traslado" type="text" placeholder="id traslado" Disabled>
 
                     </div>
                 </div>
+            </div>
 
-                <div class="row mt-2">
+            <div class="row">
 
-                    <div class="col-6" id="foto-personal">
+                <div class="col-sm-12">
+                    <!-- select -->
+                    <div class="form-group">
+                        <label>Destino</label>
+                        <!-- <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChangeDestino()">  -->
+                        <select formControlName="destino_id" class="form-control" style="width: 100%;"> 
+                                <option *ngFor="let destino of destinos_drop" [value]="destino.id_destino" >{{destino.destino}}</option>
+                        </select>
 
-                        <img [src]="foto_nombre" class="product-image" alt="Product Image">
-
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label>Legajo</label>
-                                    <input formControlName="legajo" type="text" class="form-control" placeholder="legajo" Disabled>
-
+                        <!-- <small *ngIf="destinoTrasNoValido" class="form-text text-danger">
+                            <div *ngFor="let validation of traslado_validation_messages.destino_id" >
+                                <div  *ngIf="formaTraslados.get('destino_id')?.hasError(validation.type)">
+                                    {{validation.message}}
                                 </div>
                             </div>
+                        </small> -->
 
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label>Dni</label>
-                                    <input formControlName="dni_personal" type="text" class="form-control" placeholder="dni personal">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="icheck-primary">
-                            <input type="checkbox" id="vigente" formControlName="vigente" class="form-control" Disabled>
-                            <label for="vigente">
-                                Vigente
-                            </label>
-
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="icheck-primary">
-                            <input type="checkbox" id="confirmado" formControlName="confirmado" class="form-control">
-                            <label for="confirmado">
-                                Confirmado
-                            </label>
-                        </div>
+                        <!-- <p-dropdown class="form-control" [options]="destinos" formControlName="destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown> -->
                     </div>
                 </div>
 
             </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>Instrumento</label>
+                        <input formControlName="instrumento" type="text" placeholder="instrumento">
+
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Fecha</label>
+                        <input formControlName="fecha" type="text" placeholder="fecha">
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Fojas</label>
+                        <input formControlName="fojas" type="text" placeholder="fojas">
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <div class="row mt-2" *ngIf="nuevoTraslado">
+                <div class="col-6">
+                    <div class="form-group">
+                        <input formControlName="dni_buscar" type="text" class="form-control" placeholder="dni buscado">
+
+                    </div>
+                </div>
+
+                <div class="col-6">
+
+                    <button style="width: 100%; text-align: center;" class="btn btn-primary" (click)="buscarPersonalXDni()">Buscar personal</button>
+
+                </div>
+
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-12">
+                    <input formControlName="grado_apellido_nombre" type="text" placeholder="personal" style="width: 100%;" Disabled>
+
+                </div>
+            </div>
+
+            <div class="row mt-2">
+
+                <div class="col-6" id="foto-personal">
+
+                    <img [src]="foto_nombre" class="product-image" alt="Product Image">
+
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>Legajo</label>
+                                <input formControlName="legajo" type="text" placeholder="legajo" Disabled>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>Dni</label>
+                                <input formControlName="dni_personal" type="text" placeholder="dni personal">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="icheck-primary">
+                        <input type="checkbox" id="vigente" formControlName="vigente" Disabled>
+                        <label for="vigente">
+                                Vigente
+                            </label>
+
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="icheck-primary">
+                        <input type="checkbox" id="confirmado" formControlName="confirmado">
+                        <label for="confirmado">
+                                Confirmado
+                            </label>
+                    </div>
+                </div>
+            </div>
+
+
+
 
         </form>
     </ng-template>

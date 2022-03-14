@@ -1088,8 +1088,8 @@ export class EditComponent implements OnInit {
     }
 
     let data: TrasladoModel;
-     //crear la data
-      this.submitForm('cambioDestino');
+     //poner destino en el personal y sin funcion 
+      //this.submitForm('cambioDestino');
 
       data = {
 
@@ -1107,33 +1107,49 @@ export class EditComponent implements OnInit {
         //CREANDO NUEVO TRASLADO
 
         //EDICION DE CAMPO VIGENTE COMO FALSO EN TODOS LOS REGISTROS DE TRASLADO DE PERSONAL
-        let dataVigente: TrasladoModel;
-        dataVigente={
-          vigente: false
-        }
-        this.trasladoService.quitarTrasladoVigente(parseInt(this.formaTraslados.get('legajo')?.value))
-        .subscribe(resultado => {          
+        // let dataVigente: TrasladoModel;
+        // dataVigente={
+        //   vigente: false
+        // }
+        // this.trasladoService.quitarTrasladoVigente(parseInt(this.formaTraslados.get('legajo')?.value))
+        // .subscribe(resultado => {          
             
-            //GUARDAR NUEVO TRASLADO
-            this.trasladoService.guardarTraslado(data)
-              .subscribe(resultado => {
+        //     //GUARDAR NUEVO TRASLADO
+        //     this.trasladoService.guardarTraslado(data)
+        //       .subscribe(resultado => {
                 
-                Swal.fire('Nuevo traslado',`El Traslado ha sido guardado con exito`,"success");
-                this.listarTraslados();
-                this.ocultarDialogoTraslado();
+        //         Swal.fire('Nuevo traslado',`El Traslado ha sido guardado con exito`,"success");
+        //         this.listarTraslados();
+        //         this.ocultarDialogoTraslado();
                   
-              },
-              error => {
+        //       },
+        //       error => {
                   
-                  Swal.fire('Nuevo traslado',`Error al guardar el Traslado: ${error.error.message}`,"error")                          
-              });
-            //FIN GUARDAR NUEVO TRASLADO           
+        //           Swal.fire('Nuevo traslado',`Error al guardar el Traslado: ${error.error.message}`,"error")                          
+        //       });
+        //     //FIN GUARDAR NUEVO TRASLADO           
+            
+        // },
+        // error => {
+            
+        //     Swal.fire('Quitar Traslado',`Error al quitar el ultimo traslado: ${error.error.message}`,"error");                          
+        // });
+
+        //GUARDAR NUEVO TRASLADO
+        this.trasladoService.guardarTraslado(data)
+        .subscribe(resultado => {
+          
+          Swal.fire('Nuevo traslado',`El Traslado ha sido guardado con exito`,"success");
+          this.buscarPersonal(data.legajo!);
+          this.listarTraslados();
+          this.ocultarDialogoTraslado();
             
         },
         error => {
             
-            Swal.fire('Quitar Traslado',`Error al quitar el ultimo traslado: ${error.error.message}`,"error");                          
+            Swal.fire('Nuevo traslado',`Error al guardar el Traslado: ${error.error.message}`,"error")                          
         });
+      //FIN GUARDAR NUEVO TRASLADO
 
         
         

@@ -1112,16 +1112,13 @@ export class EditComponent implements OnInit {
           Swal.fire('Nuevo traslado',`El Traslado ha sido guardado con exito`,"success");
           this.buscarPersonal(data.legajo!);
           this.listarTraslados();
-          this.ocultarDialogoTraslado();
-            
+          this.ocultarDialogoTraslado();            
         },
         error => {
             
             Swal.fire('Nuevo traslado',`Error al guardar el Traslado: ${error.error.message}`,"error")                          
         });
-      //FIN GUARDAR NUEVO TRASLADO
-
-        
+      //FIN GUARDAR NUEVO TRASLADO        
         
       }
       else{

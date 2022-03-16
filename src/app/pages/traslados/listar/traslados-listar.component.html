@@ -24,6 +24,13 @@
                         <button pButton type="button" label="Nuevo Traslado" class="p-button-success" icon="" iconPos="left" (click)="crearTraslado()"></button>
 
                     </div>
+                    <form [formGroup]="formaCantTraslados">
+                        <div class="form-group">
+                            <label>Traslados: </label>
+                            <input id="txtCantTraslados" class="form-control" type="text" placeholder="">
+
+                        </div>
+                    </form>
 
                     <div *ngIf="cargando" class="card text-center">
                         <p-progressSpinner [style]="{width: '25%', height: '25%'}" strokeWidth="5"></p-progressSpinner>
@@ -46,12 +53,12 @@
 
                                 </div> -->
 
-                            <!-- <div class="table-header mt-4">
-                                    Listado de Traslados
+                            <div class="table-header mt-4">
 
-                                    
-                                </div>
-                            </ng-template> -->
+
+
+                            </div>
+                            <!-- </ng-template> -->-->
                             <ng-template pTemplate="colgroup" let-columns>
                                 <colgroup>
                                     <col style="width:70px">
@@ -192,6 +199,16 @@
             </div>
         </div>
         <!-- FIN TABLA TRASLADOS-->
+        <hr>
+        <pre>
+            Estado del Formulario: {{formaTraslados.valid}}
+            <br>
+            Status: {{formaTraslados.status}}
+        </pre>
+        <pre>
+            {{formaTraslados.value | json}}
+        </pre>
+        <!-- FIN datos pre-->
     </div>
 </div>
 
@@ -356,6 +373,7 @@
         <div class="row">
             <div class="col-8">
                 <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="confirmarTraslado()">Confirmar Traslado</button>
+                <button *ngIf="nuevoTraslado" style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormTraslado()">Guardar Traslado</button>
             </div>
 
             <div class="col-4">

@@ -7,6 +7,7 @@ import { TrasladosService } from 'src/app/services/traslados.service';
 import Swal from 'sweetalert2';
 import { Personal } from '../../../models/personal.model';
 import { DestinoModel } from '../../../models/destino.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-traslados-listar',
@@ -25,7 +26,7 @@ export class TrasladosListarComponent implements OnInit {
   nombreCompleto: string="";
   foto_nombre: string = 'no-image.png';
   formaTraslados: FormGroup;
-  formaBuscar: FormGroup;
+  formaCantTraslados: FormGroup;
 
   //variables manejo personal
   dataPersonal: Personal= new Personal();
@@ -44,6 +45,7 @@ export class TrasladosListarComponent implements OnInit {
     private readonly personalService: PersonalService,
     private readonly trasladoService: TrasladosService,
     private fb: FormBuilder,
+    public readonly datePipe: DatePipe
 
   ) { 
 
@@ -55,7 +57,7 @@ export class TrasladosListarComponent implements OnInit {
       dni_buscar: [,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1000000), Validators.max(99000000)]],
       dni_personal: [,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1000000), Validators.max(99000000)]],
       legajo: [,[Validators.required,,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
-      destino: [,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      
       destino_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       fecha: [,[Validators.required]],
       instrumento: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
@@ -64,17 +66,13 @@ export class TrasladosListarComponent implements OnInit {
       confirmado: [false, [Validators.required]]
     });
     //FIN FORMULARIO TRASLADO
-
-    //FORMULARIO TRASLADO    
-    this.formaBuscar = this.fb.group({      
-      dni_personal: [,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1000000), Validators.max(99000000)]],
-      destino_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      fecha: [,[Validators.required]],
-      instrumento: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
-      fojas: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]]
+    
+     //FORMULARIO TRASLADO    
+     this.formaCantTraslados = this.fb.group({
+      txtCantTraslados: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       
     });
-    //FIN FORMULARIO TRASLADO
+    //FIN FORMULARIO TRASLADO    
 
     this.listarTraslados()
   }
@@ -121,7 +119,9 @@ export class TrasladosListarComponent implements OnInit {
       subscribe(respuesta => {
         this.totalRecords = respuesta[1];
         this.listaTraslado = respuesta[0];
-        this.cargando = false;       
+        this.formaCantTraslados.get('txtCantTraslados')?.setValue(this.totalRecords);
+        this.cargando = false;
+
     
       });
   }
@@ -132,85 +132,74 @@ export class TrasladosListarComponent implements OnInit {
     this.tituloFormTraslado="Nuevo Registro de Traslado"    
     this.limpiarFormularioTraslado();
     this.nuevoTraslado = true;
-    this.formaTraslados.controls['confirmado'].disable();
+    this.formaTraslados.get('vigente')?.setValue(true);
     this.newTrasladoDialog = true;
   }
   //FIN ABRIR FORMULARIO NUEVO TRASLADO
 
   //GUARDAR TRASLADO  
   submitFormTraslado(){
-    // if(this.formaTraslados.invalid){
-    //   Swal.fire('Formulario Traslado con errores','Complete correctamente todos los campos del formulario',"warning");
-    //   return Object.values(this.formaTraslados.controls).forEach(control => control.markAsTouched());
-    // }
+    if(this.formaTraslados.invalid){
+      Swal.fire('Formulario Traslado con errores','Complete correctamente todos los campos del formulario',"warning");
+      return Object.values(this.formaTraslados.controls).forEach(control => control.markAsTouched());
+    }
 
-    // let data: TrasladoModel;
-    //  //crear la data
-    //   this.submitForm('cambioDestino');
+    let data: TrasladoModel;
+     //poner destino en el personal y sin funcion 
+      //this.submitForm('cambioDestino');
 
-    //   data = {
+      data = {
 
-    //     legajo: parseInt(this.formaTraslados.get('legajo')?.value),
-    //     dni_personal: parseInt(this.formaTraslados.get('dni_personal')?.value),
-    //     destino_id: parseInt(this.formaTraslados.get('destino_id')?.value),
-    //     instrumento: this.formaTraslados.get('instrumento')?.value,
-    //     fecha: this.changeFormatoFechaGuardar(this.formaTraslados.get('fecha')?.value),
-    //     fojas: parseInt(this.formaTraslados.get('fojas')?.value),
-    //     vigente: this.formaTraslados.get('vigente')?.value,
-    //     confirmado: this.formaTraslados.get('confirmado')?.value,
-    //   }
+        legajo: parseInt(this.formaTraslados.get('legajo')?.value),
+        dni_personal: parseInt(this.formaTraslados.get('dni_personal')?.value),
+        destino_id: parseInt(this.formaTraslados.get('destino_id')?.value),
+        instrumento: this.formaTraslados.get('instrumento')?.value,
+        fecha: this.changeFormatoFechaGuardar(this.formaTraslados.get('fecha')?.value),
+        fojas: parseInt(this.formaTraslados.get('fojas')?.value),
+        vigente: this.formaTraslados.get('vigente')?.value,
+        confirmado: this.formaTraslados.get('confirmado')?.value,
+      }
 
-    //   if(!this.editarTraslado){
-    //     //CREANDO NUEVO TRASLADO
-
-    //     //EDICION DE CAMPO VIGENTE COMO FALSO EN TODOS LOS REGISTROS DE TRASLADO DE PERSONAL
-    //     let dataVigente: TrasladoModel;
-    //     dataVigente={
-    //       vigente: false
-    //     }
-    //     this.trasladoService.quitarTrasladoVigente(parseInt(this.formaTraslados.get('legajo')?.value))
-    //     .subscribe(resultado => {          
-            
-    //         //GUARDAR NUEVO TRASLADO
-    //         this.trasladoService.guardarTraslado(data)
-    //           .subscribe(resultado => {
-                
-    //             Swal.fire('Nuevo traslado',`El Traslado ha sido guardado con exito`,"success");
-    //             this.listarTraslados();
-    //             this.ocultarDialogoTraslado();
-                  
-    //           },
-    //           error => {
-                  
-    //               Swal.fire('Nuevo traslado',`Error al guardar el Traslado: ${error.error.message}`,"error")                          
-    //           });
-    //         //FIN GUARDAR NUEVO TRASLADO           
-            
-    //     },
-    //     error => {
-            
-    //         Swal.fire('Quitar Traslado',`Error al quitar el ultimo traslado: ${error.error.message}`,"error");                          
-    //     });
-
+      //GUARDAR NUEVO TRASLADO
+      if(this.nuevoTraslado){
         
         
-    //   }
-    //   else{
-    //     //ACTUALIZAR TRASLADO
-    //     this.trasladoService.editarTraslado(data,parseInt(this.formaTraslados.get('id_traslado')?.value))
-    //     .subscribe(resultado => {
+        this.trasladoService.guardarTraslado(data)
+        .subscribe(resultado => {
           
-    //         Swal.fire('Actualizar traslado',`El Traslado ha sido actualizado con Exito`,"success");
-    //         this.listarTraslados();
-    //         this.ocultarDialogoTraslado();
+          Swal.fire('Nuevo traslado',`El Traslado ha sido guardado con exito`,"success");
+          
+          this.listarTraslados();
+          
+          this.nuevaBusqueda();            
+        },
+        error => {
             
-    //     },
-    //     error => {
+            Swal.fire('Nuevo traslado',`Error al guardar el Traslado: ${error.error.message}`,"error")                          
+        });
+             
+        
+      }
+      //FIN GUARDAR NUEVO TRASLADO 
+
+      //ACTUALIZAR TRASLADO
+      if(this.editarTraslado){
+        
+        this.trasladoService.editarTraslado(data,parseInt(this.formaTraslados.get('id_traslado')?.value))
+        .subscribe(resultado => {
+          
+            Swal.fire('Actualizar traslado',`El Traslado ha sido actualizado con Exito`,"success");
+            this.listarTraslados();
+            this.ocultarDialogoTraslado();
             
-    //         Swal.fire('Actualizar Traslado',`Error al actualizar el Traslado: ${error.error.message}`,"error")                          
-    //     });
-    //     //FIN ACTUALIZAR TRASLADO
-    //   }
+        },
+        error => {
+            
+            Swal.fire('Actualizar Traslado',`Error al actualizar el Traslado: ${error.error.message}`,"error")                          
+        });
+        
+      }
+      //FIN ACTUALIZAR TRASLADO
       
   }
   //FIN GUARDAR TRASLADO
@@ -253,7 +242,7 @@ export class TrasladosListarComponent implements OnInit {
     this.formaTraslados.get('fojas')?.setValue(traslado.fojas); 
     this.formaTraslados.get('vigente')?.setValue(traslado.vigente);
     this.formaTraslados.get('confirmado')?.setValue(traslado.confirmado);
-    this.formaTraslados.controls['confirmado'].disable();
+    //this.formaTraslados.controls['confirmado'].disable();
     console.log("foto", traslado.personal?.foto);
        
     if(traslado.personal?.foto){
@@ -282,17 +271,31 @@ export class TrasladosListarComponent implements OnInit {
     this.formaTraslados.get('id_traslado')?.setValue(0);
     this.formaTraslados.get('grado_apellido_nombre')?.setValue("");
     this.formaTraslados.get('dni_personal')?.setValue(0);
+    this.formaTraslados.get('dni_buscar')?.setValue("");
     this.formaTraslados.get('legajo')?.setValue(0);
-    this.formaTraslados.get('destino')?.setValue(""); 
+    this.formaTraslados.get('destino_id')?.setValue(8); 
     this.formaTraslados.get('instrumento')?.setValue(""); 
     this.formaTraslados.get('fecha')?.setValue(""); 
     this.formaTraslados.get('fojas')?.setValue(""); 
     this.foto_nombre = "./assets/img/no-image.jpg";
-    this.formaTraslados.get('vigente')?.setValue("");
-    this.formaTraslados.get('confirmado')?.setValue("");
-    this.formaTraslados.controls['confirmado'].disable();
+    this.formaTraslados.get('vigente')?.setValue(false);
+    this.formaTraslados.get('confirmado')?.setValue(false);
 
     this.nuevoTraslado=false;
+
+    return Object.values(this.formaTraslados.controls).forEach(control => control.markAsUntouched());
+  }
+  //FIN LIMPIAR FORMULARIO TRASLADO
+  //..................................................................................................
+
+  //LIMPIAR FORMULARIO TRASLADO
+  nuevaBusqueda(){
+    this.formaTraslados.get('grado_apellido_nombre')?.setValue("");
+    this.formaTraslados.get('dni_personal')?.setValue(0);
+    this.formaTraslados.get('dni_buscar')?.setValue("");
+    this.formaTraslados.get('legajo')?.setValue(0);
+    
+    this.foto_nombre = "./assets/img/no-image.jpg";
 
     return Object.values(this.formaTraslados.controls).forEach(control => control.markAsUntouched());
   }
@@ -349,5 +352,17 @@ export class TrasladosListarComponent implements OnInit {
 
   }
   //fin buscar personal.......................................................
+
+  //FORMATO FECHAS PARA GUARDAR
+  changeFormatoFechaGuardar(nuevaFecha: Date){
+    let fechaAuxiliar:any = null;
+    if(nuevaFecha != null){
+      fechaAuxiliar = this.datePipe.transform(nuevaFecha,"yyyy-MM-dd")!;
+      
+    }
+    return fechaAuxiliar;
+  }
+  //FIN FORMATO FECHAS PARA GUARDAR.........................................................................
+
 
 }

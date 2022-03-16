@@ -20,10 +20,9 @@ export class TrasladosService {
   ) { }
   //FIN CONSTRUCTOR
 
-  guardarTraslado(data: any){
-    
+  guardarTraslado(data: any){    
     this.traslado={...data};
-    console.log("traslado en servicio", this.traslado);
+
     return this.http.post(`${base_url}/traslado`, this.traslado);
   }
 
@@ -36,7 +35,7 @@ export class TrasladosService {
   quitarTrasladoVigente(legajox:number){    
     let traslado: TrasladoModel= new TrasladoModel();
     traslado.vigente= false;
-    return this.http.put(`${base_url}/traslado/quitar/${legajox}`,traslado);
+    return this.http.put(`${base_url}/traslado/quitar-vigente/${legajox}`,traslado);
   }
 
   //LISTA DE TRASLADOS X LEGAJO

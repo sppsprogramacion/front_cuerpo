@@ -13,7 +13,7 @@ const base_url = environment.URL_BASE
 export class TrasladosService {
   base_url: string = environment.URL_BASE;  
   listadoTraslados: TrasladoModel []= []; 
-  traslado: TrasladoModel= new TrasladoModel();
+  traslado: Partial<TrasladoModel> = new TrasladoModel();
 
   constructor(
     private http: HttpClient

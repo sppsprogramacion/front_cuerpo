@@ -20,16 +20,24 @@
             </div>
             <div class="card-body">
                 <div class="card">
-                    <div class="p-d-flex">
-                        <button pButton type="button" label="Nuevo Traslado" class="p-button-success" icon="" iconPos="left" (click)="crearTraslado()"></button>
 
-                    </div>
                     <form [formGroup]="formaCantTraslados">
-                        <div class="form-group">
-                            <label>Traslados: </label>
-                            <input id="txtCantTraslados" class="form-control" type="text" placeholder="">
+                        <div class="row mt-2">
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label>Traslados: </label>
+                                    <input formControlName="cantidad_traslados" class="form-control" type="text" placeholder="" Disabled>
 
+                                </div>
+                            </div>
+                            <div class="col-2 ">
+                                <div class="p-d-flex mt-4">
+                                    <button pButton type="button" label="Nuevo Traslado" class="p-button-success" icon="" iconPos="left" (click)="crearTraslado()"></button>
+
+                                </div>
+                            </div>
                         </div>
+
                     </form>
 
                     <div *ngIf="cargando" class="card text-center">
@@ -42,7 +50,7 @@
                         <!-- <p-table #dt id="personal-table" [value]="listaTraslado" [style]="{width:'100%'}" [columns]="colsTablaPersonalExport" [exportFilename]="nombre_archivo" selectionMode="multiple" [(selection)]="selectedPersonal" dataKey="id_personal" [rowHover]="true" [rows]="5"
                             [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50]" [loading]="loading" [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']"
                             [scrollable]="true" scrollHeight="100%" [responsive]="false"> -->
-                        <p-table #dt id="traslado-table" [value]="listaTraslado" [style]="{width:'100%'}" [columns]="colsTablaPersonalExport" selectionMode="multiple" dataKey="id_personal" [rowHover]="true" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50]"
+                        <p-table #dt id="traslado-table" [value]="listaTraslado" [style]="{width:'100%'}" [columns]="colsTablaPersonalExport" selectionMode="multiple" dataKey="id_personal" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50]"
                             [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']" [scrollable]="true" scrollHeight="100%"
                             [responsive]="false">
 
@@ -287,22 +295,26 @@
 
 
             </div>
-
+            <hr *ngIf="nuevoTraslado" style="height: 5px; border-color: darkgray;">
             <div class="row mt-2" *ngIf="nuevoTraslado">
+
                 <div class="col-6">
                     <div class="form-group">
+                        <label>Buscar Personal</label>
                         <input formControlName="dni_buscar" type="text" class="form-control" placeholder="dni buscado">
 
                     </div>
                 </div>
 
                 <div class="col-6">
-
+                    <label>p</label>
                     <button style="width: 100%; text-align: center;" class="btn btn-primary" (click)="buscarPersonalXDni()">Buscar personal</button>
 
                 </div>
 
+
             </div>
+            <hr *ngIf="nuevoTraslado" style="height: 5px; border-color: darkgray;">
 
             <div class="row mt-2">
                 <div class="col-12">
@@ -335,7 +347,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label>Dni</label>
-                                <input formControlName="dni_personal" type="text" placeholder="dni personal">
+                                <input formControlName="dni_personal" type="text" placeholder="dni personal" Disabled>
 
                             </div>
                         </div>
@@ -349,24 +361,20 @@
                     <div class="icheck-primary">
                         <input type="checkbox" id="vigente" formControlName="vigente" Disabled>
                         <label for="vigente">
-                                Vigente
-                            </label>
+                            Vigente
+                        </label>
 
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="icheck-primary">
-                        <input type="checkbox" id="confirmado" formControlName="confirmado">
+                        <input type="checkbox" id="confirmado" formControlName="confirmado" Disabled>
                         <label for="confirmado">
-                                Confirmado
-                            </label>
+                            Confirmado
+                        </label>
                     </div>
                 </div>
             </div>
-
-
-
-
         </form>
     </ng-template>
     <ng-template pTemplate="footer">

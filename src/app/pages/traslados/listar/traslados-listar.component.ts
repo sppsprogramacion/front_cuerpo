@@ -69,7 +69,7 @@ export class TrasladosListarComponent implements OnInit {
     
      //FORMULARIO TRASLADO    
      this.formaCantTraslados = this.fb.group({
-      txtCantTraslados: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      cantidad_traslados: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       
     });
     //FIN FORMULARIO TRASLADO    
@@ -119,7 +119,7 @@ export class TrasladosListarComponent implements OnInit {
       subscribe(respuesta => {
         this.totalRecords = respuesta[1];
         this.listaTraslado = respuesta[0];
-        this.formaCantTraslados.get('txtCantTraslados')?.setValue(this.totalRecords);
+        this.formaCantTraslados.get('cantidad_traslados')?.setValue(this.totalRecords);
         this.cargando = false;
 
     
@@ -144,7 +144,7 @@ export class TrasladosListarComponent implements OnInit {
       return Object.values(this.formaTraslados.controls).forEach(control => control.markAsTouched());
     }
 
-    let data: TrasladoModel;
+    let data: Partial<TrasladoModel>= new TrasladoModel;
      //poner destino en el personal y sin funcion 
       //this.submitForm('cambioDestino');
 
@@ -161,16 +161,14 @@ export class TrasladosListarComponent implements OnInit {
       }
 
       //GUARDAR NUEVO TRASLADO
-      if(this.nuevoTraslado){
-        
+      if(this.nuevoTraslado){       
         
         this.trasladoService.guardarTraslado(data)
         .subscribe(resultado => {
           
           Swal.fire('Nuevo traslado',`El Traslado ha sido guardado con exito`,"success");
           
-          this.listarTraslados();
-          
+          this.listarTraslados();          
           this.nuevaBusqueda();            
         },
         error => {
@@ -243,7 +241,7 @@ export class TrasladosListarComponent implements OnInit {
     this.formaTraslados.get('vigente')?.setValue(traslado.vigente);
     this.formaTraslados.get('confirmado')?.setValue(traslado.confirmado);
     //this.formaTraslados.controls['confirmado'].disable();
-    console.log("foto", traslado.personal?.foto);
+    
        
     if(traslado.personal?.foto){
       if(traslado.personal.foto.toString() != "no-image.png"){

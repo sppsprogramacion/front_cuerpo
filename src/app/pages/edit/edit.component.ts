@@ -1042,27 +1042,27 @@ export class EditComponent implements OnInit {
       }        
     }
 
-    if(formEnviado == 'cambioDestino'){
-      data = {
-        destino_id: parseInt(this.formaTraslados.get('destino_id')?.value),
-        departamento_id: 3,
-        division_id: 1,
-        sector_id: 1,
-        funcion_id: 1,
-        seccion_guardia_id: 1
-      }
-    }
+    // if(formEnviado == 'cambioDestino'){
+    //   data = {
+    //     destino_id: parseInt(this.formaTraslados.get('destino_id')?.value),
+    //     departamento_id: 3,
+    //     division_id: 1,
+    //     sector_id: 1,
+    //     funcion_id: 1,
+    //     seccion_guardia_id: 1
+    //   }
+    // }
 
-    if(formEnviado == 'cambioFuncion'){
-      data = {
-        destino_id: parseInt(this.formaFuncion.get('destino_id')?.value),
-        departamento_id: parseInt(this.formaFuncion.get('departamento_id')?.value),
-        division_id: parseInt(this.formaFuncion.get('division_id')?.value),
-        sector_id: parseInt(this.formaFuncion.get('sector_id')?.value),
-        funcion_id:parseInt(this.formaFuncion.get('funcion_id')?.value),
-        seccion_guardia_id: parseInt(this.formaFuncion.get('seccion_guardia_id')?.value),
-      }
-    }
+    // if(formEnviado == 'cambioFuncion'){
+    //   data = {
+    //     destino_id: parseInt(this.formaFuncion.get('destino_id')?.value),
+    //     departamento_id: parseInt(this.formaFuncion.get('departamento_id')?.value),
+    //     division_id: parseInt(this.formaFuncion.get('division_id')?.value),
+    //     sector_id: parseInt(this.formaFuncion.get('sector_id')?.value),
+    //     funcion_id:parseInt(this.formaFuncion.get('funcion_id')?.value),
+    //     seccion_guardia_id: parseInt(this.formaFuncion.get('seccion_guardia_id')?.value),
+    //   }
+    // }
                 
     this.personalService.editPersonal(data,parseInt(this.dataEdit.id_personal?.toString()!))
       .subscribe(
@@ -1217,7 +1217,7 @@ export class EditComponent implements OnInit {
 
     let data: PersonalFuncionModel;
       //cambiar funcion el la tabla personal
-      this.submitForm('cambioFuncion');
+      //this.submitForm('cambioFuncion');
 
     data = {
 
@@ -1238,40 +1238,56 @@ export class EditComponent implements OnInit {
       //CREANDO NUEVA FUNCION
 
       //EDICION DE CAMPO VIGENTE COMO FALSO EN TODOS LOS REGISTROS DE TRASLADO DE PERSONAL
-      let dataVigente: PersonalFuncionModel;
-      dataVigente={
-        vigente: false
-      }
+      // let dataVigente: PersonalFuncionModel;
+      // dataVigente={
+      //   vigente: false
+      // }
 
       
-      this.personalFuncionService.quitarFuncionVigente(parseInt(this.formaFuncion.get('legajo')?.value))
+      // this.personalFuncionService.quitarFuncionVigente(parseInt(this.formaFuncion.get('legajo')?.value))
+      // .subscribe(resultado => {
+        
+      //   //GUARDAR NUEVA FUNCION
+      //   this.personalFuncionService.guardarFuncion(data)
+      //   .subscribe(resultado => {
+          
+      //       Swal.fire('Exito nueva función',`La función ha sido guardada con Exito`,"success");
+      //       //this.limpiarFormulario();
+      //       this.listarFunciones();
+      //       this.actualizarCamposFormulario();
+      //       this.ocultarDialogoFuncion();              
+              
+      //   },
+      //   error => {
+            
+      //       Swal.fire('Error nueva función',`Error al guardar la funcion: ${error.error.message}`,"error")                          
+      //   });
+      //   //FIN GUARDAR NUEVA FUNCION
+      //     this.listarFunciones();
+          
+          
+      // },
+      // error => {
+          
+      //     Swal.fire('Quitar funcion vigente',`Error al quitar la ultima funcion: ${error.error.message}`,"error");                          
+      // });
+      
+      //GUARDAR NUEVA FUNCION
+      this.personalFuncionService.guardarFuncion(data)
       .subscribe(resultado => {
         
-        //GUARDAR NUEVA FUNCION
-        this.personalFuncionService.guardarFuncion(data)
-        .subscribe(resultado => {
-          
-            Swal.fire('Exito nueva función',`La función ha sido guardada con Exito`,"success");
-            //this.limpiarFormulario();
-            this.listarFunciones();
-            this.actualizarCamposFormulario();
-            this.ocultarDialogoFuncion();              
-              
-        },
-        error => {
-            
-            Swal.fire('Error nueva función',`Error al guardar la funcion: ${error.error.message}`,"error")                          
-        });
-        //FIN GUARDAR NUEVO TRASLADO
+          Swal.fire('Exito nueva función',`La función ha sido guardada con Exito`,"success");
+          //this.limpiarFormulario();
           this.listarFunciones();
-          
-          
+          this.actualizarCamposFormulario();
+          this.ocultarDialogoFuncion();              
+            
       },
       error => {
           
-          Swal.fire('Quitar funcion vigente',`Error al quitar la ultima funcion: ${error.error.message}`,"error");                          
+          Swal.fire('Error nueva función',`Error al guardar la funcion: ${error.error.message}`,"error")                          
       });
-      
+      //FIN GUARDAR NUEVA FUNCION
       
     }
     else{

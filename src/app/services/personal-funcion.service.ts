@@ -26,10 +26,10 @@ export class PersonalFuncionService {
     return this.http.post(`${base_url}/personal-funcion`, this.funcion);
   }
 
-  editarFuncion(traslado: Partial<PersonalFuncionModel>,id: number){
+  editarFuncion(funcion: Partial<PersonalFuncionModel>,id: number){
     
     
-    return this.http.put(`${base_url}/personal-funcion/${id}`, traslado);
+    return this.http.put(`${base_url}/personal-funcion/${id}`, funcion);
   }
 
   quitarFuncionVigente(legajox:number){    

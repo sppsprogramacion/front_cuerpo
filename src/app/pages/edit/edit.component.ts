@@ -137,6 +137,7 @@ export class EditComponent implements OnInit {
     private pdfService: PdfService
   ) {
     this.dataEdit= dataService.personalData;
+    console.log("personal", this.dataEdit);
     this.regPdf.legajo_personal = this.dataEdit.legajo!;  
 
     //cambiar formato de fechas para mostrarlas en datepicker
@@ -272,7 +273,6 @@ export class EditComponent implements OnInit {
     this.funcion_txt= (this.dataEdit.funcion)?(JSON.parse(JSON.stringify(this.dataEdit.funcion))).funcion:"sin sector"; 
     
       
-
     //cargar los arrays
     this.destinos = destinos;      
     this.estados_civil = estados_civil;    
@@ -1655,7 +1655,7 @@ export class EditComponent implements OnInit {
       this.forma.controls['nombre_2'].disable();
       this.forma.controls['nombre_3'].disable();
       this.forma.controls['legajo'].disable();
-      this.forma.controls['destino_id'].disable();
+      //this.forma.controls['destino_id'].disable();
       this.forma.controls['escalafon_id'].disable();
       this.forma.controls['escala_jerarquica_id'].disable();
       this.forma.controls['grado_id'].disable();

@@ -235,11 +235,13 @@ export class TrasladosListarComponent implements OnInit {
     this.formaTraslados.get('dni_personal')?.setValue(traslado.dni_personal);
     this.formaTraslados.get('legajo')?.setValue(traslado.legajo);
     this.formaTraslados.get('destino_id')?.setValue(traslado.destino?.id_destino); 
+    //this.formaTraslados.controls['destino_id'].disable();
     this.formaTraslados.get('instrumento')?.setValue(traslado.instrumento); 
     this.formaTraslados.get('fecha')?.setValue(traslado.fecha); 
     this.formaTraslados.get('fojas')?.setValue(traslado.fojas); 
     this.formaTraslados.get('vigente')?.setValue(traslado.vigente);
     this.formaTraslados.get('confirmado')?.setValue(traslado.confirmado);
+    this.verTraslado = true;
     //this.formaTraslados.controls['confirmado'].disable();
     
        
@@ -280,6 +282,8 @@ export class TrasladosListarComponent implements OnInit {
     this.formaTraslados.get('confirmado')?.setValue(false);
 
     this.nuevoTraslado=false;
+    this.verTraslado = false;
+    this.editarTraslado = false;
 
     return Object.values(this.formaTraslados.controls).forEach(control => control.markAsUntouched());
   }

@@ -22,6 +22,7 @@
                 <div class="card">
 
                     <form [formGroup]="formaCantTraslados">
+
                         <div class="row mt-2">
                             <div class="col-2">
                                 <div class="form-group">
@@ -296,22 +297,30 @@
 
             </div>
             <hr *ngIf="nuevoTraslado" style="height: 5px; border-color: darkgray;">
+
             <div class="row mt-2" *ngIf="nuevoTraslado">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Buscar Personal</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <input formControlName="dni_buscar" type="text" class="form-control" placeholder="dni buscado">
 
-                <div class="col-6">
-                    <div class="form-group">
-                        <label>Buscar Personal</label>
-                        <input formControlName="dni_buscar" type="text" class="form-control" placeholder="dni buscado">
+                            </div>
+                        </div>
 
+                        <div class="col-6">
+                            <button style="width: 100%; text-align: center;" class="btn btn-primary" (click)="buscarPersonalXDni()">Buscar personal</button>
+
+                        </div>
                     </div>
                 </div>
-
-                <div class="col-6">
-                    <label>p</label>
-                    <button style="width: 100%; text-align: center;" class="btn btn-primary" (click)="buscarPersonalXDni()">Buscar personal</button>
-
-                </div>
-
 
             </div>
             <hr *ngIf="nuevoTraslado" style="height: 5px; border-color: darkgray;">
@@ -380,7 +389,7 @@
     <ng-template pTemplate="footer">
         <div class="row">
             <div class="col-8">
-                <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="confirmarTraslado()">Confirmar Traslado</button>
+                <button *ngIf="verTraslado" style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="confirmarTraslado()">Confirmar Traslado</button>
                 <button *ngIf="nuevoTraslado" style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormTraslado()">Guardar Traslado</button>
             </div>
 

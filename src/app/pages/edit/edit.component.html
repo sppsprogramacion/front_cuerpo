@@ -898,13 +898,13 @@
                                     </div>
                                     <!-- /.card-header -->
                                     <div class="card-body">
-
-                                        <button pButton pRipple label="Nuevo Traslado" icon="fas fa-plus" class="p-button-success p-mr-2" (click)="crearTraslado()"></button>
-
-                                        <hr>
                                         <div class="">
-                                            <button style="width: 30%; " class="btn btn-info" (click)="listarTraslados()"><i class="fas fa-eye"></i> Ver Traslados</button>
+                                            <button pButton pRipple label="Nuevo Traslado" icon="fas fa-plus" class="p-button-success p-mr-2" (click)="crearTraslado()"></button>
+                                            <button class="btn btn-info" (click)="listarTraslados()"><i class="fas fa-eye"></i> Ver Historial</button>
+
                                         </div>
+                                        <hr style="background-color: grey;">
+
 
                                         <!-- TABLA HISTORIAL DE TRASLADOS -->
                                         <table class="table table-responsive table-striped" style="width:'100%'">
@@ -1147,12 +1147,14 @@
                                     <!-- /.card-header -->
                                     <div class="card-body">
 
-                                        <button pButton pRipple label="Nueva Funcion" icon="fas fa-plus" class="p-button-success p-mr-2" (click)="crearFuncion()"></button>
 
-                                        <hr>
+
                                         <div class="">
+                                            <button pButton pRipple label="Nueva Funcion" icon="fas fa-plus" class="p-button-success p-mr-2" (click)="crearFuncion()"></button>
+
                                             <button class="btn btn-info" (click)="listarFunciones()"><i class="fas fa-eye"></i> Ver Historial</button>
                                         </div>
+                                        <hr style="background-color: grey;">
 
                                         <!-- TABLA HISTORIAL DE FUNCIONES -->
                                         <table class="table table-responsive table-striped" style="width:'100%'">

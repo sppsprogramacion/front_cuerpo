@@ -78,6 +78,8 @@ export class TrasladosListarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.limpiarFormularioTraslado();
+
     //inicializacion de cabeceras de columnas
     this.colsTablaPersonalExport = [      
       { field: 'id_traslado', header: 'Id' },
@@ -131,8 +133,17 @@ export class TrasladosListarComponent implements OnInit {
   crearTraslado(){
     this.tituloFormTraslado="Nuevo Registro de Traslado"    
     this.limpiarFormularioTraslado();
+    
     this.nuevoTraslado = true;
     this.formaTraslados.get('vigente')?.setValue(true);
+
+    //HABILITAR CAMPOS EDITABLES
+    this.formaTraslados.controls['destino_id'].enable();
+    this.formaTraslados.controls['instrumento'].enable();
+    this.formaTraslados.controls['fecha'].enable();
+    this.formaTraslados.controls['fojas'].enable();
+    //FIN HABILITAR CAMPOS EDITABLES
+
     this.newTrasladoDialog = true;
   }
   //FIN ABRIR FORMULARIO NUEVO TRASLADO
@@ -280,6 +291,13 @@ export class TrasladosListarComponent implements OnInit {
     this.foto_nombre = "./assets/img/no-image.jpg";
     this.formaTraslados.get('vigente')?.setValue(false);
     this.formaTraslados.get('confirmado')?.setValue(false);
+    
+    //DESHABILITAR CAMPOS EDITABLES
+    this.formaTraslados.controls['destino_id'].disable();
+    this.formaTraslados.controls['instrumento'].disable();
+    this.formaTraslados.controls['fecha'].disable();
+    this.formaTraslados.controls['fojas'].disable();
+    //DESHABILITAR CAMPOS EDITABLES
 
     this.nuevoTraslado=false;
     this.verTraslado = false;

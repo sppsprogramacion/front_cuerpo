@@ -23,7 +23,7 @@
 
                     <form [formGroup]="formaCantTraslados">
 
-                        <div class="row mt-2">
+                        <div *ngIf="administrador" class="row mt-2">
                             <div class="col-2">
                                 <div class="form-group">
                                     <label>Traslados: </label>
@@ -316,7 +316,7 @@
                         </div>
 
                         <div class="col-6">
-                            <button style="width: 100%; text-align: center;" class="btn btn-primary" (click)="buscarPersonalXDni()">Buscar personal</button>
+                            <button style="width: 100%; text-align: center;" class="btn btn-primary" (click)="buscarPersonalXDni()"><i class="fa-solid fa-magnifying-glass"></i> Buscar</button>
 
                         </div>
                     </div>
@@ -389,7 +389,7 @@
     <ng-template pTemplate="footer">
         <div class="row">
             <div class="col-8">
-                <button *ngIf="verTraslado" style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="confirmarTraslado()">Confirmar Traslado</button>
+                <button *ngIf="verTraslado && !administrador" style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="confirmarTraslado()">Confirmar Traslado</button>
                 <button *ngIf="nuevoTraslado" style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormTraslado()">Guardar Traslado</button>
             </div>
 

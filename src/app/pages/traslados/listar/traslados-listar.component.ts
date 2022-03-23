@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { Personal } from '../../../models/personal.model';
 import { DestinoModel } from '../../../models/destino.model';
 import { DatePipe } from '@angular/common';
+import { globalConstants } from 'src/app/common/global-constants';
 
 @Component({
   selector: 'app-traslados-listar',
@@ -20,6 +21,7 @@ export class TrasladosListarComponent implements OnInit {
   loading: boolean = true;
   colsTablaPersonalExport: any[]=[]; //array de columnas de la tabla
 
+  administrador: boolean = false;
   grados: {label: string, value: string,img_name: string}[]=[];
   destinos: {label: string, value: string}[]=[];
   destinos_drop: DestinoModel[]=[];
@@ -49,6 +51,9 @@ export class TrasladosListarComponent implements OnInit {
 
   ) { 
 
+    //analizar si es administrador o no
+    this.administrador = (globalConstants.rol_usuario == "0")? true: false;
+
     //FORMULARIO TRASLADO    
     this.formaTraslados = this.fb.group({
       id_traslado: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
@@ -76,6 +81,7 @@ export class TrasladosListarComponent implements OnInit {
 
     this.listarTraslados()
   }
+  //FIN CONSTRUCTOR.......................................................................
 
   ngOnInit(): void {
     this.limpiarFormularioTraslado();
@@ -365,7 +371,8 @@ export class TrasladosListarComponent implements OnInit {
           
         },
         error => {        
-            Swal.fire('Buscar personal',`No se encuentra al personal: ${error.error.message}`,"error")                          
+            this.nuevaBusqueda();
+            Swal.fire('Buscar personal',`No se encuentra al personal: ${error.error.message}`,"error");                          
         }
       );
       

@@ -899,7 +899,7 @@
                                     <!-- /.card-header -->
                                     <div class="card-body">
                                         <div class="">
-                                            <button pButton pRipple label="Nuevo Traslado" icon="fas fa-plus" class="p-button-success p-mr-2" (click)="crearTraslado()"></button>
+                                            <button *ngIf="administrador" pButton pRipple label="Nuevo Traslado" icon="fas fa-plus" class="p-button-success p-mr-2" (click)="crearTraslado()"></button>
                                             <button class="btn btn-info" (click)="listarTraslados()"><i class="fas fa-eye"></i> Ver Historial</button>
 
                                         </div>
@@ -1150,7 +1150,7 @@
 
 
                                         <div class="">
-                                            <button pButton pRipple label="Nueva Funcion" icon="fas fa-plus" class="p-button-success p-mr-2" (click)="crearFuncion()"></button>
+                                            <button *ngIf="!administrador" pButton pRipple label="Nueva Funcion" icon="fas fa-plus" class="p-button-success p-mr-2" (click)="crearFuncion()"></button>
 
                                             <button class="btn btn-info" (click)="listarFunciones()"><i class="fas fa-eye"></i> Ver Historial</button>
                                         </div>
@@ -1207,6 +1207,7 @@
                                             <ng-template pTemplate="content">
                                                 <form [formGroup]="formaFuncion" (ngSubmit)="submitFormFuncion()">
                                                     <div id="edicion-form-print">
+
 
                                                         <div class="row">
                                                             <div class="col-sm-6">

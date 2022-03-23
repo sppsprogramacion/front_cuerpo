@@ -93,9 +93,11 @@ export class EditComponent implements OnInit {
   dataFuncion: PersonalFuncionModel= new TrasladoModel;
   listaFunciones: PersonalFuncionModel[]=[];
   tituloFormFuncion:string = "";
+  confirmarTraslado: string ="";
   newFuncionDialog: boolean= false;
   submitedFuncion:boolean=false;
   editandoFuncion: boolean=false;
+  
 
   //manejo de forumulario de personal
   departamentos: DepartamentoModel[]=[];

@@ -1080,7 +1080,7 @@
                                                             </div>
                                                             <div class="col-sm-6">
                                                                 <div class="icheck-primary">
-                                                                    <input type="checkbox" id="confirmado" formControlName="confirmado" class="form-control">
+                                                                    <input type="checkbox" id="confirmado" formControlName="confirmado" class="form-control" Disabled>
                                                                     <label for="confirmado">
                                                                         Confirmado
                                                                     </label>
@@ -1095,10 +1095,10 @@
                                             </ng-template>
                                             <ng-template pTemplate="footer">
                                                 <div class="row">
-                                                    <div class="col-8" *ngIf="!editandoTraslado">
+                                                    <div class="col-8" *ngIf="!editandoTraslado && administrador">
                                                         <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormTraslado()">Guardar Traslado</button>
                                                     </div>
-                                                    <div class="col-8" *ngIf="editandoTraslado">
+                                                    <div class="col-8" *ngIf="editandoTraslado && administrador">
                                                         <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormTraslado()">Actualizar Traslado</button>
                                                     </div>
                                                     <div class="col-4">
@@ -1418,10 +1418,10 @@
                                             </ng-template>
                                             <ng-template pTemplate="footer">
                                                 <div class="row">
-                                                    <div class="col-8" *ngIf="!editandoFuncion">
+                                                    <div class="col-8" *ngIf="!editandoFuncion && !administrador">
                                                         <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormFuncion()">Guardar Función</button>
                                                     </div>
-                                                    <div class="col-8" *ngIf="editandoFuncion">
+                                                    <div class="col-8" *ngIf="editandoFuncion && !administrador">
                                                         <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormFuncion()">Actualizar Función</button>
                                                     </div>
                                                     <div class="col-4">

@@ -25,13 +25,13 @@
 
 .tarjeta {
     width: 100%;
-    max-width: 550px;
+    max-width: 488px;
     position: relative;
     color: #fff;
     transition: .3s ease all;
     transform: rotateY(0deg);
     transform-style: preserve-3d;
-    backface-visibility: hidden;
+    /* backface-visibility: hidden; */
     cursor: pointer;
     z-index: 2;
 }
@@ -51,7 +51,7 @@
 }
 
 .tarjeta>div {
-    padding: 30px;
+    padding: 15px;
     border-radius: 15px;
     min-height: 315px;
     display: flex;
@@ -68,13 +68,13 @@
 .delantera {
     position: relative;
     width: 100%;
-    background: url(../../../assets/img/credencial/frente.jpg);
+    background: url(../../../assets/img/credencial/credencial-frente.jpg);
     background-size: cover;
 }
 
 .trasera {
     width: 100%;
-    background: url(../../../assets/img/credencial/dorso.jpg);
+    background: url(../../../assets/img/credencial/credencial-dorso.jpg);
     background-size: cover;
 }
 
@@ -97,8 +97,8 @@
 .foto {
     border-radius: 10px;
     position: absolute;
-    bottom: 35px;
-    right: 15px;
+    bottom: 15px;
+    left: 15px;
     height: 170px;
-    width: 160px;
+    width: 170px;
 }

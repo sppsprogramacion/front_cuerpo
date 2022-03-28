@@ -650,6 +650,7 @@
                                     <div class="card-body">
                                         <button type="button" pButton pRipple icon="pi pi-print" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom" onclick="printJS({ printable: 'printCredencial', type: 'html', header: 'Credencial' })"></button>
                                         <button (click)="htmlPdf()">Download PDF</button>
+                                        <button printSectionId="printCredencial" ngxPrint> print credencial</button>
                                         <div class="container">
                                             <div id="printCredencial" #printCredencial>
                                                 <section class="tarjeta" id="tarjeta">
@@ -699,29 +700,19 @@
                                     </div>
                                     <!-- /.card-header -->
                                     <div class="card-body">
-                                        <button type="button" pButton pRipple icon="pi pi-print" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom" onclick="printJS({ printable: 'printCredencial', type: 'html', header: 'Credencial' })"></button>
-                                        <button (click)="htmlPdf()">Download PDF</button>
-                                        <button printSectionId="printCredencial2" ngxPrint> print </button>
-                                        <div class="container">
-                                            <div id="printCredencial2" #printCredencial2>
-                                                <!-- <section style="width: 100%;max-width: 550px;position: relative;color: #fff;transition: .3s ease all;transform: rotateY(0deg);transform-style: preserve-3d;backface-visibility: hidden;cursor: pointer;z-index: 2;"> -->
+                                        <button class="btn btn-primary" [useExistingCss]="true" styleSheetFile="./edit.component.css" printSectionId="printCredencial2" ngxPrint>Imprimir credencial</button>
 
+                                        <div class="container" id="printCredencial2">
+                                            <section class="tarjeta">
 
-                                                <div style="padding: 30px;border-radius: 15px; min-height: 315px;display: flex;flex-direction: column;justify-content: space-between;box-shadow: 0 10px 10px 0 rgba(90, 116, 148, 0.3);position: relative;width: 100%;background: url(../../../assets/img/credencial/frente.jpg);background-size: cover;">
-
-                                                    <img style="border-radius: 10px;position: absolute;bottom: 35px;right: 15px;height: 170px;width: 160px;" [src]="foto_nombre">
+                                                <div class="delantera">
+                                                    <img class="foto" [src]="foto_nombre">
+                                                </div>
+                                                <div class="trasera">
 
                                                 </div>
 
-
-                                                <!-- <div class="trasera">
-
-                                                    </div> -->
-
-
-
-
-                                            </div>
+                                            </section>
                                         </div>
                                     </div>
                                     <!-- /.card-body -->

@@ -50,6 +50,16 @@
     box-shadow: 0 10px 10px 0 rgba(90, 116, 148, 0.3);
 }
 
+.tarjeta>div {
+    padding: 30px;
+    border-radius: 15px;
+    min-height: 315px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 10px 10px 0 rgba(90, 116, 148, 0.3);
+}
+
 
 /* .section1 {
     position: relative;

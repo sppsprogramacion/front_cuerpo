@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Personal } from 'src/app/models/personal.model';
 import { DataService } from 'src/app/services/data.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -20,6 +20,10 @@ import {FechasPipe} from '../../pipes/fechas.pipe';
 import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
 
 import * as printJS from 'print-js';
+import { jsPDF } from "jspdf";
+import html2canvas from 'html2canvas';
+import { NgxPrintModule } from 'ngx-print' ;
+
 import { SexoModel } from '../../models/sexo.model';
 import { EstadoCivilModel } from '../../models/estado_civil.model';
 import { ProvinciaModel } from 'src/app/models/provincia.model';
@@ -40,6 +44,7 @@ import { TrasladosService } from '../../services/traslados.service';
 import { PersonalFuncionModel } from '../../models/personal_funcion.model';
 import { PersonalFuncionService } from '../../services/personal-funcion.service';
 
+
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -49,6 +54,9 @@ import { PersonalFuncionService } from '../../services/personal-funcion.service'
 })
 export class EditComponent implements OnInit {
   base_url:string = environment.URL_BASE;
+  
+  @ViewChild('printCredencial2')
+  printCredencial2!: ElementRef;
   
   
   forma: FormGroup;
@@ -1800,4 +1808,30 @@ export class EditComponent implements OnInit {
   }
   //FIN GENERAL PDF  CON DATOS PERSONALES..............................................................................................
 
+  //htm a pdf
+  htmlPdf(){
+    // html2canvas(document.).then(canvas => {
+    //   // Few necessary setting options
+       
+    //   const contentDataURL = canvas.toDataURL('image/png')
+    //   let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF
+    //   var width = pdf.internal.pageSize.getWidth();
+    //   var height = canvas.height * width / canvas.width;
+    //   pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
+    //   pdf.save('output.pdf'); // Generated PDF
+    //   });
+
+    
+  }
+  //fin html a pdf
+
+  // printer() {
+  //   const printContent = document.getElementById("printCredencial2");
+  //   const WindowPrt = window.open('', '', 'left=0,top=50,width=900,height=900,toolbar=0,scrollbars=0,status=0');
+  //   WindowPrt.document.write(printContent.innerHTML);
+  //   WindowPrt.document.close();
+  //   WindowPrt.focus();
+  //   WindowPrt.print();
+  //   WindowPrt.close();
+  // }
 }

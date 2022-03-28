@@ -304,9 +304,9 @@
                                                                         </div>
 
                                                                     </form>
-                                                                    <!-- <button type="button" pButton pRipple icon="pi pi-print" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom" onclick="printJS({ printable: 'edicion-form-print', type: 'html', header: 'Datos Laborales' })">
+                                                                    <button type="button" pButton pRipple icon="pi pi-print" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom" onclick="printJS({ printable: 'edicion-form-print', type: 'html', header: 'Datos Laborales' })">
 
-                                                                    </button> -->
+                                                                    </button>
 
 
                                                                 </div>
@@ -648,21 +648,24 @@
                                     </div>
                                     <!-- /.card-header -->
                                     <div class="card-body">
+                                        <button type="button" pButton pRipple icon="pi pi-print" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom" onclick="printJS({ printable: 'printCredencial', type: 'html', header: 'Credencial' })"></button>
+                                        <button (click)="htmlPdf()">Download PDF</button>
                                         <div class="container">
-                                            <section class="tarjeta" id="tarjeta">
-                                                <section class="section1">
+                                            <div id="printCredencial" #printCredencial>
+                                                <section class="tarjeta" id="tarjeta">
+                                                    <section class="section1">
 
-                                                    <div class="delantera">
+                                                        <div class="delantera">
 
-                                                        <div class="foto-marco-vertical">
-                                                            <div class="foto-marco">
-                                                                <img class="foto" [src]="foto_nombre">
-                                                                <!-- <img class="foto" src="../../../assets/img/avatar4.png"> -->
+                                                            <div class="foto-marco-vertical">
+                                                                <div class="foto-marco">
+                                                                    <img class="foto" [src]="foto_nombre">
+                                                                    <!-- <img class="foto" src="../../../assets/img/avatar4.png"> -->
 
+                                                                </div>
                                                             </div>
-                                                        </div>
 
-                                                        <!-- <div class="grupo" id="numero">
+                                                            <!-- <div class="grupo" id="numero">
                                                             <p class="label">Legajo:</p>
                                                             <p class="numero">1297</p>
                                                         </div>
@@ -676,16 +679,49 @@
                                                                 <p class="nombre">Penitenciario</p>
                                                             </div>
                                                     </div>-->
-                                                    </div>
+                                                        </div>
+                                                    </section>
+                                                    <section class="section2">
+                                                        <div class="trasera">
+
+                                                        </div>
+
+
+                                                    </section>
                                                 </section>
-                                                <section class="section2">
-                                                    <div class="trasera">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
 
-                                                    </div>
+                                    <div class="card-header">
+                                        <h3 class="card-title">DISEÑO DE CREDENCIAL 2</h3>
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                        <button type="button" pButton pRipple icon="pi pi-print" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom" onclick="printJS({ printable: 'printCredencial', type: 'html', header: 'Credencial' })"></button>
+                                        <button (click)="htmlPdf()">Download PDF</button>
+                                        <button printSectionId="printCredencial2" ngxPrint> print </button>
+                                        <div class="container">
+                                            <div id="printCredencial2" #printCredencial2>
+                                                <!-- <section style="width: 100%;max-width: 550px;position: relative;color: #fff;transition: .3s ease all;transform: rotateY(0deg);transform-style: preserve-3d;backface-visibility: hidden;cursor: pointer;z-index: 2;"> -->
 
 
-                                                </section>
-                                            </section>
+                                                <div style="padding: 30px;border-radius: 15px; min-height: 315px;display: flex;flex-direction: column;justify-content: space-between;box-shadow: 0 10px 10px 0 rgba(90, 116, 148, 0.3);position: relative;width: 100%;background: url(../../../assets/img/credencial/frente.jpg);background-size: cover;">
+
+                                                    <img style="border-radius: 10px;position: absolute;bottom: 35px;right: 15px;height: 170px;width: 160px;" [src]="foto_nombre">
+
+                                                </div>
+
+
+                                                <!-- <div class="trasera">
+
+                                                    </div> -->
+
+
+
+
+                                            </div>
                                         </div>
                                     </div>
                                     <!-- /.card-body -->

@@ -72,27 +72,29 @@
     background-size: cover;
 }
 
-.trasera {
-    width: 100%;
-    background: url(../../../assets/img/credencial/credencial-dorso.jpg);
-    background-size: cover;
+.delantera .grupo {
+    color: black;
+    font-size: 19px;
+    text-transform: uppercase;
 }
 
+.personal {
+    position: absolute;
+    top: 58px;
+    left: 130px;
+}
 
-/* .foto-marco-vertical {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background-color: darkblue;
-} */
+.grado {
+    position: absolute;
+    top: 80px;
+    left: 67px;
+}
 
-
-/* .foto-marco {
-    float: right;
-    background-color: chartreuse;
-    width: 100%;
-    height: 50%;
-} */
+.escalafon {
+    position: absolute;
+    top: 100px;
+    left: 93px;
+}
 
 .foto {
     border-radius: 10px;
@@ -101,4 +103,67 @@
     left: 15px;
     height: 170px;
     width: 170px;
+}
+
+.delantera .flexbox {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.trasera {
+    width: 100%;
+    background: url(../../../assets/img/credencial/credencial-dorso.jpg);
+    background-size: cover;
+}
+
+.trasera .fila-1 {
+    color: black;
+    font-size: 19px;
+    text-transform: uppercase;
+    top: 80px;
+}
+
+.trasera .fila-2 {
+    color: black;
+    font-size: 19px;
+    text-transform: uppercase;
+    top: 100px;
+}
+
+.trasera .fila-3 {
+    color: black;
+    font-size: 19px;
+    text-transform: uppercase;
+    top: 120px;
+}
+
+.fecha-nac {
+    position: absolute;
+    left: 67px;
+}
+
+.nacionalidad {
+    position: absolute;
+    left: 150px;
+}
+
+.lugar {
+    position: absolute;
+    left: 200px;
+}
+
+.grupo-anguineo {
+    position: absolute;
+    left: 67px;
+}
+
+.legajo {
+    position: absolute;
+    left: 67px;
+}
+
+.destino {
+    position: absolute;
+    left: 100;
 }

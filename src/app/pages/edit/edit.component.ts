@@ -19,9 +19,6 @@ import {DatePipe} from '@angular/common';
 import {FechasPipe} from '../../pipes/fechas.pipe';
 import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
 
-import * as printJS from 'print-js';
-import { jsPDF } from "jspdf";
-import html2canvas from 'html2canvas';
 import { NgxPrintModule } from 'ngx-print' ;
 
 import { SexoModel } from '../../models/sexo.model';
@@ -78,6 +75,8 @@ export class EditComponent implements OnInit {
   sector_txt: string="";
   seccion_guardia_txt: string="";
   funcion_txt: string="";  
+  grado_txt: string=""; 
+  escalafon_txt: string="";
   
   
   //variables de manejo de pdf
@@ -280,7 +279,8 @@ export class EditComponent implements OnInit {
     this.sector_txt= (this.dataEdit.sector)?(JSON.parse(JSON.stringify(this.dataEdit.sector))).sector:"sin sector";
     this.seccion_guardia_txt= (this.dataEdit.seccion_guardia)?(JSON.parse(JSON.stringify(this.dataEdit.seccion_guardia))).seccion:"sin sección guardia";
     this.funcion_txt= (this.dataEdit.funcion)?(JSON.parse(JSON.stringify(this.dataEdit.funcion))).funcion:"sin sector"; 
-    
+    this.grado_txt= (this.dataEdit.grado)?(JSON.parse(JSON.stringify(this.dataEdit.grado))).grado:"sin sector"; 
+    this.escalafon_txt= (this.dataEdit.escalafon)?(JSON.parse(JSON.stringify(this.dataEdit.escalafon))).escalafon:"sin sector"; 
       
     //cargar los arrays
     this.destinos = destinos;      
@@ -1561,7 +1561,7 @@ export class EditComponent implements OnInit {
   private nombreCompletoPersonal(){
     let auxiliar: any;
     auxiliar = this.dataEdit.grado;
-    this.nombreCompleto = (auxiliar.grado! || "") + " " + (this.dataEdit.apellido_1! || "") + " " + (this.dataEdit.apellido_2! || "") +" " + (this.dataEdit.nombre_1! || "") +" " + (this.dataEdit.nombre_2! || "") +" " + (this.dataEdit.nombre_3! || "");
+    this.nombreCompleto = (this.dataEdit.apellido_1! || "") + " " + (this.dataEdit.apellido_2! || "") +" " + (this.dataEdit.nombre_1! || "") +" " + (this.dataEdit.nombre_2! || "") +" " + (this.dataEdit.nombre_3! || "");
     this.nombreCompleto = this.nombreCompleto.toUpperCase();
   }
   //FIN ESTABLECER NOMBRE COMPLETO DEL PERSONAL...........................................................
@@ -1808,30 +1808,5 @@ export class EditComponent implements OnInit {
   }
   //FIN GENERAL PDF  CON DATOS PERSONALES..............................................................................................
 
-  //htm a pdf
-  htmlPdf(){
-    // html2canvas(document.).then(canvas => {
-    //   // Few necessary setting options
-       
-    //   const contentDataURL = canvas.toDataURL('image/png')
-    //   let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF
-    //   var width = pdf.internal.pageSize.getWidth();
-    //   var height = canvas.height * width / canvas.width;
-    //   pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
-    //   pdf.save('output.pdf'); // Generated PDF
-    //   });
-
-    
-  }
-  //fin html a pdf
-
-  // printer() {
-  //   const printContent = document.getElementById("printCredencial2");
-  //   const WindowPrt = window.open('', '', 'left=0,top=50,width=900,height=900,toolbar=0,scrollbars=0,status=0');
-  //   WindowPrt.document.write(printContent.innerHTML);
-  //   WindowPrt.document.close();
-  //   WindowPrt.focus();
-  //   WindowPrt.print();
-  //   WindowPrt.close();
-  // }
+  
 }

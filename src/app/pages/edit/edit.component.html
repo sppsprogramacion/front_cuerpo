@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">{{nombreCompleto}}</h3>
+        <h3 class="card-title" style="text-transform: uppercase;">{{grado_txt}}{{nombreCompleto}}</h3>
 
         <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -648,71 +648,40 @@
                                     </div>
                                     <!-- /.card-header -->
                                     <div class="card-body">
-                                        <button type="button" pButton pRipple icon="pi pi-print" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom" onclick="printJS({ printable: 'printCredencial', type: 'html', header: 'Credencial' })"></button>
-                                        <button (click)="htmlPdf()">Download PDF</button>
-                                        <button printSectionId="printCredencial" ngxPrint> print credencial</button>
+
+
                                         <div class="container">
-                                            <div id="printCredencial" #printCredencial>
-                                                <section class="tarjeta" id="tarjeta">
-                                                    <section class="section1">
+                                            <div>
+                                                <button class="btn btn-info" [useExistingCss]="true" styleSheetFile="./edit.component.css" printSectionId="printCredencial" ngxPrint><i class="fa-solid fa-print"></i> Imprimir credencial</button>
 
-                                                        <div class="delantera">
+                                            </div>
+                                            <div class="mt-2" id="printCredencial">
+                                                <section class="tarjeta">
 
-                                                            <div class="foto-marco-vertical">
-                                                                <div class="foto-marco">
-                                                                    <img class="foto" [src]="foto_nombre">
-                                                                    <!-- <img class="foto" src="../../../assets/img/avatar4.png"> -->
-
-                                                                </div>
-                                                            </div>
-
-                                                            <!-- <div class="grupo" id="numero">
-                                                            <p class="label">Legajo:</p>
-                                                            <p class="numero">1297</p>
+                                                    <div class="delantera">
+                                                        <img class="foto" [src]="foto_nombre">
+                                                        <div class="grupo">
+                                                            <p class="personal">{{nombreCompleto}}
+                                                                <p class="grado">{{grado_txt}}</p>
+                                                                <p class="escalafon">{{escalafon_txt}}</p>
                                                         </div>
-                                                        <div class="flexbox">
-                                                            <div class="grupo" id="nombre">
-                                                                <p class="label">Nombre:</p>
-                                                                <p class="nombre">Fernando Javier Salva</p>
-                                                                <p class="label">Grado:</p>
-                                                                <p class="nombre">Suboficial Principal</p>
-                                                                <p class="label">Escalafón:</p>
-                                                                <p class="nombre">Penitenciario</p>
-                                                            </div>
-                                                    </div>-->
+                                                    </div>
+                                                    <div class="trasera">
+                                                        <div class="fila-1">
+                                                            <p class="nacionalidad">{{dataEdit.nacionalidad}}>
+                                                                <p class="fecha-nac">{{dataEdit.fecha_nacimiento}</p>
                                                         </div>
-                                                    </section>
-                                                    <section class="section2">
-                                                        <div class="trasera">
-
+                                                        <div class="fila-2">
+                                                            <p class="legajo">{{dataEdit.legajo}}>
                                                         </div>
 
+                                                        <div class="fila-3">
+                                                            <p class="destino">{{destino_txt}}>
+                                                        </div>
 
-                                                    </section>
+                                                    </div>
                                                 </section>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <!-- /.card-body -->
-
-                                    <div class="card-header">
-                                        <h3 class="card-title">DISEÑO DE CREDENCIAL 2</h3>
-                                    </div>
-                                    <!-- /.card-header -->
-                                    <div class="card-body">
-                                        <button class="btn btn-primary" [useExistingCss]="true" styleSheetFile="./edit.component.css" printSectionId="printCredencial2" ngxPrint>Imprimir credencial</button>
-
-                                        <div class="container" id="printCredencial2">
-                                            <section class="tarjeta">
-
-                                                <div class="delantera">
-                                                    <img class="foto" [src]="foto_nombre">
-                                                </div>
-                                                <div class="trasera">
-
-                                                </div>
-
-                                            </section>
                                         </div>
                                     </div>
                                     <!-- /.card-body -->

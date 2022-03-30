@@ -60,7 +60,8 @@ export class EditComponent implements OnInit {
   formaFiliatorios: FormGroup;
   formaTraslados: FormGroup;
   formaFuncion: FormGroup;
-  dataEdit: Personal={};
+  dataEdit: Personal= new Personal;
+  auxiliar_personal: any;
   
   
   totalRecords: number = 0;
@@ -77,6 +78,7 @@ export class EditComponent implements OnInit {
   funcion_txt: string="";  
   grado_txt: string=""; 
   escalafon_txt: string="";
+  fecha_nacimiento_txt: any;
   
   
   //variables de manejo de pdf
@@ -97,7 +99,7 @@ export class EditComponent implements OnInit {
   editandoTraslado: boolean=false;
 
   //variables de manejo de funcion
-  dataFuncion: PersonalFuncionModel= new TrasladoModel;
+  dataFuncion: PersonalFuncionModel= new PersonalFuncionModel;
   listaFunciones: PersonalFuncionModel[]=[];
   tituloFormFuncion:string = "";
   confirmarTraslado: string ="";
@@ -145,12 +147,17 @@ export class EditComponent implements OnInit {
     private localeService: BsLocaleService,
     private pdfService: PdfService
   ) {
+
     this.dataEdit= dataService.personalData;
+    
     this.regPdf.legajo_personal = this.dataEdit.legajo!;  
+    console.log("personal", this.dataEdit);
+    console.log("personal fecha", this.dataEdit.fecha_nacimiento);
 
     //cambiar formato de fechas para mostrarlas en datepicker
     this.formatoFechasMostrar();
-
+    this.auxiliar_personal = this.dataEdit;
+    console.log("fecha aux", this.auxiliar_personal.fecha_nacimiento);
     //configuracion de datepicker
     this.bsDatePickerConfig = Object.assign({}, 
     { isAnimated: true, 
@@ -281,6 +288,7 @@ export class EditComponent implements OnInit {
     this.funcion_txt= (this.dataEdit.funcion)?(JSON.parse(JSON.stringify(this.dataEdit.funcion))).funcion:"sin sector"; 
     this.grado_txt= (this.dataEdit.grado)?(JSON.parse(JSON.stringify(this.dataEdit.grado))).grado:"sin sector"; 
     this.escalafon_txt= (this.dataEdit.escalafon)?(JSON.parse(JSON.stringify(this.dataEdit.escalafon))).escalafon:"sin sector"; 
+    
       
     //cargar los arrays
     this.destinos = destinos;      
@@ -1626,7 +1634,8 @@ export class EditComponent implements OnInit {
       //debe ser MM-dd-yyyy porque el tipo Date recibe ese formato... con dd-MM-yyyy intercambia mes con dia
       let auxiliar2 = this.datePipe.transform(this.dataEdit.fecha_nacimiento, "MM-dd-yyyy");
       this.dataEdit.fecha_nacimiento = new Date(auxiliar2!);
-           
+      this.fecha_nacimiento_txt="pedro"; 
+      console.log("fechatxt", this.fecha_nacimiento_txt);     
     }
 
     if(this.dataEdit.fecha_ingreso != null){
@@ -1634,7 +1643,9 @@ export class EditComponent implements OnInit {
       let auxiliar3 = this.datePipe.transform(this.dataEdit.fecha_ingreso, "MM-dd-yyyy");
       this.dataEdit.fecha_ingreso = new Date(auxiliar3!);
            
-    }
+    }    
+    
+    
   }
    //FIN FORMATO FECHAS PARA NOSTRAR DATEPICKER.................................................................
 

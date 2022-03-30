@@ -661,24 +661,21 @@
                                                     <div class="delantera">
                                                         <img class="foto" [src]="foto_nombre">
                                                         <div class="grupo">
-                                                            <p class="personal">{{nombreCompleto}}
-                                                                <p class="grado">{{grado_txt}}</p>
-                                                                <p class="escalafon">{{escalafon_txt}}</p>
+                                                            <p class="personal">{{nombreCompleto}}</p>
+                                                            <p class="grado">{{grado_txt}}</p>
+                                                            <p class="escalafon">{{escalafon_txt}}</p>
                                                         </div>
                                                     </div>
                                                     <div class="trasera">
-                                                        <div class="fila-1">
-                                                            <p class="nacionalidad">{{dataEdit.nacionalidad}}>
-                                                                <p class="fecha-nac">{{dataEdit.fecha_nacimiento}</p>
-                                                        </div>
-                                                        <div class="fila-2">
-                                                            <p class="legajo">{{dataEdit.legajo}}>
-                                                        </div>
+                                                        <p class="nacionalidad">{{dataEdit.nacionalidad}}</p>
+                                                        <p class="fecha-nac">{{(dataEdit.fecha_nacimiento!=null)?this.datePipe.transform(dataEdit.fecha_nacimiento, "dd/MM/yyyy"):''}}</p>
+                                                        <p class="lugar">Salta</p>
 
-                                                        <div class="fila-3">
-                                                            <p class="destino">{{destino_txt}}>
-                                                        </div>
+                                                        <p class="dni">{{dataEdit.cuil}}</p>
+                                                        <p class="grupo-anguineo">O positivo</p>
+                                                        <p class="legajo">{{dataEdit.legajo}}</p>
 
+                                                        <p class="destino">{{destino_txt}}</p>
                                                     </div>
                                                 </section>
                                             </div>

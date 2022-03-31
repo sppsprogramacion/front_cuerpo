@@ -145,20 +145,26 @@
 
 .nacionalidad {
     position: absolute;
-    top: 24px;
-    left: 15px;
+    width: 110px;
+    text-align: center;
+    top: 23px;
+    left: 7px;
 }
 
 .fecha-nac {
     position: absolute;
-    top: 24px;
+    width: 85px;
+    text-align: center;
+    top: 23px;
     left: 150px;
 }
 
 .lugar {
     position: absolute;
-    top: 24px;
-    left: 300px;
+    width: 150px;
+    text-align: center;
+    top: 23px;
+    left: 260px;
 }
 
 .dni {

@@ -33,7 +33,7 @@
 
                                     <div id="edicion-form-print">
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Primer Apellido</label>
                                                     <input formControlName="apellido_1" type="text" class="form-control" placeholder="primer apellido" [class.is-invalid]="apellido1NoValido">
@@ -47,7 +47,7 @@
                                                 </div>
 
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Segundo Apellido</label>
                                                     <input formControlName="apellido_2" type="text" class="form-control" placeholder="segundo apellido" [class.is-invalid]="apellido2NoValido">
@@ -62,7 +62,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Primer Nombre</label>
                                                     <input formControlName="nombre_1" type="text" class="form-control" placeholder="primer nombre" [class.is-invalid]="nombre1NoValido">
@@ -76,7 +76,7 @@
                                                 </div>
 
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Segundo Nombre</label>
                                                     <input formControlName="nombre_2" type="text" class="form-control" placeholder="segundo nombre" [class.is-invalid]="nombre2NoValido">
@@ -89,9 +89,7 @@
                                                     </small>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Tercer Nombre</label>
                                                     <input formControlName="nombre_3" type="text" class="form-control" placeholder="tercer nombre" [class.is-invalid]="nombre3NoValido">
@@ -105,7 +103,11 @@
                                                 </div>
 
                                             </div>
-                                            <div class="col-sm-6">
+
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Legajo</label>
                                                     <input formControlName="legajo" type="text" class="form-control" placeholder="legajo" [class.is-invalid]="legajoNoValido">
@@ -119,10 +121,41 @@
                                                 </div>
 
                                             </div>
+                                            <div class="col-sm-4">
+                                                <!-- select -->
+                                                <div class="form-group">
+                                                    <label>Escalafón</label>
+                                                    <select formControlName="escalafon_id" class="form-control" [class.is-invalid]="escalafonNoValido"> 
+                                                        <option *ngFor="let escalafon of escalafones" [value]="escalafon.id_escalafon" >{{escalafon.escalafon}}</option> 
+                                                    </select>
+                                                    <small *ngIf="escalafonNoValido" class="form-text text-danger">
+                                                        <div *ngFor="let validation of user_validation_messages.escalafon_id" >
+                                                            <div  *ngIf="forma.get('escalafon_id')?.hasError(validation.type)">
+                                                                {{validation.message}}
+                                                            </div>
+                                                        </div>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Escala Jerárquica</label>
+                                                    <select formControlName="escala_jerarquica_id" class="form-control" (change)=" onChangeEscala()" [class.is-invalid]="escalaJerarquicaNoValido"> 
+                                                        <option *ngFor="let escala of escalas" [value]="escala.id_escala_jerarquica">{{escala.escala_jerarquica}}</option> 
+                                                    </select>
+                                                    <small *ngIf="escalaJerarquicaNoValido" class="form-text text-danger">
+                                                        <div *ngFor="let validation of user_validation_messages.escala_jerarquica_id" >
+                                                            <div  *ngIf="forma.get('escala_jerarquica_id')?.hasError(validation.type)">
+                                                                {{validation.message}}
+                                                            </div>
+                                                        </div>
+                                                    </small>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <!-- select -->
                                                 <div class="form-group">
                                                     <label>Destino</label>
@@ -142,7 +175,7 @@
                                                     <!-- <p-dropdown class="form-control" [options]="destinos" formControlName="destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown> -->
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Departamento</label>
                                                     <select formControlName="departamento_id" class="form-control" (change)=" onChangeDepartamento()" [class.is-invalid]="departamentoNoValido"> 
@@ -230,42 +263,10 @@
 
                                         </div>
 
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <!-- select -->
-                                                <div class="form-group">
-                                                    <label>Escalafón</label>
-                                                    <select formControlName="escalafon_id" class="form-control" [class.is-invalid]="escalafonNoValido"> 
-                                                        <option *ngFor="let escalafon of escalafones" [value]="escalafon.id_escalafon" >{{escalafon.escalafon}}</option> 
-                                                    </select>
-                                                    <small *ngIf="escalafonNoValido" class="form-text text-danger">
-                                                        <div *ngFor="let validation of user_validation_messages.escalafon_id" >
-                                                            <div  *ngIf="forma.get('escalafon_id')?.hasError(validation.type)">
-                                                                {{validation.message}}
-                                                            </div>
-                                                        </div>
-                                                    </small>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label>Escala Jerárquica</label>
-                                                    <select formControlName="escala_jerarquica_id" class="form-control" (change)=" onChangeEscala()" [class.is-invalid]="escalaJerarquicaNoValido"> 
-                                                        <option *ngFor="let escala of escalas" [value]="escala.id_escala_jerarquica">{{escala.escala_jerarquica}}</option> 
-                                                    </select>
-                                                    <small *ngIf="escalaJerarquicaNoValido" class="form-text text-danger">
-                                                        <div *ngFor="let validation of user_validation_messages.escala_jerarquica_id" >
-                                                            <div  *ngIf="forma.get('escala_jerarquica_id')?.hasError(validation.type)">
-                                                                {{validation.message}}
-                                                            </div>
-                                                        </div>
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        </div>
+
 
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <!-- select -->
                                                 <div class="form-group">
                                                     <label>Grado</label>
@@ -282,7 +283,11 @@
                                                     </small>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Fecha Ingreso</label>
                                                     <!-- <input formControlName="fecha_ingreso" type="text" class="form-control" placeholder="fecha ingreso" [class.is-invalid]="nombre1NoValido"> -->
@@ -291,16 +296,29 @@
                                                 </div>
 
                                             </div>
-
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label for="datebirth">Ultimo Ascenso:</label>
                                                     <input type="text" bsDatepicker [bsConfig]=bsDatePickerConfig (bsValueChange)="onDateChange($event)" id="datebirth" class="form-control" formControlName="ultimo_ascenso">
                                                 </div>
                                             </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Situacion</label>
+                                                    <select formControlName="situacion_id" class="form-control" [class.is-invalid]="situacionNoValido"> 
+                                                        <option *ngFor="let situacion of situaciones" [value]="situacion.id_situacion">{{situacion.situacion}}</option> 
+                                                    </select>
+                                                    <small *ngIf="situacionNoValido" class="form-text text-danger">
+                                                        <div *ngFor="let validation of user_validation_messages.situacion_id" >
+                                                            <div  *ngIf="forma.get('situacion_id')?.hasError(validation.type)">
+                                                                {{validation.message}}
+                                                            </div>
+                                                        </div>
+                                                    </small>
+                                                </div>
+                                            </div>
                                         </div>
+
                                     </div>
                                 </div>
 
@@ -316,7 +334,7 @@
                                     <div class="card-body">
 
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label>DNI</label>
                                                     <input formControlName="dni" type="text" class="form-control" placeholder="dni" [class.is-invalid]="dniNoValido">
@@ -329,7 +347,7 @@
                                                     </small>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label>Cuil</label>
                                                     <input formControlName="cuil" type="text" class="form-control" placeholder="cuil" [class.is-invalid]="cuilNoValido">
@@ -342,21 +360,13 @@
                                                     </small>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label>Fecha Nacimiento</label>
                                                     <input type="text" bsDatepicker [bsConfig]=bsDatePickerConfig id="datebirth2" class="form-control" formControlName="fecha_nacimiento">
                                                 </div>
                                             </div>
-
-
-
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label>Sexo</label>
                                                     <select formControlName="sexo_id" class="form-control" [class.is-invalid]="sexoNoValido"> 
@@ -371,7 +381,10 @@
                                                     </small>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label>Estado Civil</label>
                                                     <select formControlName="estado_civil_id" class="form-control" [class.is-invalid]="estadoCivilNoValido"> 
@@ -386,10 +399,7 @@
                                                     </small>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label>Nacionalidad</label>
                                                     <input formControlName="nacionalidad" type="text" class="form-control" placeholder="nacionalidad" [class.is-invalid]="nacionalidadNoValido">
@@ -415,6 +425,7 @@
                                                     </small>
                                                 </div>
                                             </div>
+
                                         </div>
 
                                         <div class="row">
@@ -530,21 +541,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label>Situacion</label>
-                                                    <select formControlName="situacion_id" class="form-control" [class.is-invalid]="situacionNoValido"> 
-                                                        <option *ngFor="let situacion of situaciones" [value]="situacion.id_situacion">{{situacion.situacion}}</option> 
-                                                    </select>
-                                                    <small *ngIf="situacionNoValido" class="form-text text-danger">
-                                                        <div *ngFor="let validation of user_validation_messages.situacion_id" >
-                                                            <div  *ngIf="forma.get('situacion_id')?.hasError(validation.type)">
-                                                                {{validation.message}}
-                                                            </div>
-                                                        </div>
-                                                    </small>
-                                                </div>
-                                            </div>
+
 
                                         </div>
 

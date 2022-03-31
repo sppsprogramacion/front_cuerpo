@@ -243,6 +243,10 @@ export class UploadComponent implements OnInit {
       { type: 'required', message: 'El grado es requerido.'},
       { type: 'pattern', message: 'El valor ingresado no es un número.' }
     ],
+    'situacion_id': [
+      { type: 'required', message: 'La situacion educativo es requerida.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
 
     //fin datos laborales
     //datos personales
@@ -304,10 +308,7 @@ export class UploadComponent implements OnInit {
       { type: 'required', message: 'El nivel educativo es requerido.'},
       { type: 'pattern', message: 'El valor ingresado no es un número.' }
     ],
-    'situacion_id': [
-      { type: 'required', message: 'La situacion educativo es requerida.'},
-      { type: 'pattern', message: 'El valor ingresado no es un número.' }
-    ],
+    
     'altura': [
 
       { type: 'min', message: 'El número ingresado es bajo.(minimo: 1)' },
@@ -383,7 +384,9 @@ export class UploadComponent implements OnInit {
     return this.forma.get('grado_id')?.invalid && this.forma.get('grado_id')?.touched;
   }
 
-  
+  get situacionNoValido(){
+    return this.forma.get('situacion_id')?.invalid && this.forma.get('situacion_id')?.touched;
+  }  
 
   //fin validaciones formulario laborales
 
@@ -442,10 +445,6 @@ export class UploadComponent implements OnInit {
 
   get nivelEducativoNoValido(){
     return this.forma.get('nivel_educativo_id')?.invalid && this.forma.get('nivel_educativo_id')?.touched;
-  }
-
-  get situacionNoValido(){
-    return this.forma.get('situacion_id')?.invalid && this.forma.get('situacion_id')?.touched;
   }
 
   get alturaNoValido(){

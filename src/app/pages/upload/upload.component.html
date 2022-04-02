@@ -334,7 +334,7 @@
                                     <div class="card-body">
 
                                         <div class="row">
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>DNI</label>
                                                     <input formControlName="dni" type="text" class="form-control" placeholder="dni" [class.is-invalid]="dniNoValido">
@@ -347,7 +347,7 @@
                                                     </small>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Cuil</label>
                                                     <input formControlName="cuil" type="text" class="form-control" placeholder="cuil" [class.is-invalid]="cuilNoValido">
@@ -360,13 +360,17 @@
                                                     </small>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Fecha Nacimiento</label>
                                                     <input type="text" bsDatepicker [bsConfig]=bsDatePickerConfig id="datebirth2" class="form-control" formControlName="fecha_nacimiento">
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3">
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Sexo</label>
                                                     <select formControlName="sexo_id" class="form-control" [class.is-invalid]="sexoNoValido"> 
@@ -381,10 +385,7 @@
                                                     </small>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Estado Civil</label>
                                                     <select formControlName="estado_civil_id" class="form-control" [class.is-invalid]="estadoCivilNoValido"> 
@@ -399,7 +400,7 @@
                                                     </small>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Nacionalidad</label>
                                                     <input formControlName="nacionalidad" type="text" class="form-control" placeholder="nacionalidad" [class.is-invalid]="nacionalidadNoValido">
@@ -412,7 +413,12 @@
                                                     </small>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Domicilio</label>
                                                     <input formControlName="domicilio" type="text" class="form-control" placeholder="domicilio" [class.is-invalid]="domicilioNoValido">
@@ -425,11 +431,7 @@
                                                     </small>
                                                 </div>
                                             </div>
-
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Provincia</label>
                                                     <select formControlName="provincia_id" class="form-control" (change)=" onChangeProvincia()" [class.is-invalid]="provinciaNoValido"> 
@@ -444,7 +446,7 @@
                                                     </small>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Departamento Provincial</label>
                                                     <select formControlName="departamento_provincial_id" class="form-control" (change)=" onChangeDepartamentoProvincial()" [class.is-invalid]="departamentoProvincialNoValido"> 
@@ -462,7 +464,7 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Municipio</label>
                                                     <select formControlName="municipio_id" class="form-control" (change)=" onChangeMunicipios()" [class.is-invalid]="municipioNoValido"> 
@@ -477,7 +479,7 @@
                                                     </small>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Ciudad</label>
                                                     <select formControlName="ciudad_id" class="form-control" [class.is-invalid]="ciudadNoValido"> 
@@ -496,7 +498,7 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Nivel Educativo</label>
                                                     <select formControlName="nivel_educativo_id" class="form-control" [class.is-invalid]="nivelEducativoNoValido"> 
@@ -511,7 +513,7 @@
                                                     </small>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Telefonos</label>
                                                     <input formControlName="telefonos" type="text" class="form-control" placeholder="telefonos" [class.is-invalid]="telefonosNoValido">
@@ -524,10 +526,7 @@
                                                     </small>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Email</label>
                                                     <input formControlName="email" type="text" class="form-control" placeholder="email" [class.is-invalid]="emailNoValido">
@@ -540,14 +539,12 @@
                                                     </small>
                                                 </div>
                                             </div>
-
-
-
                                         </div>
+
 
                                         <div class="row">
 
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Altura</label>
                                                     <input formControlName="altura" type="text" class="form-control" placeholder="altura">
@@ -560,7 +557,7 @@
                                                     </small>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Peso</label>
                                                     <input formControlName="peso" type="text" class="form-control" placeholder="peso">
@@ -575,12 +572,18 @@
                                             </div>
                                         </div>
 
-                                        <div class="card-footer">
+                                        <div *ngIf="nuevoPersonal" class="card-footer">
                                             <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (ngSubmit)="submitForm()">Guardar</button>
                                         </div>
-                                        <div class="card-footer">
-                                            <button style="width: 100%; text-align: center;" type="button" class="btn btn-danger" (click)="limpiarFormulario()">Cancelar</button>
+                                        <div *ngIf="!nuevoPersonal" class="card-footer">
+                                            <button style="width: 30%; text-align: center;" type="button" class="btn btn-success" (click)="crearTraslado()">Destino</button>
                                         </div>
+                                        <div class="card-footer">
+                                            <button style="width: 100%; text-align: center;" type="button" class="btn btn-danger" (click)="limpiarFormulario()">Limpiar</button>
+                                        </div>
+
+
+
 
 
 
@@ -607,6 +610,171 @@
                             </div>
                         </form>
                         <!-- </form> -->
+                        <!-- DIALOG FORMULARIO TRASLADO -->
+                        <p-dialog [(visible)]="newTrasladoDialog" [style]="{width: '450px'}" header={{this.tituloFormTraslado}} [closable]="false" [modal]="true" styleClass="p-fluid">
+                            <ng-template pTemplate="content">
+                                <form [formGroup]="formaTraslados" (ngSubmit)="submitFormTraslado()">
+                                    <div id="edicion-form-print">
+
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Id Traslado</label>
+                                                    <input formControlName="id_traslado" type="text" class="form-control" placeholder="id traslado" Disabled>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Dni</label>
+                                                    <input formControlName="dni_personal" type="text" class="form-control" placeholder="dni personal" Disabled>
+                                                    <small *ngIf="dniTrasNoValido" class="form-text text-danger">
+                                                        <div *ngFor="let validation of traslado_validation_messages.dni_personal" >
+                                                            <div  *ngIf="formaTraslados.get('dni_personal')?.hasError(validation.type)">
+                                                                {{validation.message}}
+                                                            </div>
+                                                        </div>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Legajo</label>
+                                                    <input formControlName="legajo" type="text" class="form-control" placeholder="legajo" Disabled>
+                                                    <small *ngIf="legajoTrasNoValido" class="form-text text-danger">
+                                                        <div *ngFor="let validation of traslado_validation_messages.legajo" >
+                                                            <div  *ngIf="formaTraslados.get('legajo')?.hasError(validation.type)">
+                                                                {{validation.message}}
+                                                            </div>
+                                                        </div>
+                                                    </small>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+
+                                            <div class="col-sm-12">
+                                                <!-- select -->
+                                                <div class="form-group">
+                                                    <label>Destino</label>
+                                                    <!-- <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChangeDestino()">  -->
+                                                    <select *ngIf="administrador" formControlName="destino_id" class="form-control" [class.is-invalid]="destinoTrasNoValido"> 
+                                                            <option *ngFor="let destino of destinos" [value]="destino.id_destino" >{{destino.destino}}</option>
+                                                    </select>
+                                                    <input *ngIf="!administrador" type="text" class="form-control" [placeholder]="destino_txt" disabled>
+                                                    <small *ngIf="destinoTrasNoValido" class="form-text text-danger">
+                                                        <div *ngFor="let validation of traslado_validation_messages.destino_id" >
+                                                            <div  *ngIf="formaTraslados.get('destino_id')?.hasError(validation.type)">
+                                                                {{validation.message}}
+                                                            </div>
+                                                        </div>
+                                                    </small>
+
+                                                    <!-- <p-dropdown class="form-control" [options]="destinos" formControlName="destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown> -->
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label>Instrumento</label>
+                                                    <input formControlName="instrumento" type="text" class="form-control" placeholder="instrumento">
+                                                    <small *ngIf="instrumentoTrasNoValido" class="form-text text-danger">
+                                                        <div *ngFor="let validation of traslado_validation_messages.instrumento" >
+                                                            <div  *ngIf="formaTraslados.get('instrumento')?.hasError(validation.type)">
+                                                                {{validation.message}}
+                                                            </div>
+                                                        </div>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="row">
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Fecha</label>
+                                                    <input formControlName="fecha" type="text" class="form-control" placeholder="fecha">
+                                                    <small *ngIf="fechaTrasNoValido" class="form-text text-danger">
+                                                        <div *ngFor="let validation of traslado_validation_messages.fecha" >
+                                                            <div  *ngIf="formaTraslados.get('fecha')?.hasError(validation.type)">
+                                                                {{validation.message}}
+                                                            </div>
+                                                        </div>
+                                                    </small>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Fojas</label>
+                                                    <input formControlName="fojas" type="text" class="form-control" placeholder="fojas">
+                                                    <small *ngIf="fojasTrasNoValido" class="form-text text-danger">
+                                                        <div *ngFor="let validation of traslado_validation_messages.fojas" >
+                                                            <div  *ngIf="formaTraslados.get('fojas')?.hasError(validation.type)">
+                                                                {{validation.message}}
+                                                            </div>
+                                                        </div>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="row">
+
+
+                                            <div class="col-sm-6">
+                                                <div class="icheck-primary">
+                                                    <input type="checkbox" id="vigente" formControlName="vigente" class="form-control" Disabled>
+                                                    <label for="vigente">
+                                                        Vigente
+                                                    </label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="icheck-primary">
+                                                    <input type="checkbox" id="confirmado" formControlName="confirmado" class="form-control" Disabled>
+                                                    <label for="confirmado">
+                                                        Confirmado
+                                                    </label>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </form>
+                            </ng-template>
+                            <ng-template pTemplate="footer">
+                                <div class="row">
+                                    <div class="col-8" *ngIf="!editandoTraslado && administrador">
+                                        <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormTraslado()">Guardar Traslado</button>
+                                    </div>
+                                    <div class="col-8" *ngIf="editandoTraslado && administrador">
+                                        <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormTraslado()">Actualizar Traslado</button>
+                                    </div>
+                                    <div class="col-4">
+                                        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="ocultarDialogoTraslado()"></button>
+                                    </div>
+                                </div>
+                            </ng-template>
+
+                        </p-dialog>
+                        <!-- FIN DIALOG FORMULARIO TRASLADO -->
                         <!-- fin fin fin -->
 
 

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { UploadComponent } from './upload.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ngPrimeModule } from 'src/app/ngprime.module';
 
 
 
@@ -13,6 +14,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
   ],
   imports: [
     CommonModule,
+    ngPrimeModule,
     FormsModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),

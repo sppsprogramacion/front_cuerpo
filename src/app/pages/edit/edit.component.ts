@@ -55,11 +55,13 @@ export class EditComponent implements OnInit {
   @ViewChild('printCredencial2')
   printCredencial2!: ElementRef;
   
-  
+  //FORMULARIOS
   forma: FormGroup;
   formaFiliatorios: FormGroup;
   formaTraslados: FormGroup;
   formaFuncion: FormGroup;
+
+  //MODELOS
   dataEdit: Personal= new Personal;
   auxiliar_personal: any;
   
@@ -151,8 +153,6 @@ export class EditComponent implements OnInit {
     this.dataEdit= dataService.personalData;
     
     this.regPdf.legajo_personal = this.dataEdit.legajo!;  
-    console.log("personal", this.dataEdit);
-    console.log("personal fecha", this.dataEdit.fecha_nacimiento);
 
     //cambiar formato de fechas para mostrarlas en datepicker
     this.formatoFechasMostrar();
@@ -521,7 +521,7 @@ export class EditComponent implements OnInit {
   }
   //fin validaciones traslados
   
-  //validaciones traslados
+  //validaciones funcion
   funcion_validation_messages = {
     
     'legajo': [
@@ -573,7 +573,7 @@ export class EditComponent implements OnInit {
       { type: 'required', message: 'El vigente es requerido.'}
     ]
   }
-  //fin validaciones traslados
+  //fin validaciones funcion
   
   //FIN VALIDACIONES FORMULARIOS................................................................................
 
@@ -1435,7 +1435,7 @@ export class EditComponent implements OnInit {
   }
   //DESCARGAR PDF..................................................................
 
-
+  
   onEditPdf(){
     this.submitted = true;
     if(this.editandoPdf){
@@ -1466,10 +1466,8 @@ export class EditComponent implements OnInit {
               });
       }else{
       
-              Swal.fire('Error',`Error al Editar el Usuario: Faltan Datos`,"error")
-              
+              Swal.fire('Error',`Error al Editar el Usuario: Faltan Datos`,"error")              
       }
-
     }
   }
 

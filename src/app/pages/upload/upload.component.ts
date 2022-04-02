@@ -22,6 +22,7 @@ import { sectorModel } from 'src/app/models/sector.model';
 import { SexoModel } from 'src/app/models/sexo.model';
 import { SituacionModel } from 'src/app/models/situacion.model';
 import { PersonalService } from 'src/app/services/personal.service';
+import { TrasladosService } from 'src/app/services/traslados.service';
 import Swal from 'sweetalert2';
 import { CiudadModel } from '../../models/ciudad.model';
 import { FuncionModel } from '../../models/funcion.model';
@@ -35,11 +36,35 @@ import { TrasladoModel } from '../../models/traslado.model';
 })
 export class UploadComponent implements OnInit {
 
+  //FORMULARIOS  
   forma: FormGroup;
-  administrador: boolean = false;
-  
-  destino_txt: string="";
+  formaTraslados: FormGroup;
 
+  //VARIABLES
+  administrador: boolean = false;   
+  nuevoPersonal: boolean = true; 
+  foto_nombre: string = 'no-image.png';
+  fotoSubir: File | undefined;
+  modo: string = 'laboral';
+
+  //VARIABLES AUXULIARES
+  auxiliarDate: any = null;
+  destino_txt: string="";
+  dni_aux: number = 0;
+  legajo_aux: number = 0;
+
+  //variables de manejo de traslado
+  dataTraslado: TrasladoModel= new TrasladoModel;
+  listaTraslado: TrasladoModel[]=[];
+  tituloFormTraslado:string = "";
+  newTrasladoDialog: boolean= false;
+  submitedTraslado:boolean=false;
+  editandoTraslado: boolean=false;
+  
+  //DATEPICKER
+  bsDatePickerConfig!: Partial<BsDatepickerConfig>;
+
+  //ARRAYS DE TABLAS
   ciudades: CiudadModel[]=[];
   departamentos: DepartamentoModel[]=[];
   departamentos_provinciales: DepartamentoProvincialModel[]=[];
@@ -57,21 +82,14 @@ export class UploadComponent implements OnInit {
   secciones_guardia: SeccionGuardia[]=[];
   sexos: SexoModel[]=[];
   situaciones: SituacionModel[]=[];
-  //ciudades: CiudadModel[]=[];
-
-
-  foto_nombre: string = 'no-image.png';
-  fotoSubir: File | undefined;
-  modo: string = 'laboral';
-  auxiliarDate: any = null;
+  //ciudades: CiudadModel[]=[]; 
   
-  bsDatePickerConfig!: Partial<BsDatepickerConfig>;
-  //formaFiliatorios: any;
 
   constructor(
     private fb: FormBuilder,
     private readonly datePipe: DatePipe,
     private readonly personalService: PersonalService,
+    private readonly trasladoService: TrasladosService,
     private localeService: BsLocaleService
   ) 
   {
@@ -132,7 +150,22 @@ export class UploadComponent implements OnInit {
 
 
     });
-    //fin formulario personal
+    //fin formulario personal...............................................................................................
+
+    //FORMULARIO TRASLADO    
+    this.formaTraslados = this.fb.group({
+      id_traslado: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      //id_traslado: [this.dataTraslado.id_traslado,Validators.required],
+      dni_personal: [this.dni_aux,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1000000), Validators.max(99000000)]],
+      legajo: [this.legajo_aux,[Validators.required,,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
+      destino_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      fecha: [,[Validators.required]],
+      instrumento: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+      fojas: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      vigente: [true, [Validators.required]],
+      confirmado: [false, [Validators.required]]
+    });
+    //FIN FORMULARIO TRASLADO........................................................................................................
 
 
     //cargar desplegables
@@ -321,9 +354,51 @@ export class UploadComponent implements OnInit {
       { type: 'pattern', message: 'El valor ingresado no es un número correcto (use el punto (.) como separador decimal y hasta dos decimales).' }
     ]
 
-    //fin datos personales
+    //fin datos personales   
+
+
   }
   //FIN mensajes de validaciones
+
+  //validaciones traslados
+  traslado_validation_messages = {
+    
+    'dni_personal': [
+      { type: 'required', message: 'El dni es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' },
+      { type: 'min', message: 'El número ingresado es bajo.(minimo: 1000000)' },
+      { type: 'max', message: 'El número ingresado es alto (maximo: 99000000).'} 
+    ],
+    'legajo': [
+      { type: 'required', message: 'El legajo es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' },
+      { type: 'min', message: 'El número ingresado es bajo.(minimo: 1)' },
+      { type: 'max', message: 'El número ingresado es alto (maximo: 500000).'} 
+    ],
+    'destino_id': [
+      { type: 'required', message: 'El destino es requerido.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    ],
+    'fecha': [
+      { type: 'required', message: 'La Fecha es requerida' }
+      
+    ],
+    'instrumento': [
+      { type: 'required', message: 'El instrumento es requerido' },
+      { type: 'pattern', message: 'Solo se pueden ingresar letras, nùmeros, espacios, puntos y barra diagonal(/).' },
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 100.' }
+    ],
+    'fojas': [
+      { type: 'required', message: 'La cantidad de foja es requerida.'},
+      { type: 'pattern', message: 'El valor ingresado no es un número.' }
+    
+    ],
+    'vigente': [
+      { type: 'required', message: 'El vigente es requerido.'}
+    ]
+  }
+  //fin validaciones traslados
 
   //validaciones formulario laborales
   get apellido1NoValido(){
@@ -456,6 +531,36 @@ export class UploadComponent implements OnInit {
   }
 
   //fin validaciones formulario filatorios
+
+  //VALIDACIONES 2 FORMULARIO TRASLADO
+  get dniTrasNoValido(){
+    return this.formaTraslados.get('dni_personal')?.invalid && this.formaTraslados.get('dni_personal')?.touched;
+  }
+    
+  get legajoTrasNoValido(){
+    return this.formaTraslados.get('legajo')?.invalid && this.formaTraslados.get('legajo')?.touched;
+  }
+
+  get destinoTrasNoValido(){
+    return this.formaTraslados.get('destino_id')?.invalid && this.formaTraslados.get('destino_id')?.touched;
+  }
+
+  get fechaTrasNoValido(){
+    return this.formaTraslados.get('fecha')?.invalid && this.formaTraslados.get('fecha')?.touched;
+  }
+
+  get instrumentoTrasNoValido(){
+    return this.formaTraslados.get('instrumento')?.invalid && this.formaTraslados.get('instrumento')?.touched;
+  }
+
+  get fojasTrasNoValido(){
+    return this.formaTraslados.get('fojas')?.invalid && this.formaTraslados.get('fojas')?.touched;
+  }
+
+  get vigenteTrasNoValido(){
+    return this.formaTraslados.get('vigente')?.invalid && this.formaTraslados.get('vigente')?.touched;
+  }
+  //FIN VALIDACIONES 2 FORMULARIO TRASLADO
   //FIN VALIDACIONES FORMULARIOS
   
 
@@ -705,14 +810,23 @@ export class UploadComponent implements OnInit {
           registrado_por: globalConstants.id_usuario,
           situacion_id: parseInt(this.forma.get('situacion_id')?.value)
       }
-              
+      
+      
+
+      console.log("dni_Aux", this.dni_aux);
+                    
       this.personalService.guardarPersonal(data)
               .subscribe(resultado => {
                 
                   Swal.fire('Exito',`El Registro ha sido guardado con Exito`,"success");
+                  //guardar variable auxiliar
+                  this.dni_aux = parseInt(this.forma.get('dni')?.value);
+                  this.legajo_aux = parseInt(this.forma.get('legajo')?.value);
+                  this.nuevoPersonal=false;
+                  
                   
 
-                  this.limpiarFormulario();
+                  //this.limpiarFormulario();
               },
               error => {
                   
@@ -722,6 +836,78 @@ export class UploadComponent implements OnInit {
   }
 
   //fin guardar personal..............................................................................
+
+  //GUARDAR TRASLADO  
+  submitFormTraslado(){
+    if(this.formaTraslados.invalid){
+      Swal.fire('Formulario Traslado con errores','Complete correctamente todos los campos del formulario',"warning");
+      return Object.values(this.formaTraslados.controls).forEach(control => control.markAsTouched());
+    }
+
+    let data: TrasladoModel;
+     //poner destino en el personal y sin funcion 
+      //this.submitForm('cambioDestino');
+
+      data = {
+
+        legajo: parseInt(this.formaTraslados.get('legajo')?.value),
+        dni_personal: parseInt(this.formaTraslados.get('dni_personal')?.value),
+        destino_id: parseInt(this.formaTraslados.get('destino_id')?.value),
+        instrumento: this.formaTraslados.get('instrumento')?.value,
+        fecha: this.changeFormatoFechaGuardar(this.formaTraslados.get('fecha')?.value),
+        fojas: parseInt(this.formaTraslados.get('fojas')?.value),
+        vigente: this.formaTraslados.get('vigente')?.value,
+        confirmado: this.formaTraslados.get('confirmado')?.value,
+      }      
+        
+      //GUARDAR NUEVO TRASLADO
+      this.trasladoService.guardarTraslado(data)
+      .subscribe(resultado => {
+        
+        Swal.fire('Nuevo traslado',`El Traslado ha sido guardado con exito`,"success");
+        //this.buscarPersonal(data.legajo!);
+        this.ocultarDialogoTraslado();            
+      },
+      error => {
+          
+          Swal.fire('Nuevo traslado',`Error al guardar el Traslado: ${error.error.message}`,"error")                          
+      });
+      //FIN GUARDAR NUEVO TRASLADO        
+        
+            
+      
+  }
+  //FIN GUARDAR TRASLADO
+
+  //ABRIR FORMULARIO NUEVO TRASLADO
+  crearTraslado(){
+    this.tituloFormTraslado="Nuevo Registro de Traslado"
+    this.formaTraslados.get('dni_personal')?.setValue(this.dni_aux);
+    this.formaTraslados.get('legajo')?.setValue(this.legajo_aux);
+    this.newTrasladoDialog = true;
+  }
+  //FIN ABRIR FORMULARIO NUEVO TRASLADO
+
+  //OCULTAR FORMULARIO TRASLADO
+  ocultarDialogoTraslado(){
+    this.limpiarFormularioTraslado();
+    this.newTrasladoDialog = false
+  }  
+  //FIN OCULTAR FORMULARIO TRASLADO............................................
+
+  //LIMPIAR FORMULARIO TRASLADO
+  limpiarFormularioTraslado(){
+    this.formaTraslados.get('id_traslado')?.setValue(0);
+    this.formaTraslados.get('destino_id')?.setValue(8); 
+    this.formaTraslados.get('instrumento')?.setValue(""); 
+    this.formaTraslados.get('fecha')?.setValue(""); 
+    this.formaTraslados.get('fojas')?.setValue(0);
+    this.formaTraslados.get('vigente')?.setValue(true);
+
+    return Object.values(this.formaTraslados.controls).forEach(control => control.markAsUntouched());
+  }
+  //FIN LIMPIAR FORMULARIO TRASLADO
+  //..................................................................................................
 
 
   //CAMBIAR NOMBRES Y APELLIDOS PRIMERA LETRA A MAYUSCULA
@@ -782,6 +968,9 @@ export class UploadComponent implements OnInit {
 
    });
    //fin formulario personal
+    
+   this.nuevoPersonal=true;
+
   }
   //fin limpiar formulario
 

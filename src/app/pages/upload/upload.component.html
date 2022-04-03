@@ -16,13 +16,14 @@
         <!-- <div class="card"> -->
         <div class="row">
             <div class="col-md-12">
-                <div class="card card-primary ">
-                    <div class="card-header">
-                        <h3 class="card-title">Agregar un nuevo Personal</h3>
-                    </div>
-                    <div class="card-body">
-                        <form [formGroup]="forma" (ngSubmit)="submitForm()">
-
+                <!-- FORMULARIO CARGA -->
+                <form [formGroup]="forma">
+                    <div class="card card-primary ">
+                        <div class="card-header">
+                            <h3 class="card-title">Agregar un nuevo Personal</h3>
+                        </div>
+                        <!-- /.FIN card-HEADER -->
+                        <div class="card-body">
                             <!-- Card datos laborales -->
                             <div class="card card-warning">
                                 <div class="card-header">
@@ -154,12 +155,15 @@
                                             </div>
                                         </div>
 
+                                        <!-- CAMPOS PARA DESTINO -->
+
+                                        <!-- 
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <!-- select -->
+                                                
                                                 <div class="form-group">
                                                     <label>Destino</label>
-                                                    <!-- <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChangeDestino()">  -->
+                                                    
                                                     <select *ngIf="administrador" formControlName="destino_id" class="form-control" (change)=" onChangeDestino()" [class.is-invalid]="destinoNoValido"> 
                                                           <option *ngFor="let destino of destinos" [value]="destino.id_destino" >{{destino.destino}}</option>
                                                     </select>
@@ -172,7 +176,7 @@
                                                         </div>
                                                     </small>
 
-                                                    <!-- <p-dropdown class="form-control" [options]="destinos" formControlName="destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown> -->
+                                                    
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
@@ -194,7 +198,7 @@
 
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                <!-- select -->
+                                                
                                                 <div class="form-group">
                                                     <label>Divisiones</label>
                                                     <select formControlName="division_id" class="form-control" (change)=" onChangeDivision()" [class.is-invalid]="divisionNoValido"> 
@@ -244,7 +248,7 @@
                                             </div>
 
                                             <div class="col-sm-6">
-                                                <!-- select -->
+                                                
                                                 <div class="form-group">
                                                     <label>Funciones</label>
                                                     <select formControlName="funcion_id" class="form-control" [class.is-invalid]="funcionNoValido"> 
@@ -261,8 +265,9 @@
                                                 </div>
                                             </div>
 
-                                        </div>
+                                        </div> -->
 
+                                        <!-- FIN CAMPOS PARA DESTINO -->
 
 
                                         <div class="row">
@@ -321,274 +326,277 @@
 
                                     </div>
                                 </div>
+                            </div>
+                            <!-- FIN Card datos laborales -->
 
-                                <!-- Card datos filiatorios -->
-                                <div class="card card-warning">
-                                    <!-- /.card-header -->
-                                    <div class="card-header">
-                                        <h3 class="card-title">Datos Filiatorios</h3>
-                                    </div>
-                                    <!-- /.fin card-header -->
+                            <!-- Card datos filiatorios -->
+                            <div class="card card-warning">
+                                <!-- /.card-header -->
+                                <div class="card-header">
+                                    <h3 class="card-title">Datos Filiatorios</h3>
+                                </div>
+                                <!-- /.fin card-header -->
+                                <!-- /.card-body -->
+                                <div class="card-body">
 
-                                    <!-- /.card-body -->
-                                    <div class="card-body">
-
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label>DNI</label>
-                                                    <input formControlName="dni" type="text" class="form-control" placeholder="dni" [class.is-invalid]="dniNoValido">
-                                                    <small *ngIf="dniNoValido" class="form-text text-danger">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>DNI</label>
+                                                <input formControlName="dni" type="text" class="form-control" placeholder="dni" [class.is-invalid]="dniNoValido">
+                                                <small *ngIf="dniNoValido" class="form-text text-danger">
                                                         <div *ngFor="let validation of user_validation_messages.dni" >
                                                             <div  *ngIf="forma.get('dni')?.hasError(validation.type)">
                                                                 {{validation.message}}
                                                             </div>
                                                         </div>                                                                
                                                     </small>
-                                                </div>
                                             </div>
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label>Cuil</label>
-                                                    <input formControlName="cuil" type="text" class="form-control" placeholder="cuil" [class.is-invalid]="cuilNoValido">
-                                                    <small *ngIf="cuilNoValido" class="form-text text-danger">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Cuil</label>
+                                                <input formControlName="cuil" type="text" class="form-control" placeholder="cuil" [class.is-invalid]="cuilNoValido">
+                                                <small *ngIf="cuilNoValido" class="form-text text-danger">
                                                         <div *ngFor="let validation of user_validation_messages.cuil" >
                                                             <div  *ngIf="forma.get('cuil')?.hasError(validation.type)">
                                                                 {{validation.message}}
                                                             </div>
                                                         </div>                                                                                                                              
                                                     </small>
-                                                </div>
                                             </div>
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label>Fecha Nacimiento</label>
-                                                    <input type="text" bsDatepicker [bsConfig]=bsDatePickerConfig id="datebirth2" class="form-control" formControlName="fecha_nacimiento">
-                                                </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Fecha Nacimiento</label>
+                                                <input type="text" bsDatepicker [bsConfig]=bsDatePickerConfig id="datebirth2" class="form-control" formControlName="fecha_nacimiento">
                                             </div>
-
                                         </div>
 
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label>Sexo</label>
-                                                    <select formControlName="sexo_id" class="form-control" [class.is-invalid]="sexoNoValido"> 
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Sexo</label>
+                                                <select formControlName="sexo_id" class="form-control" [class.is-invalid]="sexoNoValido"> 
                                                         <option *ngFor="let sexo of sexos" [value]="sexo.id_sexo" >{{sexo.sexo}}</option> 
                                                     </select>
-                                                    <small *ngIf="sexoNoValido" class="form-text text-danger">
+                                                <small *ngIf="sexoNoValido" class="form-text text-danger">
                                                         <div *ngFor="let validation of user_validation_messages.sexo_id" >
                                                             <div  *ngIf="forma.get('sexo_id')?.hasError(validation.type)">
                                                                 {{validation.message}}
                                                             </div>
                                                         </div>
                                                     </small>
-                                                </div>
                                             </div>
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label>Estado Civil</label>
-                                                    <select formControlName="estado_civil_id" class="form-control" [class.is-invalid]="estadoCivilNoValido"> 
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Estado Civil</label>
+                                                <select formControlName="estado_civil_id" class="form-control" [class.is-invalid]="estadoCivilNoValido"> 
                                                             <option *ngFor="let estado_civil of estados_civil" [value]="estado_civil.id_estado_civil">{{estado_civil.estado_civil}}</option> 
                                                     </select>
-                                                    <small *ngIf="estadoCivilNoValido" class="form-text text-danger">
+                                                <small *ngIf="estadoCivilNoValido" class="form-text text-danger">
                                                         <div *ngFor="let validation of user_validation_messages.estado_civil_id" >
                                                             <div  *ngIf="forma.get('estado_civil_id')?.hasError(validation.type)">
                                                                 {{validation.message}}
                                                             </div>
                                                         </div>
                                                     </small>
-                                                </div>
                                             </div>
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label>Nacionalidad</label>
-                                                    <input formControlName="nacionalidad" type="text" class="form-control" placeholder="nacionalidad" [class.is-invalid]="nacionalidadNoValido">
-                                                    <small *ngIf="nacionalidadNoValido" class="form-text text-danger">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Nacionalidad</label>
+                                                <input formControlName="nacionalidad" type="text" class="form-control" placeholder="nacionalidad" [class.is-invalid]="nacionalidadNoValido">
+                                                <small *ngIf="nacionalidadNoValido" class="form-text text-danger">
                                                         <div *ngFor="let validation of user_validation_messages.nacionalidad" >
                                                             <div  *ngIf="forma.get('nacionalidad')?.hasError(validation.type)">
                                                                 {{validation.message}}
                                                             </div>
                                                         </div>
                                                     </small>
-                                                </div>
                                             </div>
-
-
                                         </div>
 
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label>Domicilio</label>
-                                                    <input formControlName="domicilio" type="text" class="form-control" placeholder="domicilio" [class.is-invalid]="domicilioNoValido">
-                                                    <small *ngIf="domicilioNoValido" class="form-text text-danger">
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Domicilio</label>
+                                                <input formControlName="domicilio" type="text" class="form-control" placeholder="domicilio" [class.is-invalid]="domicilioNoValido">
+                                                <small *ngIf="domicilioNoValido" class="form-text text-danger">
                                                         <div *ngFor="let validation of user_validation_messages.domicilio" >
                                                             <div  *ngIf="forma.get('domicilio')?.hasError(validation.type)">
                                                                 {{validation.message}}
                                                             </div>
                                                         </div>
                                                     </small>
-                                                </div>
                                             </div>
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label>Provincia</label>
-                                                    <select formControlName="provincia_id" class="form-control" (change)=" onChangeProvincia()" [class.is-invalid]="provinciaNoValido"> 
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Provincia</label>
+                                                <select formControlName="provincia_id" class="form-control" (change)=" onChangeProvincia()" [class.is-invalid]="provinciaNoValido"> 
                                                         <option *ngFor="let provincia of provincias" [value]="provincia.id_provincia">{{provincia.provincia}}</option> 
                                                     </select>
-                                                    <small *ngIf="provinciaNoValido" class="form-text text-danger">
+                                                <small *ngIf="provinciaNoValido" class="form-text text-danger">
                                                         <div *ngFor="let validation of user_validation_messages.provincia_id" >
                                                             <div  *ngIf="forma.get('provincia_id')?.hasError(validation.type)">
                                                                 {{validation.message}}
                                                             </div>
                                                         </div>
                                                     </small>
-                                                </div>
                                             </div>
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label>Departamento Provincial</label>
-                                                    <select formControlName="departamento_provincial_id" class="form-control" (change)=" onChangeDepartamentoProvincial()" [class.is-invalid]="departamentoProvincialNoValido"> 
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Departamento Provincial</label>
+                                                <select formControlName="departamento_provincial_id" class="form-control" (change)=" onChangeDepartamentoProvincial()" [class.is-invalid]="departamentoProvincialNoValido"> 
                                                         <option *ngFor="let departamento_provincial of departamentos_provinciales" [value]="departamento_provincial.id_dpto_prov">{{departamento_provincial.departamento_provincial}}</option> 
                                                     </select>
-                                                    <small *ngIf="departamentoProvincialNoValido" class="form-text text-danger">
+                                                <small *ngIf="departamentoProvincialNoValido" class="form-text text-danger">
                                                         <div *ngFor="let validation of user_validation_messages.departamento_provincial_id" >
                                                             <div  *ngIf="forma.get('departamento_provincial_id')?.hasError(validation.type)">
                                                                 {{validation.message}}
                                                             </div>
                                                         </div>
                                                     </small>
-                                                </div>
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label>Municipio</label>
-                                                    <select formControlName="municipio_id" class="form-control" (change)=" onChangeMunicipios()" [class.is-invalid]="municipioNoValido"> 
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Municipio</label>
+                                                <select formControlName="municipio_id" class="form-control" (change)=" onChangeMunicipios()" [class.is-invalid]="municipioNoValido"> 
                                                         <option *ngFor="let municipio of municipios" [value]="municipio.id_municipio">{{municipio.municipio}}</option> 
                                                     </select>
-                                                    <small *ngIf="municipioNoValido" class="form-text text-danger">
+                                                <small *ngIf="municipioNoValido" class="form-text text-danger">
                                                         <div *ngFor="let validation of user_validation_messages.municipio_id" >
                                                             <div  *ngIf="forma.get('municipio_id')?.hasError(validation.type)">
                                                                 {{validation.message}}
                                                             </div>
                                                         </div>
                                                     </small>
-                                                </div>
                                             </div>
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label>Ciudad</label>
-                                                    <select formControlName="ciudad_id" class="form-control" [class.is-invalid]="ciudadNoValido"> 
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Ciudad</label>
+                                                <select formControlName="ciudad_id" class="form-control" [class.is-invalid]="ciudadNoValido"> 
                                                         <option *ngFor="let ciudad of ciudades" [value]="ciudad.id_ciudad">{{ciudad.ciudad}}</option> 
                                                     </select>
-                                                    <small *ngIf="ciudadNoValido" class="form-text text-danger">
+                                                <small *ngIf="ciudadNoValido" class="form-text text-danger">
                                                         <div *ngFor="let validation of user_validation_messages.ciudad_id" >
                                                             <div  *ngIf="forma.get('ciudad_id')?.hasError(validation.type)">
                                                                 {{validation.message}}
                                                             </div>
                                                         </div>
                                                     </small>
-                                                </div>
                                             </div>
-
                                         </div>
 
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label>Nivel Educativo</label>
-                                                    <select formControlName="nivel_educativo_id" class="form-control" [class.is-invalid]="nivelEducativoNoValido"> 
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Nivel Educativo</label>
+                                                <select formControlName="nivel_educativo_id" class="form-control" [class.is-invalid]="nivelEducativoNoValido"> 
                                                         <option *ngFor="let nivel_educativo of niveles_educativo" [value]="nivel_educativo.id_nivel_educativo">{{nivel_educativo.nivel_educativo}}</option> 
                                                     </select>
-                                                    <small *ngIf="nivelEducativoNoValido" class="form-text text-danger">
+                                                <small *ngIf="nivelEducativoNoValido" class="form-text text-danger">
                                                         <div *ngFor="let validation of user_validation_messages.nivel_educativo_id" >
                                                             <div  *ngIf="forma.get('nivel_educativo_id')?.hasError(validation.type)">
                                                                 {{validation.message}}
                                                             </div>
                                                         </div>
                                                     </small>
-                                                </div>
                                             </div>
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label>Telefonos</label>
-                                                    <input formControlName="telefonos" type="text" class="form-control" placeholder="telefonos" [class.is-invalid]="telefonosNoValido">
-                                                    <small *ngIf="telefonosNoValido" class="form-text text-danger">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Telefonos</label>
+                                                <input formControlName="telefonos" type="text" class="form-control" placeholder="telefonos" [class.is-invalid]="telefonosNoValido">
+                                                <small *ngIf="telefonosNoValido" class="form-text text-danger">
                                                         <div *ngFor="let validation of user_validation_messages.telefonos" >
                                                             <div  *ngIf="forma.get('telefonos')?.hasError(validation.type)">
                                                                 {{validation.message}}
                                                             </div>
                                                         </div>
                                                     </small>
-                                                </div>
                                             </div>
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label>Email</label>
-                                                    <input formControlName="email" type="text" class="form-control" placeholder="email" [class.is-invalid]="emailNoValido">
-                                                    <small *ngIf="emailNoValido" class="form-text text-danger">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Email</label>
+                                                <input formControlName="email" type="text" class="form-control" placeholder="email" [class.is-invalid]="emailNoValido">
+                                                <small *ngIf="emailNoValido" class="form-text text-danger">
                                                         <div *ngFor="let validation of user_validation_messages.email" >
                                                             <div  *ngIf="forma.get('email')?.hasError(validation.type)">
                                                                 {{validation.message}}
                                                             </div>
                                                         </div>
                                                     </small>
-                                                </div>
                                             </div>
                                         </div>
+                                    </div>
 
 
-                                        <div class="row">
+                                    <div class="row">
 
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label>Altura</label>
-                                                    <input formControlName="altura" type="text" class="form-control" placeholder="altura">
-                                                    <small *ngIf="alturaNoValido" class="form-text text-danger">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Altura</label>
+                                                <input formControlName="altura" type="text" class="form-control" placeholder="altura">
+                                                <small *ngIf="alturaNoValido" class="form-text text-danger">
                                                         <div *ngFor="let validation of user_validation_messages.altura" >
                                                             <div  *ngIf="forma.get('altura')?.hasError(validation.type)">
                                                                 {{validation.message}}
                                                             </div>
                                                         </div>
                                                     </small>
-                                                </div>
                                             </div>
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label>Peso</label>
-                                                    <input formControlName="peso" type="text" class="form-control" placeholder="peso">
-                                                    <small *ngIf="pesoNoValido" class="form-text text-danger">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Peso</label>
+                                                <input formControlName="peso" type="text" class="form-control" placeholder="peso">
+                                                <small *ngIf="pesoNoValido" class="form-text text-danger">
                                                         <div *ngFor="let validation of user_validation_messages.peso" >
                                                             <div  *ngIf="forma.get('peso')?.hasError(validation.type)">
                                                                 {{validation.message}}
                                                             </div>
                                                         </div>
                                                     </small>
-                                                </div>
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <div *ngIf="nuevoPersonal" class="card-footer">
+                                    <!-- <div *ngIf="nuevoPersonal" class="card-footer">
                                             <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (ngSubmit)="submitForm()">Guardar</button>
                                         </div>
                                         <div *ngIf="!nuevoPersonal" class="card-footer">
-                                            <button style="width: 30%; text-align: center;" type="button" class="btn btn-success" (click)="crearTraslado()">Destino</button>
-                                        </div>
-                                        <div class="card-footer">
+                                            <button pButton pRipple label="Nuevo destino" icon="pi pi-plus" class="p-button-info p-mr-2" (click)="crearTraslado()"></button>
+                                        </div> -->
+
+                                    <!-- <div class="card-footer">
+                                            <button pButton pRipple label="Nuevo Personal" icon="pi pi-plus" class="p-button-warning p-mr-2" (click)="limpiarFormulario()"></button>
                                             <button style="width: 100%; text-align: center;" type="button" class="btn btn-danger" (click)="limpiarFormulario()">Limpiar</button>
-                                        </div>
+                                        </div> -->
 
 
 
 
 
 
-                                        <!-- datos pre-->
-                                        <!-- <hr>
+                                    <!-- datos pre-->
+                                    <!-- <hr>
                                         <pre>
                                                 Estado del Formulario: {{forma.valid}}
                                                 <br>
@@ -597,77 +605,86 @@
                                         <pre>
                                                 {{forma.value | json}}
                                             </pre> -->
-                                        <!-- FIN datos pre-->
-
-                                    </div>
-                                    <!-- /.fin card-body -->
+                                    <!-- FIN datos pre-->
 
                                 </div>
-                                <!-- Card datos filiatorios -->
-
-
+                                <!-- /.fin card-body -->
 
                             </div>
-                        </form>
-                        <!-- </form> -->
-                        <!-- DIALOG FORMULARIO TRASLADO -->
-                        <p-dialog [(visible)]="newTrasladoDialog" [style]="{width: '450px'}" header={{this.tituloFormTraslado}} [closable]="false" [modal]="true" styleClass="p-fluid">
-                            <ng-template pTemplate="content">
-                                <form [formGroup]="formaTraslados" (ngSubmit)="submitFormTraslado()">
-                                    <div id="edicion-form-print">
+                            <!-- FIN Card datos filiatorios -->
+                        </div>
+                        <!-- /.FIN card-body -->
+                        <div class="card-footer">
+                            <button *ngIf="nuevoPersonal" pButton pRipple label="Guardar personal" icon="pi pi-upload" class="p-button-info p-mr-2" (click)="submitForm()"></button>
+                            <button *ngIf="!nuevoPersonal" pButton pRipple label="Nuevo destino" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="crearTraslado()"></button>
+                            <button pButton pRipple label="Nuevo Personal" icon="pi pi-plus" class="p-button-warning p-mr-2" (click)="limpiarFormulario()"></button>
+                        </div>
+                        <!-- /.FIN card-FOOTER -->
+                    </div>
+                    <!-- /.FIN card -->
 
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label>Id Traslado</label>
-                                                    <input formControlName="id_traslado" type="text" class="form-control" placeholder="id traslado" Disabled>
 
-                                                </div>
-                                            </div>
+                </form>
+                <!-- FIN FORMULARIO CARGA -->
+
+                <!-- DIALOG FORMULARIO TRASLADO -->
+                <p-dialog [(visible)]="newTrasladoDialog" [style]="{width: '450px'}" header={{this.tituloFormTraslado}} [closable]="false" [modal]="true" styleClass="p-fluid">
+                    <ng-template pTemplate="content">
+                        <form [formGroup]="formaTraslados" (ngSubmit)="submitFormTraslado()">
+                            <div id="edicion-form-print">
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Id Traslado</label>
+                                            <input formControlName="id_traslado" type="text" class="form-control" placeholder="id traslado" Disabled>
+
                                         </div>
+                                    </div>
+                                </div>
 
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label>Dni</label>
-                                                    <input formControlName="dni_personal" type="text" class="form-control" placeholder="dni personal" Disabled>
-                                                    <small *ngIf="dniTrasNoValido" class="form-text text-danger">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Dni</label>
+                                            <input formControlName="dni_personal" type="text" class="form-control" placeholder="dni personal" Disabled>
+                                            <small *ngIf="dniTrasNoValido" class="form-text text-danger">
                                                         <div *ngFor="let validation of traslado_validation_messages.dni_personal" >
                                                             <div  *ngIf="formaTraslados.get('dni_personal')?.hasError(validation.type)">
                                                                 {{validation.message}}
                                                             </div>
                                                         </div>
                                                     </small>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label>Legajo</label>
-                                                    <input formControlName="legajo" type="text" class="form-control" placeholder="legajo" Disabled>
-                                                    <small *ngIf="legajoTrasNoValido" class="form-text text-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Legajo</label>
+                                            <input formControlName="legajo" type="text" class="form-control" placeholder="legajo" Disabled>
+                                            <small *ngIf="legajoTrasNoValido" class="form-text text-danger">
                                                         <div *ngFor="let validation of traslado_validation_messages.legajo" >
                                                             <div  *ngIf="formaTraslados.get('legajo')?.hasError(validation.type)">
                                                                 {{validation.message}}
                                                             </div>
                                                         </div>
                                                     </small>
-                                                </div>
-                                            </div>
-
                                         </div>
+                                    </div>
 
-                                        <div class="row">
+                                </div>
 
-                                            <div class="col-sm-12">
-                                                <!-- select -->
-                                                <div class="form-group">
-                                                    <label>Destino</label>
-                                                    <!-- <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChangeDestino()">  -->
-                                                    <select *ngIf="administrador" formControlName="destino_id" class="form-control" [class.is-invalid]="destinoTrasNoValido"> 
+                                <div class="row">
+
+                                    <div class="col-sm-12">
+                                        <!-- select -->
+                                        <div class="form-group">
+                                            <label>Destino</label>
+                                            <!-- <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChangeDestino()">  -->
+                                            <select *ngIf="administrador" formControlName="destino_id" class="form-control" [class.is-invalid]="destinoTrasNoValido"> 
                                                             <option *ngFor="let destino of destinos" [value]="destino.id_destino" >{{destino.destino}}</option>
                                                     </select>
-                                                    <input *ngIf="!administrador" type="text" class="form-control" [placeholder]="destino_txt" disabled>
-                                                    <small *ngIf="destinoTrasNoValido" class="form-text text-danger">
+                                            <input *ngIf="!administrador" type="text" class="form-control" [placeholder]="destino_txt" disabled>
+                                            <small *ngIf="destinoTrasNoValido" class="form-text text-danger">
                                                         <div *ngFor="let validation of traslado_validation_messages.destino_id" >
                                                             <div  *ngIf="formaTraslados.get('destino_id')?.hasError(validation.type)">
                                                                 {{validation.message}}
@@ -675,127 +692,118 @@
                                                         </div>
                                                     </small>
 
-                                                    <!-- <p-dropdown class="form-control" [options]="destinos" formControlName="destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown> -->
-                                                </div>
-                                            </div>
-
+                                            <!-- <p-dropdown class="form-control" [options]="destinos" formControlName="destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown> -->
                                         </div>
+                                    </div>
 
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label>Instrumento</label>
-                                                    <input formControlName="instrumento" type="text" class="form-control" placeholder="instrumento">
-                                                    <small *ngIf="instrumentoTrasNoValido" class="form-text text-danger">
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Instrumento</label>
+                                            <input formControlName="instrumento" type="text" class="form-control" placeholder="instrumento">
+                                            <small *ngIf="instrumentoTrasNoValido" class="form-text text-danger">
                                                         <div *ngFor="let validation of traslado_validation_messages.instrumento" >
                                                             <div  *ngIf="formaTraslados.get('instrumento')?.hasError(validation.type)">
                                                                 {{validation.message}}
                                                             </div>
                                                         </div>
                                                     </small>
-                                                </div>
-                                            </div>
                                         </div>
+                                    </div>
+                                </div>
 
 
 
-                                        <div class="row">
+                                <div class="row">
 
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label>Fecha</label>
-                                                    <input formControlName="fecha" type="text" class="form-control" placeholder="fecha">
-                                                    <small *ngIf="fechaTrasNoValido" class="form-text text-danger">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Fecha</label>
+                                            <input formControlName="fecha" type="text" class="form-control" placeholder="fecha">
+                                            <small *ngIf="fechaTrasNoValido" class="form-text text-danger">
                                                         <div *ngFor="let validation of traslado_validation_messages.fecha" >
                                                             <div  *ngIf="formaTraslados.get('fecha')?.hasError(validation.type)">
                                                                 {{validation.message}}
                                                             </div>
                                                         </div>
                                                     </small>
-                                                </div>
-                                            </div>
+                                        </div>
+                                    </div>
 
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label>Fojas</label>
-                                                    <input formControlName="fojas" type="text" class="form-control" placeholder="fojas">
-                                                    <small *ngIf="fojasTrasNoValido" class="form-text text-danger">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Fojas</label>
+                                            <input formControlName="fojas" type="text" class="form-control" placeholder="fojas">
+                                            <small *ngIf="fojasTrasNoValido" class="form-text text-danger">
                                                         <div *ngFor="let validation of traslado_validation_messages.fojas" >
                                                             <div  *ngIf="formaTraslados.get('fojas')?.hasError(validation.type)">
                                                                 {{validation.message}}
                                                             </div>
                                                         </div>
                                                     </small>
-                                                </div>
-                                            </div>
                                         </div>
+                                    </div>
+                                </div>
 
 
 
-                                        <div class="row">
+                                <div class="row">
 
 
-                                            <div class="col-sm-6">
-                                                <div class="icheck-primary">
-                                                    <input type="checkbox" id="vigente" formControlName="vigente" class="form-control" Disabled>
-                                                    <label for="vigente">
+                                    <div class="col-sm-6">
+                                        <div class="icheck-primary">
+                                            <input type="checkbox" id="vigente" formControlName="vigente" class="form-control" Disabled>
+                                            <label for="vigente">
                                                         Vigente
                                                     </label>
 
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="icheck-primary">
-                                                    <input type="checkbox" id="confirmado" formControlName="confirmado" class="form-control" Disabled>
-                                                    <label for="confirmado">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="icheck-primary">
+                                            <input type="checkbox" id="confirmado" formControlName="confirmado" class="form-control" Disabled>
+                                            <label for="confirmado">
                                                         Confirmado
                                                     </label>
 
-                                                </div>
-                                            </div>
                                         </div>
-
-                                    </div>
-
-                                </form>
-                            </ng-template>
-                            <ng-template pTemplate="footer">
-                                <div class="row">
-                                    <div class="col-8" *ngIf="!editandoTraslado && administrador">
-                                        <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormTraslado()">Guardar Traslado</button>
-                                    </div>
-                                    <div class="col-8" *ngIf="editandoTraslado && administrador">
-                                        <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormTraslado()">Actualizar Traslado</button>
-                                    </div>
-                                    <div class="col-4">
-                                        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="ocultarDialogoTraslado()"></button>
                                     </div>
                                 </div>
-                            </ng-template>
 
-                        </p-dialog>
-                        <!-- FIN DIALOG FORMULARIO TRASLADO -->
-                        <!-- fin fin fin -->
+                            </div>
 
+                        </form>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <div class="row">
+                            <div class="col-8" *ngIf="!editandoTraslado && administrador">
+                                <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormTraslado()">Guardar Traslado</button>
+                            </div>
+                            <div class="col-8" *ngIf="editandoTraslado && administrador">
+                                <button style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormTraslado()">Actualizar Traslado</button>
+                            </div>
+                            <div class="col-4">
+                                <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="ocultarDialogoTraslado()"></button>
+                            </div>
+                        </div>
+                    </ng-template>
 
+                </p-dialog>
+                <!-- FIN DIALOG FORMULARIO TRASLADO -->
+                <!-- fin fin fin -->
 
-
-
-
-
-                    </div>
-                </div>
-                <!-- /.card -->
             </div>
+            <!-- FIN COLUMNA -->
         </div>
-        <!-- </div> -->
-
-
+        <!-- FIN FILA -->
 
     </div>
-    <!-- /.card-body -->
+    <!-- /.FIN card-body -->
     <div class="card-footer">
         Footer
     </div>
-    <!-- /.card-footer-->
+    <!-- /.FIN card-footer-->
 </div>
+<!-- /.FIN card-->

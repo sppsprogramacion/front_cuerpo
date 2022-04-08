@@ -36,7 +36,7 @@ export class UsuariosService {
 
   login(dataLogin: ILoginData ){
    // delete dataLogin.recuerdame;
-   
+   console.log("url",base_url);
     return this.http.post(`${base_url}/auth/login`, dataLogin);    
   }
 

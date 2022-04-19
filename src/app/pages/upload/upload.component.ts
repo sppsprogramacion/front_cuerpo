@@ -145,6 +145,8 @@ export class UploadComponent implements OnInit {
       email: ["", [Validators.required,Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/), Validators.minLength(4), Validators.maxLength(50)]],
       altura: [,[Validators.pattern(/^\d+(\.\d{1,2})$/), Validators.min(1), Validators.max(3)]],
       peso: [,[Validators.pattern(/^\d+(\.\d{1,2})?$/), Validators.min(20), Validators.max(400)]],
+      grupo_sanguineo: [,[Validators.required,Validators.minLength(2), Validators.maxLength(15)]],
+      
       //registrado_por: [],
       situacion_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]]
 
@@ -352,6 +354,10 @@ export class UploadComponent implements OnInit {
       { type: 'min', message: 'El número ingresado es bajo.(minimo: 20)' },
       { type: 'max', message: 'El número ingresado es alto (maximo: 400).'},
       { type: 'pattern', message: 'El valor ingresado no es un número correcto (use el punto (.) como separador decimal y hasta dos decimales).' }
+    ],
+    'grupo_sanguineo': [
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 15.'}
     ]
 
     //fin datos personales   
@@ -529,6 +535,10 @@ export class UploadComponent implements OnInit {
   get pesoNoValido(){
     return this.forma.get('peso')?.invalid && this.forma.get('peso')?.touched;
   }
+
+  get grupoSanguineoNoValido(){
+    return this.forma.get('grupo_sanguineo')?.invalid && this.forma.get('grupo_sanguineo')?.touched;
+  } 
 
   //fin validaciones formulario filatorios
 
@@ -813,6 +823,7 @@ export class UploadComponent implements OnInit {
           email: this.forma.get('email')?.value,
           altura: parseInt(this.forma.get('altura')?.value),
           peso: parseInt(this.forma.get('peso')?.value),
+          grupo_sanguineo: this.forma.get('grupo_sanguineo')?.value,
           registrado_por: globalConstants.id_usuario,
           situacion_id: parseInt(this.forma.get('situacion_id')?.value)
       }
@@ -829,8 +840,6 @@ export class UploadComponent implements OnInit {
                   this.dni_aux = parseInt(this.forma.get('dni')?.value);
                   this.legajo_aux = parseInt(this.forma.get('legajo')?.value);
                   this.nuevoPersonal=false;
-                  
-                  
 
                   //this.limpiarFormulario();
               },

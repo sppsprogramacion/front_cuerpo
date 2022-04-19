@@ -620,6 +620,24 @@
                                                             </small>
                                                         </div>
                                                     </div>
+
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label>Grupo Sanguineo</label>
+                                                            <input formControlName="grupo_sanguineo" type="text" class="form-control" placeholder="grupo sanguineo">
+                                                            <small *ngIf="grupoSanguineoNoValido" class="form-text text-danger">
+                                                                <div *ngFor="let validation of user_validation_messages.grupo_sanguineo" >
+                                                                    <div  *ngIf="formaFiliatorios.get('grupo_sanguineo')?.hasError(validation.type)">
+                                                                        {{validation.message}}
+                                                                    </div>
+                                                                </div>
+                                                            </small>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
 
                                                 <div class="card-footer">
@@ -672,7 +690,7 @@
                                                         <p class="lugar">Salta</p>
 
                                                         <p class="dni">{{dataEdit.cuil}}</p>
-                                                        <p class="grupo-anguineo">O positivo</p>
+                                                        <p class="grupo-anguineo">{{dataEdit.grupo_sanguineo}}</p>
                                                         <p class="legajo">{{dataEdit.legajo}}</p>
 
                                                         <p class="destino">{{destino_txt}}</p>

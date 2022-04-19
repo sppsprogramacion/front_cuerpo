@@ -219,6 +219,7 @@ export class EditComponent implements OnInit {
       email: [this.dataEdit.email,[Validators.required,Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/), Validators.minLength(4), Validators.maxLength(50)]],
       altura: [this.dataEdit.altura,[Validators.pattern(/^\d+(\.\d{1,2})$/), Validators.min(1), Validators.max(3)]],
       peso: [this.dataEdit.peso,[Validators.pattern(/^\d+(\.\d{1,2})?$/), Validators.min(20), Validators.max(400)]],
+      grupo_sanguineo: [this.dataEdit.grupo_sanguineo,[Validators.required,Validators.minLength(2), Validators.maxLength(15)]],
       registrado_por: [this.dataEdit.registrado_por],
       situacion_id: [this.dataEdit.situacion_id,[Validators.required, Validators.pattern(/^[0-9]*$/)]]
     });
@@ -475,6 +476,10 @@ export class EditComponent implements OnInit {
       { type: 'min', message: 'El número ingresado es bajo.(minimo: 20)' },
       { type: 'max', message: 'El número ingresado es alto (maximo: 400).'},
       { type: 'pattern', message: 'El valor ingresado no es un número correcto (use el punto (.) como separador decimal y hasta dos decimales).' }
+    ],
+    'grupo_sanguineo': [
+      { type: 'minlength', message: 'La cantidad mínima de caracteres es 2.' },
+      { type: 'maxlength', message: 'La cantidad máxima de caracteres es 15.'}
     ]
 
     //fin Formulario datos personales
@@ -706,6 +711,9 @@ export class EditComponent implements OnInit {
   get pesoNoValido(){
     return this.formaFiliatorios.get('peso')?.invalid && this.formaFiliatorios.get('peso')?.touched;
   }  
+  get grupoSanguineoNoValido(){
+    return this.formaFiliatorios.get('grupo_sanguineo')?.invalid && this.forma.get('grupo_sanguineo')?.touched;
+  } 
   //FIN VALIDACION 2 FORMULARIOS FILIATORIOS
 
   
@@ -1053,6 +1061,7 @@ export class EditComponent implements OnInit {
         email: this.formaFiliatorios.get('email')?.value,
         altura: parseInt(this.formaFiliatorios.get('altura')?.value),
         peso: parseInt(this.formaFiliatorios.get('peso')?.value),
+        grupo_sanguineo: this.formaFiliatorios.get('grupo_sanguineo')?.value,
         registrado_por: globalConstants.id_usuario,
         situacion_id: parseInt(this.formaFiliatorios.get('situacion_id')?.value),
   

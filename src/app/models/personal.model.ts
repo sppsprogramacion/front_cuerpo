@@ -53,6 +53,7 @@ export class Personal{
     public email? : string,
     public altura?: number,
     public peso?: number,
+    public grupo_sanguineo?: string,
     public registrado_por?: number,
     public situacion_id? : number,
     public situacion? : string,

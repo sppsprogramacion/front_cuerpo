@@ -24,6 +24,11 @@
                         </div>
                         <!-- /.FIN card-HEADER -->
                         <div class="card-body">
+                            <div class="row">
+                                <button *ngIf="!gradoConfigurado" pButton pRipple label="Configurar Grado" icon="pi pi-upload" class="p-button-info p-mr-2" (click)="abrirGonfigurarGrado()"></button>
+                                <button *ngIf="gradoConfigurado" pButton pRipple label="Limpiar config. grado" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="limpiarConfigurarGrado()"></button>
+
+                            </div>
                             <!-- Card datos laborales -->
                             <div class="card card-warning">
                                 <div class="card-header">
@@ -806,6 +811,136 @@
 
                 </p-dialog>
                 <!-- FIN DIALOG FORMULARIO TRASLADO -->
+
+                <!-- DIALOG FORMULARIO GRADO -->
+                <p-dialog [(visible)]="newGradoDialog" [style]="{width: '450px'}" header={{this.tituloFormGrado}} [closable]="false" [modal]="true" styleClass="p-fluid">
+                    <ng-template pTemplate="content">
+                        <form [formGroup]="formaGrado">
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Id Grado</label>
+                                        <input formControlName="id_ascenso" type="text" placeholder="id ascenso" Disabled>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Instrumento</label>
+                                        <input formControlName="instrumento" type="text" placeholder="instrumento">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Fecha Instrumento</label>
+                                        <input formControlName="fecha_instrumento_orden" type="text" placeholder="fecha instrumento">
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Fecha Ascenso</label>
+                                        <input formControlName="fecha_ascenso" type="text" placeholder="fecha ascenso">
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-sm-6">
+                                    <!-- select -->
+                                    <div class="form-group">
+                                        <label>Grado</label>
+                                        <!-- <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChangeDestino()">  -->
+                                        <select formControlName="grado_id" class="form-control" style="width: 100%;"> 
+                                <option *ngFor="let grado of grados" [value]="grado.id_grado" >{{grado.grado}}</option>
+                        </select>
+
+                                        <!-- <small *ngIf="destinoTrasNoValido" class="form-text text-danger">
+                            <div *ngFor="let validation of traslado_validation_messages.destino_id" >
+                                <div  *ngIf="formaTraslados.get('destino_id')?.hasError(validation.type)">
+                                    {{validation.message}}
+                                </div>
+                            </div>
+                        </small> -->
+
+                                        <!-- <p-dropdown class="form-control" [options]="destinos" formControlName="destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown> -->
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <!-- select -->
+                                    <div class="form-group">
+                                        <label>Escalafon</label>
+                                        <!-- <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChangeDestino()">  -->
+                                        <select formControlName="escalafon_id" class="form-control" style="width: 100%;"> 
+                                <option *ngFor="let escalafon of escalafones" [value]="escalafon.id_escalafon" >{{escalafon.escalafon}}</option>
+                        </select>
+
+                                        <!-- <small *ngIf="destinoTrasNoValido" class="form-text text-danger">
+                            <div *ngFor="let validation of traslado_validation_messages.destino_id" >
+                                <div  *ngIf="formaTraslados.get('destino_id')?.hasError(validation.type)">
+                                    {{validation.message}}
+                                </div>
+                            </div>
+                        </small> -->
+
+                                        <!-- <p-dropdown class="form-control" [options]="destinos" formControlName="destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown> -->
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row mt-2">
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Legajo</label>
+                                        <input formControlName="legajo" type="text" placeholder="legajo" Disabled>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Dni</label>
+                                        <input formControlName="dni_personal" type="text" placeholder="dni personal" Disabled>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </form>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <div class="row">
+                            <div class="col-8">
+                                <button *ngIf="!gradoConfigurado" style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="configurarGrado()">Guardar configuracion</button>
+                                <button *ngIf="gradoConfigurado" style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormGrado">Guardar Grado</button>
+                            </div>
+
+                            <div class="col-4">
+                                <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="ocultarDialogoTraslado()"></button>
+                            </div>
+                        </div>
+                    </ng-template>
+
+                </p-dialog>
+                <!-- FIN DIALOG FORMULARIO GRADO -->
+
                 <!-- fin fin fin -->
 
             </div>

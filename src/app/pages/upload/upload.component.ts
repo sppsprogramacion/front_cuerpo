@@ -27,6 +27,7 @@ import Swal from 'sweetalert2';
 import { CiudadModel } from '../../models/ciudad.model';
 import { FuncionModel } from '../../models/funcion.model';
 import { TrasladoModel } from '../../models/traslado.model';
+import { AscensoModel } from '../../models/ascenso.model';
 
 @Component({
   selector: 'app-upload',
@@ -39,6 +40,7 @@ export class UploadComponent implements OnInit {
   //FORMULARIOS  
   forma: FormGroup;
   formaTraslados: FormGroup;
+  formaGrado: FormGroup;
 
   //VARIABLES
   administrador: boolean = false;   
@@ -60,6 +62,14 @@ export class UploadComponent implements OnInit {
   newTrasladoDialog: boolean= false;
   submitedTraslado:boolean=false;
   editandoTraslado: boolean=false;
+
+  //variables de manejo de grado
+  dataGrado: AscensoModel= new AscensoModel;  
+  tituloFormGrado:string = "";
+  newGradoDialog: boolean= false;
+  submitedGradoo:boolean=false;
+  gradoConfigurado: boolean = false;  
+  
   
   //DATEPICKER
   bsDatePickerConfig!: Partial<BsDatepickerConfig>;
@@ -168,6 +178,23 @@ export class UploadComponent implements OnInit {
       confirmado: [false, [Validators.required]]
     });
     //FIN FORMULARIO TRASLADO........................................................................................................
+
+    //FORMULARIO ASCENSO    
+    this.formaGrado = this.fb.group({
+      id_ascenso: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      dni_personal: [this.dni_aux,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1000000), Validators.max(99000000)]],
+      legajo: [this.legajo_aux,[Validators.required,,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
+      grado_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      escalafon_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      fecha_ascenso: [,[Validators.required]],
+      instrumento: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+      // vigente: [true, [Validators.required]],
+      orden: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      // anio_orden: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],      
+      // instrumento_orden: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
+      fecha_instrumento_orden: [,[Validators.required]]
+    });
+    //FIN FORMULARIO ASCENSO........................................................................................................
 
 
     //cargar desplegables
@@ -924,6 +951,64 @@ export class UploadComponent implements OnInit {
   //FIN LIMPIAR FORMULARIO TRASLADO
   //..................................................................................................
 
+  //GRADO
+
+  //GUARDAR GRADO
+  submitFormGrado(){
+
+  }
+  //FIN GUARDAR GRADO
+
+  //ABRIR CONFIGURAR GRADO
+  abrirGonfigurarGrado(){
+    this.tituloFormGrado="Configurar grado"
+    this.newGradoDialog = true;
+
+    //DESHABILITAR CAMPOS EDITABLES
+    this.formaGrado.controls['dni_personal'].disable();
+    this.formaGrado.controls['legajo'].disable();
+    this.formaGrado.controls['orden'].disable();
+    //DESHABILITAR CAMPOS EDITABLES
+  }
+  //FIN ABRIR CONFIGURAR GRADO
+
+  //ABRIR CREAR GRADO
+  abrirCrearGrado(){
+    this.tituloFormTraslado="Nuevo registro de grado"
+    this.formaTraslados.get('dni_personal')?.setValue(this.dni_aux);
+    this.formaTraslados.get('legajo')?.setValue(this.legajo_aux);
+    this.newTrasladoDialog = true;
+  }
+  //FIN ABRIR CREAR GRADO
+
+  //CONFIGURAR ASCENSO
+  configurarGrado(){
+    this.dataGrado.instrumento = this.formaGrado.get('instrumento')?.value;
+    this.dataGrado.fecha_instrumento_orden = this.changeFormatoFechaGuardar(this.formaTraslados.get('fecha_instrumento_orden')?.value);
+    this.dataGrado.fecha_ascenso = this.changeFormatoFechaGuardar(this.formaGrado.get('fecha_ascenso')?.value);
+    this.dataGrado.grado_id = parseInt(this.formaGrado.get('grado_id')?.value);
+    this.dataGrado.escalafon_id = parseInt(this.formaGrado.get('escalafon_id')?.value);
+    this.gradoConfigurado = true;
+    this.newTrasladoDialog = false;
+    console.log("grado", this.dataGrado);
+
+  }
+  //FIN CONFIGURAR ASCENSO
+
+  //LIMPIAR CONFIGURAR ASCENSO
+  limpiarConfigurarGrado(){
+    this.dataGrado.instrumento = "";
+    this.dataGrado.fecha_instrumento_orden = undefined;
+    this.dataGrado.fecha_ascenso = undefined;
+    this.dataGrado.grado_id = 0;
+    this.dataGrado.escalafon_id = 0;
+    this.gradoConfigurado = false;
+
+  }
+  //FIN LIMPIAR CONFIGURAR ASCENSO
+
+  
+  //................................................................................
 
   //CAMBIAR NOMBRES Y APELLIDOS PRIMERA LETRA A MAYUSCULA
   private primeraMayuscula(palabra: string){

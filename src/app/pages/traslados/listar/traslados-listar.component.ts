@@ -283,7 +283,7 @@ export class TrasladosListarComponent implements OnInit {
   }  
   //FIN OCULTAR FORMULARIO TRASLADO........................................
 
-  //LIMPIAR FORMULARIO TRASLADO
+  //LIMPIAR FORMULARIO TRASLADO  
   limpiarFormularioTraslado(){
     this.formaTraslados.get('id_traslado')?.setValue(0);
     this.formaTraslados.get('grado_apellido_nombre')?.setValue("");

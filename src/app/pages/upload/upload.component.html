@@ -25,12 +25,12 @@
                         <!-- /.FIN card-HEADER -->
                         <div class="card-body">
                             <div class="row">
-                                <button *ngIf="!gradoConfigurado" pButton pRipple label="Configurar Grado" icon="pi pi-upload" class="p-button-info p-mr-2" (click)="abrirGonfigurarGrado()"></button>
-                                <button *ngIf="gradoConfigurado" pButton pRipple label="Limpiar config. grado" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="limpiarConfigurarGrado()"></button>
+                                <button *ngIf="!gradoConfigurado" pButton pRipple label="Configurar Grado" icon="fa-solid fa-circle-plus" class="p-button-success p-mr-2 ml-3" (click)="abrirGonfigurarGrado()"></button>
+                                <button *ngIf="gradoConfigurado" pButton pRipple label="Limpiar config. grado" icon="fa-solid fa-broom" class="p-button-warning p-mr-2 ml-3" (click)="limpiarGradoConfigurado()"></button>
 
                             </div>
                             <!-- Card datos laborales -->
-                            <div class="card card-warning">
+                            <div class="card card-warning mt-2">
                                 <div class="card-header">
                                     <h3 class="card-title">Datos Laborales</h3>
                                 </div>
@@ -636,6 +636,7 @@
                         <div class="card-footer">
                             <button *ngIf="nuevoPersonal" pButton pRipple label="Guardar personal" icon="pi pi-upload" class="p-button-info p-mr-2" (click)="submitForm()"></button>
                             <button *ngIf="!nuevoPersonal" pButton pRipple label="Nuevo destino" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="crearTraslado()"></button>
+                            <button pButton pRipple label="Agregar grado" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="abrirCrearGrado()"></button>
                             <button pButton pRipple label="Nuevo Personal" icon="pi pi-plus" class="p-button-warning p-mr-2" (click)="limpiarFormulario()"></button>
                         </div>
                         <!-- /.FIN card-FOOTER -->
@@ -816,17 +817,6 @@
                 <p-dialog [(visible)]="newGradoDialog" [style]="{width: '450px'}" header={{this.tituloFormGrado}} [closable]="false" [modal]="true" styleClass="p-fluid">
                     <ng-template pTemplate="content">
                         <form [formGroup]="formaGrado">
-
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Id Grado</label>
-                                        <input formControlName="id_ascenso" type="text" placeholder="id ascenso" Disabled>
-
-                                    </div>
-                                </div>
-                            </div>
-
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
@@ -847,7 +837,6 @@
                             </div>
 
                             <div class="row">
-
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Fecha Ascenso</label>
@@ -855,27 +844,25 @@
 
                                     </div>
                                 </div>
-
                             </div>
 
                             <div class="row">
-
                                 <div class="col-sm-6">
                                     <!-- select -->
                                     <div class="form-group">
                                         <label>Grado</label>
                                         <!-- <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChangeDestino()">  -->
                                         <select formControlName="grado_id" class="form-control" style="width: 100%;"> 
-                                <option *ngFor="let grado of grados" [value]="grado.id_grado" >{{grado.grado}}</option>
-                        </select>
+                                                <option *ngFor="let grado of grados" [value]="grado.id_grado" >{{grado.grado}}</option>
+                                        </select>
 
                                         <!-- <small *ngIf="destinoTrasNoValido" class="form-text text-danger">
-                            <div *ngFor="let validation of traslado_validation_messages.destino_id" >
-                                <div  *ngIf="formaTraslados.get('destino_id')?.hasError(validation.type)">
-                                    {{validation.message}}
-                                </div>
-                            </div>
-                        </small> -->
+                                            <div *ngFor="let validation of traslado_validation_messages.destino_id" >
+                                                <div  *ngIf="formaTraslados.get('destino_id')?.hasError(validation.type)">
+                                                    {{validation.message}}
+                                                </div>
+                                            </div>
+                                        </small> -->
 
                                         <!-- <p-dropdown class="form-control" [options]="destinos" formControlName="destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown> -->
                                     </div>
@@ -887,25 +874,23 @@
                                         <label>Escalafon</label>
                                         <!-- <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChangeDestino()">  -->
                                         <select formControlName="escalafon_id" class="form-control" style="width: 100%;"> 
-                                <option *ngFor="let escalafon of escalafones" [value]="escalafon.id_escalafon" >{{escalafon.escalafon}}</option>
-                        </select>
+                                                <option *ngFor="let escalafon of escalafones" [value]="escalafon.id_escalafon" >{{escalafon.escalafon}}</option>
+                                        </select>
 
                                         <!-- <small *ngIf="destinoTrasNoValido" class="form-text text-danger">
-                            <div *ngFor="let validation of traslado_validation_messages.destino_id" >
-                                <div  *ngIf="formaTraslados.get('destino_id')?.hasError(validation.type)">
-                                    {{validation.message}}
-                                </div>
-                            </div>
-                        </small> -->
+                                            <div *ngFor="let validation of traslado_validation_messages.destino_id" >
+                                                <div  *ngIf="formaTraslados.get('destino_id')?.hasError(validation.type)">
+                                                    {{validation.message}}
+                                                </div>
+                                            </div>
+                                        </small> -->
 
                                         <!-- <p-dropdown class="form-control" [options]="destinos" formControlName="destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown> -->
                                     </div>
                                 </div>
-
                             </div>
 
                             <div class="row mt-2">
-
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Legajo</label>
@@ -919,8 +904,6 @@
                                         <input formControlName="dni_personal" type="text" placeholder="dni personal" Disabled>
                                     </div>
                                 </div>
-
-
                             </div>
 
                         </form>
@@ -933,7 +916,7 @@
                             </div>
 
                             <div class="col-4">
-                                <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="ocultarDialogoTraslado()"></button>
+                                <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="ocultarDialogoGrado()"></button>
                             </div>
                         </div>
                     </ng-template>

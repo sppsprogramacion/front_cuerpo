@@ -181,7 +181,6 @@ export class UploadComponent implements OnInit {
 
     //FORMULARIO ASCENSO    
     this.formaGrado = this.fb.group({
-      id_ascenso: [0,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
       dni_personal: [this.dni_aux,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1000000), Validators.max(99000000)]],
       legajo: [this.legajo_aux,[Validators.required,,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
       grado_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
@@ -952,7 +951,6 @@ export class UploadComponent implements OnInit {
   //..................................................................................................
 
   //GRADO
-
   //GUARDAR GRADO
   submitFormGrado(){
 
@@ -974,29 +972,33 @@ export class UploadComponent implements OnInit {
 
   //ABRIR CREAR GRADO
   abrirCrearGrado(){
-    this.tituloFormTraslado="Nuevo registro de grado"
-    this.formaTraslados.get('dni_personal')?.setValue(this.dni_aux);
-    this.formaTraslados.get('legajo')?.setValue(this.legajo_aux);
-    this.newTrasladoDialog = true;
+    this.tituloFormGrado="Nuevo registro de grado"
+    this.formaGrado.get('instrumento')?.setValue(this.dataGrado.instrumento);
+    this.formaGrado.get('fecha_instrumento_orden')?.setValue(this.dataGrado.fecha_instrumento_orden);
+    this.formaGrado.get('fecha_ascenso')?.setValue(this.dataGrado.fecha_ascenso);
+    this.formaGrado.get('grado_id')?.setValue(this.dataGrado.grado_id);
+    this.formaGrado.get('escalafon_id')?.setValue(this.dataGrado.escalafon_id);
+    this.formaGrado.get('dni_personal')?.setValue(this.dataGrado.dni_personal);
+    this.formaGrado.get('legajo')?.setValue(this.dataGrado.legajo);
+    this.newGradoDialog = true;
   }
   //FIN ABRIR CREAR GRADO
 
   //CONFIGURAR ASCENSO
   configurarGrado(){
     this.dataGrado.instrumento = this.formaGrado.get('instrumento')?.value;
-    this.dataGrado.fecha_instrumento_orden = this.changeFormatoFechaGuardar(this.formaTraslados.get('fecha_instrumento_orden')?.value);
+    this.dataGrado.fecha_instrumento_orden = this.changeFormatoFechaGuardar(this.formaGrado.get('fecha_instrumento_orden')?.value);
     this.dataGrado.fecha_ascenso = this.changeFormatoFechaGuardar(this.formaGrado.get('fecha_ascenso')?.value);
     this.dataGrado.grado_id = parseInt(this.formaGrado.get('grado_id')?.value);
     this.dataGrado.escalafon_id = parseInt(this.formaGrado.get('escalafon_id')?.value);
-    this.gradoConfigurado = true;
-    this.newTrasladoDialog = false;
+    this.gradoConfigurado = true;    
     console.log("grado", this.dataGrado);
-
+    this.ocultarDialogoGrado();
   }
   //FIN CONFIGURAR ASCENSO
 
   //LIMPIAR CONFIGURAR ASCENSO
-  limpiarConfigurarGrado(){
+  limpiarGradoConfigurado(){
     this.dataGrado.instrumento = "";
     this.dataGrado.fecha_instrumento_orden = undefined;
     this.dataGrado.fecha_ascenso = undefined;
@@ -1006,6 +1008,27 @@ export class UploadComponent implements OnInit {
 
   }
   //FIN LIMPIAR CONFIGURAR ASCENSO
+
+  //LIMPIAR FORMULARIO GRADO
+  limpiarFormularioGrado(){
+    this.formaGrado.get('id_ascenso')?.setValue(0);
+    this.formaGrado.get('instrumento')?.setValue(""); 
+    this.formaGrado.get('fecha_instrumento_orden')?.setValue(""); 
+    this.formaGrado.get('fecha_ascenso')?.setValue("");
+    this.formaGrado.get('grado_id')?.setValue(0); 
+    this.formaGrado.get('escalafon_id')?.setValue(0); 
+
+    return Object.values(this.formaGrado.controls).forEach(control => control.markAsUntouched());
+  }
+  //FIN LIMPIAR FORMULARIO GRADO
+  //..................................................................................................
+
+  //OCULTAR FORMULARIO GRADO
+  ocultarDialogoGrado(){
+    this.limpiarFormularioGrado();
+    this.newGradoDialog = false
+  }  
+  //FIN OCULTAR FORMULARIO GRADO........................................
 
   
   //................................................................................

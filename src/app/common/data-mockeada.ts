@@ -10,6 +10,10 @@ export const escalaJerarquica = [
         "escala_jerarquica": "oficial"
     },
     {
+        "id_escala_jerarquica": 3,
+        "escala_jerarquica": "sin escala jerarquica"
+    },
+    {
         "id_escala_jerarquica": 2,
         "escala_jerarquica": "suboficial"
     }
@@ -17,144 +21,171 @@ export const escalaJerarquica = [
 
 export const escalafon = [
     {
+        "id_escalafon": 6,
+        "escalafon": "Aspirante a Agente"
+    },
+    {
         "id_escalafon": 1,
         "escalafon": "Penitenciario"
     },
     {
+        "id_escalafon": 4,
+        "escalafon": "Personal Civil"
+    },
+    {
         "id_escalafon": 2,
         "escalafon": "Profesional y Técnico"
+    },
+    {
+        "id_escalafon": 3,
+        "escalafon": "sin escalafon"
+    },
+    {
+        "id_escalafon": 5,
+        "escalafon": "Temporario"
     }
+
 ];
 
 export const jerarquia = [
     {
-        "id_jerarquia": 5,
-        "jerarquia": "oficial jefe"
+        "id_jerarquia": 2,
+        "jerarquia": "Oficial Jefe"
     },
     {
         "id_jerarquia": 3,
-        "jerarquia": "oficial subalterno"
-    },
-    {
-        "id_jerarquia": 4,
-        "jerarquia": "oficial superior"
+        "jerarquia": "Oficial Subalterno"
     },
     {
         "id_jerarquia": 1,
-        "jerarquia": "suboficial subalterno"
+        "jerarquia": "Oficial Superior"
     },
     {
-        "id_jerarquia": 2,
-        "jerarquia": "suboficial superior"
+        "id_jerarquia": 7,
+        "jerarquia": "sin jerarquia"
+    },
+    {
+        "id_jerarquia": 5,
+        "jerarquia": "Suboficial Subalterno"
+    },
+    {
+        "id_jerarquia": 4,
+        "jerarquia": "Suboficial Superior"
     },
     {
         "id_jerarquia": 6,
-        "jerarquia": "tropa"
+        "jerarquia": "Tropa"
     }
 ];
 
 export const grados = [
     {
         "id_grado": 1,
-        "grado": "agente",
-        "escala_jerarquica_id": 2,
-        "jerarquia_id": 6
+        "grado": "Prefecto Mayor",
+        "escala_jerarquica_id": 1,
+        "jerarquia_id": 1
     },
     {
         "id_grado": 2,
-        "grado": "cabo",
-        "escala_jerarquica_id": 2,
+        "grado": "Prefecto",
+        "escala_jerarquica_id": 1,
         "jerarquia_id": 1
     },
     {
         "id_grado": 3,
-        "grado": "cabo 1º",
-        "escala_jerarquica_id": 2,
+        "grado": "Sub Prefecto",
+        "escala_jerarquica_id": 1,
         "jerarquia_id": 1
     },
     {
         "id_grado": 4,
-        "grado": "sargento",
-        "escala_jerarquica_id": 2,
-        "jerarquia_id": 1
+        "grado": "Alcaide Mayor",
+        "escala_jerarquica_id": 1,
+        "jerarquia_id": 2
     },
     {
         "id_grado": 5,
-        "grado": "Prefecto Mayor",
+        "grado": "Alcaide",
         "escala_jerarquica_id": 1,
-        "jerarquia_id": 4
+        "jerarquia_id": 2
     },
     {
         "id_grado": 6,
-        "grado": "Prefecto",
+        "grado": "Sub Alcaide",
         "escala_jerarquica_id": 1,
-        "jerarquia_id": 4
+        "jerarquia_id": 2
     },
     {
         "id_grado": 7,
-        "grado": "Subprefecto",
-        "escala_jerarquica_id": 1,
-        "jerarquia_id": 4
-    },
-    {
-        "id_grado": 8,
-        "grado": "Alcaide Mayor",
-        "escala_jerarquica_id": 1,
-        "jerarquia_id": 5
-    },
-    {
-        "id_grado": 9,
-        "grado": "Alcaide",
-        "escala_jerarquica_id": 1,
-        "jerarquia_id": 5
-    },
-    {
-        "id_grado": 10,
-        "grado": "Subalcaide",
-        "escala_jerarquica_id": 1,
-        "jerarquia_id": 5
-    },
-    {
-        "id_grado": 11,
         "grado": "Adjutor Mayor",
         "escala_jerarquica_id": 1,
         "jerarquia_id": 3
     },
     {
-        "id_grado": 12,
+        "id_grado": 8,
         "grado": "Adjutor",
         "escala_jerarquica_id": 1,
         "jerarquia_id": 3
     },
     {
-        "id_grado": 13,
-        "grado": "Subadjutor",
+        "id_grado": 9,
+        "grado": "Sub Adjutor",
         "escala_jerarquica_id": 1,
         "jerarquia_id": 3
     },
     {
-        "id_grado": 14,
+        "id_grado": 10,
         "grado": "Suboficial Mayor",
         "escala_jerarquica_id": 2,
-        "jerarquia_id": 2
+        "jerarquia_id": 4
+    },
+    {
+        "id_grado": 11,
+        "grado": "Suboficial Principal",
+        "escala_jerarquica_id": 2,
+        "jerarquia_id": 4
+    },
+    {
+        "id_grado": 12,
+        "grado": "Sargento Ayudante",
+        "escala_jerarquica_id": 2,
+        "jerarquia_id": 4
+    },
+    {
+        "id_grado": 13,
+        "grado": "Sargento 1°",
+        "escala_jerarquica_id": 2,
+        "jerarquia_id": 4
+    },
+    {
+        "id_grado": 14,
+        "grado": "Sargento",
+        "escala_jerarquica_id": 2,
+        "jerarquia_id": 5
     },
     {
         "id_grado": 15,
-        "grado": "Suboficial Principal",
+        "grado": "Cabo 1°",
         "escala_jerarquica_id": 2,
-        "jerarquia_id": 2
+        "jerarquia_id": 5
     },
     {
         "id_grado": 16,
-        "grado": "Sargento Ayudante",
+        "grado": "Cabo",
         "escala_jerarquica_id": 2,
-        "jerarquia_id": 2
+        "jerarquia_id": 5
     },
     {
         "id_grado": 17,
-        "grado": "Sargento Primero",
+        "grado": "Agente",
         "escala_jerarquica_id": 2,
-        "jerarquia_id": 2
+        "jerarquia_id": 6
+    },
+    {
+        "id_grado": 18,
+        "grado": "sin grado",
+        "escala_jerarquica_id": 0,
+        "jerarquia_id": 0
     }
 ];
 

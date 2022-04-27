@@ -54,6 +54,7 @@ export class UploadComponent implements OnInit {
   destino_txt: string="";
   dni_aux: number = 0;
   legajo_aux: number = 0;
+  escala_id_aux: number = 0;
 
   //variables de manejo de traslado
   dataTraslado: TrasladoModel= new TrasladoModel;
@@ -68,6 +69,7 @@ export class UploadComponent implements OnInit {
   tituloFormGrado:string = "";
   newGradoDialog: boolean= false;
   submitedGradoo:boolean=false;
+  guardarGrado: boolean = false;
   gradoConfigurado: boolean = false;  
   
   
@@ -131,9 +133,9 @@ export class UploadComponent implements OnInit {
        sector_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        funcion_id: [1, [Validators.required, Validators.pattern(/^[0-9]*$/)]],
        seccion_guardia_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-       escalafon_id: [1,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-       escala_jerarquica_id: [1,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
-       grado_id: [13,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       escalafon_id: [3,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+       escala_jerarquica_id: [3,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+       grado_id: [18,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
        //foto: [],
        ultimo_ascenso: [],
 
@@ -183,8 +185,9 @@ export class UploadComponent implements OnInit {
     this.formaGrado = this.fb.group({
       dni_personal: [this.dni_aux,[Validators.required,Validators.pattern(/^[0-9]*$/), Validators.min(1000000), Validators.max(99000000)]],
       legajo: [this.legajo_aux,[Validators.required,,Validators.pattern(/^[0-9]*$/), Validators.min(1), Validators.max(500000)]],
-      grado_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      escalafon_id: [8,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      escalafon_id: [3,[Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      escala_jerarquica_id: [3,[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+      grado_id: [18,[Validators.required, Validators.pattern(/^[0-9]*$/)]],      
       fecha_ascenso: [,[Validators.required]],
       instrumento: [,[Validators.required,Validators.pattern(/^[A-Za-z0-9./\s]+$/), Validators.minLength(2), Validators.maxLength(50)]],
       // vigente: [true, [Validators.required]],
@@ -204,7 +207,8 @@ export class UploadComponent implements OnInit {
     this.cargarDepartamentosProvinciales(parseInt(this.forma.get('provincia_id')?.value));
     this.cargarMunicipios(parseInt(this.forma.get('departamento_provincial_id')?.value));
     this.cargarCiudades(parseInt(this.forma.get('municipio_id')?.value));
-    this.cargarGrados(parseInt(this.forma.get('escala_jerarquica_id')?.value));
+    
+    this.cargarGrados(parseInt(this.formaGrado.get('escala_jerarquica_id')?.value));
     
 
     this.administrador = (globalConstants.rol_usuario == "0")? true: false;
@@ -761,17 +765,17 @@ export class UploadComponent implements OnInit {
   }
   
   onChangeEscala(){
-    const id = this.forma.get('escala_jerarquica_id')?.value;
+    const id = this.formaGrado.get('escala_jerarquica_id')?.value;
     if(id != null){ 
       if(id==1){
-        this.forma.get('grado_id')?.setValue(13); 
+        this.formaGrado.get('grado_id')?.setValue(18); 
       }   
       if(id==2){
-        this.forma.get('grado_id')?.setValue(1); 
+        this.formaGrado.get('grado_id')?.setValue(18); 
       }     
          
       this.cargarGrados(parseInt(id.toString()));
-      this.forma.get('grado_id')?.markAsUntouched();
+      this.formaGrado.get('grado_id')?.markAsUntouched();
       
     }
   }
@@ -953,7 +957,7 @@ export class UploadComponent implements OnInit {
   //GRADO
   //GUARDAR GRADO
   submitFormGrado(){
-
+    
   }
   //FIN GUARDAR GRADO
 
@@ -963,9 +967,9 @@ export class UploadComponent implements OnInit {
     this.newGradoDialog = true;
 
     //DESHABILITAR CAMPOS EDITABLES
-    this.formaGrado.controls['dni_personal'].disable();
-    this.formaGrado.controls['legajo'].disable();
-    this.formaGrado.controls['orden'].disable();
+    // this.formaGrado.controls['dni_personal'].disable();
+    // this.formaGrado.controls['legajo'].disable();
+    // this.formaGrado.controls['orden'].disable();
     //DESHABILITAR CAMPOS EDITABLES
   }
   //FIN ABRIR CONFIGURAR GRADO
@@ -976,10 +980,22 @@ export class UploadComponent implements OnInit {
     this.formaGrado.get('instrumento')?.setValue(this.dataGrado.instrumento);
     this.formaGrado.get('fecha_instrumento_orden')?.setValue(this.dataGrado.fecha_instrumento_orden);
     this.formaGrado.get('fecha_ascenso')?.setValue(this.dataGrado.fecha_ascenso);
-    this.formaGrado.get('grado_id')?.setValue(this.dataGrado.grado_id);
-    this.formaGrado.get('escalafon_id')?.setValue(this.dataGrado.escalafon_id);
-    this.formaGrado.get('dni_personal')?.setValue(this.dataGrado.dni_personal);
-    this.formaGrado.get('legajo')?.setValue(this.dataGrado.legajo);
+    
+    
+    this.formaGrado.get('dni_personal')?.setValue(this.forma.get('dni')?.value);
+    this.formaGrado.get('legajo')?.setValue(this.forma.get('legajo')?.value);
+    
+    if(this.gradoConfigurado){
+      this.formaGrado.get('escala_jerarquica_id')?.setValue(this.escala_id_aux);
+      this.formaGrado.get('escalafon_id')?.setValue(this.dataGrado.escalafon_id);
+      this.formaGrado.get('grado_id')?.setValue(this.dataGrado.grado_id);
+    }
+    else{
+      this.formaGrado.get('escala_jerarquica_id')?.setValue(3);
+      this.formaGrado.get('escalafon_id')?.setValue(3);
+      this.formaGrado.get('grado_id')?.setValue(18);
+    }
+    this.guardarGrado = true;
     this.newGradoDialog = true;
   }
   //FIN ABRIR CREAR GRADO
@@ -991,7 +1007,8 @@ export class UploadComponent implements OnInit {
     this.dataGrado.fecha_ascenso = this.changeFormatoFechaGuardar(this.formaGrado.get('fecha_ascenso')?.value);
     this.dataGrado.grado_id = parseInt(this.formaGrado.get('grado_id')?.value);
     this.dataGrado.escalafon_id = parseInt(this.formaGrado.get('escalafon_id')?.value);
-    this.gradoConfigurado = true;    
+    this.escala_id_aux = parseInt(this.formaGrado.get('escala_jerarquica_id')?.value);
+    this.gradoConfigurado = true;   
     console.log("grado", this.dataGrado);
     this.ocultarDialogoGrado();
   }
@@ -1003,7 +1020,7 @@ export class UploadComponent implements OnInit {
     this.dataGrado.fecha_instrumento_orden = undefined;
     this.dataGrado.fecha_ascenso = undefined;
     this.dataGrado.grado_id = 0;
-    this.dataGrado.escalafon_id = 0;
+    this.dataGrado.escalafon_id = 0;    
     this.gradoConfigurado = false;
 
   }
@@ -1015,8 +1032,10 @@ export class UploadComponent implements OnInit {
     this.formaGrado.get('instrumento')?.setValue(""); 
     this.formaGrado.get('fecha_instrumento_orden')?.setValue(""); 
     this.formaGrado.get('fecha_ascenso')?.setValue("");
-    this.formaGrado.get('grado_id')?.setValue(0); 
-    this.formaGrado.get('escalafon_id')?.setValue(0); 
+    this.formaGrado.get('escalafon_id')?.setValue(3); 
+    this.formaGrado.get('escala_jerarquica_id')?.setValue(3);     
+    this.formaGrado.get('grado_id')?.setValue(18);    
+    this.guardarGrado = false;
 
     return Object.values(this.formaGrado.controls).forEach(control => control.markAsUntouched());
   }

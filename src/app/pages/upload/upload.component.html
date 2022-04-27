@@ -844,30 +844,6 @@
 
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <!-- select -->
-                                    <div class="form-group">
-                                        <label>Grado</label>
-                                        <!-- <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChangeDestino()">  -->
-                                        <select formControlName="grado_id" class="form-control" style="width: 100%;"> 
-                                                <option *ngFor="let grado of grados" [value]="grado.id_grado" >{{grado.grado}}</option>
-                                        </select>
-
-                                        <!-- <small *ngIf="destinoTrasNoValido" class="form-text text-danger">
-                                            <div *ngFor="let validation of traslado_validation_messages.destino_id" >
-                                                <div  *ngIf="formaTraslados.get('destino_id')?.hasError(validation.type)">
-                                                    {{validation.message}}
-                                                </div>
-                                            </div>
-                                        </small> -->
-
-                                        <!-- <p-dropdown class="form-control" [options]="destinos" formControlName="destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown> -->
-                                    </div>
-                                </div>
-
                                 <div class="col-sm-6">
                                     <!-- select -->
                                     <div class="form-group">
@@ -890,20 +866,70 @@
                                 </div>
                             </div>
 
-                            <div class="row mt-2">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Escala Jerárquica</label>
+                                        <select formControlName="escala_jerarquica_id" class="form-control" (change)=" onChangeEscala()" [class.is-invalid]="escalaJerarquicaNoValido"> 
+                                            <option *ngFor="let escala of escalas" [value]="escala.id_escala_jerarquica">{{escala.escala_jerarquica}}</option> 
+                                        </select>
+                                        <small *ngIf="escalaJerarquicaNoValido" class="form-text text-danger">
+                                            <div *ngFor="let validation of user_validation_messages.escala_jerarquica_id" >
+                                                <div  *ngIf="forma.get('escala_jerarquica_id')?.hasError(validation.type)">
+                                                    {{validation.message}}
+                                                </div>
+                                            </div>
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <!-- select -->
+                                    <div class="form-group">
+                                        <label>Grado</label>
+                                        <!-- <select *ngIf="administrador" formControlName="destino_id" class="form-control" [ngModel]="dataEdit.destino_id" (change)=" onChangeDestino()">  -->
+                                        <select formControlName="grado_id" class="form-control" style="width: 100%;"> 
+                                                <option *ngFor="let grado of grados" [value]="grado.id_grado" >{{grado.grado}}</option>
+                                        </select>
+
+                                        <!-- <small *ngIf="destinoTrasNoValido" class="form-text text-danger">
+                                            <div *ngFor="let validation of traslado_validation_messages.destino_id" >
+                                                <div  *ngIf="formaTraslados.get('destino_id')?.hasError(validation.type)">
+                                                    {{validation.message}}
+                                                </div>
+                                            </div>
+                                        </small> -->
+
+                                        <!-- <p-dropdown class="form-control" [options]="destinos" formControlName="destino_id" optionLabel="destino" optionValue="id_destino" [virtualScroll]="true" appendTo="body"></p-dropdown> -->
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div *ngIf="guardarGrado" class="row mt-2">
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Legajo</label>
-                                        <input formControlName="legajo" type="text" placeholder="legajo" Disabled>
+                                        <input formControlName="legajo" type="text" placeholder="legajo">
                                     </div>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Dni</label>
-                                        <input formControlName="dni_personal" type="text" placeholder="dni personal" Disabled>
+                                        <input formControlName="dni_personal" type="text" placeholder="dni personal">
                                     </div>
                                 </div>
+                            </div>
+
+                            <div *ngIf="guardarGrado" class="row mt-2">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Orden</label>
+                                        <input formControlName="orden" type="text" placeholder="orden">
+                                    </div>
+                                </div>
+
                             </div>
 
                         </form>
@@ -911,8 +937,8 @@
                     <ng-template pTemplate="footer">
                         <div class="row">
                             <div class="col-8">
-                                <button *ngIf="!gradoConfigurado" style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="configurarGrado()">Guardar configuracion</button>
-                                <button *ngIf="gradoConfigurado" style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormGrado">Guardar Grado</button>
+                                <button *ngIf="!guardarGrado" style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="configurarGrado()">Guardar configuracion</button>
+                                <button *ngIf="guardarGrado" style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormGrado">Guardar Grado</button>
                             </div>
 
                             <div class="col-4">

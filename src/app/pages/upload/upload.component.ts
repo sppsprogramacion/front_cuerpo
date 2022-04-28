@@ -28,6 +28,7 @@ import { CiudadModel } from '../../models/ciudad.model';
 import { FuncionModel } from '../../models/funcion.model';
 import { TrasladoModel } from '../../models/traslado.model';
 import { AscensoModel } from '../../models/ascenso.model';
+import { AscensoService } from '../../services/ascenso.service';
 
 @Component({
   selector: 'app-upload',
@@ -102,6 +103,7 @@ export class UploadComponent implements OnInit {
     private readonly datePipe: DatePipe,
     private readonly personalService: PersonalService,
     private readonly trasladoService: TrasladosService,
+    private readonly ascensoService: AscensoService,
     private localeService: BsLocaleService
   ) 
   {
@@ -957,7 +959,42 @@ export class UploadComponent implements OnInit {
   //GRADO
   //GUARDAR GRADO
   submitFormGrado(){
-    
+    // if(this.formaGrado.invalid){
+    //   Swal.fire('Formulario Grado con errores','Complete correctamente todos los campos del formulario',"warning");
+    //   return Object.values(this.formaGrado.controls).forEach(control => control.markAsTouched());
+    // }
+
+    let data: AscensoModel;
+     //poner destino en el personal y sin funcion 
+      //this.submitForm('cambioDestino');
+
+      data = {
+        legajo: parseInt(this.formaGrado.get('legajo')?.value),
+        dni_personal: parseInt(this.formaGrado.get('dni_personal')?.value),
+        instrumento: this.formaGrado.get('instrumento')?.value,
+        grado_id: parseInt(this.formaGrado.get('grado_id')?.value),
+        escalafon_id: parseInt(this.formaGrado.get('escalafon_id')?.value),        
+        fecha_ascenso: this.changeFormatoFechaGuardar(this.formaGrado.get('fecha_ascenso')?.value),
+        orden: parseInt(this.formaGrado.get('orden')?.value),
+        instrumento_orden: this.formaGrado.get('instrumento')?.value,
+        fecha_instrumento_orden: this.changeFormatoFechaGuardar(this.formaGrado.get('fecha_instrumento_orden')?.value),
+        anio_orden: 2021,
+        vigente: this.formaTraslados.get('vigente')?.value,
+      }      
+        
+      //GUARDAR NUEVO TRASLADO
+      this.ascensoService.guardarAscenso(parseInt(this.formaGrado.get('escala_jerarquica_id')?.value),data)
+      .subscribe(resultado => {
+        
+        Swal.fire('Nuevo Ascenso',`El ascenso ha sido guardado con exito`,"success");
+        //this.buscarPersonal(data.legajo!);
+        this.ocultarDialogoGrado();            
+      },
+      error => {
+          
+          Swal.fire('Nuevo asceso',`Error al guardar el ascenso: ${error.error.message}`,"error")                          
+      });
+      //FIN GUARDAR NUEVO TRASLADO
   }
   //FIN GUARDAR GRADO
 
@@ -980,8 +1017,6 @@ export class UploadComponent implements OnInit {
     this.formaGrado.get('instrumento')?.setValue(this.dataGrado.instrumento);
     this.formaGrado.get('fecha_instrumento_orden')?.setValue(this.dataGrado.fecha_instrumento_orden);
     this.formaGrado.get('fecha_ascenso')?.setValue(this.dataGrado.fecha_ascenso);
-    
-    
     this.formaGrado.get('dni_personal')?.setValue(this.forma.get('dni')?.value);
     this.formaGrado.get('legajo')?.setValue(this.forma.get('legajo')?.value);
     

@@ -910,14 +910,14 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Legajo</label>
-                                        <input formControlName="legajo" type="text" placeholder="legajo">
+                                        <input formControlName="legajo" type="text" placeholder="legajo" Disabled>
                                     </div>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Dni</label>
-                                        <input formControlName="dni_personal" type="text" placeholder="dni personal">
+                                        <input formControlName="dni_personal" type="text" placeholder="dni personal" Disabled>
                                     </div>
                                 </div>
                             </div>
@@ -938,7 +938,7 @@
                         <div class="row">
                             <div class="col-8">
                                 <button *ngIf="!guardarGrado" style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="configurarGrado()">Guardar configuracion</button>
-                                <button *ngIf="guardarGrado" style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormGrado">Guardar Grado</button>
+                                <button *ngIf="guardarGrado" style="width: 100%; text-align: center;" type="submit" class="btn btn-primary" (click)="submitFormGrado()">Guardar Grado</button>
                             </div>
 
                             <div class="col-4">

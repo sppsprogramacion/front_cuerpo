@@ -19,10 +19,10 @@ export class AscensoService {
   //FIN CONSTRUCTOR
 
   //GUARDAR ASCENSO
-  guardarAscenso(id_escala: number, data: any){    
+  guardarAscenso(id_escala_jerarquica: number, data: any){    
     this.ascenso={...data};
 
-    return this.http.post(`${base_url}/ascenso/${id_escala}`, this.ascenso);
+    return this.http.post(`${base_url}/ascenso?id_escala=${id_escala_jerarquica}`, this.ascenso);
   }
   //FIN GUARDAR ASCENSO
 }

@@ -967,7 +967,8 @@ export class UploadComponent implements OnInit {
     let data: AscensoModel;
      //poner destino en el personal y sin funcion 
       //this.submitForm('cambioDestino');
-
+      let fecha_insrumento: Date = this.changeFormatoFechaGuardar(this.formaGrado.get('fecha_instrumento_orden')?.value);
+      
       data = {
         legajo: parseInt(this.formaGrado.get('legajo')?.value),
         dni_personal: parseInt(this.formaGrado.get('dni_personal')?.value),
@@ -978,8 +979,8 @@ export class UploadComponent implements OnInit {
         orden: parseInt(this.formaGrado.get('orden')?.value),
         instrumento_orden: this.formaGrado.get('instrumento')?.value,
         fecha_instrumento_orden: this.changeFormatoFechaGuardar(this.formaGrado.get('fecha_instrumento_orden')?.value),
-        anio_orden: 2021,
-        vigente: this.formaTraslados.get('vigente')?.value,
+        anio_orden: fecha_insrumento.getFullYear(),
+        vigente: true
       }      
         
       //GUARDAR NUEVO TRASLADO

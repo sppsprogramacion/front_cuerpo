@@ -72,6 +72,14 @@
     background-size: cover;
 }
 
+.delanteraTarjeta {
+    position: relative;
+    width: 95%;
+    height: 95%;
+    background: url(../../../assets/img/credencial/tarjeta-frente.jpg);
+    background-size: cover;
+}
+
 .delantera .grupo {
     color: black;
     font-size: 17px;
@@ -115,6 +123,17 @@
     position: relative;
     width: 100%;
     background: url(../../../assets/img/credencial/credencial-dorso.jpg);
+    background-size: cover;
+    color: black;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
+.traseraTarjeta {
+    position: relative;
+    width: 95%;
+    height: 95%;
+    background: url(../../../assets/img/credencial/tarjeta-dorso.jpg);
     background-size: cover;
     color: black;
     font-size: 15px;

@@ -711,37 +711,109 @@
                                     <!-- /.card-header -->
                                     <div class="card-body">
 
+                                        <div class="row mt-2">
+                                            <div class="col-12">
+                                                <div class="container">
+                                                    <div>
+                                                        <button class="btn btn-info" [useExistingCss]="true" styleSheetFile="./edit.component.css" printSectionId="printCredencialTarjeta" ngxPrint><i class="fa-solid fa-print"></i> Imprimir credencial</button>
 
-                                        <div class="container">
-                                            <div>
-                                                <button class="btn btn-info" [useExistingCss]="true" styleSheetFile="./edit.component.css" printSectionId="printCredencialTarjeta" ngxPrint><i class="fa-solid fa-print"></i> Imprimir credencial</button>
+                                                    </div>
+                                                    <div class="mt-2" id="printCredencialTarjeta">
+                                                        <section class="tarjeta">
 
+                                                            <div class="delanteraTarjeta">
+                                                                <img class="foto" [src]="foto_nombre">
+                                                                <div class="grupo">
+                                                                    <p class="personal">{{nombreCompleto}}</p>
+                                                                    <p class="grado">{{grado_txt}}</p>
+                                                                    <p class="escalafon">{{escalafon_txt}}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="traseraTarjeta">
+                                                                <p class="nacionalidad">{{dataEdit.nacionalidad}}</p>
+                                                                <p class="fecha-nac">{{(dataEdit.fecha_nacimiento!=null)?this.datePipe.transform(dataEdit.fecha_nacimiento, "dd/MM/yyyy"):''}}</p>
+                                                                <p class="lugar">Salta</p>
+
+                                                                <p class="dni">{{dataEdit.cuil}}</p>
+                                                                <p class="grupo-anguineo">{{dataEdit.grupo_sanguineo}}</p>
+                                                                <p class="legajo">{{dataEdit.legajo}}</p>
+
+                                                                <p class="destino">{{destino_txt}}</p>
+                                                            </div>
+                                                        </section>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="mt-2" id="printCredencialTarjeta">
-                                                <section class="tarjeta">
+                                            <div class="col-12">
+                                                <div class="container">
+                                                    <div>
+                                                        <button class="btn btn-info" [useExistingCss]="true" styleSheetFile="./edit.component.css" printSectionId="printCredencialFrente" ngxPrint><i class="fa-solid fa-print"></i> Imprimir Frente</button>
 
-                                                    <div class="delanteraTarjeta">
-                                                        <img class="foto" [src]="foto_nombre">
-                                                        <div class="grupo">
-                                                            <p class="personal">{{nombreCompleto}}</p>
-                                                            <p class="grado">{{grado_txt}}</p>
-                                                            <p class="escalafon">{{escalafon_txt}}</p>
-                                                        </div>
                                                     </div>
-                                                    <div class="traseraTarjeta">
-                                                        <p class="nacionalidad">{{dataEdit.nacionalidad}}</p>
-                                                        <p class="fecha-nac">{{(dataEdit.fecha_nacimiento!=null)?this.datePipe.transform(dataEdit.fecha_nacimiento, "dd/MM/yyyy"):''}}</p>
-                                                        <p class="lugar">Salta</p>
+                                                    <div class="mt-2" id="contenido">
+                                                        <section class="tarjeta">
 
-                                                        <p class="dni">{{dataEdit.cuil}}</p>
-                                                        <p class="grupo-anguineo">{{dataEdit.grupo_sanguineo}}</p>
-                                                        <p class="legajo">{{dataEdit.legajo}}</p>
-
-                                                        <p class="destino">{{destino_txt}}</p>
+                                                            <div class="delanteraTarjeta">
+                                                                <img class="foto" [src]="foto_nombre">
+                                                                <div class="grupo">
+                                                                    <p class="personal">{{nombreCompleto}}</p>
+                                                                    <p class="grado">{{grado_txt}}</p>
+                                                                    <p class="escalafon">{{escalafon_txt}}</p>
+                                                                </div>
+                                                            </div>
+                                                        </section>
                                                     </div>
-                                                </section>
+                                                </div>
+                                                <button type="button" class="btn btn-primary mt-3 mb-5 mx-auto d-block" (click)="crearImagenCredencial()">Crear Imagen</button>
+
+                                                <!-- Imagen Creada -->
+                                                <ng-container *ngIf="imgcreada === true;">
+
+                                                    <div align="center">
+
+                                                        <!-- Imagen Creada -->
+                                                        <h4>Imagen Creada:</h4>
+                                                        <img src={{imagenCreada}}>
+                                                    </div>
+
+                                                    <!-- Botón para descargar la imagen creada -->
+                                                    <div class="row">
+                                                        <a type="button" class="btn btn-success mt-3 mx-auto d-block" href="{{imagenCreada}}" download> 
+                                                            Descargar
+                                                        </a>
+                                                        <a type="button" class="btn btn-success mt-3 mx-auto d-block" href="{{imagenCreada}}" ngxPrint> 
+                                                            Imprimir
+                                                        </a>
+                                                    </div>
+
+                                                </ng-container>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="container">
+                                                    <div>
+                                                        <button class="btn btn-info" [useExistingCss]="true" styleSheetFile="./edit.component.css" printSectionId="printCredencialDorso" ngxPrint><i class="fa-solid fa-print"></i> Imprimir dorso</button>
+
+                                                    </div>
+                                                    <div class="mt-2" id="printCredencialDorso">
+                                                        <section class="tarjeta">
+
+                                                            <div class="traseraTarjeta">
+                                                                <p class="nacionalidad">{{dataEdit.nacionalidad}}</p>
+                                                                <p class="fecha-nac">{{(dataEdit.fecha_nacimiento!=null)?this.datePipe.transform(dataEdit.fecha_nacimiento, "dd/MM/yyyy"):''}}</p>
+                                                                <p class="lugar">Salta</p>
+
+                                                                <p class="dni">{{dataEdit.cuil}}</p>
+                                                                <p class="grupo-anguineo">{{dataEdit.grupo_sanguineo}}</p>
+                                                                <p class="legajo">{{dataEdit.legajo}}</p>
+
+                                                                <p class="destino">{{destino_txt}}</p>
+                                                            </div>
+                                                        </section>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+
                                     </div>
                                     <!-- /.card-body -->
                                 </div>

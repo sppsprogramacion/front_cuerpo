@@ -41,6 +41,8 @@ import { TrasladosService } from '../../services/traslados.service';
 import { PersonalFuncionModel } from '../../models/personal_funcion.model';
 import { PersonalFuncionService } from '../../services/personal-funcion.service';
 
+import html2canvas from "html2canvas"; 
+
 
 @Component({
   selector: 'app-edit',
@@ -109,6 +111,10 @@ export class EditComponent implements OnInit {
   submitedFuncion:boolean=false;
   editandoFuncion: boolean=false;
   
+  //variables de manejo de tarjeta credencial
+  imgcreada = false;
+
+  imagenCreada={};
 
   //manejo de forumulario de personal
   departamentos: DepartamentoModel[]=[];
@@ -1826,5 +1832,15 @@ export class EditComponent implements OnInit {
   }
   //FIN GENERAL PDF  CON DATOS PERSONALES..............................................................................................
 
+  //GENERAR IMAGEN DE CREDENCIAL
+  crearImagenCredencial() {
+    html2canvas(document.querySelector("#contenido")!).then(canvas => {
+
+      this.imagenCreada = canvas.toDataURL();      
+
+    });
+    this.imgcreada = true;
+  }
+  //FIN GENERAR IMAGEN DE CREDENCIAL
   
 }

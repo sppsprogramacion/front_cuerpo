@@ -25,7 +25,8 @@
 
 .tarjeta {
     width: 100%;
-    max-width: 488px;
+    max-width: 460px;
+    min-width: 295px;
     position: relative;
     color: #fff;
     transition: .3s ease all;
@@ -43,7 +44,7 @@
 .tarjeta>section>div {
     padding: 15px;
     border-radius: 15px;
-    min-height: 315px;
+    min-height: 295px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -53,7 +54,7 @@
 .tarjeta>div {
     padding: 15px;
     border-radius: 15px;
-    min-height: 315px;
+    min-height: 295px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -73,11 +74,11 @@
 }
 
 .delanteraTarjeta {
+    /* background: url(../../../assets/img/credencial/tarjeta-frente.jpg); */
     position: relative;
-    width: 95%;
-    height: 95%;
+    width: 100%;
     background: url(../../../assets/img/credencial/tarjeta-frente.jpg);
-    background-size: cover;
+    background-size: 460px 295px;
 }
 
 .delantera .grupo {
@@ -86,31 +87,36 @@
     text-transform: uppercase;
 }
 
+.delanteraTarjeta .grupo {
+    color: black;
+    font-size: 17px;
+}
+
 .personal {
     position: absolute;
-    top: 62px;
-    left: 130px;
+    top: 58px;
+    left: 122px;
 }
 
 .grado {
     position: absolute;
-    top: 83px;
-    left: 67px;
+    top: 78px;
+    left: 62px;
 }
 
 .escalafon {
     position: absolute;
-    top: 104px;
-    left: 93px;
+    top: 95px;
+    left: 88px;
 }
 
 .foto {
     border-radius: 10px;
     position: absolute;
-    bottom: 15px;
-    left: 15px;
-    height: 170px;
-    width: 170px;
+    bottom: 13px;
+    left: 14px;
+    height: 160px;
+    width: 160px;
 }
 
 .delantera .flexbox {
@@ -131,42 +137,19 @@
 
 .traseraTarjeta {
     position: relative;
-    width: 95%;
-    height: 95%;
+    width: 100%;
     background: url(../../../assets/img/credencial/tarjeta-dorso.jpg);
     background-size: cover;
     color: black;
     font-size: 15px;
-    text-transform: uppercase;
+    background-size: 460px 295px;
 }
-
-
-/* .trasera .fila-1 {
-    color: black;
-    font-size: 12px;
-    text-transform: uppercase;
-    
-}
-
-.trasera .fila-2 {
-    color: black;
-    font-size: 19px;
-    text-transform: uppercase;
-    top: 50px;
-}
-
-.trasera .fila-3 {
-    color: black;
-    font-size: 19px;
-    text-transform: uppercase;
-    top: 120px;
-} */
 
 .nacionalidad {
     position: absolute;
     width: 110px;
     text-align: center;
-    top: 23px;
+    top: 21px;
     left: 7px;
 }
 
@@ -174,23 +157,23 @@
     position: absolute;
     width: 85px;
     text-align: center;
-    top: 23px;
-    left: 150px;
+    top: 21px;
+    left: 140px;
 }
 
 .lugar {
     position: absolute;
     width: 150px;
     text-align: center;
-    top: 23px;
-    left: 260px;
+    top: 21px;
+    left: 255px;
 }
 
 .dni {
     position: absolute;
     width: 125px;
     text-align: center;
-    top: 73px;
+    top: 65px;
     left: 5px;
 }
 
@@ -198,20 +181,20 @@
     position: absolute;
     width: 103px;
     text-align: center;
-    top: 73px;
-    left: 155px;
+    top: 65px;
+    left: 148px;
 }
 
 .legajo {
     position: absolute;
     width: 65px;
     text-align: center;
-    top: 73px;
-    left: 395px;
+    top: 65px;
+    left: 370px;
 }
 
 .destino {
     position: absolute;
-    top: 124px;
+    top: 113px;
     left: 80px;
 }

@@ -707,9 +707,12 @@
                                 <div class="card card-warning">
                                     <div class="card-header">
                                         <h3 class="card-title">DISEÑO DE CREDENCIAL TARJETA</h3>
+                                        <button type="button" pButton pRipple icon="pi pi-print" class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom" (onclick)="printTest()">
+
+                                        </button>
                                     </div>
                                     <!-- /.card-header -->
-                                    <div class="card-body">
+                                    <div class="card-body" id="todohtml">
 
                                         <div class="row mt-2">
                                             <div class="col-12">
@@ -746,14 +749,17 @@
                                             </div>
                                             <div class="col-12">
                                                 <div class="container">
+                                                    <div class="mt-2">
+                                                        <p-button label="Imprimir Credencial" icon="pi pi-print" iconPos="left" (click)="generarPdfCredencial()" class="p-button-success p-mr-2"></p-button>
+                                                    </div>
                                                     <div>
                                                         <button class="btn btn-info" [useExistingCss]="true" styleSheetFile="./edit.component.css" printSectionId="printCredencialFrente" ngxPrint><i class="fa-solid fa-print"></i> Imprimir Frente</button>
 
                                                     </div>
-                                                    <div class="mt-2" id="contenido">
-                                                        <section class="tarjeta">
+                                                    <div class="mt-2">
 
-                                                            <div class="delanteraTarjeta">
+                                                        <section class="tarjeta">
+                                                            <div class="delanteraTarjeta" id="contenido">
                                                                 <img class="foto" [src]="foto_nombre">
                                                                 <div class="grupo">
                                                                     <p class="personal">{{nombreCompleto}}</p>
@@ -764,29 +770,7 @@
                                                         </section>
                                                     </div>
                                                 </div>
-                                                <button type="button" class="btn btn-primary mt-3 mb-5 mx-auto d-block" (click)="crearImagenCredencial()">Crear Imagen</button>
 
-                                                <!-- Imagen Creada -->
-                                                <ng-container *ngIf="imgcreada === true;">
-
-                                                    <div align="center">
-
-                                                        <!-- Imagen Creada -->
-                                                        <h4>Imagen Creada:</h4>
-                                                        <img src={{imagenCreada}}>
-                                                    </div>
-
-                                                    <!-- Botón para descargar la imagen creada -->
-                                                    <div class="row">
-                                                        <a type="button" class="btn btn-success mt-3 mx-auto d-block" href="{{imagenCreada}}" download> 
-                                                            Descargar
-                                                        </a>
-                                                        <a type="button" class="btn btn-success mt-3 mx-auto d-block" href="{{imagenCreada}}" ngxPrint> 
-                                                            Imprimir
-                                                        </a>
-                                                    </div>
-
-                                                </ng-container>
                                             </div>
                                             <div class="col-12">
                                                 <div class="container">
@@ -794,9 +778,9 @@
                                                         <button class="btn btn-info" [useExistingCss]="true" styleSheetFile="./edit.component.css" printSectionId="printCredencialDorso" ngxPrint><i class="fa-solid fa-print"></i> Imprimir dorso</button>
 
                                                     </div>
+
                                                     <div class="mt-2" id="printCredencialDorso">
                                                         <section class="tarjeta">
-
                                                             <div class="traseraTarjeta">
                                                                 <p class="nacionalidad">{{dataEdit.nacionalidad}}</p>
                                                                 <p class="fecha-nac">{{(dataEdit.fecha_nacimiento!=null)?this.datePipe.transform(dataEdit.fecha_nacimiento, "dd/MM/yyyy"):''}}</p>
@@ -812,6 +796,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
 
                                     </div>

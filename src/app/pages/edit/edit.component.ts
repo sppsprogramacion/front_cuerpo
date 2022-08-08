@@ -42,6 +42,8 @@ import { PersonalFuncionModel } from '../../models/personal_funcion.model';
 import { PersonalFuncionService } from '../../services/personal-funcion.service';
 
 import html2canvas from "html2canvas"; 
+import * as htmlToImage from 'html-to-image';
+import * as printJS from 'print-js';
 
 
 @Component({
@@ -1694,6 +1696,7 @@ export class EditComponent implements OnInit {
 
     //fin fecha completa
     const pdf = new PdfMakeWrapper();
+    
     pdf.add(
       new Table([
         [ 
@@ -1842,5 +1845,46 @@ export class EditComponent implements OnInit {
     this.imgcreada = true;
   }
   //FIN GENERAR IMAGEN DE CREDENCIAL
+
+  generateImage(){
+    var node:any = document.getElementById('image-section');
+    htmlToImage.toPng(node)
+      .then(function (dataUrl) {
+        var img = new Image();
+        img.src = dataUrl;
+        document.body.appendChild(img);
+      })
+      .catch(function (error) {
+        console.error('oops, something went wrong!', error);
+      });
+  }
+
+  async generarPdfCredencial() {
+    const pdf = new PdfMakeWrapper();
+    pdf.pageSize({
+      width: 950,
+      height: 550
+    });
+    pdf.pageMargins(0);
+    pdf.add(await new Img('../../../assets/img/credencial/tarjeta-frente.jpg').fit([950,550]).absolutePosition(0,0).build());
+
+    pdf.add("Prueba");
+    pdf.add(
+      new Txt("prueba derecha").fontSize(11).alignment('right').end
+    );
+
+    pdf.create().open();
+
+  }
   
+  printTest() {
+    printJS({
+      printable: "todohtml",
+      type: "html",
+      // css: [
+      //   "./edit.component.css"
+      // ],
+      // scanStyles: false
+    });
+  }
 }

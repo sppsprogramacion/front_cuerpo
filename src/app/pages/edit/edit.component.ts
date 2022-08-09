@@ -1845,46 +1845,68 @@ export class EditComponent implements OnInit {
     this.imgcreada = true;
   }
   //FIN GENERAR IMAGEN DE CREDENCIAL
+  
 
-  generateImage(){
-    var node:any = document.getElementById('image-section');
-    htmlToImage.toPng(node)
-      .then(function (dataUrl) {
-        var img = new Image();
-        img.src = dataUrl;
-        document.body.appendChild(img);
-      })
-      .catch(function (error) {
-        console.error('oops, something went wrong!', error);
-      });
-  }
-
-  async generarPdfCredencial() {
+  //PDF CREDENCIAL FRENTE
+  async generarPdfCredencialFrente() {
     const pdf = new PdfMakeWrapper();
     pdf.pageSize({
-      width: 950,
-      height: 550
+      width: 952,
+      height: 578
     });
-    pdf.pageMargins(0);
-    pdf.add(await new Img('../../../assets/img/credencial/tarjeta-frente.jpg').fit([950,550]).absolutePosition(0,0).build());
+    pdf.pageMargins([0,0,0,0]);
+    pdf.add(await new Img('../../../assets/img/credencial/tarjeta-frente.jpg').width(943).height(569).absolutePosition(0,0).build());
 
-    pdf.add("Prueba");
-    pdf.add(
-      new Txt("prueba derecha").fontSize(11).alignment('right').end
-    );
-
+    pdf.add(new Txt(this.nombreCompleto).fontSize(35).margin([245,115,0,0]).end);
+    pdf.add(new Txt(this.grado_txt).fontSize(35).margin([125,0,0,0]).end);
+    pdf.add(new Txt((this.dataEdit.escalafon)?(JSON.parse(JSON.stringify(this.dataEdit.escalafon))).escalafon:'').fontSize(35).margin([175,0,0,0]).end);
+    pdf.add(await new Img(this.foto_nombre).fit([300,300]).margin([43,5]).build());
+    
     pdf.create().open();
 
   }
-  
-  printTest() {
-    printJS({
-      printable: "todohtml",
-      type: "html",
-      // css: [
-      //   "./edit.component.css"
-      // ],
-      // scanStyles: false
+  //FIN PDF CREDENCIAL FRENTE
+
+  //PDF CREDENCIAL DORSO
+  async generarPdfCredencialDorso() {
+    const pdf = new PdfMakeWrapper();
+    pdf.pageSize({
+      width: 952,
+      height: 578
     });
+    pdf.pageMargins([0,0,0,0]);
+    pdf.add(await new Img('../../../assets/img/credencial/tarjeta-dorso.jpg').width(943).height(569).absolutePosition(0,0).build());
+
+    pdf.add(
+      [
+        new Table([        
+          [ 
+            new Txt((this.dataEdit.nacionalidad)?this.dataEdit.nacionalidad:"sin nacionalidad").bold().fontSize(35).alignment('center').end,
+            new Txt(((this.dataEdit.fecha_nacimiento!=null)?this.datePipe.transform(this.dataEdit.fecha_nacimiento, "dd/MM/yyyy"):'')|| "").bold().fontSize(35).alignment('center').end,
+            new Txt("Salta").bold().fontSize(35).alignment('center').end,
+            ]
+        ]).widths([230,240,260]).margin([10,35,0,0])
+        .layout('noBorders').end,
+
+        new Table([        
+          [ 
+            new Txt((this.dataEdit.cuil!)).bold().fontSize(35).alignment('center').end,
+            new Txt((this.dataEdit.grupo_sanguineo!)).bold().fontSize(35).alignment('center').end,
+            new Txt(" ").bold().fontSize(35).alignment('center').end,
+            new Txt((this.dataEdit.legajo!.toString())).bold().fontSize(35).alignment('center').end,
+            ]
+        ]).widths([260,260,180,180]).margin([8,48,0,0])
+        .layout('noBorders').end
+      ]
+    );
+    
+    pdf.add(new Txt(this.destino_txt).fontSize(35).margin([155,50,0,0]).end);
+    
+    
+    pdf.create().open();
+
   }
+  //FIN PDF CREDENCIAL DORSO
+  
+  
 }

@@ -979,9 +979,13 @@ export class UploadComponent implements OnInit {
         orden: parseInt(this.formaGrado.get('orden')?.value),
         instrumento_orden: this.formaGrado.get('instrumento')?.value,
         fecha_instrumento_orden: this.changeFormatoFechaGuardar(this.formaGrado.get('fecha_instrumento_orden')?.value),
-        anio_orden: fecha_insrumento.getFullYear(),
+        // anio_orden: fecha_insrumento.getFullYear(),
+        anio_orden: 2022,
         vigente: true
       }      
+      console.log("fecha_instrumento", fecha_insrumento);
+      console.log("solo año", fecha_insrumento.getFullYear());
+      console.log("data grado", data);
         
       //GUARDAR NUEVO TRASLADO
       this.ascensoService.guardarAscenso(parseInt(this.formaGrado.get('escala_jerarquica_id')?.value),data)

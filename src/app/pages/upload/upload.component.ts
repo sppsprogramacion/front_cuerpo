@@ -978,19 +978,16 @@ export class UploadComponent implements OnInit {
         fecha_ascenso: this.changeFormatoFechaGuardar(this.formaGrado.get('fecha_ascenso')?.value),
         orden: parseInt(this.formaGrado.get('orden')?.value),
         instrumento_orden: this.formaGrado.get('instrumento')?.value,
-        fecha_instrumento_orden: this.changeFormatoFechaGuardar(this.formaGrado.get('fecha_instrumento_orden')?.value),
+        fecha_instrumento_orden:this.changeFormatoFechaGuardar(this.formaGrado.get('fecha_instrumento_orden')?.value),
         // anio_orden: fecha_insrumento.getFullYear(),
         anio_orden: 2022,
         vigente: true
-      }      
-      console.log("fecha_instrumento", fecha_insrumento);
-      console.log("solo año", fecha_insrumento.getFullYear());
-      console.log("data grado", data);
+      }   
         
-      //GUARDAR NUEVO TRASLADO
+      //GUARDAR NUEVO ASCENSO
       this.ascensoService.guardarAscenso(parseInt(this.formaGrado.get('escala_jerarquica_id')?.value),data)
       .subscribe(resultado => {
-        
+        console.log("Ascenso", resultado);
         Swal.fire('Nuevo Ascenso',`El ascenso ha sido guardado con exito`,"success");
         //this.buscarPersonal(data.legajo!);
         this.ocultarDialogoGrado();            
@@ -999,7 +996,7 @@ export class UploadComponent implements OnInit {
           
           Swal.fire('Nuevo asceso',`Error al guardar el ascenso: ${error.error.message}`,"error")                          
       });
-      //FIN GUARDAR NUEVO TRASLADO
+      //FIN GUARDAR NUEVO ASCENSO
   }
   //FIN GUARDAR GRADO
 

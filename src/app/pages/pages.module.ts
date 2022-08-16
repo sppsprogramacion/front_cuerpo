@@ -32,6 +32,7 @@ import { TrasladoModel } from '../models/traslado.model';
 import { TrasladosModule } from './traslados/traslados.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { AscensosModule } from './ascensos/ascensos.module';
 
 
 
@@ -64,6 +65,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
      EditModule,
      ListModule,
      UploadModule,
+     AscensosModule,
      UsuariosModule,
      SancionesModule,
      LicenciasModule,

@@ -1,15 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AgregarComponent } from './agregar/agregar.component';
+import { AscensosAgregarComponent } from './agregar/ascensos-agregar.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ngPrimeModule } from 'src/app/ngprime.module';
 
 
 
 @NgModule({
   declarations: [
-    AgregarComponent
+    AscensosAgregarComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ngPrimeModule,    
+    ReactiveFormsModule,
+    ProgressSpinnerModule
   ]
 })
 export class AscensosModule { }

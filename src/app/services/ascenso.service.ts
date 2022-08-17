@@ -16,13 +16,26 @@ export class AscensoService {
   constructor(
     private http: HttpClient
   ) { }
-  //FIN CONSTRUCTOR
+  //FIN CONSTRUCTOR.....................
+
+  //LISTA DE ASCENSOS X FECHA Y GRADO
+  getListaXFechaGrado(fecha_ascenso: Date) {
+    let total: number = 0;
+    try {
+      
+      return this.http.get<[ascensos: any[],total:number]>(`${base_url}/ascenso/nuevos-ascensos?fecha_ascenso=${fecha_ascenso}`)
+         
+    } catch (error:any) {
+      throw new Error("Error al obtener lista" + error.message)
+    }
+  }
+  //FIN LISTA DE ASCENSOS X FECHA Y GRADO..................................
 
   //GUARDAR ASCENSO
   guardarAscenso(id_escala_jerarquica: number, data_ascenso: any){    
     this.ascenso={...data_ascenso};
-
+    
     return this.http.post(`${base_url}/ascenso?id_escala=${id_escala_jerarquica}`, this.ascenso);
   }
-  //FIN GUARDAR ASCENSO
+  //FIN GUARDAR ASCENSO...........................................
 }

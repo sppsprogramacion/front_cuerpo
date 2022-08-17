@@ -24,6 +24,13 @@ export class SidebarService {
       ]
     },
     {
+      titulo: 'Ascensos',
+      icono: 'fas fa-running',
+      submenu:[
+        {titulo: 'Cargar', url: 'agregar-ascensos'}
+      ]
+    },
+    {
       titulo: 'Sanciones',
       icono: 'fas fa-id-badge',
       submenu:[

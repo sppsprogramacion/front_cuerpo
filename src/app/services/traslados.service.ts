@@ -70,6 +70,6 @@ export class TrasladosService {
     }
     return this.http.get<[traslados: any[],total:number]>(`${base_url}/traslado/nuevos-organismo/${globalConstants.destino_usuario}`)
     
-}
+  }
 
 }

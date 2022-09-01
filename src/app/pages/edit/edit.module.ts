@@ -9,6 +9,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import {DatePipe} from '@angular/common';
 import { FileSaverModule } from 'ngx-filesaver';
 import { NgxPrintModule } from 'ngx-print';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { NgxPrintModule } from 'ngx-print';
     BsDatepickerModule.forRoot(),
     BrowserAnimationsModule,
     FileSaverModule,
-    NgxPrintModule
+    NgxPrintModule,
+    NgxQRCodeModule
   ],
   exports: [
     FormsModule,

@@ -33,6 +33,7 @@ import { TrasladosModule } from './traslados/traslados.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { AscensosModule } from './ascensos/ascensos.module';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 
 
 

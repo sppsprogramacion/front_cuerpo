@@ -44,6 +44,7 @@ import { PersonalFuncionService } from '../../services/personal-funcion.service'
 import html2canvas from "html2canvas"; 
 import * as htmlToImage from 'html-to-image';
 import * as printJS from 'print-js';
+import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
 
 
 @Component({
@@ -55,6 +56,11 @@ import * as printJS from 'print-js';
 })
 export class EditComponent implements OnInit {
   base_url:string = environment.URL_BASE;
+  title = 'app';
+
+  elementType = NgxQrcodeElementTypes.URL;
+  correctionLevel = NgxQrcodeErrorCorrectionLevels.LOW;
+  value = "pedro, diaz";
   
   @ViewChild('printCredencial2')
   printCredencial2!: ElementRef;

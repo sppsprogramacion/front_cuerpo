@@ -660,12 +660,12 @@
                             <!-- PANEL 4 CREDENCIAL -->
                             <div class="tab-pane fade" id="tab-credencial" role="tabpanel" aria-labelledby="tabs-credencial-tab">
                                 <!-- CREDENCIAL PAPEL -->
-                                <div class="card card-warning">
-                                    <div class="card-header">
+                                <!-- <div class="card card-warning"> -->
+                                <!-- <div class="card-header">
                                         <h3 class="card-title">DISEÑO DE CREDENCIAL</h3>
-                                    </div>
-                                    <!-- /.card-header -->
-                                    <div class="card-body">
+                                    </div> -->
+                                <!-- /.card-header -->
+                                <!-- <div class="card-body">
 
 
                                         <div class="container">
@@ -698,10 +698,12 @@
                                                 </section>
                                             </div>
                                         </div>
-                                    </div>
-                                    <!-- /.card-body -->
-                                </div>
+                                    </div> -->
+                                <!-- /.card-body -->
+                                <!-- </div> -->
                                 <!-- FIN CREDENCIAL PAPEL -->
+
+
 
                                 <!-- CREDENCIAL TARJETA -->
                                 <div class="card card-warning">
@@ -766,6 +768,26 @@
                                     <!-- /.card-body -->
                                 </div>
                                 <!-- FIN CREDENCIAL TARJETA -->
+
+                                <!-- CODIGO QR -->
+                                <div class="card card-warning">
+                                    <div class="card-header">
+                                        <h3 class="card-title">DISEÑO DE CODIGO QR</h3>
+
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body" id="todohtml">
+
+                                        <div class="row mt-2">
+
+                                            <div class="col-12">
+                                                <ngx-qrcode [elementType]="elementType" [value]="value" cssClass="aclass" [errorCorrectionLevel]="correctionLevel">
+                                                </ngx-qrcode>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- FIN CODIGO QR-->
 
                             </div>
                             <!-- FIN PANEL 4 CREDENCIAL -->

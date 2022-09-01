@@ -128,6 +128,8 @@ export class AscensosAgregarComponent implements OnInit {
       { field: 'instrumento', header: 'Instrumento' },
       { field: 'fecha', header: 'Fecha' }
     ];
+
+    this.listarGrados(this.changeFormatoFechaGuardar(new Date("2022-01-01T00:00:00")))
   }
 
   
@@ -135,12 +137,14 @@ export class AscensosAgregarComponent implements OnInit {
   //GRADO
   //LISTADO DE GRADOS
   listarGrados(fecha_ascenso: Date){
-    
+    console.log("fecha ascenso", fecha_ascenso);
+
     this.ascensoService.getListaXFechaGrado(fecha_ascenso).
       subscribe(respuesta => {
         this.totalRecords = respuesta[1];
         this.listaGrados = respuesta[0];
         this.formaFiltro.get('cantidad_registros')?.setValue(this.totalRecords);
+        console.log("Grados", this.listaGrados);
         this.cargando = false;
 
     
@@ -182,6 +186,7 @@ export class AscensosAgregarComponent implements OnInit {
         console.log("Ascenso", resultado);
         Swal.fire('Nuevo Ascenso',`El ascenso ha sido guardado con exito`,"success");
         //this.buscarPersonal(data.legajo!);
+        this.listarGrados(new Date("2022-01-01T00:00:00"))
         this.nuevaBusqueda();         
       },
       error => {

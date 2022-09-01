@@ -4,17 +4,22 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Tabla de Grados Cargados</h3>
+
             </div>
             <div class="card-body">
+                <div class="row">
+                    <div class="col-12 ">
+                        <button *ngIf="!gradoConfigurado" pButton pRipple label="Configurar Grado" icon="fa-solid fa-gear" class="p-button-secondary p-mr-2 ml-3" (click)="abrirGonfigurarGrado()"></button>
+                        <button *ngIf="gradoConfigurado" pButton pRipple label="Limpiar config. grado" icon="fa-solid fa-broom" class="p-button-warning p-mr-2 ml-3" (click)="limpiarGradoConfigurado()"></button>
+                        <button pButton type="button" label="Nuevo Ascenso" class="p-button-success" icon="fa-solid fa-circle-plus" iconPos="left" (click)="abrirFormCrearGrado()"></button>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
                 <div class="card">
-
                     <form [formGroup]="formaFiltro">
-                        <div class="row">
-                            <button *ngIf="!gradoConfigurado" pButton pRipple label="Configurar Grado" icon="fa-solid fa-circle-plus" class="p-button-success p-mr-2 ml-3" (click)="abrirGonfigurarGrado()"></button>
-                            <button *ngIf="gradoConfigurado" pButton pRipple label="Limpiar config. grado" icon="fa-solid fa-broom" class="p-button-warning p-mr-2 ml-3" (click)="limpiarGradoConfigurado()"></button>
-
-                        </div>
-
                         <div *ngIf="administrador" class="row mt-2">
                             <div class="col-2 ml-3">
                                 <div class="form-group ">
@@ -23,23 +28,15 @@
 
                                 </div>
                             </div>
-                            <div class="col-2 ">
-                                <div class="p-d-flex mt-4">
-                                    <button pButton type="button" label="Nuevo Ascenso" class="p-button-success" icon="" iconPos="left" (click)="abrirFormCrearGrado()"></button>
-
-                                </div>
-                            </div>
                         </div>
 
                     </form>
 
                     <div *ngIf="cargando" class="card text-center">
-                        <p-progressSpinner [style]="{width: '25%', height: '25%'}" strokeWidth="5"></p-progressSpinner>
+                        <p-progressSpinner [style]="{width: '15%', height: '15%'}" strokeWidth="5"></p-progressSpinner>
                     </div>
 
-
-
-                    <div *ngIf="!cargando" class="card mt-2">
+                    <div class="card mt-2" *ngIf="!cargando">
                         <!-- <p-table #dt id="personal-table" [value]="listaTraslado" [style]="{width:'100%'}" [columns]="colsTablaPersonalExport" [exportFilename]="nombre_archivo" selectionMode="multiple" [(selection)]="selectedPersonal" dataKey="id_personal" [rowHover]="true" [rows]="5"
                             [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50]" [loading]="loading" [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']"
                             [scrollable]="true" scrollHeight="100%" [responsive]="false"> -->
@@ -87,11 +84,7 @@
                                             Vigente
                                         </div>
                                     </th>
-                                    <th>
-                                        <div class="p-d-flex p-jc-between p-ai-center">
-                                            Conf.
-                                        </div>
-                                    </th>
+
                                     <th pSortableColumn="grado.grado">
                                         <div class="p-d-flex p-jc-between p-ai-center">
                                             Grado
@@ -160,28 +153,28 @@
 
                                 </tr>
                             </ng-template>
-                            <ng-template pTemplate="body" let-traslado>
+
+                            <ng-template pTemplate="body" let-grado>
+
                                 <tr class="p-selectable-row">
                                     <td>
                                         <!-- <button class="btn btn-info" (click)="mostrarTraslado(traslado)"><i class="fas fa-check-circle"></i></button> -->
 
                                     </td>
                                     <td>
-                                        <p-tableCheckbox [value]="traslado"></p-tableCheckbox>
+                                        <p-tableCheckbox [value]="grado"></p-tableCheckbox>
                                     </td>
 
 
-                                    <!-- <td>{{(traslado.vigente==true)?'SI':'NO'}}</td>
-                                    <td>{{(traslado.confirmado==true)?'SI':'NO'}}</td>
-                                    <td>{{traslado.personal.grado.grado}}</td>
-                                    <td>{{traslado.personal.apellido_1}} {{traslado.personal.nombre_1}}</td>
+                                    <td>{{(grado.vigente==true)?'SI':'NO'}}</td>
+                                    <td>{{grado.personal.grado.grado}}</td>
+                                    <td>{{grado.personal.apellido_1}} {{grado.personal.nombre_1}}</td>
 
+                                    <td>{{grado.legajo}}</td>
+                                    <td>{{(grado.escalafon!= null)?grado.escalafon.escalafon:"sin escalafon"}}</td>
 
-                                    <td>{{traslado.legajo}}</td>
-                                    <td>{{(traslado.destino != null)?traslado.destino.destino:"sin destino"}}</td>
-
-                                    <td>{{traslado.instrumento}}</td>
-                                    <td>{{traslado.fecha}}</td> -->
+                                    <td>{{grado.fecha_instrumento_orden}}</td>
+                                    <td>{{grado.fecha_ascenso}}</td>
 
 
                                 </tr>

@@ -10,6 +10,7 @@ import {DatePipe} from '@angular/common';
 import { FileSaverModule } from 'ngx-filesaver';
 import { NgxPrintModule } from 'ngx-print';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
     BrowserAnimationsModule,
     FileSaverModule,
     NgxPrintModule,
-    NgxQRCodeModule
+    NgxQRCodeModule,
+    QRCodeModule
   ],
   exports: [
     FormsModule,

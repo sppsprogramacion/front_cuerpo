@@ -58,9 +58,18 @@ export class EditComponent implements OnInit {
   base_url:string = environment.URL_BASE;
   title = 'app';
 
+  //QR  NgxQrcode
+  url="https://cordobo.github.io/angularx-qrcode/";
+  nombre= "Pedro Diaz";
+  telefono= "3874853487";
+
   elementType = NgxQrcodeElementTypes.URL;
   correctionLevel = NgxQrcodeErrorCorrectionLevels.LOW;
-  value = "pedro, diaz";
+  value = this.url + this.nombre + this.telefono;
+
+  //QR angularx-qrcode
+  dato= {"nombre": "pedro", "url": "https://cordobo.github.io/angularx-qrcode/"}
+  myQrCode: string = JSON.stringify(this.dato);
   
   @ViewChild('printCredencial2')
   printCredencial2!: ElementRef;

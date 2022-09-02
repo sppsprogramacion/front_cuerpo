@@ -781,8 +781,11 @@
                                         <div class="row mt-2">
 
                                             <div class="col-12">
+                                                <h6 class="card-title">qr 1</h6>
                                                 <ngx-qrcode [elementType]="elementType" [value]="value" cssClass="aclass" [errorCorrectionLevel]="correctionLevel">
                                                 </ngx-qrcode>
+                                                <h6 class="card-title">qr 2</h6>
+                                                <qrcode [qrdata]="myQrCode" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
                                             </div>
                                         </div>
                                     </div>

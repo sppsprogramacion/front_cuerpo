@@ -11,6 +11,7 @@ import { FileSaverModule } from 'ngx-filesaver';
 import { NgxPrintModule } from 'ngx-print';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { QRCodeModule } from 'angularx-qrcode';
+//import { QRCodeModule } from 'angular2-qrcode';
 
 @NgModule({
   declarations: [

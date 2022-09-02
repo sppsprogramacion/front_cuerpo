@@ -27,6 +27,7 @@
         "@fullcalendar/timegrid": "^5.10.0",
         "@swimlane/ngx-charts": "^19.1.0",
         "@techiediaries/ngx-qrcode": "^9.1.0",
+        "angular2-qrcode": "^2.0.3",
         "angularx-qrcode": "^12.0.3",
         "bootstrap": "^4.5.3",
         "file-saver": "^2.0.5",

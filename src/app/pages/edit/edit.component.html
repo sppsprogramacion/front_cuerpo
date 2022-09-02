@@ -777,17 +777,24 @@
                                     </div>
                                     <!-- /.card-header -->
                                     <div class="card-body" id="todohtml">
-
                                         <div class="row mt-2">
-
                                             <div class="col-12">
-                                                <h6 class="card-title">qr 1</h6>
-                                                <ngx-qrcode [elementType]="elementType" [value]="value" cssClass="aclass" [errorCorrectionLevel]="correctionLevel">
+                                                <h6 class="card-title">qr 1</h6><br>
+                                                <ngx-qrcode [elementType]="elementType" [value]="vCardData" cssClass="aclass" [errorCorrectionLevel]="correctionLevel">
                                                 </ngx-qrcode>
-                                                <h6 class="card-title">qr 2</h6>
-                                                <qrcode [qrdata]="myQrCode" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+                                            </div>
+                                        </div><br><br><br><br><br><br><br><br><br><br><br>
+
+                                        <div class="row mt-5">
+                                            <div class="col-12">
+
+                                                <h6 class="card-title">qr 2</h6><br>
+                                                <qrcode [qrdata]="myQrCode" [elementType]="elementTypeQrcode" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+                                                <!-- <qr-code [value]="vCardData" [size]="150"></qr-code> -->
+
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                                 <!-- FIN CODIGO QR-->

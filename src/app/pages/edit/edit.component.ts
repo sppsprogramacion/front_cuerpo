@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Personal } from 'src/app/models/personal.model';
 import { DataService } from 'src/app/services/data.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -45,6 +45,8 @@ import html2canvas from "html2canvas";
 import * as htmlToImage from 'html-to-image';
 import * as printJS from 'print-js';
 import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
+import { element } from 'protractor';
+import { QRCodeElementType } from 'angularx-qrcode';
 
 
 @Component({
@@ -54,22 +56,25 @@ import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiedi
      './edit.component.css'
   ]
 })
-export class EditComponent implements OnInit {
+export class EditComponent implements OnInit , AfterViewInit {
   base_url:string = environment.URL_BASE;
   title = 'app';
 
-  //QR  NgxQrcode
+  //QR  ngx-qrcode
   url="https://cordobo.github.io/angularx-qrcode/";
   nombre= "Pedro Diaz";
   telefono= "3874853487";
 
   elementType = NgxQrcodeElementTypes.URL;
   correctionLevel = NgxQrcodeErrorCorrectionLevels.LOW;
-  value = this.url + this.nombre + this.telefono;
+  value = this.url +","+ this.nombre +","+ this.telefono;
 
   //QR angularx-qrcode
-  dato= {"nombre": "pedro", "url": "https://cordobo.github.io/angularx-qrcode/"}
+  dato= [{"nombre": "pedro", "url": "https://cordobo.github.io/angularx-qrcode/"}]
+  
+  elementTypeQrcode= QRCodeElementType.url;
   myQrCode: string = JSON.stringify(this.dato);
+  vCardData:string='';
   
   @ViewChild('printCredencial2')
   printCredencial2!: ElementRef;
@@ -173,6 +178,7 @@ export class EditComponent implements OnInit {
     private pdfService: PdfService
   ) {
 
+    
     this.dataEdit= dataService.personalData;
     
     this.regPdf.legajo_personal = this.dataEdit.legajo!;  
@@ -342,8 +348,27 @@ export class EditComponent implements OnInit {
 
 
   ngOnInit(): void {
-       
-    }  
+    let name = 'John',
+    surname = 'Doe',
+    org = 'Google',
+    url = 'www.google.com',
+    email = 'john@doe.com',
+    tel = '000 111 222';
+
+    this.vCardData = `BEGIN:VCARD
+    VERSION:3.0
+    N:"Pedro Diaz"
+    FN:"spps"
+    
+    END:VCARD`;
+
+    console.log("card info", this.vCardData);
+  }  
+
+    ngAfterViewInit(){
+      
+
+    }
 
   // async descargarPdf(url: string){
   //   console.log('LA URL ES: ', url);

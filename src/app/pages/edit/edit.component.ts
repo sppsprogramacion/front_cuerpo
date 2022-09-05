@@ -47,6 +47,7 @@ import * as printJS from 'print-js';
 import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
 import { element } from 'protractor';
 import { QRCodeElementType } from 'angularx-qrcode';
+import { SafeUrl } from '@angular/platform-browser';
 
 
 @Component({
@@ -73,8 +74,9 @@ export class EditComponent implements OnInit , AfterViewInit {
   dato= [{"nombre": "pedro", "url": "https://cordobo.github.io/angularx-qrcode/"}]
   
   elementTypeQrcode= QRCodeElementType.url;
+  qrCodeDownloadLink:SafeUrl="";
   myQrCode: string = JSON.stringify(this.dato);
-  vCardData:string='';
+  vCardData:string="";
   
   @ViewChild('printCredencial2')
   printCredencial2!: ElementRef;
@@ -1888,7 +1890,7 @@ export class EditComponent implements OnInit , AfterViewInit {
   
 
   //PDF CREDENCIAL FRENTE
-  async generarPdfCredencialFrente() {
+  async generarPdfCredencialFrente(codQr:any) {
     const pdf = new PdfMakeWrapper();
     pdf.pageSize({
       width: 952,
@@ -1901,7 +1903,10 @@ export class EditComponent implements OnInit , AfterViewInit {
     pdf.add(new Txt(this.grado_txt).fontSize(35).margin([125,0,0,0]).end);
     pdf.add(new Txt((this.dataEdit.escalafon)?(JSON.parse(JSON.stringify(this.dataEdit.escalafon))).escalafon:'').fontSize(35).margin([175,0,0,0]).end);
     pdf.add(await new Img(this.foto_nombre).fit([300,300]).margin([43,5]).build());
+    //pdf.add(new Img('this.qrCodeDownloadLink', true).fit([100,100]).margin([43,100]).build())
     
+    let parentElement = codQr.qrcElement.nativeElement.querySelector("img").src
+    console.log("urlcodigo",parentElement);
     pdf.create().open();
 
   }
@@ -1947,6 +1952,12 @@ export class EditComponent implements OnInit , AfterViewInit {
 
   }
   //FIN PDF CREDENCIAL DORSO
+
+  //ENLACE QR
+  onChangeURL(url: SafeUrl) {
+    console.log("en cambio url");
+    this.qrCodeDownloadLink = url;
+  }
   
   
 }

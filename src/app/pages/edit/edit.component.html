@@ -719,7 +719,7 @@
                                             <div class="col-12">
                                                 <div class="container">
                                                     <div class="mt-2">
-                                                        <p-button label="Imprimir Frente" icon="pi pi-print" iconPos="left" (click)="generarPdfCredencialFrente()" class="p-button-success p-mr-2"></p-button>
+                                                        <p-button label="Imprimir Frente" icon="pi pi-print" iconPos="left" (click)="generarPdfCredencialFrente(codQr)" class="p-button-success p-mr-2"></p-button>
                                                     </div>
 
                                                     <div class="mt-2">
@@ -732,6 +732,7 @@
                                                                     <p class="grado">{{grado_txt}}</p>
                                                                     <p class="escalafon">{{escalafon_txt}}</p>
                                                                 </div>
+                                                                <qrcode #codQr class="codigoQr" [qrdata]="myQrCode" (qrCodeURL)="onChangeURL($event)" [elementType]="elementTypeQrcode" [width]="100" [errorCorrectionLevel]="'M'"></qrcode>
                                                             </div>
                                                         </section>
                                                     </div>

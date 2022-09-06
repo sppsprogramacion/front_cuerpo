@@ -732,7 +732,7 @@
                                                                     <p class="grado">{{grado_txt}}</p>
                                                                     <p class="escalafon">{{escalafon_txt}}</p>
                                                                 </div>
-                                                                <qrcode #codQr class="codigoQr" [qrdata]="myQrCode" (qrCodeURL)="onChangeURL($event)" [elementType]="elementTypeQrcode" [width]="100" [errorCorrectionLevel]="'M'"></qrcode>
+                                                                <qrcode #codQr id="QrCodeControl" class="codigoQr" [qrdata]="myQrCode" (qrCodeURL)="onChangeURL($event)" [elementType]="elementTypeQrcode" [width]="100" [errorCorrectionLevel]="'M'"></qrcode>
                                                             </div>
                                                         </section>
                                                     </div>

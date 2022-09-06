@@ -72,7 +72,7 @@ export class EditComponent implements OnInit , AfterViewInit {
 
   //QR angularx-qrcode
   dato= [{"nombre": "pedro", "url": "https://cordobo.github.io/angularx-qrcode/"}]
-  
+  urlParaPdf:any;
   elementTypeQrcode= QRCodeElementType.url;
   qrCodeDownloadLink:SafeUrl="";
   myQrCode: string = JSON.stringify(this.dato);
@@ -1902,11 +1902,22 @@ export class EditComponent implements OnInit , AfterViewInit {
     pdf.add(new Txt(this.nombreCompleto).fontSize(35).margin([245,115,0,0]).end);
     pdf.add(new Txt(this.grado_txt).fontSize(35).margin([125,0,0,0]).end);
     pdf.add(new Txt((this.dataEdit.escalafon)?(JSON.parse(JSON.stringify(this.dataEdit.escalafon))).escalafon:'').fontSize(35).margin([175,0,0,0]).end);
-    pdf.add(await new Img(this.foto_nombre).fit([300,300]).margin([43,5]).build());
-    //pdf.add(new Img('this.qrCodeDownloadLink', true).fit([100,100]).margin([43,100]).build())
     
-    let parentElement = codQr.qrcElement.nativeElement.querySelector("img").src
-    console.log("urlcodigo",parentElement);
+    this.obtenerImagenQr(codQr);
+    pdf.add(
+      new Table([        
+        [ 
+          new Cell(await new Img(this.foto_nombre).fit([300,300]).margin([50,5,0,0]).build()).end,
+          new Cell(await new Img(this.urlParaPdf).fit([100,100]).margin([150,50,0,0]).build()).end
+        ]
+      ]).widths([400,200])
+      .layout('noBorders').end
+    );
+    //pdf.add(await new Img(this.foto_nombre).fit([300,300]).margin([43,5]).build());
+    //pdf.add(new Img('this.qrCodeDownloadLink', true).fit([100,100]).margin([43,100]).build())    
+    //pdf.add(await new Img(this.urlParaPdf).fit([100,100]).margin([2,2]).build());
+
+    
     pdf.create().open();
 
   }
@@ -1955,9 +1966,47 @@ export class EditComponent implements OnInit , AfterViewInit {
 
   //ENLACE QR
   onChangeURL(url: SafeUrl) {
-    console.log("en cambio url");
+    console.log("en cambio url",url);
     this.qrCodeDownloadLink = url;
   }
-  
+  //ENLACE QR.................................................................
+
+  //CONVERTIR QR A BLOB
+  private convertBase64ToBlob(Base64Image: string) {
+    // split into two parts
+    const parts = Base64Image.split(";base64,")
+    // hold the content type
+    const imageType = parts[0].split(":")[1]
+    // decode base64 string
+    const decodedData = window.atob(parts[1])
+    // create unit8array of size same as row data length
+    const uInt8Array = new Uint8Array(decodedData.length)
+    // insert all character code into uint8array
+    for (let i = 0; i < decodedData.length; ++i) {
+      uInt8Array[i] = decodedData.charCodeAt(i)
+    }
+    // return blob image after conversion
+    return new Blob([uInt8Array], { type: imageType })
+  }
+  //CONVERTIR QR A BLOB.........................................................
+
+  //OBTENER Y DESCARGAR IMAGEN QR
+  private obtenerImagenQr(codQr: any){
+    let qrElemento = document.querySelector("#QrCodeControl")?.querySelector("img")?.src;
+    let parentElement = codQr.qrcElement.nativeElement.querySelector("img").src;
+    
+    // converts base 64 encoded image to blobData
+    let blobData = this.convertBase64ToBlob(qrElemento!);
+    // saves as image
+    const blob = new Blob([blobData], { type: "image/png" });
+    this.urlParaPdf = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = this.urlParaPdf;
+    // name of the file
+    link.download = "Qrcode";    
+    
+    link.click()
+  }
+  //FIN OBTENER Y DESCARGAR IMAGEN QR....................................
   
 }

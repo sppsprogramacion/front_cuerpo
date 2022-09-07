@@ -71,12 +71,13 @@ export class EditComponent implements OnInit , AfterViewInit {
   value = this.url +","+ this.nombre +","+ this.telefono;
 
   //QR angularx-qrcode
-  dato= [{"nombre": "pedro", "url": "https://cordobo.github.io/angularx-qrcode/"}]
+  dato: any;
   urlParaPdf:any;
   elementTypeQrcode= QRCodeElementType.url;
   qrCodeDownloadLink:SafeUrl="";
-  myQrCode: string = JSON.stringify(this.dato);
+  myQrCode: string = "";
   vCardData:string="";
+  //Fin QR angularx-qrcode...........................................
   
   @ViewChild('printCredencial2')
   printCredencial2!: ElementRef;
@@ -342,7 +343,15 @@ export class EditComponent implements OnInit , AfterViewInit {
       }     
 
     }
-
+    
+    //DATOS DE CREDENCIAL
+    this.dato= {
+      "legajo": this.dataEdit.legajo,
+      "dni": this.dataEdit.dni,
+      "personal": this.nombreCompleto,
+    };
+    this.myQrCode= JSON.stringify(this.dato);
+    //FIN DATOS DE CREDENCIAL....................................
     
 
   }
@@ -350,6 +359,7 @@ export class EditComponent implements OnInit , AfterViewInit {
 
 
   ngOnInit(): void {
+
     let name = 'John',
     surname = 'Doe',
     org = 'Google',
@@ -1897,7 +1907,7 @@ export class EditComponent implements OnInit , AfterViewInit {
       height: 578
     });
     pdf.pageMargins([0,0,0,0]);
-    pdf.add(await new Img('../../../assets/img/credencial/tarjeta-frente.jpg').width(943).height(569).absolutePosition(0,0).build());
+    pdf.add(await new Img('../../../assets/img/credencial/tarjeta-frente.jpg').width(947).height(573).absolutePosition(5,5).build());
 
     pdf.add(new Txt(this.nombreCompleto).fontSize(35).margin([245,115,0,0]).end);
     pdf.add(new Txt(this.grado_txt).fontSize(35).margin([125,0,0,0]).end);
@@ -1908,18 +1918,13 @@ export class EditComponent implements OnInit , AfterViewInit {
       new Table([        
         [ 
           new Cell(await new Img(this.foto_nombre).fit([300,300]).margin([50,5,0,0]).build()).end,
-          new Cell(await new Img(this.urlParaPdf).fit([100,100]).margin([150,50,0,0]).build()).end
+          new Cell(await new Img(this.urlParaPdf).fit([180,180]).margin([180,30,0,0]).build()).end
         ]
-      ]).widths([400,200])
+      ]).widths([400,400])
       .layout('noBorders').end
     );
-    //pdf.add(await new Img(this.foto_nombre).fit([300,300]).margin([43,5]).build());
-    //pdf.add(new Img('this.qrCodeDownloadLink', true).fit([100,100]).margin([43,100]).build())    
-    //pdf.add(await new Img(this.urlParaPdf).fit([100,100]).margin([2,2]).build());
-
     
     pdf.create().open();
-
   }
   //FIN PDF CREDENCIAL FRENTE
 
@@ -1956,11 +1961,9 @@ export class EditComponent implements OnInit , AfterViewInit {
       ]
     );
     
-    pdf.add(new Txt(this.destino_txt).fontSize(35).margin([155,50,0,0]).end);
-    
+    pdf.add(new Txt(this.destino_txt).fontSize(35).margin([155,50,0,0]).end);   
     
     pdf.create().open();
-
   }
   //FIN PDF CREDENCIAL DORSO
 
@@ -1992,20 +1995,20 @@ export class EditComponent implements OnInit , AfterViewInit {
 
   //OBTENER Y DESCARGAR IMAGEN QR
   private obtenerImagenQr(codQr: any){
+    //obtener control qrcode de html
     let qrElemento = document.querySelector("#QrCodeControl")?.querySelector("img")?.src;
-    let parentElement = codQr.qrcElement.nativeElement.querySelector("img").src;
-    
-    // converts base 64 encoded image to blobData
+    let parentElement = codQr.qrcElement.nativeElement.querySelector("img").src;    
+    // convierte base 64 encoded imagen a blobData
     let blobData = this.convertBase64ToBlob(qrElemento!);
     // saves as image
     const blob = new Blob([blobData], { type: "image/png" });
     this.urlParaPdf = window.URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = this.urlParaPdf;
-    // name of the file
-    link.download = "Qrcode";    
-    
-    link.click()
+    // nombre del archivo
+    link.download = "Qrcode";
+    //descarga del archivo
+    //link.click()
   }
   //FIN OBTENER Y DESCARGAR IMAGEN QR....................................
   
